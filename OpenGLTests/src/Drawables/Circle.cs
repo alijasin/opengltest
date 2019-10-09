@@ -45,7 +45,7 @@ namespace OpenGLTests.src.Drawables
     public abstract class RangeShape : Entity
     {
         public abstract bool Contains(GameCoordinate point);
-        public ActionMarker Marker { get; set; }
+        //public ActionMarker Marker { get; set; }
     }
 
     interface IClickable

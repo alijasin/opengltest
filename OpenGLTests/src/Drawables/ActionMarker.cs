@@ -7,13 +7,27 @@ using System.Threading.Tasks;
 
 namespace OpenGLTests.src.Drawables
 {
-    public class ActionMarker : Entity
+    public abstract class Marker : Entity
     {
-        public ActionMarker(GameCoordinate loc)
+        public Marker(GameCoordinate loc)
         {
             this.Location = loc;
             this.Size = new GLCoordinate(0.02f, 0.02f);
+        }
+    }
+    public class ActionMarker : Marker
+    {
+        public ActionMarker(GameCoordinate loc) : base(loc)
+        {
             this.Color = Color.DarkGoldenrod;
+        }
+    }
+
+    public class MoveMarker : Marker
+    {
+        public MoveMarker(GameCoordinate loc) : base(loc)
+        {
+            this.Color = Color.Aqua;
         }
     }
 }

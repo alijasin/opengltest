@@ -12,6 +12,7 @@ namespace OpenGLTests.src
         public RangeShape RangeShape { get; set; }
         //public float Range { get; set; } = 0;
         public abstract Action GetAction();
+        public Marker Marker { get; set; }
         /*public abstract void PostUpdateAction(Entity source, Entities others, GameCoordinate clicked);
         public abstract bool PayPreConditions();*/
     }
@@ -29,6 +30,7 @@ namespace OpenGLTests.src
         public ChargeAction(GLCoordinate radius, Entity source)
         {
             RangeShape = new RangeCircle(radius);
+            this.Marker = new MoveMarker(RangeShape.Location);
             this.source = source;
         }
 
@@ -36,9 +38,9 @@ namespace OpenGLTests.src
         {
             return () =>
             {
-                if (RangeShape.Marker != null)
+                if (Marker != null)
                 {
-                    source.Location = RangeShape.Marker.Location;
+                    source.Location = Marker.Location;
                 }
             };
         }
@@ -51,6 +53,7 @@ namespace OpenGLTests.src
         public LambdaAction(System.Action action)
         {
             RangeShape = new RangeCircle(new GLCoordinate(0.8f, 0.8f));
+            this.Marker = new ActionMarker(RangeShape.Location);
             a = action;
         }
 
@@ -68,6 +71,7 @@ namespace OpenGLTests.src
         public MoveAction(GLCoordinate radius, Entity source)
         {
             RangeShape = new RangeCircle(radius);
+            this.Marker = new MoveMarker(RangeShape.Location);
             this.source = source;
         }
 
@@ -75,9 +79,9 @@ namespace OpenGLTests.src
         {
             return () =>
             {
-                if (RangeShape.Marker != null)
+                if (Marker != null)
                 {
-                    source.Location = RangeShape.Marker.Location;
+                    source.Location = Marker.Location;
                 }
             };
         }

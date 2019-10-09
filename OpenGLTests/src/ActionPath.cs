@@ -14,7 +14,7 @@ namespace OpenGLTests.src
 
         public void Add(GameAction placed)
         {
-            GameState.Drawables.Add(placed.RangeShape.Marker);
+            GameState.Drawables.Add(placed.Marker);
             linkedList.AddLast(placed);
         }
 
@@ -27,14 +27,14 @@ namespace OpenGLTests.src
                 if (node.Value == action)
                 {
                     linkedList.Remove(node);
-                    GameState.Drawables.Remove(node.Value.RangeShape.Marker);
+                    GameState.Drawables.Remove(node.Value.Marker);
                     node = nextNode;
                     while (node != null)
                     {
                         var temp = node;
                         node = node.Next;
                         linkedList.Remove(temp);
-                        GameState.Drawables.Remove(temp.Value.RangeShape.Marker);
+                        GameState.Drawables.Remove(temp.Value.Marker);
                     }
                 }
                 node = nextNode;
@@ -60,7 +60,7 @@ namespace OpenGLTests.src
 
         public void Clear()
         {
-            List<ActionMarker> markers = new List<ActionMarker>(GameState.Drawables.Where(e => e is ActionMarker).Cast<ActionMarker>());
+            List<Marker> markers = new List<Marker>(GameState.Drawables.Where(e => e is Marker).Cast<Marker>());
             foreach (var m in markers)
             {
                 GameState.Drawables.Remove(m);
@@ -91,13 +91,9 @@ namespace OpenGLTests.src
         /// <param name="position"></param>
         public void EnqueueAction(GameCoordinate position)
         {
-            if (PlacedActions.Get().ToList().Contains(activeAction))
+            activeAction.Marker.Location = position;
+            if (!PlacedActions.Get().ToList().Contains(activeAction))
             {
-                activeAction.RangeShape.Marker.Location = position;
-            }
-            else
-            {
-                activeAction.RangeShape.Marker = new ActionMarker(position);
                 PlacedActions.Add(activeAction);
             }
         }
@@ -120,31 +116,34 @@ namespace OpenGLTests.src
         }
 
         /// <summary>
-        /// Sets the active actions range shape to the last placed action's marker, and in the case that no marker has been placed: the owner's location.
+        /// Sets the active actions range shape location to the last placed move marker. If no move marker has been placed: the location of the owner.
         /// Then returns the active actions range shape.
         /// </summary>
         /// <returns>Then returns the active actions range shape.</returns>
         public RangeShape GetActiveRangeShape()
         {
+            GetActiveAction().RangeShape.Location = getOriginOfRangeShape();
+            return activeAction.RangeShape;
+        }
+
+        /// <summary>
+        /// Returns the origin of the last placed move marker. If no move marker has been placed returns the location of the owner.
+        /// </summary>
+        /// <returns></returns>
+        private GameCoordinate getOriginOfRangeShape()
+        {
             GameCoordinate location = owner.Location;
             if (PlacedActions.Last() != null)
             {
                 var pas = PlacedActions.Get().ToList();
-                var xd = pas.Where(a => a != activeAction);
+                var xd = pas.Where(a => a != activeAction && a.Marker is MoveMarker);
                 if (xd.Any())
                 {
-                    location = pas.Last(a => a != activeAction).RangeShape.Marker.Location;
-
+                    location = xd.Last().Marker.Location;
                 }
-
-            }
-            else
-            {
-                Console.WriteLine("null");
             }
 
-            GetActiveAction().RangeShape.Location = location;
-            return activeAction.RangeShape;
+            return location;
         }
 
         public void RemoveAllPlacedAfterActive()
@@ -175,7 +174,7 @@ namespace OpenGLTests.src
                 Console.WriteLine("invoking " + ca);
                 ca.GetAction().Invoke();
                 PlacedActions.Remove(ca);
-                GameState.Drawables.Remove(ca.RangeShape.Marker);
+                GameState.Drawables.Remove(ca.Marker);
             }
             PlacedActions.Clear();
         }
