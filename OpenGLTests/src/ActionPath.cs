@@ -27,12 +27,14 @@ namespace OpenGLTests.src
                 if (node.Value == action)
                 {
                     linkedList.Remove(node);
+                    GameState.Drawables.Remove(node.Value.RangeShape.Marker);
                     node = nextNode;
                     while (node != null)
                     {
                         var temp = node;
                         node = node.Next;
                         linkedList.Remove(temp);
+                        GameState.Drawables.Remove(temp.Value.RangeShape.Marker);
                     }
                 }
                 node = nextNode;
@@ -135,6 +137,10 @@ namespace OpenGLTests.src
 
                 }
 
+            }
+            else
+            {
+                Console.WriteLine("null");
             }
 
             GetActiveAction().RangeShape.Location = location;

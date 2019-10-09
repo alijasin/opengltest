@@ -109,25 +109,31 @@ namespace OpenGLTests.src
                 input => input.IsMouseInput && input.MouseButtonArgs.Button == MouseButton.Right,
                 input =>
                 {
+                    Game.Hero.ActionHandler.RemoveAllPlacedAfterActive();
                     var rs = Game.Hero.ActionHandler.GetActiveRangeShape();
 
                     if (rs != null)
                     {
                         rs.Visible = true;
                     }
+
                 },
                 input =>
                 {
                     GameCoordinate clicked = new GameCoordinate(input.MouseButtonArgs.X, input.MouseButtonArgs.Y);
                     var xd = CoordinateFuckery.ClickToGLRelativeToCamera(clicked, new GameCoordinate(0, 0));
-                    var rs = Game.Hero.ActionHandler.GetActiveAction().RangeShape;
-                    
+                    var rs = Game.Hero.ActionHandler.GetActiveRangeShape();
+
                     if (rs != null)
                     {
                         rs.Visible = false;
                         if (rs.Contains(xd))
                         {
                             Game.Hero.ActionHandler.EnqueueAction(xd);
+                        }
+                        else
+                        {
+
                         }
                     }
                 }
