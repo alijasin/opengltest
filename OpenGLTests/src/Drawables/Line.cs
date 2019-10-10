@@ -7,11 +7,17 @@ using System.Threading.Tasks;
 
 namespace OpenGLTests.src.Drawables
 {
+    public enum LineType
+    {
+        Solid,
+        Dashed
+    }
+
     public abstract class Line : Drawable
     {
         protected GameCoordinate origin;
         protected GameCoordinate terminus;
-        protected DrawAdapter.LineType LineType = DrawAdapter.LineType.Solid;
+        protected LineType LineType = Drawables.LineType.Solid;
 
         protected Line(GameCoordinate origin, GameCoordinate terminus)
         {
@@ -33,7 +39,7 @@ namespace OpenGLTests.src.Drawables
         public SolidLine(GameCoordinate origin, GameCoordinate terminus) : base(origin, terminus)
         {
             this.Color = Color.LawnGreen;
-            this.LineType = DrawAdapter.LineType.Solid;
+            this.LineType = LineType.Solid;
         }
     }
 
@@ -42,7 +48,7 @@ namespace OpenGLTests.src.Drawables
         public DashedLine(GameCoordinate origin, GameCoordinate terminus) : base(origin, terminus)
         {
             this.Color = Color.DarkGoldenrod;
-            this.LineType = DrawAdapter.LineType.Dashed;
+            this.LineType = LineType.Dashed;
         }
     }
 }

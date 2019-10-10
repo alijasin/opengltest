@@ -27,7 +27,5 @@ namespace OpenGLTests.src
             d.Dispose();
             Drawables.Remove(d);
         }
-
-
     }
 }
