@@ -14,30 +14,32 @@ namespace OpenGLTests.src.Drawables
        // public GameAction ActiveAction { get; set; }
 
         //public LinkedList<Action> CommitedActions { get; set; }
-
+        private bool ExecutingActions = false;
         public Hero()
         {
             Color = Color.CadetBlue;
             this.Location = new GameCoordinate(0f, 0f);
             this.Size = new GLCoordinate(0.1f, 0.1f);
             ActionHandler = new ActionHandler(this);
-
+            this.Speed = new GameCoordinate(0.02f, 0.02f);
             initGUI();
         }
 
         private void initGUI()
         {
-            MoveAction ma = new MoveAction(new GLCoordinate(0.3f, 0.3f), this);
+            MoveAction ma = new MoveAction(new GLCoordinate(0.4f, 0.4f), this);
             ActionHandler.AddNewAvailableAction(ma);
 
 
-            LambdaAction la = new LambdaAction(() =>
+            LambdaAction la = new LambdaAction((o) =>
             {
+                Console.Write(o);
                 Console.WriteLine("big boi");
+                return true;
             });
             ActionHandler.AddNewAvailableAction(la);
 
-            ChargeAction ca = new ChargeAction(new GLCoordinate(0.2f, 0.2f), this);
+            TeleportAction ca = new TeleportAction(new GLCoordinate(0.2f, 0.2f), this);
             ActionHandler.AddNewAvailableAction(ca);
 
 
@@ -45,7 +47,7 @@ namespace OpenGLTests.src.Drawables
             b.Location = new GLCoordinate(1, 1);
             b.OnInteraction += () =>
             {
-                GameState.CombatStep();
+                ExecutingActions = true;
             };
             GameState.Drawables.Add(b);
         }
@@ -54,14 +56,30 @@ namespace OpenGLTests.src.Drawables
 
         public override void Step()
         {
-            base.Step();
-            this.Location += this.Speed;
+            if (ExecutingActions)
+            {
+                CombatStep();
+            }
         }
 
+        private static int index = 0;
         public override void CombatStep()
         {
             base.CombatStep();
-            ActionHandler.DoCommitedActions();
+            ActionHandler.ActionReturns res = ActionHandler.TickPlacedActions(index);
+            if (res == ActionHandler.ActionReturns.AllFinished)
+            {
+                index = 0;
+                ExecutingActions = false;
+            }
+            else if (res == ActionHandler.ActionReturns.Ongoing)
+            {
+                index++;
+            }
+            else if(res == ActionHandler.ActionReturns.Finished)
+            {
+                index = 0;
+            }
         }
 
         public override void Draw(DrawAdapter drawer)

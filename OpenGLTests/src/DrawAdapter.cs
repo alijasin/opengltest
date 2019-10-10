@@ -4,6 +4,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using OpenGLTests.src.Drawables;
 using OpenTK.Graphics.OpenGL;
 
 
@@ -133,11 +134,6 @@ namespace OpenGLTests.src
             GL.End();
         }
 
-        public enum LineType
-        {
-            Solid,
-            Dashed
-        }
 
         public void DrawLine(GLCoordinate origin, GLCoordinate terminus, Color color, LineType type, float width = 3)
         {

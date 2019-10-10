@@ -10,11 +10,11 @@ namespace OpenGLTests.src
     public abstract class GameAction
     {
         public RangeShape RangeShape { get; set; }
-        //public float Range { get; set; } = 0;
-        public abstract Action GetAction();
+        public abstract Func<object, bool> GetAction();
         public Marker Marker { get; set; }
-        /*public abstract void PostUpdateAction(Entity source, Entities others, GameCoordinate clicked);
-        public abstract bool PayPreConditions();*/
+        /*
+        public abstract bool PayPreConditions();
+        */
     }
 
     abstract class CombatAction : GameAction
@@ -22,26 +22,27 @@ namespace OpenGLTests.src
 
     }
 
-    class ChargeAction : CombatAction
+    class TeleportAction : CombatAction
     {
         private bool isOnCooldown = false;
         private Entity source;
 
-        public ChargeAction(GLCoordinate radius, Entity source)
+        public TeleportAction(GLCoordinate radius, Entity source)
         {
             RangeShape = new RangeCircle(radius);
             this.Marker = new MoveMarker(RangeShape.Location);
             this.source = source;
         }
 
-        public override Action GetAction()
+        public override Func<object, bool> GetAction()
         {
-            return () =>
+            return (a) =>
             {
                 if (Marker != null)
                 {
                     source.Location = Marker.Location;
                 }
+                return true;
             };
         }
 
@@ -49,17 +50,21 @@ namespace OpenGLTests.src
 
     class LambdaAction : GameAction
     {
-        private System.Action a; 
-        public LambdaAction(System.Action action)
+        private Func<object, bool> a; 
+        public LambdaAction(Func<object, bool> f)
         {
             RangeShape = new RangeCircle(new GLCoordinate(0.8f, 0.8f));
             this.Marker = new ActionMarker(RangeShape.Location);
-            a = action;
+            a = f;
         }
 
-        public override Action GetAction()
+        public override Func<object, bool> GetAction()
         {
-            return a.Invoke;
+            return (o) =>
+            {
+                a.Invoke(o);
+                return true;
+            };
         }
     }
 
@@ -75,21 +80,39 @@ namespace OpenGLTests.src
             this.source = source;
         }
 
-        public override Action GetAction()
+        public override Func<object, bool> GetAction()
         {
-            return () =>
+            return (o) =>
             {
+                int index = (int)o;
+
                 if (Marker != null)
                 {
-                    source.Location = Marker.Location;
+                    if (source.Location.Distance(Marker.Location) < source.Speed.X) return true;
+
+                    if (source.Location.X < Marker.Location.X)
+                    {
+                        source.Location.X += source.Speed.X;
+                    }
+                    else
+                    {
+                        source.Location.X -= source.Speed.X;
+                    }
+
+                    if (source.Location.Y < Marker.Location.Y)
+                    {
+                        source.Location.Y += source.Speed.Y;
+                    }
+                    else
+                    {
+                        source.Location.Y -= source.Speed.Y;
+                    }
                 }
+
+                if (index < 100) return false; //dont get stuck
+                return true;
             };
         }
-
-        /*public override void PostUpdateAction(Entity source, Entities others, GameCoordinate clicked)
-        {
-            // this.Marker.Location = clicked;
-        }*/
 
         /*public override bool PayPreConditions()
         {

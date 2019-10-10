@@ -44,7 +44,8 @@ namespace OpenGLTests.src
 
         public void Step()
         {
-            foreach (var e in Drawables.Get.Where(d => d is Entity))
+            var entities = Drawables.Get.Where(d => d is Entity).ToList();
+            foreach (var e in entities)
             {
                 e.Step();
             }
@@ -58,11 +59,6 @@ namespace OpenGLTests.src
             {
                 e.CombatStep();
             }
-        }
-
-        public static void AddDrawable(Drawable d)
-        {
-            Drawables.Add(d);
         }
     }
 }

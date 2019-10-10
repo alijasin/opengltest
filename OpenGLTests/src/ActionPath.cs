@@ -50,7 +50,7 @@ namespace OpenGLTests.src
         }
     }
 
-    public class PlacedActionOrderedList
+    public class PlacedActions
     {
         LinkedList<GameAction> linkedList = new LinkedList<GameAction>();
 
@@ -105,14 +105,11 @@ namespace OpenGLTests.src
             return linkedList.First();
         }
 
-        public void Clear()
+        public void RemoveFirst()
         {
-            List<Marker> markers = new List<Marker>(GameState.Drawables.Get.Where(e => e is Marker).Cast<Marker>());
-            foreach (var m in markers)
-            {
-                GameState.Drawables.Remove(m);
-            }
-            linkedList.Clear();
+            var node = linkedList.First;
+            GameState.Drawables.Remove(node.Value.Marker);
+            linkedList.Remove(node);
         }
     }
 
@@ -122,7 +119,7 @@ namespace OpenGLTests.src
         private GameAction previousActiveAction { get; set; }
         private ActionBar actionBar { get; set; }
         private List<GameAction> availableActions = new List<GameAction>();
-        public PlacedActionOrderedList PlacedActions = new PlacedActionOrderedList();
+        public PlacedActions PlacedActions = new PlacedActions();
         private IActor owner;
         public ActionHandler(IActor owner)
         {
@@ -229,25 +226,33 @@ namespace OpenGLTests.src
             GameState.Drawables.Add(activeAction.RangeShape);
         }
 
-        /// <summary>
-        /// Invokes each action that has been placed.
-        /// </summary>
-        public void DoCommitedActions()
+        public enum ActionReturns
         {
-            var placed = PlacedActions.Get().ToList();
-            foreach (var ca in placed)
+            Finished,
+            AllFinished,
+            Ongoing
+        }
+        public ActionReturns TickPlacedActions(int index)
+        {
+            //get first action that has not been executed. if this action is null all actions have been executed.
+            var firstAction = PlacedActions.First();
+            if (firstAction == null) return ActionReturns.AllFinished;
+
+            //call action with index. if action call returns true this specific action is Finished executing.
+            bool actionFinished = firstAction.GetAction().Invoke(index);
+            if (actionFinished)
             {
-                Console.WriteLine("invoking " + ca);
-                ca.GetAction().Invoke();
-                PlacedActions.Remove(ca);
+                PlacedActions.RemoveFirst();
+                return ActionReturns.Finished;
             }
-            PlacedActions.Clear();
+
+            return ActionReturns.Ongoing;
         }
 
         public void DoActiveAction(GameCoordinate clicked)
         {
             activeAction.Marker.Location = clicked;
-            activeAction.GetAction().Invoke();
+            activeAction.GetAction().Invoke(2);
         }
     }
 }

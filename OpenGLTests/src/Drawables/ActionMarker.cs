@@ -10,7 +10,7 @@ namespace OpenGLTests.src.Drawables
     public abstract class Marker : Entity
     {
         private MarkerLine markerLine { get; set; }
-        public Marker(GameCoordinate loc)
+        protected Marker(GameCoordinate loc)
         {
             this.Location = loc;
             this.Size = new GLCoordinate(0.02f, 0.02f);
