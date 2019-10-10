@@ -43,7 +43,7 @@ namespace OpenGLTests.src.Drawables
 
     public class AOEMarker : Marker
     {
-        private GLCoordinate aoeSize;
+        public GLCoordinate aoeSize;
         public AOEMarker(GameCoordinate loc, GLCoordinate aoeSize) : base(loc)
         {
             this.Color = Color.Red;

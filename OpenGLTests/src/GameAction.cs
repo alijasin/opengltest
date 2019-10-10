@@ -70,16 +70,28 @@ namespace OpenGLTests.src
 
     class AOEEffectAction : CombatAction
     {
+        private AOEMarker m;
         public AOEEffectAction(GLCoordinate actionRange, GLCoordinate aoeRange)
         {
             RangeShape = new RangeCircle(actionRange);
-            this.Marker = new AOEMarker(RangeShape.Location, aoeRange);
+            m = new AOEMarker(RangeShape.Location, aoeRange);
+            this.Marker = m;
         }
         public override Func<object, bool> GetAction()
         {
             return (o) =>
             {
-                return true;
+                int index = (int) o;
+                if (m.aoeSize.X > 0 && m.aoeSize.Y > 0)
+                {
+                    m.aoeSize.X -= 0.01f;
+                    m.aoeSize.Y -= 0.01f;
+                }
+                else return true;
+
+                if (index > 100) return true;
+
+                return false;
             };
         }
     }
