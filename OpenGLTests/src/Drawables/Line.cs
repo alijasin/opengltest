@@ -11,6 +11,7 @@ namespace OpenGLTests.src.Drawables
     {
         protected GameCoordinate origin;
         protected GameCoordinate terminus;
+        protected DrawAdapter.LineType LineType = DrawAdapter.LineType.Solid;
 
         protected Line(GameCoordinate origin, GameCoordinate terminus)
         {
@@ -19,26 +20,20 @@ namespace OpenGLTests.src.Drawables
             this.Color = Color.Green;
         }
 
-        /*public override void Draw(DrawAdapter drawer)
+        public override void Draw(DrawAdapter drawer)
         {
             GLCoordinate GLo = origin.ToGLCoordinate(GameState.ActiveCamera.Location);
             GLCoordinate GLt = terminus.ToGLCoordinate(GameState.ActiveCamera.Location);
-            drawer.DrawLine(GLo, GLt, Color);
-        }*/
+            drawer.DrawLine(GLo, GLt, Color, LineType);
+        }
     }
 
     public class SolidLine : Line
     {
         public SolidLine(GameCoordinate origin, GameCoordinate terminus) : base(origin, terminus)
         {
-
-        }
-
-        public override void Draw(DrawAdapter drawer)
-        {
-            GLCoordinate GLo = origin.ToGLCoordinate(GameState.ActiveCamera.Location);
-            GLCoordinate GLt = terminus.ToGLCoordinate(GameState.ActiveCamera.Location);
-            drawer.DrawLine(GLo, GLt, Color, DrawAdapter.LineType.Solid);
+            this.Color = Color.LawnGreen;
+            this.LineType = DrawAdapter.LineType.Solid;
         }
     }
 
@@ -46,13 +41,8 @@ namespace OpenGLTests.src.Drawables
     {
         public DashedLine(GameCoordinate origin, GameCoordinate terminus) : base(origin, terminus)
         {
-
-        }
-        public override void Draw(DrawAdapter drawer)
-        {
-            GLCoordinate GLo = origin.ToGLCoordinate(GameState.ActiveCamera.Location);
-            GLCoordinate GLt = terminus.ToGLCoordinate(GameState.ActiveCamera.Location);
-            drawer.DrawLine(GLo, GLt, Color, DrawAdapter.LineType.Dashed);
+            this.Color = Color.DarkGoldenrod;
+            this.LineType = DrawAdapter.LineType.Dashed;
         }
     }
 }
