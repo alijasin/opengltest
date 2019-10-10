@@ -42,6 +42,10 @@ namespace OpenGLTests.src
             {
                 line = new DashedLine(terminus, origin);
             }
+            else //default
+            {
+                line = new SolidLine(terminus, origin);
+            }
         }
 
         public override void Draw(DrawAdapter drawer)

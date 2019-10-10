@@ -68,6 +68,22 @@ namespace OpenGLTests.src
         }
     }
 
+    class AOEEffectAction : CombatAction
+    {
+        public AOEEffectAction(GLCoordinate actionRange, GLCoordinate aoeRange)
+        {
+            RangeShape = new RangeCircle(actionRange);
+            this.Marker = new AOEMarker(RangeShape.Location, aoeRange);
+        }
+        public override Func<object, bool> GetAction()
+        {
+            return (o) =>
+            {
+                return true;
+            };
+        }
+    }
+
     class MoveAction : CombatAction
     {
         private bool isOnCooldown = false;

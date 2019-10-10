@@ -41,6 +41,23 @@ namespace OpenGLTests.src.Drawables
         }
     }
 
+    public class AOEMarker : Marker
+    {
+        private GLCoordinate aoeSize;
+        public AOEMarker(GameCoordinate loc, GLCoordinate aoeSize) : base(loc)
+        {
+            this.Color = Color.Red;
+            this.aoeSize = aoeSize;
+        }
+
+        public override void Draw(DrawAdapter drawer)
+        {
+            base.Draw(drawer);
+            GLCoordinate location = Location.ToGLCoordinate(GameState.ActiveCamera.Location);
+            drawer.FillCircle(location.X, location.Y, aoeSize, Color.Red);
+        }
+    }
+
     public class MoveMarker : Marker
     {
         public MoveMarker(GameCoordinate loc) : base(loc)
