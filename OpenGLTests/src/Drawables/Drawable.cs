@@ -29,6 +29,11 @@ namespace OpenGLTests.src.Drawables
         {
 
         }
+
+        public virtual void Dispose()
+        {
+
+        }
     }
 
     public abstract class Entity : Drawable
@@ -37,7 +42,7 @@ namespace OpenGLTests.src.Drawables
         public GameCoordinate Speed { get; set; } = new GameCoordinate(0, 0);
         public override void Draw(DrawAdapter drawer)
         {
-            GLCoordinate location = Location.ToGLCoordinate(GameState.Cam.Location);
+            GLCoordinate location = Location.ToGLCoordinate(GameState.ActiveCamera.Location);
             if (Visible) drawer.FillRectangle(Color, location.X, location.Y, Size.X, Size.Y);
         }
     }

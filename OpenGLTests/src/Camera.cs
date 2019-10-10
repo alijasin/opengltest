@@ -28,41 +28,47 @@ namespace OpenGLTests.src
         }
     }
 
-    public interface Camera
+    public abstract class Camera
     {
-        GameCoordinate Location { get; }
+        public virtual GameCoordinate Location { get; set; }
         Zoomer Zoom { get; }
+        public GameCoordinate Speed { get; set; } = new GameCoordinate(0, 0);
+
+        public virtual void Step()
+        {
+
+        }
     }
 
     public class FollowCamera : Camera
     {
-        public Zoomer Zoom { get; } = new Zoomer();
-
-        private Entity Following;
+        private Entity following;
 
         public FollowCamera(Entity following)
         {
-            Following = following;
+            this.following = following;
         }
 
-        public GameCoordinate Location
+        public override GameCoordinate Location
         {
             get
             {
-                if (Following?.Location == null) return new GameCoordinate(0, 0);
-                return Following.Location;
+                if (this.following?.Location == null) return new GameCoordinate(0, 0);
+                return this.following.Location;
             }
         }
     }
 
     public class StaticCamera : Camera
     {
-        public GameCoordinate Location { get; }
-        public Zoomer Zoom { get; } = new Zoomer();
-
         public StaticCamera(GameCoordinate origin)
         {
             Location = origin;
+        }
+
+        public override void Step()
+        {
+            this.Location += Speed;
         }
     }
 }

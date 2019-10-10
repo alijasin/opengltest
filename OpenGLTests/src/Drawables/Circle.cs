@@ -20,7 +20,7 @@ namespace OpenGLTests.src.Drawables
         public override void Draw(DrawAdapter drawer)
         {
 
-            GLCoordinate location = Location.ToGLCoordinate(GameState.Cam.Location);
+            GLCoordinate location = Location.ToGLCoordinate(GameState.ActiveCamera.Location);
             if (Visible) drawer.FillCircle(location.X, location.Y, Radius, Color.Crimson);
         }
 

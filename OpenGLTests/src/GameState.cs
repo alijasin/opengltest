@@ -12,36 +12,48 @@ namespace OpenGLTests.src
     public class GameState
     {
         public Hero Hero { get; set; }
-        public static Camera Cam { get; set; }
-
-        public static List<Drawable> Drawables { get; set; } = new List<Drawable>()
-        {
-            new Memer(),
-            new Fever(),
-        };
+        public static Camera ActiveCamera { get; set; }
+        public static bool CombatMode { get; set; } = true;
+        public static Drawablex Drawables = new Drawablex();
 
         public GameState()
         {
             Hero = new Hero();
             Drawables.Add(Hero);
-            Memer m = new Memer();
-            m.Location = new GameCoordinate(3f, 0);
-            Drawables.Add(m);
 
-            Cam = new FollowCamera(Hero);
+            var followCamera = new FollowCamera(Hero);
+            var staticCamera = new StaticCamera(Hero.Location);
+            ActiveCamera = staticCamera;
+            Button testbutton = new Button();
+            testbutton.Location = new GLCoordinate(-1, 1);
+            testbutton.OnInteraction = () =>
+            {
+                Console.WriteLine("Camera swap");
+                if (ActiveCamera is StaticCamera)
+                {
+                    ActiveCamera = followCamera;
+                }
+                else
+                {
+                    ActiveCamera = staticCamera;
+                }
+                ActiveCamera.Location = Hero.Location;
+            };
+            Drawables.Add(testbutton);
         }
 
         public void Step()
         {
-            foreach (var e in Drawables.Where(d => d is Entity))
+            foreach (var e in Drawables.Get.Where(d => d is Entity))
             {
                 e.Step();
             }
+            ActiveCamera.Step();
         }
 
         public static void CombatStep()
         {
-            var drawables = Drawables.ToList();
+            var drawables = Drawables.Get.ToList();
             foreach (var e in drawables)
             {
                 e.CombatStep();

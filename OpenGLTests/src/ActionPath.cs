@@ -4,18 +4,65 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
+using OpenGLTests.src;
 using OpenGLTests.src.Drawables;
 
 namespace OpenGLTests.src
 {
+    public class MarkerLine : Drawable
+    {
+        private Line line;
+        private GameCoordinate terminus;
+        private GameCoordinate origin;
+
+        public MarkerLine(LinkedList<GameAction> actions, IActor owner)
+        {
+            var node = actions.Last;
+            while (node != null)
+            {
+                if (terminus == null)
+                {
+                    terminus = node.Value.Marker.Location;
+                }
+                else if (node.Value.Marker is MoveMarker)
+                {
+                    origin = node.Value.Marker.Location;
+                    break; //donezo
+                }
+                node = node.Previous;
+            }
+
+            if (origin == null) origin = owner.Location;
+
+            if (actions.Last.Value.Marker is MoveMarker)
+            {
+                line = new SolidLine(terminus, origin);
+            }
+            else if (actions.Last.Value.Marker is ActionMarker)
+            {
+                line = new DashedLine(terminus, origin);
+            }
+        }
+
+        public override void Draw(DrawAdapter drawer)
+        {
+            line.Draw(drawer);
+        }
+    }
+
     public class PlacedActionOrderedList
     {
         LinkedList<GameAction> linkedList = new LinkedList<GameAction>();
 
-        public void Add(GameAction placed)
+        public void Add(GameAction placed, IActor owner)
         {
+            //add a new marker, both for drawing and in linked list
             GameState.Drawables.Add(placed.Marker);
             linkedList.AddLast(placed);
+
+            //create line between previous set marker and newly placed marker
+            MarkerLine ml = new MarkerLine(linkedList, owner);
+            placed.Marker.SetMarkerLine(ml);
         }
 
         public void Remove(GameAction action)
@@ -60,7 +107,7 @@ namespace OpenGLTests.src
 
         public void Clear()
         {
-            List<Marker> markers = new List<Marker>(GameState.Drawables.Where(e => e is Marker).Cast<Marker>());
+            List<Marker> markers = new List<Marker>(GameState.Drawables.Get.Where(e => e is Marker).Cast<Marker>());
             foreach (var m in markers)
             {
                 GameState.Drawables.Remove(m);
@@ -94,10 +141,23 @@ namespace OpenGLTests.src
             activeAction.Marker.Location = position;
             if (!PlacedActions.Get().ToList().Contains(activeAction))
             {
-                PlacedActions.Add(activeAction);
+                PlacedActions.Add(activeAction, owner);
             }
-        }
 
+            /* this adds lines between all placed actions, although there is now way to remove them later.
+            GameCoordinate origin = owner.Location;
+            var moves = PlacedActions.Get().ToList().Where(e => e.Marker is MoveMarker);
+            foreach (var pa in moves)
+            {
+                GameCoordinate terminus = pa.Marker.Location;
+                GameState.AddDrawable(new Line(origin, terminus));
+                origin = terminus;
+            }*/
+        }
+        /// <summary>
+        /// Add a new game action to the owners available actions. Adds a new action button to the action bar for this action.
+        /// </summary>
+        /// <param name="a"></param>
         public void AddNewAvailableAction(GameAction a)
         {
             availableActions.Add(a);
@@ -146,6 +206,9 @@ namespace OpenGLTests.src
             return location;
         }
 
+        /// <summary>
+        /// Removes all placed actions which has been placed after the active action.
+        /// </summary>
         public void RemoveAllPlacedAfterActive()
         {
             PlacedActions.Remove(activeAction);
@@ -166,6 +229,9 @@ namespace OpenGLTests.src
             GameState.Drawables.Add(activeAction.RangeShape);
         }
 
+        /// <summary>
+        /// Invokes each action that has been placed.
+        /// </summary>
         public void DoCommitedActions()
         {
             var placed = PlacedActions.Get().ToList();
@@ -174,9 +240,14 @@ namespace OpenGLTests.src
                 Console.WriteLine("invoking " + ca);
                 ca.GetAction().Invoke();
                 PlacedActions.Remove(ca);
-                GameState.Drawables.Remove(ca.Marker);
             }
             PlacedActions.Clear();
+        }
+
+        public void DoActiveAction(GameCoordinate clicked)
+        {
+            activeAction.Marker.Location = clicked;
+            activeAction.GetAction().Invoke();
         }
     }
 }

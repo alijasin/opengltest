@@ -38,10 +38,10 @@ namespace OpenGLTests.src
         public override void Draw(DrawAdapter drawer)
         {
             GL.PushMatrix();
-            //GL.Translate(-GameState.Cam.Location.X*2/GibbWindow.WIDTH -1, -GameState.Cam.Location.Y*2/GibbWindow.HEIGHT - 1, 0);
+            //GL.Translate(-GameState.ActiveCamera.Location.X*2/GibbWindow.WIDTH -1, -GameState.ActiveCamera.Location.Y*2/GibbWindow.HEIGHT - 1, 0);
             GL.Translate(-new GameCoordinate(0, 0).X, -new GameCoordinate(0, 0).Y , 0);
-            //GL.Translate(GameState.Cam.Location.X, -GameState.Cam.Location.Y, 0);
-            foreach (var drawable in GameState.Drawables)
+            //GL.Translate(GameState.ActiveCamera.Location.X, -GameState.ActiveCamera.Location.Y, 0);
+            foreach (var drawable in GameState.Drawables.Get)
             {
                 drawable.Draw(drawer);
             }
@@ -54,27 +54,50 @@ namespace OpenGLTests.src
             // Keyboard
             Bind(new Hotkey(
                 input => input.IsKeyboardInput && input.KeyboardArgs.Key == OpenTK.Input.Key.D,
-                _ => Game.Hero.Speed.X = 0.01f,
-                _ => Game.Hero.Speed.X = 0
+                _ => GameState.ActiveCamera.Speed.X = 0.01f,
+                _ => GameState.ActiveCamera.Speed.X = 0
             ));
 
             Bind(new Hotkey(
                 input => input.IsKeyboardInput && input.KeyboardArgs.Key == OpenTK.Input.Key.A,
-                _ => Game.Hero.Speed.X = -0.01f,
-                _ => Game.Hero.Speed.X = 0
+                _ => GameState.ActiveCamera.Speed.X = -0.01f,
+                _ => GameState.ActiveCamera.Speed.X = 0
             ));
 
             Bind(new Hotkey(
                 input => input.IsKeyboardInput && input.KeyboardArgs.Key == OpenTK.Input.Key.W,
-                _ => Game.Hero.Speed.Y = -0.01f,
-                _ => Game.Hero.Speed.Y = 0
+                _ => GameState.ActiveCamera.Speed.Y = -0.01f,
+                _ => GameState.ActiveCamera.Speed.Y = 0
             ));
 
             Bind(new Hotkey(
                 input => input.IsKeyboardInput && input.KeyboardArgs.Key == OpenTK.Input.Key.S,
-                _ => Game.Hero.Speed.Y = 0.01f,
-                _ => Game.Hero.Speed.Y = 0
+                _ => GameState.ActiveCamera.Speed.Y = 0.01f,
+                _ => GameState.ActiveCamera.Speed.Y = 0
             ));
+            /*            Bind(new Hotkey(
+                            input => input.IsKeyboardInput && input.KeyboardArgs.Key == OpenTK.Input.Key.D,
+                            _ => Game.Hero.Speed.X = 0.01f,
+                            _ => Game.Hero.Speed.X = 0
+                        ));
+
+                        Bind(new Hotkey(
+                            input => input.IsKeyboardInput && input.KeyboardArgs.Key == OpenTK.Input.Key.A,
+                            _ => Game.Hero.Speed.X = -0.01f,
+                            _ => Game.Hero.Speed.X = 0
+                        ));
+
+                        Bind(new Hotkey(
+                            input => input.IsKeyboardInput && input.KeyboardArgs.Key == OpenTK.Input.Key.W,
+                            _ => Game.Hero.Speed.Y = -0.01f,
+                            _ => Game.Hero.Speed.Y = 0
+                        ));
+
+                        Bind(new Hotkey(
+                            input => input.IsKeyboardInput && input.KeyboardArgs.Key == OpenTK.Input.Key.S,
+                            _ => Game.Hero.Speed.Y = 0.01f,
+                            _ => Game.Hero.Speed.Y = 0
+                        ));*/
 
             // Mouse
             Bind(new Hotkey(
@@ -82,7 +105,7 @@ namespace OpenGLTests.src
                 input =>
                 {
                     GameCoordinate clicked = new GameCoordinate(input.MouseButtonArgs.X, input.MouseButtonArgs.Y);
-                    var xd = GameState.Drawables.Where(d => d is IInteractable).ToList();
+                    var xd = GameState.Drawables.Get.Where(d => d is IInteractable).ToList();
                     foreach (IInteractable i in xd)
                     {
                         if (i.Contains(clicked))
@@ -91,7 +114,7 @@ namespace OpenGLTests.src
                         }
                     }
 
-                    foreach(IClickable i in GameState.Drawables.Where(d => d is IClickable))
+                    foreach(IClickable i in GameState.Drawables.Get.Where(d => d is IClickable))
                     {
                         if (i.Contains(clicked))
                         {
@@ -109,14 +132,20 @@ namespace OpenGLTests.src
                 input => input.IsMouseInput && input.MouseButtonArgs.Button == MouseButton.Right,
                 input =>
                 {
-                    Game.Hero.ActionHandler.RemoveAllPlacedAfterActive();
-                    var rs = Game.Hero.ActionHandler.GetActiveRangeShape();
-
-                    if (rs != null)
+                    if (GameState.CombatMode)
                     {
-                        rs.Visible = true;
-                    }
+                        Game.Hero.ActionHandler.RemoveAllPlacedAfterActive();
+                        var rs = Game.Hero.ActionHandler.GetActiveRangeShape();
 
+                        if (rs != null)
+                        {
+                            rs.Visible = true;
+                        }
+                    }
+                    else
+                    {
+                        
+                    }
                 },
                 input =>
                 {
@@ -124,17 +153,20 @@ namespace OpenGLTests.src
                     var xd = CoordinateFuckery.ClickToGLRelativeToCamera(clicked, new GameCoordinate(0, 0));
                     var rs = Game.Hero.ActionHandler.GetActiveRangeShape();
 
-                    if (rs != null)
+                    if (GameState.CombatMode)
                     {
-                        rs.Visible = false;
-                        if (rs.Contains(xd))
+                        if (rs != null)
                         {
-                            Game.Hero.ActionHandler.EnqueueAction(xd);
+                            rs.Visible = false;
+                            if (rs.Contains(xd))
+                            {
+                                Game.Hero.ActionHandler.EnqueueAction(xd);
+                            }
                         }
-                        else
-                        {
-
-                        }
+                    }
+                    else
+                    {
+                        Game.Hero.ActionHandler.DoActiveAction(xd);
                     }
                 }
             ));

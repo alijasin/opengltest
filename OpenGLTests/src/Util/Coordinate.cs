@@ -14,7 +14,7 @@ namespace OpenGLTests.src
             var x = Math.Abs(clicked.X - entityLocation.X);
             var y = Math.Abs(clicked.Y - entityLocation.Y);
             var gcc = new GLCoordinate(x * 2 / GibbWindow.WIDTH - 1, y * 2 / GibbWindow.HEIGHT - 1);
-            return new GameCoordinate(gcc.X + GameState.Cam.Location.X, gcc.Y + GameState.Cam.Location.Y);
+            return new GameCoordinate(gcc.X + GameState.ActiveCamera.Location.X, gcc.Y + GameState.ActiveCamera.Location.Y);
         }
 
 

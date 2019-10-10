@@ -9,10 +9,28 @@ namespace OpenGLTests.src.Drawables
 {
     public abstract class Marker : Entity
     {
+        private MarkerLine markerLine { get; set; }
         public Marker(GameCoordinate loc)
         {
             this.Location = loc;
             this.Size = new GLCoordinate(0.02f, 0.02f);
+        }
+
+        public void SetMarkerLine(MarkerLine ml)
+        {
+            this.markerLine = ml;
+            GameState.Drawables.Add(ml);
+        }
+
+        public override void Draw(DrawAdapter drawer)
+        {
+            base.Draw(drawer);
+            markerLine.Draw(drawer);
+        }
+
+        public override void Dispose()
+        {
+            GameState.Drawables.Remove(markerLine);
         }
     }
     public class ActionMarker : Marker

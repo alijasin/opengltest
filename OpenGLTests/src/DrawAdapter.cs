@@ -113,8 +113,9 @@ namespace OpenGLTests.src
 
 
         private const int CIRCLE_VERTICES = 32;
-        public void FillCircle(float x, float y, GLCoordinate radius, Color color)
+        public void FillCircle(float x, float y, GLCoordinate radius, Color color, float width = 1)
         {
+            GL.LineWidth(width);
             GL.Begin(PrimitiveType.LineLoop);
 
             GL.Color4(color);
@@ -130,6 +131,33 @@ namespace OpenGLTests.src
             }
 
             GL.End();
+        }
+
+        public enum LineType
+        {
+            Solid,
+            Dashed
+        }
+
+        public void DrawLine(GLCoordinate origin, GLCoordinate terminus, Color color, LineType type, float width = 3)
+        {
+            GL.PushAttrib(AttribMask.EnableBit);
+            GL.LineWidth(width);
+            if (type == LineType.Dashed)
+            {
+                GL.LineStipple(1, 0xAAA);
+                GL.Enable(EnableCap.LineStipple);
+            }
+ 
+            GL.Begin(PrimitiveType.Lines);
+
+            GL.Color4(color);
+
+            GL.Vertex2(origin.X, origin.Y);
+            GL.Vertex2(terminus.X, terminus.Y);
+
+            GL.End();
+            GL.PopAttrib();
         }
 
         /*
