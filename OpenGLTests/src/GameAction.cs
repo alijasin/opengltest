@@ -43,6 +43,7 @@ namespace OpenGLTests.src
             {
                 Color c = source.Color;
                 var index = (int)a;
+
                 if (index == 0)
                 {
                     initialColor = c;
@@ -52,6 +53,7 @@ namespace OpenGLTests.src
                 {
                     source.Color = Color.FromArgb((int)(c.A/(1.2)), c);
                 }
+
                 if (index == 15)
                 { 
                     source.Location = Marker.Location;

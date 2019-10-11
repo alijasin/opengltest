@@ -10,9 +10,10 @@ namespace OpenGLTests.src.Drawables
     class ActionButton : Button
     {
         public GameAction GameAction;
+        public static GLCoordinate StandardSize = new GLCoordinate(0.1f, 0.1f);
         public ActionButton(GameAction ga)
         {
-            this.Size = new GLCoordinate(0.1f, 0.1f);
+            this.Size = StandardSize;
             GameAction = ga;
             OnInteraction += () =>
             {
@@ -28,11 +29,12 @@ namespace OpenGLTests.src.Drawables
 
         public int MaxActionSlots = 8;
         public int FilledActionSlots = 0;
+        private float fodder = 0.01f;
 
         public ActionBar(IActor owner)
         {
             this.Location = new GLCoordinate(0, -1);
-            this.Size = new GLCoordinate(0.8f, 0.2f);
+            this.Size = new GLCoordinate(ActionButton.StandardSize.X*MaxActionSlots + fodder*MaxActionSlots, 0.2f + fodder*4); //fodder between each action button as well as over and under
             this.Color = Color.Purple;
             this.Owner = owner;
         }
@@ -50,7 +52,7 @@ namespace OpenGLTests.src.Drawables
                 {
                     Owner.ActionHandler.SetActiveAction(ab.GameAction);
                 };
-                ab.Location = new GLCoordinate(this.Location.X - this.Size.X/2 + FilledActionSlots * ab.Size.X + ab.Size.X/2, this.Location.Y + ab.Size.Y /2);
+                ab.Location = new GLCoordinate(fodder * (FilledActionSlots+1) + this.Location.X - this.Size.X/2 + FilledActionSlots * ab.Size.X + ab.Size.X/2, this.Location.Y + ab.Size.Y /2 + fodder);
                 GameState.Drawables.Add(ab);
                 FilledActionSlots += 1;
             }
