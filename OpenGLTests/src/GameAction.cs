@@ -23,6 +23,47 @@ namespace OpenGLTests.src
 
     }
 
+    public abstract class ItemAction : GameAction
+    {
+
+    }
+
+    class TurnRedAction : ItemAction
+    {
+        private Entity source;
+        public TurnRedAction(Entity source)
+        {
+            this.source = source;
+        }
+
+        public override Func<object, bool> GetAction()
+        {
+            return (o) =>
+            {
+                source.Color = Color.Red;
+                return true;
+            };
+        }
+    }
+
+    class GrowAction : ItemAction
+    {
+        private Entity source;
+        public GrowAction(Entity source)
+        {
+            this.source = source;
+        }
+
+        public override Func<object, bool> GetAction()
+        {
+            return (o) =>
+            {
+                source.Size.X = source.Size.X * 1.5f;
+                source.Size.Y = source.Size.Y * 1.5f;
+                return true;
+            };
+        }
+    }
     class TeleportAction : CombatAction
     {
         private bool isOnCooldown = false;

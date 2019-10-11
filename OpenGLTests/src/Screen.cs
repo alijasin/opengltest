@@ -75,30 +75,12 @@ namespace OpenGLTests.src
                 _ => GameState.ActiveCamera.Speed.Y = 0.01f,
                 _ => GameState.ActiveCamera.Speed.Y = 0
             ));
-            /*            Bind(new Hotkey(
-                            input => input.IsKeyboardInput && input.KeyboardArgs.Key == OpenTK.Input.Key.D,
-                            _ => Game.Hero.Speed.X = 0.01f,
-                            _ => Game.Hero.Speed.X = 0
-                        ));
 
-                        Bind(new Hotkey(
-                            input => input.IsKeyboardInput && input.KeyboardArgs.Key == OpenTK.Input.Key.A,
-                            _ => Game.Hero.Speed.X = -0.01f,
-                            _ => Game.Hero.Speed.X = 0
-                        ));
-
-                        Bind(new Hotkey(
-                            input => input.IsKeyboardInput && input.KeyboardArgs.Key == OpenTK.Input.Key.W,
-                            _ => Game.Hero.Speed.Y = -0.01f,
-                            _ => Game.Hero.Speed.Y = 0
-                        ));
-
-                        Bind(new Hotkey(
-                            input => input.IsKeyboardInput && input.KeyboardArgs.Key == OpenTK.Input.Key.S,
-                            _ => Game.Hero.Speed.Y = 0.01f,
-                            _ => Game.Hero.Speed.Y = 0
-                        ));*/
-
+            Bind(new Hotkey(
+                input => input.IsKeyboardInput && (input.KeyboardArgs.Key == OpenTK.Input.Key.E || input.KeyboardArgs.Key == Key.Tab),
+                _ => Game.Hero.Inventory.Visible = true,
+                _ => Game.Hero.Inventory.Visible = false
+            ));
             // Mouse
             Bind(new Hotkey(
                 input => input.IsMouseInput && input.MouseButtonArgs.Button == MouseButton.Left,
@@ -107,6 +89,15 @@ namespace OpenGLTests.src
                     GameCoordinate clicked = new GameCoordinate(input.MouseButtonArgs.X, input.MouseButtonArgs.Y);
                     var xd = GameState.Drawables.Get.Where(d => d is IInteractable).ToList();
                     foreach (IInteractable i in xd)
+                    {
+                        if (i.Contains(clicked))
+                        {
+                            i.OnInteraction.Invoke();
+                        }
+                    }
+
+                    //todo move all interactables from drawables to interactables
+                    foreach (var i in GameState.Interactables)
                     {
                         if (i.Contains(clicked))
                         {

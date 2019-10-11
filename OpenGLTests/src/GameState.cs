@@ -15,6 +15,7 @@ namespace OpenGLTests.src
         public static Camera ActiveCamera { get; set; }
         public static bool CombatMode { get; set; } = true;
         public static Drawablex Drawables = new Drawablex();
+        public static List<IInteractable> Interactables = new List<IInteractable>();
 
         public GameState()
         {

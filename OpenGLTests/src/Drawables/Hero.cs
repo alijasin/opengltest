@@ -10,11 +10,11 @@ namespace OpenGLTests.src.Drawables
 {
     public class Hero : Entity, IActor
     {
+        public Inventory Inventory;
         public ActionHandler ActionHandler { get; set; }
-       // public GameAction ActiveAction { get; set; }
-
-        //public LinkedList<Action> CommitedActions { get; set; }
         private bool ExecutingActions = false;
+
+
         public Hero()
         {
             Color = Color.CadetBlue;
@@ -22,7 +22,10 @@ namespace OpenGLTests.src.Drawables
             this.Size = new GLCoordinate(0.1f, 0.1f);
             ActionHandler = new ActionHandler(this);
             this.Speed = new GameCoordinate(0.02f, 0.02f);
+
             initGUI();
+
+            
         }
 
         private void initGUI()
@@ -52,6 +55,11 @@ namespace OpenGLTests.src.Drawables
                 ExecutingActions = true;
             };
             GameState.Drawables.Add(b);
+
+            Inventory = new Inventory();
+            GameState.Drawables.Add(Inventory);
+            Inventory.Add(new GrowingPoition(this));
+            Inventory.Add(new RedPotion(this));
         }
         
 

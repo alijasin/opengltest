@@ -54,6 +54,7 @@
     <Compile Include="src\Drawables\ActionMarker.cs" />
     <Compile Include="src\Drawables\Button.cs" />
     <Compile Include="src\Drawables\Hero.cs" />
+    <Compile Include="src\Drawables\Inventory.cs" />
     <Compile Include="src\Drawables\Line.cs" />
     <Compile Include="src\Drawables\Rectangle.cs" />
     <Compile Include="src\Drawablex.cs" />
