@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using OpenGLTests.src.Drawables;
+using OpenGLTests.src.Util;
 
 namespace OpenGLTests.src
 {
@@ -42,7 +43,7 @@ namespace OpenGLTests.src
 
     public class FollowCamera : Camera
     {
-        private Entity following;
+        protected Entity following;
 
         public FollowCamera(Entity following)
         {
@@ -59,9 +60,9 @@ namespace OpenGLTests.src
         }
     }
 
-    public class StaticCamera : Camera
+    public class MovableCamera : Camera
     {
-        public StaticCamera(GameCoordinate origin)
+        public MovableCamera(GameCoordinate origin)
         {
             Location = origin;
         }
@@ -69,6 +70,26 @@ namespace OpenGLTests.src
         public override void Step()
         {
             this.Location += Speed;
+        }
+    }
+
+    /// <summary>
+    /// Lmao dont use this
+    /// </summary>
+    public class ShakingCamera : FollowCamera
+    {
+        public ShakingCamera(Entity following) : base(following)
+        {
+
+        }
+
+        public override GameCoordinate Location
+        {
+            get
+            {
+                if (this.following?.Location == null) return new GameCoordinate(0, 0);
+                return new GameCoordinate(this.following.Location.X + RNG.BetweenZeroAndOne()/100 * RNG.NegativeOrPositiveOne(), this.following.Location.Y + RNG.BetweenZeroAndOne() / 100 * RNG.NegativeOrPositiveOne());
+            }
         }
     }
 }

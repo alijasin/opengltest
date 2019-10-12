@@ -39,12 +39,23 @@ namespace OpenGLTests.src
         {
             GL.PushMatrix();
             GL.Translate(-new GameCoordinate(0, 0).X, -new GameCoordinate(0, 0).Y , 0);
-            var drawables = GameState.Drawables.Get.ToList();
 
-            foreach (var drawable in drawables)
+            try
             {
-                drawable.Draw(drawer);
+                var size = GameState.Drawables.Get.Count;
+                List<Drawable> drawables = new List<Drawable>(size);
+                drawables = GameState.Drawables.Get.GetRange(0, size);
+
+                foreach (var drawable in drawables)
+                {
+                    drawable.Draw(drawer);
+                }
             }
+            catch (Exception e)
+            {
+
+            }
+
 
             GL.PopMatrix();
         }

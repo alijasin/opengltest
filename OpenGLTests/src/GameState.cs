@@ -32,14 +32,17 @@ namespace OpenGLTests.src
             Drawables.Add(chasingdude);
 
             var followCamera = new FollowCamera(Hero);
-            var staticCamera = new StaticCamera(Hero.Location);
-            ActiveCamera = staticCamera;
+            var staticCamera = new MovableCamera(Hero.Location);
+            var shakingCamera = new ShakingCamera(Hero);
+
+            //ActiveCamera = staticCamera;
+            ActiveCamera = shakingCamera;
             Button testbutton = new Button();
             testbutton.Location = new GLCoordinate(-1, 1);
             testbutton.OnInteraction = () =>
             {
                 Console.WriteLine("Camera swap");
-                if (ActiveCamera is StaticCamera)
+                if (ActiveCamera is MovableCamera)
                 {
                     ActiveCamera = followCamera;
                 }
