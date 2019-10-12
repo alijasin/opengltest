@@ -49,7 +49,7 @@ namespace OpenGLTests.src.Drawables
             var actionButton = new ActionButton(a);
             if (Add(actionButton))
             {
-                Owner.ActionHandler.AddNewAvailableAction(a);
+                Owner.CombatActionHandler.AddNewAvailableAction(a);
             }
         }
 
@@ -59,7 +59,7 @@ namespace OpenGLTests.src.Drawables
             {
                 ab.OnInteraction += () =>
                 {
-                    Owner.ActionHandler.SetActiveAction(ab.GameAction);
+                    Owner.CombatActionHandler.SetActiveAction(ab.GameAction);
                 };
                 ab.Location = new GLCoordinate(fodder * (FilledActionSlots+1) + this.Location.X - this.Size.X/2 + FilledActionSlots * ab.Size.X + ab.Size.X/2, this.Location.Y + ab.Size.Y /2 + fodder);
                 GameState.Drawables.Add(ab);

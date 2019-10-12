@@ -11,16 +11,18 @@ namespace OpenGLTests.src.Drawables
     public class Hero : Entity, IActor
     {
         public Inventory Inventory;
-        public ActionHandler ActionHandler { get; set; }
+        public CombatActionHandler CombatActionHandler { get; set; }
+        public OutOfCombatActionHandler OutOfCombatActionHandler { get; set; }
         private bool ExecutingActions = false;
-
+        public bool CombatMode { get; set; } = false;
 
         public Hero()
         {
             Color = Color.CadetBlue;
             this.Location = new GameCoordinate(0f, 0f);
             this.Size = new GLCoordinate(0.1f, 0.1f);
-            ActionHandler = new ActionHandler(this);
+            CombatActionHandler = new CombatActionHandler(this);
+            OutOfCombatActionHandler = new OutOfCombatActionHandler();
             this.Speed = new GameCoordinate(0.02f, 0.02f);
 
             initGUI();
@@ -64,9 +66,16 @@ namespace OpenGLTests.src.Drawables
 
         public override void Step()
         {
-            if (ExecutingActions)
+            if (CombatMode)
             {
-                CombatStep();
+                if (ExecutingActions)
+                {
+                    CombatStep();
+                }
+            }
+            else
+            {
+                OutOfCombatActionHandler.DoGameAction();
             }
         }
 
@@ -74,7 +83,7 @@ namespace OpenGLTests.src.Drawables
         public override void CombatStep()
         {
             base.CombatStep();
-            ActionReturns res = ActionHandler.TickPlacedActions(index);
+            ActionReturns res = CombatActionHandler.TickPlacedActions(index);
             if (res == ActionReturns.AllFinished)
             {
                 index = 0;

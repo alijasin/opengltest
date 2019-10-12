@@ -13,7 +13,6 @@ namespace OpenGLTests.src
     {
         public Hero Hero { get; set; }
         public static Camera ActiveCamera { get; set; }
-        public static bool CombatMode { get; set; } = true;
         public static Drawablex Drawables = new Drawablex();
         public static List<IInteractable> Interactables = new List<IInteractable>();
 
@@ -50,7 +49,17 @@ namespace OpenGLTests.src
                 }
                 ActiveCamera.Location = Hero.Location;
             };
+
             Drawables.Add(testbutton);
+
+            Button toggleCombatButton = new Button();
+            toggleCombatButton.Location = new GLCoordinate(0, 1);
+            toggleCombatButton.OnInteraction = () =>
+            {
+                Hero.CombatMode = !Hero.CombatMode;
+            };
+            Drawables.Add(toggleCombatButton);
+
         }
 
         public void Step()

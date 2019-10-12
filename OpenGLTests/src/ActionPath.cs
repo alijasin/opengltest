@@ -117,7 +117,7 @@ namespace OpenGLTests.src
         }
     }
 
-    public class ActionHandler
+    public class CombatActionHandler
     {
         private GameAction activeAction { get; set; }
         private GameAction previousActiveAction { get; set; }
@@ -126,7 +126,7 @@ namespace OpenGLTests.src
 
         private IActor owner;
 
-        public ActionHandler(IActor owner)
+        public CombatActionHandler(IActor owner)
         {
             this.owner = owner;
 
@@ -249,6 +249,31 @@ namespace OpenGLTests.src
         {
             activeAction.Marker.Location = clicked;
             activeAction.GetAction().Invoke(2);
+        }
+    }
+
+    public class OutOfCombatActionHandler
+    {
+        private GameAction currentAction;
+        private object args;
+
+        public void SetCurrentAction(GameAction action, object args)
+        {
+            this.currentAction = action;
+            this.args = args;
+        }
+
+        public bool DoGameAction()
+        {
+            if (currentAction == null) return false;
+
+            var res = currentAction.GetAction().Invoke(args);
+            if (res)
+            {
+                currentAction = null;
+            }
+
+            return res;
         }
     }
 }
