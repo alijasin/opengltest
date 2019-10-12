@@ -25,9 +25,9 @@ namespace OpenGLTests.src.Drawables
             base.Draw(drawer);
         }
 
-        public override void Step()
+        public override void DrawStep()
         {
-            base.Step();
+            base.DrawStep();
             life -= 1;
             this.Size = new GLCoordinate(this.Size.X / 1.1f, this.Size.Y / 1.1f);
             this.Location += Speed;

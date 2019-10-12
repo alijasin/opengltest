@@ -15,6 +15,7 @@ namespace OpenGLTests.src
         public static Camera ActiveCamera { get; set; }
         public static Drawablex Drawables = new Drawablex();
         public static List<IInteractable> Interactables = new List<IInteractable>();
+        public static bool Combat { get; set; } = false;
 
         public GameState()
         {
@@ -58,7 +59,9 @@ namespace OpenGLTests.src
             toggleCombatButton.Location = new GLCoordinate(0, 1);
             toggleCombatButton.OnInteraction = () =>
             {
-                Hero.CombatMode = !Hero.CombatMode;
+                Combat = !Combat;
+                if(Combat) Console.WriteLine("Entered combat.");
+                else Console.WriteLine("Out of combat.");
             };
             Drawables.Add(toggleCombatButton);
 
@@ -69,21 +72,20 @@ namespace OpenGLTests.src
 
         public void Step()
         {
-            var entities = Drawables.Get.Where(d => d is Entity).ToList();
+            var entities = Drawables.Get.Where(d => d is Entity).Cast<Entity>().ToList();
             foreach (var e in entities)
             {
-                e.Step();
+                if (Combat)
+                {
+                    e.CombatStep();
+                }
+                else
+                {
+                    e.OutOfCombatStep();
+                }
+                e.DrawStep();
             }
             ActiveCamera.Step();
-        }
-
-        public static void CombatStep()
-        {
-            var drawables = Drawables.Get.ToList();
-            foreach (var e in drawables)
-            {
-                e.CombatStep();
-            }
         }
     }
 }

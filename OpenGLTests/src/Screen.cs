@@ -134,7 +134,7 @@ namespace OpenGLTests.src
                 input => input.IsMouseInput && input.MouseButtonArgs.Button == MouseButton.Right,
                 input =>
                 {
-                    if (Game.Hero.CombatMode)
+                    if (GameState.Combat)
                     {
                         Game.Hero.CombatActionHandler.RemoveAllPlacedAfterActive();
                         var rs = Game.Hero.CombatActionHandler.GetActiveRangeShape();
@@ -155,7 +155,7 @@ namespace OpenGLTests.src
                     var xd = CoordinateFuckery.ClickToGLRelativeToCamera(clicked, new GameCoordinate(0, 0));
                     var rs = Game.Hero.CombatActionHandler.GetActiveRangeShape();
 
-                    if (Game.Hero.CombatMode)
+                    if (GameState.Combat)
                     {
                         if (rs != null)
                         {

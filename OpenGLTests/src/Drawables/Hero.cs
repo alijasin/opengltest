@@ -14,7 +14,6 @@ namespace OpenGLTests.src.Drawables
         public CombatActionHandler CombatActionHandler { get; set; }
         public OutOfCombatActionHandler OutOfCombatActionHandler { get; set; }
         private bool ExecutingActions = false;
-        public bool CombatMode { get; set; } = false;
 
         public Hero()
         {
@@ -62,28 +61,15 @@ namespace OpenGLTests.src.Drawables
             Inventory.Add(new RedPotion(this));
         }
         
-
-
-        public override void Step()
+        public override void OutOfCombatStep()
         {
-            //check if hero is in combat mode
-            if (CombatMode)
-            {
-                //check that actions aren't being placed
-                if (ExecutingActions)
-                {
-                    CombatStep();
-                }
-            }
-            else
-            {
-                OutOfCombatActionHandler.DoGameAction();
-            }
+            OutOfCombatActionHandler.DoGameAction();
         }
 
         private static int index = 0;
         public override void CombatStep()
         {
+            if (!ExecutingActions) return; //if you decide later than you want to get rid of action confirmation dont do this check.
             base.CombatStep();
             ActionReturns res = CombatActionHandler.TickPlacedActions(index);
             if (res == ActionReturns.AllFinished)
@@ -99,11 +85,6 @@ namespace OpenGLTests.src.Drawables
             {
                 index = 0;
             }
-        }
-
-        public override void Draw(DrawAdapter drawer)
-        {
-            base.Draw(drawer);
         }
     }
 }

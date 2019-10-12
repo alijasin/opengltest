@@ -15,18 +15,27 @@ namespace OpenGLTests.src.Drawables
     abstract class Hostile : Entity, IAggro
     {
         public RangeShape AggroShape { get; set; } = new Circle(new GLCoordinate(0.2f, 0.2f));
+        protected ActionPattern ActionPattern;
+
+        public override void OutOfCombatStep()
+        {
+            base.OutOfCombatStep();
+            if (ActionPattern != null)
+            {
+                var status = ActionPattern.DoAction("SkertSkert");
+            }
+        }
     }
 
     class AngryDude : Hostile
     {
-        private ActionPattern pattern;
         public AngryDude()
         {
             this.AggroShape = new FollowCircle(new GLCoordinate(0.3f, 0.3f), this);
             this.AggroShape.Visible = true;
             this.Speed = new GameCoordinate(0.01f, 0.01f);
-            pattern = new MoveAroundAndChill(this);
-            pattern.Loop = true;
+            ActionPattern = new MoveAroundAndChill(this);
+            ActionPattern.Loop = true;
         }
 
         public override void Draw(DrawAdapter drawer)
@@ -34,33 +43,17 @@ namespace OpenGLTests.src.Drawables
             base.Draw(drawer);
             AggroShape.Draw(drawer);
         }
-
-        public override void Step()
-        {
-            base.Step();
-
-            var status = pattern.DoAction("SkertSkert");
-        }
     }
 
     class PatrolGuy : Hostile
     {
-        private ActionPattern pattern;
-
         public PatrolGuy(GameCoordinate location)
         {
             this.Speed = new GameCoordinate(0.01f, 0.005f);
             this.Location = location;
-            
-            pattern = new NeverEndingPatrol(this, new GameCoordinate(0.2f, 0));// new PatrolAndChill(this, new GameCoordinate(0.5f, 0));
-            pattern.Loop = true;
-        }
 
-        public override void Step()
-        {
-            base.Step();
-
-            var status = pattern.DoAction("SkertSkert");
+            ActionPattern = new NeverEndingPatrol(this, new GameCoordinate(0.2f, 0));
+            ActionPattern.Loop = true;
         }
     }
 
@@ -71,15 +64,8 @@ namespace OpenGLTests.src.Drawables
         {
             this.Location = location;
             this.Speed = new GameCoordinate(0.001f, 0.001f);
-            pattern = new ChaseEntity(this, chasing);
-            pattern.Loop = true;
-        }
-
-        public override void Step()
-        {
-            base.Step();
-
-            var status = pattern.DoAction("ogelibogeli");
+            ActionPattern = new ChaseEntity(this, chasing);
+            ActionPattern.Loop = true;
         }
     }
 }

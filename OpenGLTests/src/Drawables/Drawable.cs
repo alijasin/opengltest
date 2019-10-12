@@ -20,12 +20,7 @@ namespace OpenGLTests.src.Drawables
             
         }
 
-        public virtual void Step()
-        {
-
-        }
-
-        public virtual void CombatStep()
+        public virtual void DrawStep()
         {
 
         }
@@ -56,6 +51,16 @@ namespace OpenGLTests.src.Drawables
                 return this.location;
             }
             set { location = value; }
+        }
+
+        public virtual void CombatStep()
+        {
+
+        }
+
+        public virtual void OutOfCombatStep()
+        {
+
         }
     }
 
