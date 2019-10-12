@@ -4,6 +4,8 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using OpenGLTests.src;
+using OpenGLTests.src.Drawables;
 using OpenGLTests.src.Entities;
 
 namespace OpenGLTests.src.Drawables
@@ -31,6 +33,7 @@ namespace OpenGLTests.src.Drawables
 
             return x * x + y * y < Radius.X * Radius.X; //todo no ellipsis, this is circle
         }
+
 //        public override bool Contains(GameCoordinate point)
 //        {
 //            var x = Math.Abs(point.X - Location.X);
@@ -40,6 +43,26 @@ namespace OpenGLTests.src.Drawables
 //            return clicked.X * clicked.X + clicked.Y * clicked.Y < Radius.X * Radius.X; //todo no ellipsis, this is circle
 //            //return (clicked.X * clicked.X)*(Radius.Y * Radius.Y) + (clicked.Y * clicked.Y)*(Radius.X * Radius.X) <= (Radius.X*Radius.X*Radius.Y*Radius.Y);
 //        }
+    }
+
+    public class FollowCircle : Circle
+    {
+        private Entity following;
+
+        public FollowCircle(GLCoordinate radius, Entity following) : base(radius)
+        {
+            this.following = following;
+        }
+
+
+        public override GameCoordinate Location
+        {
+            get
+            {
+                if (this.following?.Location == null) return new GameCoordinate(0, 0);
+                return this.following.Location;
+            }
+        }
     }
 
     public abstract class RangeShape : Entity
@@ -68,4 +91,5 @@ namespace OpenGLTests.src.Drawables
             };
         }
     }
+
 }

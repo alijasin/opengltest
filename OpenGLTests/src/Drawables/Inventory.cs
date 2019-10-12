@@ -7,33 +7,6 @@ using System.Threading.Tasks;
 
 namespace OpenGLTests.src.Drawables
 {
-    public abstract class Item
-    {
-        public ItemAction Action;
-    }
-
-    public class Nothing : Item
-    {
-
-    }
-
-    public class RedPotion : Item
-    {
-        public RedPotion(Entity owner)
-        {
-            this.Action = new TurnRedAction(owner);
-        }
-    }
-
-    public class GrowingPoition : Item
-    {
-        public GrowingPoition(Entity owner)
-        {
-            this.Action = new GrowAction(owner);
-        }
-    }
-
-
     class InventorySlot : Button
     {
         private Item item;

@@ -11,11 +11,7 @@ namespace OpenGLTests.src
     public class Drawablex
     {
         public List<Drawable> Get => Drawables;
-        public static List<Drawable> Drawables { get; } = new List<Drawable>()
-        {
-            new Memer(),
-            new Fever(),
-        };
+        public static List<Drawable> Drawables { get; } = new List<Drawable>();
 
         public void Add(Drawable d)
         {

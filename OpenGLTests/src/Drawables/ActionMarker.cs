@@ -25,7 +25,7 @@ namespace OpenGLTests.src.Drawables
         public override void Draw(DrawAdapter drawer)
         {
             base.Draw(drawer);
-            markerLine.Draw(drawer);
+            if(markerLine != null) markerLine.Draw(drawer);
         }
 
         public override void Dispose()

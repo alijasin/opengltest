@@ -38,6 +38,7 @@ namespace OpenGLTests.src.Drawables
 
     public abstract class Entity : Drawable
     {
+        public GameAction CurrentlyDoing { get; set; }
         public virtual GameCoordinate Location { get; set; } = new GameCoordinate(0, 0);
         public GameCoordinate Speed { get; set; } = new GameCoordinate(0, 0);
         public override void Draw(DrawAdapter drawer)

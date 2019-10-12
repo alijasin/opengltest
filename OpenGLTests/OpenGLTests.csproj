@@ -54,6 +54,7 @@
     <Compile Include="src\Drawables\ActionMarker.cs" />
     <Compile Include="src\Drawables\Button.cs" />
     <Compile Include="src\Drawables\Hero.cs" />
+    <Compile Include="src\Drawables\Hostiles.cs" />
     <Compile Include="src\Drawables\Inventory.cs" />
     <Compile Include="src\Drawables\Line.cs" />
     <Compile Include="src\Drawables\Rectangle.cs" />
@@ -62,6 +63,7 @@
     <Compile Include="src\GameController.cs" />
     <Compile Include="src\IActor.cs" />
     <Compile Include="src\IInteractable.cs" />
+    <Compile Include="src\Items.cs" />
     <Compile Include="src\Util\Coordinate.cs" />
     <Compile Include="src\Drawables\Circle.cs" />
     <Compile Include="src\Drawables\Drawable.cs" />
@@ -74,6 +76,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="src\Screen.cs" />
     <Compile Include="src\Util\InputUnion.cs" />
+    <Compile Include="src\Util\RNG.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

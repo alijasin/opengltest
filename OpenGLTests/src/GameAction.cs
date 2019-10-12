@@ -64,6 +64,7 @@ namespace OpenGLTests.src
             };
         }
     }
+
     class TeleportAction : CombatAction
     {
         private bool isOnCooldown = false;
@@ -169,6 +170,44 @@ namespace OpenGLTests.src
         }
     }
 
+    class MoveTowardsAction : GameAction
+    {
+        private Entity source;
+        private GameCoordinate point;
+        public MoveTowardsAction(GameCoordinate point, Entity source)
+        {
+            this.source = source;
+            this.point = point;
+            this.Marker = new MoveMarker(point);
+            GameState.Drawables.Add(this.Marker);
+        }
+
+        public override Func<object, bool> GetAction()
+        {
+            return (o) =>
+            {
+                if (source.Location.Distance(point) < source.Speed.X || source.Location.Distance(point) < source.Speed.Y)
+                {
+                    //we are close enough
+                    return true;
+                }
+                else
+                {
+                    var dx = point.X - source.Location.X;
+                    var dy = point.Y - source.Location.Y;
+                    var dist = Math.Sqrt(dx * dx + dy * dy);
+            
+                    var velX = (dx / dist) * source.Speed.X;
+                    var velY = (dy / dist) * source.Speed.Y;
+
+                    source.Location.X += (float)velX;
+                    source.Location.Y += (float) velY;
+                    return false;
+                }
+            };
+        }
+    }
+
     class MoveAction : CombatAction
     {
         private bool isOnCooldown = false;
@@ -189,25 +228,20 @@ namespace OpenGLTests.src
 
                 if (Marker != null)
                 {
-                    if (source.Location.Distance(Marker.Location) < source.Speed.X) return true;
+                    if (source.Location.Distance(Marker.Location) < source.Speed.X || source.Location.Distance(Marker.Location) < source.Speed.Y)
+                    {
+                        //we are close enough
+                        return true;
+                    }
+                    var dx = Marker.Location.X - source.Location.X;
+                    var dy = Marker.Location.Y - source.Location.Y;
+                    var dist = Math.Sqrt(dx * dx + dy * dy);
 
-                    if (source.Location.X < Marker.Location.X)
-                    {
-                        source.Location.X += source.Speed.X;
-                    }
-                    else
-                    {
-                        source.Location.X -= source.Speed.X;
-                    }
+                    var velX = (dx / dist) * source.Speed.X;
+                    var velY = (dy / dist) * source.Speed.Y;
 
-                    if (source.Location.Y < Marker.Location.Y)
-                    {
-                        source.Location.Y += source.Speed.Y;
-                    }
-                    else
-                    {
-                        source.Location.Y -= source.Speed.Y;
-                    }
+                    source.Location.X += (float)velX;
+                    source.Location.Y += (float)velY;
                 }
 
                 if (index < 100) return false; //dont get stuck
