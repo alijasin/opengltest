@@ -45,7 +45,7 @@ namespace OpenGLTests.src
                 var size = GameState.Drawables.Get.Count;
                 List<Drawable> drawables = new List<Drawable>(size);
                 drawables = GameState.Drawables.Get.GetRange(0, size);
-                //Console.WriteLine(size);
+
                 foreach (var drawable in drawables)
                 {
                     drawable.DrawStep(drawer);

@@ -9,14 +9,17 @@ namespace OpenGLTests.src.Drawables
 {
     class InventorySlot : Button
     {
-        private Item item;
+        public Item Item;
         public static GLCoordinate StandardSize = new GLCoordinate(0.1f, 0.1f);
 
         public InventorySlot(Item i)
         {
-            this.item = i;
+            this.Item = i;
             this.Color = Color.Yellow;
             this.Size = StandardSize;
+            this.Animation = new Animation(new SpriteSheet_Items());
+            this.Animation.SetSprite(i.Icon);
+            this.Animation.IsStatic = true;
             OnInteraction = () =>
             {
                 try
@@ -32,7 +35,7 @@ namespace OpenGLTests.src.Drawables
         }
     }
 
-    public class Inventory : Element
+    public class Inventory : Rectangle, IClickable
     {
         private List<InventorySlot> InventorySlots = new List<InventorySlot>();
         private int rows = 4;
@@ -49,16 +52,15 @@ namespace OpenGLTests.src.Drawables
 
         public bool Add(Item i)
         {
-            var count = InventorySlots.Count;
-            if (count < maxSlots)
+            var filledSlots = InventorySlots.Count;
+            if (filledSlots < maxSlots)
             {
                 InventorySlot islot = new InventorySlot(i);
                 islot.Location = new GLCoordinate(this.Location.X - this.Size.X/2 + islot.Size.X/2, this.Location.Y + this.Size.Y/2 - islot.Size.Y/2);
-                int col = (count % columns);
-                int row = (count / rows);
+                int col = (filledSlots % columns);
+                int row = (filledSlots / rows);
                 islot.Location.X += col * islot.Size.X + fodder*(1+col);
                 islot.Location.Y += row * -islot.Size.Y - fodder*(1+row);
-
                 InventorySlots.Add(islot);
                 GameState.Interactables.Add(islot);
                 return true;
@@ -77,7 +79,11 @@ namespace OpenGLTests.src.Drawables
                     islot.DrawStep(drawer);
                 }
             }
-
         }
+
+        public Action<GameCoordinate> OnClick { get; set; } = coordinate =>
+        {
+            
+        };
     }
 }

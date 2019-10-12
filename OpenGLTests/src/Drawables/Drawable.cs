@@ -28,7 +28,7 @@ namespace OpenGLTests.src.Drawables
 
         public virtual void DrawStep(DrawAdapter drawer)
         {
-            drawer.DrawSprite(this, DrawAdapter.DrawMode.Centered);
+
         }
 
         public virtual void Dispose()
@@ -75,7 +75,18 @@ namespace OpenGLTests.src.Drawables
 
         public override void DrawStep(DrawAdapter drawer)
         {
-            if (Visible) drawer.FillRectangle(Color, Location.X, Location.Y, Size.X, Size.Y);
+            if (Visible)
+            {
+                if (Animation == null)
+                {
+                    drawer.FillRectangle(Color, Location.X, Location.Y, Size.X, Size.Y);
+                }
+                else
+                {
+                    drawer.FillRectangle(Color, Location.X, Location.Y, Size.X, Size.Y);
+                    drawer.DrawSprite(this);
+                }
+            }
         }
     }
 }

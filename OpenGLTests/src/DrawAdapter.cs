@@ -29,20 +29,24 @@ namespace OpenGLTests.src
         public void DrawSprite(Drawable drawable, DrawMode drawMode = DrawMode.Centered)
         {
             Sprite sprite = drawable.Animation.GetSprite();
-            GLCoordinate location = drawable.Location.ToGLCoordinate(GameState.ActiveCamera.Location);
+
+            //todo: do this before entering draw
+            GLCoordinate location;
+            if (drawable is Entity) location = drawable.Location.ToGLCoordinate(GameState.ActiveCamera.Location);
+            else
+            {
+                location = ((Element)drawable).Location;
+            }
+
             float left, right, top, bottom;
             switch (drawMode)
             {
                 case DrawMode.Centered:
                     {
-                        //                        left = -drawable.Size.X / 2;
-                        //                        right = drawable.Size.X/ 2;
-                        //                        top = drawable.Size.Y / 2;
-                        //                        bottom = -drawable.Size.Y / 2;
                         left = location.X - drawable.Size.X/2;
                         right = location.X + drawable.Size.X/2;
-                        bottom = (location.Y);
-                        top = (location.Y + drawable.Size.Y) ;
+                        bottom = (location.Y - drawable.Size.Y/2);
+                        top = (location.Y + drawable.Size.Y/2) ;
                     }
                     break;
 

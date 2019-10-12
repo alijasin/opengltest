@@ -150,7 +150,9 @@ namespace OpenGLTests.src
     class SpriteSheet_Items : SpriteSheet
     {
         public SpriteSheet_Items() : base(new Dictionary<SpriteID, int>()
-        {   { SpriteID.item_flask_big_red, 5 },
+        {   { SpriteID.missing, 5 },
+            { SpriteID.item_flask_big_red, 5 },
+            { SpriteID.item_flask_big_green, 5 }
 
         })
         { }
@@ -168,26 +170,4 @@ namespace OpenGLTests.src
         }
     }
 
-    public enum SpriteID
-    {
-        elf_m_idle_anim_f0,
-        elf_m_idle_anim_f1,
-        elf_m_idle_anim_f2,
-        elf_m_idle_anim_f3,
-
-        floor_1,
-        floor_2,
-        floor_3,
-        floor_4,
-        floor_5,
-        floor_6,
-        floor_7,
-        floor_8,
-
-        action_move,
-        action_attack,
-        action_charge,
-
-        item_flask_big_red
-    }
 }

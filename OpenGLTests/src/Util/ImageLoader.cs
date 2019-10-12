@@ -9,6 +9,32 @@ using System.Threading.Tasks;
 
 namespace OpenGLTests.src.Util
 {
+    public enum SpriteID
+    {
+        missing, //needs to be first for it to be default: https://stackoverflow.com/questions/529929/choosing-the-default-value-of-an-enum-type-without-having-to-change-values/529937
+
+        elf_m_idle_anim_f0,
+        elf_m_idle_anim_f1,
+        elf_m_idle_anim_f2,
+        elf_m_idle_anim_f3,
+
+        floor_1,
+        floor_2,
+        floor_3,
+        floor_4,
+        floor_5,
+        floor_6,
+        floor_7,
+        floor_8,
+
+        action_move,
+        action_attack,
+        action_charge,
+
+        item_flask_big_red,
+        item_flask_big_green,
+
+    }
     static class ImageLoader
     {
         private static Dictionary<SpriteID, int> GLIDs = new Dictionary<SpriteID, int>();
@@ -35,6 +61,9 @@ namespace OpenGLTests.src.Util
             Images[SpriteID.action_charge] = new Bitmap(Properties.Resources.action_charge);
 
             Images[SpriteID.item_flask_big_red] = new Bitmap(Properties.Resources.flask_big_red);
+            Images[SpriteID.item_flask_big_green] = new Bitmap(Properties.Resources.flask_big_green);
+
+            Images[SpriteID.missing] = new Bitmap(Properties.Resources.empty);
             //foreach (var image in Enum.GetValues(typeof(SpriteID)).Cast<SpriteID>())
             foreach (var img in Images)
             {

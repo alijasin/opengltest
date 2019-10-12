@@ -60,6 +60,7 @@ namespace OpenGLTests.src.Drawables
             GameState.Drawables.Add(Inventory);
             Inventory.Add(new GrowingPoition(this));
             Inventory.Add(new RedPotion(this));
+
         }
         
         public override void OutOfCombatStep()

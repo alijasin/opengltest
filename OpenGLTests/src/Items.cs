@@ -4,17 +4,22 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using OpenGLTests.src.Drawables;
+using OpenGLTests.src.Util;
 
 namespace OpenGLTests.src
 {
     public abstract class Item
     {
         public ItemAction Action;
+        public SpriteID Icon;
     }
 
     public class Nothing : Item
     {
+        public Nothing(Entity owner)
+        {
 
+        }
     }
 
     public class RedPotion : Item
@@ -22,6 +27,7 @@ namespace OpenGLTests.src
         public RedPotion(Entity owner)
         {
             this.Action = new TurnRedAction(owner);
+            this.Icon = SpriteID.item_flask_big_red;
         }
     }
 
@@ -30,6 +36,7 @@ namespace OpenGLTests.src
         public GrowingPoition(Entity owner)
         {
             this.Action = new GrowAction(owner);
+            this.Icon = SpriteID.item_flask_big_green;
         }
     }
 }
