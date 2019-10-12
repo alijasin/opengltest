@@ -38,10 +38,10 @@ namespace OpenGLTests.src
         public override void Draw(DrawAdapter drawer)
         {
             GL.PushMatrix();
-            //GL.Translate(-GameState.ActiveCamera.Location.X*2/GibbWindow.WIDTH -1, -GameState.ActiveCamera.Location.Y*2/GibbWindow.HEIGHT - 1, 0);
             GL.Translate(-new GameCoordinate(0, 0).X, -new GameCoordinate(0, 0).Y , 0);
-            //GL.Translate(GameState.ActiveCamera.Location.X, -GameState.ActiveCamera.Location.Y, 0);
-            foreach (var drawable in GameState.Drawables.Get)
+            var drawables = GameState.Drawables.Get.ToList();
+
+            foreach (var drawable in drawables)
             {
                 drawable.Draw(drawer);
             }

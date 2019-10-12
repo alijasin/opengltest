@@ -60,6 +60,9 @@ namespace OpenGLTests.src
             };
             Drawables.Add(toggleCombatButton);
 
+            var unicorn = new Unicorn(new GameCoordinate(-0.5f, 0), Hero);
+            Drawables.Add(unicorn);
+
         }
 
         public void Step()

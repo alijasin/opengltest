@@ -23,10 +23,24 @@ namespace OpenGLTests.src
             RenderCallback = renderCallback;
         }
 
+        private int _program;
+        private int _vertexArray;
         protected override void OnLoad(EventArgs e)
         {
             base.OnLoad(e);
-            Console.WriteLine("window loaded");
+            Console.WriteLine("Window loaded");
+            _program = Shader.CompileShaders();
+            GL.GenVertexArrays(1, out _vertexArray);
+            GL.BindVertexArray(_vertexArray);
+            Console.WriteLine("Shaders loaded");
+            Closed += OnClosed;
+        }
+
+        private void OnClosed(object sender, EventArgs e)
+        {
+            GL.DeleteVertexArrays(1, ref _vertexArray);
+            GL.DeleteProgram(_program);
+            base.Exit();
         }
 
         protected override void OnRenderFrame(FrameEventArgs e)

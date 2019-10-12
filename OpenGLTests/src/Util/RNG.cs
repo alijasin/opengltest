@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -64,9 +65,19 @@ namespace OpenGLTests.src.Util
             return r.Next(a, b);
         }
 
-        public static float FloatBetween(float a, float b)
+        public static float BetweenZeroAndOne()
         {
-            return (float)r.NextDouble()%b + a;
+            return (float)r.NextDouble();
+        }
+
+        public static int NegativeOrPositiveOne()
+        {
+            return r.Next() % 2 == 0 ? 1 : -1;
+        }
+
+        public static Color RandomColor()
+        {
+            return Color.FromArgb(255, r.Next(255), r.Next(255), r.Next(255));
         }
     }
 }
