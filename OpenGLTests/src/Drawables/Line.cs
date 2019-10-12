@@ -26,7 +26,7 @@ namespace OpenGLTests.src.Drawables
             this.Color = Color.Green;
         }
 
-        public override void Draw(DrawAdapter drawer)
+        public override void DrawStep(DrawAdapter drawer)
         {
             GLCoordinate GLo = origin.ToGLCoordinate(GameState.ActiveCamera.Location);
             GLCoordinate GLt = terminus.ToGLCoordinate(GameState.ActiveCamera.Location);

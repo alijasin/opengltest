@@ -22,10 +22,10 @@ namespace OpenGLTests.src.Drawables
             GameState.Drawables.Add(ml);
         }
 
-        public override void Draw(DrawAdapter drawer)
+        public override void DrawStep(DrawAdapter drawer)
         {
-            base.Draw(drawer);
-            if(markerLine != null) markerLine.Draw(drawer);
+            base.DrawStep(drawer);
+            if(markerLine != null) markerLine.DrawStep(drawer);
         }
 
         public override void Dispose()
@@ -50,9 +50,9 @@ namespace OpenGLTests.src.Drawables
             this.aoeSize = aoeSize;
         }
 
-        public override void Draw(DrawAdapter drawer)
+        public override void DrawStep(DrawAdapter drawer)
         {
-            base.Draw(drawer);
+            base.DrawStep(drawer);
             GLCoordinate location = Location.ToGLCoordinate(GameState.ActiveCamera.Location);
             drawer.FillCircle(location.X, location.Y, aoeSize, Color.Red);
         }

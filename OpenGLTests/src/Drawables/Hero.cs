@@ -23,6 +23,7 @@ namespace OpenGLTests.src.Drawables
             CombatActionHandler = new CombatActionHandler(this);
             OutOfCombatActionHandler = new OutOfCombatActionHandler();
             this.Speed = new GameCoordinate(0.02f, 0.02f);
+            this.Animation = new Animation(new SpriteSheet_ElfIdle());
 
             initGUI();
         }

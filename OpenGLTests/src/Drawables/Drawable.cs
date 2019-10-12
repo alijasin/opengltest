@@ -13,35 +13,7 @@ namespace OpenGLTests.src.Drawables
         public bool Visible { get; set; } = true;
         public Color Color { get; set; } = Color.Fuchsia;
         public GLCoordinate Size { get; set; } = new GLCoordinate(0.1f, 0.1f);
-        
-
-        public virtual void Draw(DrawAdapter drawer)
-        {
-            
-        }
-
-        public virtual void DrawStep()
-        {
-
-        }
-
-        public virtual void Dispose()
-        {
-
-        }
-    }
-
-    public abstract class Entity : Drawable
-    {
-        public GameAction CurrentlyDoing { get; set; }
-        //public virtual GameCoordinate Location { get; set; } = new GameCoordinate(0, 0);
-        public GameCoordinate Speed { get; set; } = new GameCoordinate(0, 0);
-        public override void Draw(DrawAdapter drawer)
-        {
-            GLCoordinate location = Location.ToGLCoordinate(GameState.ActiveCamera.Location);
-            if (Visible) drawer.FillRectangle(Color, location.X, location.Y, Size.X, Size.Y);
-        }
-
+        public Animation Animation { get; set; }
         private GameCoordinate location;
         public virtual GameCoordinate Location
         {
@@ -51,6 +23,39 @@ namespace OpenGLTests.src.Drawables
                 return this.location;
             }
             set { location = value; }
+        }
+
+
+        public virtual void DrawStep(DrawAdapter drawer)
+        {
+            drawer.DrawSprite(this, DrawAdapter.DrawMode.Centered);
+        }
+
+        public virtual void Dispose()
+        {
+
+        }
+
+    }
+
+    public abstract class Entity : Drawable
+    {
+        public GameCoordinate Speed { get; set; } = new GameCoordinate(0, 0);
+        public override void DrawStep(DrawAdapter drawer)
+        {
+            GLCoordinate location = Location.ToGLCoordinate(GameState.ActiveCamera.Location);
+
+            if (Visible)
+            {
+                if (Animation == null)
+                {
+                    drawer.FillRectangle(Color, location.X, location.Y, Size.X, Size.Y);
+                }
+                else
+                {
+                    drawer.DrawSprite(this);
+                }
+            }
         }
 
         public virtual void CombatStep()
@@ -68,7 +73,7 @@ namespace OpenGLTests.src.Drawables
     {
         public virtual GLCoordinate Location { get; set; } = new GLCoordinate(0, 0);
 
-        public override void Draw(DrawAdapter drawer)
+        public override void DrawStep(DrawAdapter drawer)
         {
             if (Visible) drawer.FillRectangle(Color, Location.X, Location.Y, Size.X, Size.Y);
         }

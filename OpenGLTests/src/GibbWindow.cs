@@ -18,6 +18,8 @@ namespace OpenGLTests.src
         public const int HEIGHT = 720;
         public GibbWindow(Action<DrawAdapter> renderCallback) : base(WIDTH, HEIGHT, new OpenTK.Graphics.GraphicsMode(32, 24, 0, 8))
         {
+            ImageLoader.Init();
+            Console.WriteLine("Images loaded");
             GL.Enable(EnableCap.Blend);
             GL.BlendFunc(BlendingFactor.SrcAlpha, BlendingFactor.OneMinusSrcAlpha);
             RenderCallback = renderCallback;

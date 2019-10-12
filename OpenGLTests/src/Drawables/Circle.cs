@@ -19,7 +19,7 @@ namespace OpenGLTests.src.Drawables
             this.Radius = radius;
         }
 
-        public override void Draw(DrawAdapter drawer)
+        public override void DrawStep(DrawAdapter drawer)
         {
 
             GLCoordinate location = Location.ToGLCoordinate(GameState.ActiveCamera.Location);

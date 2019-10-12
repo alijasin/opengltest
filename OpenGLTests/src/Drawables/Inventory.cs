@@ -67,14 +67,14 @@ namespace OpenGLTests.src.Drawables
             return false;
         }
 
-        public override void Draw(DrawAdapter drawer)
+        public override void DrawStep(DrawAdapter drawer)
         {
             if (Visible)
             {
-                base.Draw(drawer);
+                base.DrawStep(drawer);
                 foreach (var islot in InventorySlots)
                 {
-                    islot.Draw(drawer);
+                    islot.DrawStep(drawer);
                 }
             }
 

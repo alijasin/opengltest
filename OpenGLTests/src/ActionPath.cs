@@ -48,9 +48,9 @@ namespace OpenGLTests.src
             }
         }
 
-        public override void Draw(DrawAdapter drawer)
+        public override void DrawStep(DrawAdapter drawer)
         {
-            line.Draw(drawer);
+            line.DrawStep(drawer);
         }
     }
 

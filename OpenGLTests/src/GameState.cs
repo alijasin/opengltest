@@ -83,7 +83,6 @@ namespace OpenGLTests.src
                 {
                     e.OutOfCombatStep();
                 }
-                e.DrawStep();
             }
             ActiveCamera.Step();
         }

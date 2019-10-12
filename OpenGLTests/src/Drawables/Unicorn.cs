@@ -18,9 +18,9 @@ namespace OpenGLTests.src.Drawables
             ActionPattern.Loop = true;
         }
 
-        public override void DrawStep()
+        public override void DrawStep(DrawAdapter drawer)
         {
-            base.DrawStep();
+            base.DrawStep(drawer);
             pg.GenerateParticles(10, this.Location);
         }
     }

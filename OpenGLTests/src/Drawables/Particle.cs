@@ -20,14 +20,9 @@ namespace OpenGLTests.src.Drawables
             this.Color = RNG.RandomColor();
         }
 
-        public override void Draw(DrawAdapter drawer)
+        public override void DrawStep(DrawAdapter drawer)
         {
-            base.Draw(drawer);
-        }
-
-        public override void DrawStep()
-        {
-            base.DrawStep();
+            base.DrawStep(drawer);
             life -= 1;
             this.Size = new GLCoordinate(this.Size.X / 1.1f, this.Size.Y / 1.1f);
             this.Location += Speed;

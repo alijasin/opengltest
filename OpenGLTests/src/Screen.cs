@@ -48,7 +48,7 @@ namespace OpenGLTests.src
 
                 foreach (var drawable in drawables)
                 {
-                    drawable.Draw(drawer);
+                    drawable.DrawStep(drawer);
                 }
             }
             catch (Exception e)

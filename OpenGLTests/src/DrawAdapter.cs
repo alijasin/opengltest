@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Drawing.Imaging;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using OpenGLTests.src.Drawables;
 using OpenTK.Graphics.OpenGL;
+using PixelFormat = OpenTK.Graphics.OpenGL.PixelFormat;
 
 
 namespace OpenGLTests.src
@@ -24,42 +26,46 @@ namespace OpenGLTests.src
         /// <param name="image">The image to be drawn</param>
         /// <param name="location">The location to draw the image</param>
         /// <param name="rotation">The rotation of the image in degrees</param>
-        /*public void DrawImage(ImageX image, GLCoordinate location, float rotation, DrawMode drawMode)
+        public void DrawSprite(Drawable drawable, DrawMode drawMode = DrawMode.Centered)
         {
-
+            Sprite sprite = drawable.Animation.GetSprite();
+            GLCoordinate location = drawable.Location.ToGLCoordinate(GameState.ActiveCamera.Location);
             float left, right, top, bottom;
             switch (drawMode)
             {
                 case DrawMode.Centered:
                     {
-                        left = -image.Size.Width / 2;
-                        right = image.Size.Width / 2;
-                        top = -image.Size.Height / 2;
-                        bottom = image.Size.Height / 2;
+                        //                        left = -drawable.Size.X / 2;
+                        //                        right = drawable.Size.X/ 2;
+                        //                        top = drawable.Size.Y / 2;
+                        //                        bottom = -drawable.Size.Y / 2;
+                        left = location.X - drawable.Size.X/2;
+                        right = location.X + drawable.Size.X/2;
+                        bottom = (location.Y);
+                        top = (location.Y + drawable.Size.Y) ;
                     }
                     break;
 
                 case DrawMode.TopLeft:
                     {
                         left = 0;
-                        right = image.Size.Width;
+                        right = .2f;//image.Size.Width;
                         top = 0;
-                        bottom = image.Size.Height;
+                        bottom = .2f; //image.Size.Height;
                     }
                     break;
-
-                default:
-                    throw new GameBrokenException("Fallthroughx");
+                default: throw new Exception("dab");
             }
 
-            PushMatrix();
-            Translate(location.X, location.Y);
-            Rotate(rotation);
-
+            GL.PushMatrix();
             GL.Enable(EnableCap.Texture2D);
-            GL.Color4(image.BrushColor);
-            GL.BindTexture(TextureTarget.Texture2D, image.GLTextureId);
+            GL.Enable(EnableCap.Blend);
+
+            GL.Color4(drawable.Color);
+
+            GL.BindTexture(TextureTarget.Texture2D, sprite.GLID);
             GL.Begin(BeginMode.Quads);
+
 
             GL.TexCoord2(0, 0);
             GL.Vertex2(left, top);
@@ -72,12 +78,15 @@ namespace OpenGLTests.src
 
             GL.TexCoord2(1, 0);
             GL.Vertex2(right, top);
+  
 
             GL.End();
             GL.Disable(EnableCap.Texture2D);
+            GL.Disable(EnableCap.Blend);
 
-            PopMatrix();
-        }*/
+            GL.PopMatrix();
+        }
+
 
         /*public void TraceRectangle(Color color, float x, float y, float width, float height)
         {
@@ -154,7 +163,37 @@ namespace OpenGLTests.src
             GL.End();
             GL.PopAttrib();
         }
+        /// <summary>
+        /// Binds an Image in OpenGL 
+        /// </summary>
+        /// <param name="image">The image to be bound to a texture</param>
+        /// <returns>The integer used by OpenGL to identify the created texture</returns>
+        public static int CreateTexture(Image image)
+        {
+            int id = GL.GenTexture();
+            GL.BindTexture(TextureTarget.Texture2D, id);
 
+            Bitmap bmp = new Bitmap(image);
+
+            BitmapData data = bmp.LockBits(
+                new System.Drawing.Rectangle(0, 0, bmp.Width, bmp.Height),
+                ImageLockMode.ReadOnly,
+                System.Drawing.Imaging.PixelFormat.Format32bppArgb);
+
+            GL.TexImage2D(TextureTarget.Texture2D, 0, PixelInternalFormat.Rgba, data.Width, data.Height, 0,
+                PixelFormat.Bgra, PixelType.UnsignedByte, data.Scan0);
+
+            bmp.UnlockBits(data);
+
+            GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureWrapS, (int)TextureWrapMode.ClampToEdge);
+            GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureWrapT, (int)TextureWrapMode.ClampToEdge);
+
+            GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMagFilter, (int)TextureMagFilter.Linear);
+            GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMinFilter, (int)TextureMinFilter.Linear);
+
+
+            return id;
+        }
         /*
         public void FillRectangle(Color cb, GLCoordinate topLeft, GLCoordinate bottomRight)
         {

@@ -38,10 +38,10 @@ namespace OpenGLTests.src.Drawables
             ActionPattern.Loop = true;
         }
 
-        public override void Draw(DrawAdapter drawer)
+        public override void DrawStep(DrawAdapter drawer)
         {
-            base.Draw(drawer);
-            AggroShape.Draw(drawer);
+            base.DrawStep(drawer);
+            AggroShape.DrawStep(drawer);
         }
     }
 
@@ -59,7 +59,6 @@ namespace OpenGLTests.src.Drawables
 
     class ChasingPerson : Hostile
     {
-        private ActionPattern pattern;
         public ChasingPerson(GameCoordinate location, Entity chasing)
         {
             this.Location = location;
