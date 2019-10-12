@@ -41,5 +41,16 @@ namespace OpenGLTests.src.Util
 
             return new GameCoordinate((float) (re * (float)Math.Cos(theta)), (float) (re * (float)Math.Sin(theta)));
         }
+        /// <summary>
+        /// Think this should return true if x out of y times.
+        /// For example x = 5, y = 100. This would return true 5 in 100 times.
+        /// </summary>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        /// <returns></returns>
+        public static bool XTimesInY(int x, int y)
+        {
+            return r.Next() % y < x;
+        }
     }
 }

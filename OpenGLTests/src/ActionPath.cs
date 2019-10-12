@@ -121,10 +121,11 @@ namespace OpenGLTests.src
     {
         private GameAction activeAction { get; set; }
         private GameAction previousActiveAction { get; set; }
-        private ActionBar actionBar { get; set; }
         private List<GameAction> availableActions = new List<GameAction>();
         public PlacedActions PlacedActions = new PlacedActions();
+
         private IActor owner;
+
         public ActionHandler(IActor owner)
         {
             this.owner = owner;

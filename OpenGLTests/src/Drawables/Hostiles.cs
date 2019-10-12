@@ -19,11 +19,13 @@ namespace OpenGLTests.src.Drawables
 
     class AngryDude : Hostile
     {
+        private ActionPattern pattern;
         public AngryDude()
         {
             this.AggroShape = new FollowCircle(new GLCoordinate(0.3f, 0.3f), this);
             this.AggroShape.Visible = true;
             this.Speed = new GameCoordinate(0.01f, 0.01f);
+            pattern = new MoveAroundAndChill(this);
         }
 
         public override void Draw(DrawAdapter drawer)
@@ -35,7 +37,17 @@ namespace OpenGLTests.src.Drawables
         public override void Step()
         {
             base.Step();
-            if (CurrentlyDoing != null)
+
+            if (pattern.Actions.First().GetAction().Invoke("skrt"))
+            {
+                pattern.Actions.Remove(pattern.Actions.First());
+            }
+
+            if (pattern.Actions.Count == 0)
+            {
+                pattern = new MoveAroundAndChill(this);
+            }
+            /*if (CurrentlyDoing != null)
             {
                 var donedidely = CurrentlyDoing.GetAction().Invoke("skobidobido");
                 if (donedidely)
@@ -46,7 +58,7 @@ namespace OpenGLTests.src.Drawables
             else
             {
                 CurrentlyDoing = new MoveTowardsAction(new GameCoordinate(-0.4f, 0.4f), this);
-            }
+            }*/
         }
     }
 }

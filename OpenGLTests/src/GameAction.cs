@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using OpenGLTests.src.Drawables;
+using OpenGLTests.src.Util;
 
 namespace OpenGLTests.src
 {
@@ -204,6 +205,18 @@ namespace OpenGLTests.src
                     source.Location.Y += (float) velY;
                     return false;
                 }
+            };
+        }
+    }
+
+    class ChillAction : GameAction
+    {
+        public override Func<object, bool> GetAction()
+        {
+            return (o) =>
+            {
+                if (RNG.XTimesInY(2, 100)) return true;
+                else return false;
             };
         }
     }
