@@ -52,5 +52,21 @@ namespace OpenGLTests.src.Util
         {
             return r.Next() % y < x;
         }
+
+        /// <summary>
+        /// Returns an integer between a and b
+        /// </summary>
+        /// <param name="a">min</param>
+        /// <param name="b">max</param>
+        /// <returns> a <= n < b </returns>
+        public static int IntegerBetween(int a, int b)
+        {
+            return r.Next(a, b);
+        }
+
+        public static float FloatBetween(float a, float b)
+        {
+            return (float)r.NextDouble()%b + a;
+        }
     }
 }

@@ -66,8 +66,10 @@ namespace OpenGLTests.src.Drawables
 
         public override void Step()
         {
+            //check if hero is in combat mode
             if (CombatMode)
             {
+                //check that actions aren't being placed
                 if (ExecutingActions)
                 {
                     CombatStep();

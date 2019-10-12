@@ -98,7 +98,6 @@ namespace OpenGLTests.src
             x = x - width / 2;
             y = y - height / 2;
 
-
             GL.Color4(c);
             
             GL.Begin(PrimitiveType.Quads);
