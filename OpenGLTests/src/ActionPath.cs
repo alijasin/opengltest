@@ -227,12 +227,7 @@ namespace OpenGLTests.src
             GameState.Drawables.Add(activeAction.RangeShape);
         }
 
-        public enum ActionReturns
-        {
-            Finished,
-            AllFinished,
-            Ongoing
-        }
+
         public ActionReturns TickPlacedActions(int index)
         {
             //get first action that has not been executed. if this action is null all actions have been executed.

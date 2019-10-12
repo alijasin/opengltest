@@ -39,12 +39,23 @@ namespace OpenGLTests.src.Drawables
     public abstract class Entity : Drawable
     {
         public GameAction CurrentlyDoing { get; set; }
-        public virtual GameCoordinate Location { get; set; } = new GameCoordinate(0, 0);
+        //public virtual GameCoordinate Location { get; set; } = new GameCoordinate(0, 0);
         public GameCoordinate Speed { get; set; } = new GameCoordinate(0, 0);
         public override void Draw(DrawAdapter drawer)
         {
             GLCoordinate location = Location.ToGLCoordinate(GameState.ActiveCamera.Location);
             if (Visible) drawer.FillRectangle(Color, location.X, location.Y, Size.X, Size.Y);
+        }
+
+        private GameCoordinate location;
+        public virtual GameCoordinate Location
+        {
+            get
+            {
+                if (this.location == null) return new GameCoordinate(0, 0);
+                return this.location;
+            }
+            set { location = value; }
         }
     }
 

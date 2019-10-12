@@ -74,17 +74,17 @@ namespace OpenGLTests.src.Drawables
         public override void CombatStep()
         {
             base.CombatStep();
-            ActionHandler.ActionReturns res = ActionHandler.TickPlacedActions(index);
-            if (res == ActionHandler.ActionReturns.AllFinished)
+            ActionReturns res = ActionHandler.TickPlacedActions(index);
+            if (res == ActionReturns.AllFinished)
             {
                 index = 0;
                 ExecutingActions = false;
             }
-            else if (res == ActionHandler.ActionReturns.Ongoing)
+            else if (res == ActionReturns.Ongoing)
             {
                 index++;
             }
-            else if(res == ActionHandler.ActionReturns.Finished)
+            else if(res == ActionReturns.Finished)
             {
                 index = 0;
             }

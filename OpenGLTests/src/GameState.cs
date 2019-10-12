@@ -25,6 +25,9 @@ namespace OpenGLTests.src
             angerdude.Location = new GameCoordinate(0.2f, 0.5f);
             Drawables.Add(angerdude);
 
+            var patroldude = new PatrolGuy(new GameCoordinate(-0.6f, -0.4f));
+            Drawables.Add(patroldude);
+
             var followCamera = new FollowCamera(Hero);
             var staticCamera = new StaticCamera(Hero.Location);
             ActiveCamera = staticCamera;

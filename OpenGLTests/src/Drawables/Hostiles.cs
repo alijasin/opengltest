@@ -26,6 +26,7 @@ namespace OpenGLTests.src.Drawables
             this.AggroShape.Visible = true;
             this.Speed = new GameCoordinate(0.01f, 0.01f);
             pattern = new MoveAroundAndChill(this);
+            pattern.Loop = true;
         }
 
         public override void Draw(DrawAdapter drawer)
@@ -38,27 +39,28 @@ namespace OpenGLTests.src.Drawables
         {
             base.Step();
 
-            if (pattern.Actions.First().GetAction().Invoke("skrt"))
-            {
-                pattern.Actions.Remove(pattern.Actions.First());
-            }
+            var status = pattern.DoAction("SkertSkert");
+        }
+    }
 
-            if (pattern.Actions.Count == 0)
-            {
-                pattern = new MoveAroundAndChill(this);
-            }
-            /*if (CurrentlyDoing != null)
-            {
-                var donedidely = CurrentlyDoing.GetAction().Invoke("skobidobido");
-                if (donedidely)
-                {
-                    CurrentlyDoing = new MoveTowardsAction(RNG.RandomPointWithinCircle(new GLCoordinate(0.5f, 0.5f)), this);
-                }
-            }
-            else
-            {
-                CurrentlyDoing = new MoveTowardsAction(new GameCoordinate(-0.4f, 0.4f), this);
-            }*/
+    class PatrolGuy : Hostile
+    {
+        private ActionPattern pattern;
+
+        public PatrolGuy(GameCoordinate location)
+        {
+            this.Speed = new GameCoordinate(0.01f, 0.005f);
+            this.Location = location;
+            
+            pattern = new NeverEndingPatrol(this, new GameCoordinate(0.2f, 0));// new PatrolAndChill(this, new GameCoordinate(0.5f, 0));
+            pattern.Loop = true;
+        }
+
+        public override void Step()
+        {
+            base.Step();
+
+            var status = pattern.DoAction("SkertSkert");
         }
     }
 }

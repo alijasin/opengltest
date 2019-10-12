@@ -9,6 +9,13 @@ using OpenGLTests.src.Util;
 
 namespace OpenGLTests.src
 {
+    public enum ActionReturns
+    {
+        Finished,
+        AllFinished,
+        Ongoing
+    }
+
     public abstract class GameAction
     {
         public RangeShape RangeShape { get; set; }
@@ -180,7 +187,7 @@ namespace OpenGLTests.src
             this.source = source;
             this.point = point;
             this.Marker = new MoveMarker(point);
-            GameState.Drawables.Add(this.Marker);
+            //GameState.Drawables.Add(this.Marker);
         }
 
         public override Func<object, bool> GetAction()
@@ -217,6 +224,38 @@ namespace OpenGLTests.src
             {
                 if (RNG.XTimesInY(2, 100)) return true;
                 else return false;
+            };
+        }
+    }
+
+    class NeverEndingPatrolAction : GameAction
+    {
+        private MoveTowardsAction mtOrigin;
+        private MoveTowardsAction mtTerminus;
+        private MoveTowardsAction prevMoveTowardsAction;
+        private MoveTowardsAction currentMoveTowards;
+        //patrol between entity location and entity relative to point
+        public NeverEndingPatrolAction(Entity e, GameCoordinate point)
+        {
+            mtOrigin = new MoveTowardsAction(e.Location + point, e);
+            mtTerminus = new MoveTowardsAction(e.Location - new GameCoordinate(point.X * 2, point.Y * 2), e);
+            currentMoveTowards = mtOrigin;
+            prevMoveTowardsAction = mtTerminus;
+        }
+
+
+        public override Func<object, bool> GetAction()
+        {
+            return (o) =>
+            {
+                bool res = currentMoveTowards.GetAction().Invoke(o);
+                if (res == true)
+                {
+                    var temp = currentMoveTowards;
+                    currentMoveTowards = prevMoveTowardsAction;
+                    prevMoveTowardsAction = temp;
+                }
+                return false;
             };
         }
     }
