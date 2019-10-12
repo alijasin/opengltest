@@ -33,10 +33,9 @@ namespace OpenGLTests.src
 
             var followCamera = new FollowCamera(Hero);
             var staticCamera = new MovableCamera(Hero.Location);
-            var shakingCamera = new ShakingCamera(Hero);
 
-            //ActiveCamera = staticCamera;
-            ActiveCamera = shakingCamera;
+            ActiveCamera = staticCamera;
+
             Button testbutton = new Button();
             testbutton.Location = new GLCoordinate(-1, 1);
             testbutton.OnInteraction = () =>

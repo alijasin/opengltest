@@ -11,14 +11,25 @@ namespace OpenGLTests.src.Drawables
     {
         public GameAction GameAction;
         public static GLCoordinate StandardSize = new GLCoordinate(0.1f, 0.1f);
-        public ActionButton(GameAction ga)
+        public ActionButton(GameAction ga, ActionBar inBar)
         {
             this.Size = StandardSize;
             GameAction = ga;
             OnInteraction += () =>
             {
-                
+                inBar.SetActiveButton(this);
             };
+            DeActivate();
+        }
+
+        public void DeActivate()
+        {
+            this.Color = Color.Orange;
+        }
+
+        public void Activate()
+        {
+            this.Color = Color.Red;
         }
     }
 
@@ -46,7 +57,7 @@ namespace OpenGLTests.src.Drawables
         /// <param name="ab"></param>
         public void Add(GameAction a)
         {
-            var actionButton = new ActionButton(a);
+            var actionButton = new ActionButton(a, this);
             if (Add(actionButton))
             {
                 Owner.CombatActionHandler.AddNewAvailableAction(a);
@@ -62,12 +73,22 @@ namespace OpenGLTests.src.Drawables
                     Owner.CombatActionHandler.SetActiveAction(ab.GameAction);
                 };
                 ab.Location = new GLCoordinate(fodder * (FilledActionSlots+1) + this.Location.X - this.Size.X/2 + FilledActionSlots * ab.Size.X + ab.Size.X/2, this.Location.Y + ab.Size.Y /2 + fodder);
+                actionButtons.Add(ab);
                 GameState.Drawables.Add(ab);
                 FilledActionSlots += 1;
                 return true;
             }
 
             return false;
+        }
+
+        public void SetActiveButton(ActionButton button)
+        {
+            foreach (var ab in actionButtons.Where(but => but != button))
+            {
+                ab.DeActivate();
+            }
+            button.Activate();
         }
     }
     
