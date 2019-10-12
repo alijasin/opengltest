@@ -44,7 +44,16 @@ namespace OpenGLTests.src.Drawables
         /// Else does nothing.
         /// </summary>
         /// <param name="ab"></param>
-        public void Add(ActionButton ab)
+        public void Add(GameAction a)
+        {
+            var actionButton = new ActionButton(a);
+            if (Add(actionButton))
+            {
+                Owner.ActionHandler.AddNewAvailableAction(a);
+            }
+        }
+
+        private bool Add(ActionButton ab)
         {
             if (FilledActionSlots < MaxActionSlots)
             {
@@ -55,7 +64,10 @@ namespace OpenGLTests.src.Drawables
                 ab.Location = new GLCoordinate(fodder * (FilledActionSlots+1) + this.Location.X - this.Size.X/2 + FilledActionSlots * ab.Size.X + ab.Size.X/2, this.Location.Y + ab.Size.Y /2 + fodder);
                 GameState.Drawables.Add(ab);
                 FilledActionSlots += 1;
+                return true;
             }
+
+            return false;
         }
     }
     

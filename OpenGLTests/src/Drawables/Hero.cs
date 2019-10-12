@@ -24,29 +24,27 @@ namespace OpenGLTests.src.Drawables
             this.Speed = new GameCoordinate(0.02f, 0.02f);
 
             initGUI();
-
-            
         }
 
         private void initGUI()
         {
+            var actionBar = new ActionBar(this);
+            GameState.Drawables.Add(actionBar);
             MoveAction ma = new MoveAction(new GLCoordinate(0.3f, 0.3f), this);
-            ActionHandler.AddNewAvailableAction(ma);
-
+            actionBar.Add(ma);
 
             LambdaAction la = new LambdaAction((o) =>
             {
-                Console.Write(o);
                 Console.WriteLine("big boi");
                 return true;
             });
-            ActionHandler.AddNewAvailableAction(la);
+            actionBar.Add(la);
 
             TeleportAction ca = new TeleportAction(new GLCoordinate(0.5f, 0.5f), this);
-            ActionHandler.AddNewAvailableAction(ca);
+            actionBar.Add(ca);
 
             AOEEffectAction aoe = new AOEEffectAction(new GLCoordinate(0.6f, 0.6f),new GLCoordinate(0.2f, 0.2f));
-            ActionHandler.AddNewAvailableAction(aoe);
+            actionBar.Add(aoe);
 
             Button b = new Button();
             b.Location = new GLCoordinate(1, 1);

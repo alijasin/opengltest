@@ -128,8 +128,7 @@ namespace OpenGLTests.src
         public ActionHandler(IActor owner)
         {
             this.owner = owner;
-            actionBar = new ActionBar(owner);
-            GameState.Drawables.Add(actionBar);
+
         }
 
         /// <summary>
@@ -156,15 +155,12 @@ namespace OpenGLTests.src
             }*/
         }
         /// <summary>
-        /// Add a new game action to the owners available actions. Adds a new action button to the action bar for this action.
+        /// Add a new game action to the owners available actions.
         /// </summary>
         /// <param name="a"></param>
         public void AddNewAvailableAction(GameAction a)
         {
             availableActions.Add(a);
-
-            var actionButton = new ActionButton(a);
-            actionBar.Add(actionButton);
         }
         /// <summary>
         /// Returns the active action. If no action has been set to active: set the first available action to active and return it.
