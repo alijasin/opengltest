@@ -178,6 +178,45 @@ namespace OpenGLTests.src
         }
     }
 
+    class MoveTowardsEntityAction : GameAction
+    {
+        private Entity source;
+
+        public MoveTowardsEntityAction(Entity source)
+        {
+            this.source = source;
+        }
+        
+        public override Func<object, bool> GetAction()
+        {
+            return (o) =>
+            {
+                Func<GameCoordinate> currentLocationMethod = (Func<GameCoordinate>) o;
+                GameCoordinate point = currentLocationMethod.Invoke();
+
+                //todo refactor this to outside helper function
+                if (source.Location.Distance(point) < source.Speed.X || source.Location.Distance(point) < source.Speed.Y)
+                {
+                    //we are close enough
+                    return true;
+                }
+                else
+                {
+                    var dx = point.X - source.Location.X;
+                    var dy = point.Y - source.Location.Y;
+                    var dist = Math.Sqrt(dx * dx + dy * dy);
+
+                    var velX = (dx / dist) * source.Speed.X;
+                    var velY = (dy / dist) * source.Speed.Y;
+
+                    source.Location.X += (float)velX;
+                    source.Location.Y += (float)velY;
+                    return false;
+                }
+            };
+        }
+    }
+
     class MoveTowardsAction : GameAction
     {
         private Entity source;

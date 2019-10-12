@@ -21,12 +21,16 @@ namespace OpenGLTests.src
         {
             Hero = new Hero();
             Drawables.Add(Hero);
+
             var angerdude = new AngryDude();
             angerdude.Location = new GameCoordinate(0.2f, 0.5f);
             Drawables.Add(angerdude);
 
             var patroldude = new PatrolGuy(new GameCoordinate(-0.6f, -0.4f));
             Drawables.Add(patroldude);
+
+            var chasingdude = new ChasingPerson(new GameCoordinate(0.5f, 0), Hero);
+            Drawables.Add(chasingdude);
 
             var followCamera = new FollowCamera(Hero);
             var staticCamera = new StaticCamera(Hero.Location);

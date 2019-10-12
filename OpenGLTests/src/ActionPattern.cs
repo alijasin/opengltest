@@ -40,6 +40,38 @@ namespace OpenGLTests.src
         }
     }
 
+    class ChaseEntity : ActionPattern
+    {
+        private Entity source;
+        private object argument;
+
+        public ChaseEntity(Entity source, Entity chasing)
+        {
+            this.source = source;
+
+            argument = (Func<GameCoordinate>)(() =>
+            {
+                return chasing.Location;
+            });
+
+            InitPattern();
+        }
+
+        public override void InitPattern()
+        {
+            Actions = new List<GameAction>()
+            {
+                new MoveTowardsEntityAction(source)
+
+            };
+        }
+
+        public override ActionReturns DoAction(object arg)
+        {
+            return base.DoAction(argument);
+        }
+    }
+
     class MoveAroundAndChill : ActionPattern
     {
         private Entity source;

@@ -63,4 +63,23 @@ namespace OpenGLTests.src.Drawables
             var status = pattern.DoAction("SkertSkert");
         }
     }
+
+    class ChasingPerson : Hostile
+    {
+        private ActionPattern pattern;
+        public ChasingPerson(GameCoordinate location, Entity chasing)
+        {
+            this.Location = location;
+            this.Speed = new GameCoordinate(0.001f, 0.001f);
+            pattern = new ChaseEntity(this, chasing);
+            pattern.Loop = true;
+        }
+
+        public override void Step()
+        {
+            base.Step();
+
+            var status = pattern.DoAction("ogelibogeli");
+        }
+    }
 }
