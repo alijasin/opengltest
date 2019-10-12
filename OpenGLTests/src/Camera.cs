@@ -64,7 +64,7 @@ namespace OpenGLTests.src
     {
         public MovableCamera(GameCoordinate origin)
         {
-            //Location = origin;
+            Location = origin;
         }
 
         public override void Step()
