@@ -277,6 +277,15 @@ namespace OpenGLTests.src
             }
         }
 
+        /// <summary>
+        /// If no active action has been set(for instance, if no item in the inventory has been clicked) then the default is to move to the clicked location.
+        /// Else the active action is checked if it can be placed where it was clicked(for instance within range).
+        ///     if the click is within range the active action is placed in queue.
+        ///     else tries to move towards the clicked point.
+        ///
+        /// Todo: Refactor this so that it makes sense without a novel to explain the function.
+        /// </summary>
+        /// <param name="pos"></param>
         public void Placed(GameCoordinate pos)
         {
             if (activeAction == null)
@@ -291,13 +300,14 @@ namespace OpenGLTests.src
                     var placeableGameAction = (IPlaceable) activeAction;
                     if (placeableGameAction.Placed(pos))
                     {
-                        activeAction = null;
+                        EnqueueAction(activeAction);
                     }
                     else
                     {
                         GameAction action = new MoveTowardsAction(pos, (Entity)owner);
                         EnqueueAction(action);
                     }
+                    activeAction = null;
                 }
             }
         }

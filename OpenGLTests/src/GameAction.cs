@@ -54,7 +54,12 @@ namespace OpenGLTests.src
 
         public override Func<object, bool> GetAction()
         {
-            return (o) => { return true; };
+            return (o) =>
+            {
+                Console.WriteLine("Tossed " + (int)o);
+                if ((int)o > 10) return true;
+                return false;
+            };
         }
 
         public void Clicked()
