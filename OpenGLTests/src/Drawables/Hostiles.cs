@@ -7,11 +7,6 @@ using OpenGLTests.src.Util;
 
 namespace OpenGLTests.src.Drawables
 {
-    interface IAggro : ICombatable
-    {
-        RangeShape AggroShape { get; set; }
-    }
-
     public interface ICombatable
     {
         bool InCombat { get; set; }
@@ -20,6 +15,11 @@ namespace OpenGLTests.src.Drawables
 
         void OutOfCombatStep();
 
+    }
+
+    interface IAggro : ICombatable
+    {
+        RangeShape AggroShape { get; set; }
     }
 
     abstract class Hostile : Entity, IAggro
@@ -35,7 +35,6 @@ namespace OpenGLTests.src.Drawables
 
         public void OutOfCombatStep()
         {
-
             if (ActionPattern != null)
             {
                 var status = ActionPattern.DoAction("SkertSkert");

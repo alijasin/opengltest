@@ -11,8 +11,9 @@ namespace OpenGLTests.src
 {
     public class DrawableRepository
     {
-        public List<Drawable> GetAllDrawables => Drawables;
-        public List<Hero> GetAllHeroes => Drawables.Where(E => E is Hero).Cast<Hero>().ToList();
+        private static List<Drawable> drawableRepo { get; } = new List<Drawable>();
+        public List<Drawable> GetAllDrawables => drawableRepo;
+        public List<Hero> GetAllHeroes => drawableRepo.Where(E => E is Hero).Cast<Hero>().ToList();
         public List<ICombatable> GetAllCombatables 
         {
             
@@ -20,10 +21,11 @@ namespace OpenGLTests.src
             {
                 try
                 {
-                    return Drawables.Where(E => E is ICombatable).Cast<ICombatable>().ToList();
-                    /*var size = Drawables.Count(E => E is ICombatable);
+                    var xd = drawableRepo.Where(E => E is ICombatable).Cast<ICombatable>().ToList();
+                    return xd;
+                    /*var size = drawableRepo.Count(E => E is ICombatable);
                     List<ICombatable> combtables = new List<ICombatable>(size);
-                    return Drawables.Where(E => E is ICombatable).Cast<ICombatable>().Take(size).ToList();*/
+                    return drawableRepo.Where(E => E is ICombatable).Cast<ICombatable>().Take(size).ToList();*/
                 }
                 catch (Exception e)
                 {
@@ -32,17 +34,16 @@ namespace OpenGLTests.src
             }
         }
 
-        public static List<Drawable> Drawables { get; } = new List<Drawable>();
 
         public void Add(Drawable d)
         {
-            Drawables.Add(d);
+            drawableRepo.Add(d);
         }
 
         public void Remove(Drawable d)
         {
             d.Dispose();
-            Drawables.Remove(d);
+            drawableRepo.Remove(d);
         }
     }
 }

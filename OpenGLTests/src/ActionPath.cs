@@ -268,6 +268,7 @@ namespace OpenGLTests.src
 
         public ActionReturns TickGameAction(int index)
         {
+            if (commitedActions.Count <= 0) return ActionReturns.AllFinished;
             //get first action that has not been executed. if this action is null all actions have been executed.
             var firstAction = commitedActions.First();
             if (firstAction == null) return ActionReturns.AllFinished;

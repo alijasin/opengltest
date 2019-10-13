@@ -62,16 +62,16 @@ namespace OpenGLTests.src
 
         public void Step()
         {
-            var entities = Drawables.GetAllCombatables;
-            foreach (var e in entities)
+            var combatables = Drawables.GetAllCombatables;
+            foreach (var combatable in combatables)
             {
-                if (e.InCombat)
+                if (combatable.InCombat)
                 {
-                    e.CombatStep();
+                    combatable.CombatStep();
                 }
                 else
                 {
-                    e.OutOfCombatStep();
+                    combatable.OutOfCombatStep();
                 }
             }
             ActiveCamera.Step();
