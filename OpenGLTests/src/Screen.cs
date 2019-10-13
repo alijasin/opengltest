@@ -151,8 +151,8 @@ namespace OpenGLTests.src
                 },
                 input =>
                 {
-                    GameCoordinate clicked = new GameCoordinate(input.MouseButtonArgs.X, input.MouseButtonArgs.Y);
-                    var xd = CoordinateFuckery.ClickToGLRelativeToCamera(clicked, new GameCoordinate(0, 0));
+                    GameCoordinate placed = new GameCoordinate(input.MouseButtonArgs.X, input.MouseButtonArgs.Y);
+                    var xd = CoordinateFuckery.ClickToGLRelativeToCamera(placed, new GameCoordinate(0, 0));
                     var rs = Game.Hero.CombatActionHandler.GetActiveRangeShape();
 
                     if (GameState.Combat)
@@ -168,7 +168,8 @@ namespace OpenGLTests.src
                     }
                     else
                     {
-                        Game.Hero.OutOfCombatActionHandler.EnqueueAction(new MoveTowardsAction(xd, Game.Hero));
+                        Game.Hero.OutOfCombatActionHandler.Placed(xd);
+                        //Game.Hero.OutOfCombatActionHandler.EnqueueAction(new MoveTowardsAction(xd, Game.Hero));
                     }
                 }
             ));

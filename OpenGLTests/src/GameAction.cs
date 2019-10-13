@@ -9,6 +9,12 @@ using OpenGLTests.src.Util;
 
 namespace OpenGLTests.src
 {
+    public interface IPlaceable
+    {
+        void Clicked();
+        bool Placed(GameCoordinate location);
+    }
+    
     public enum ActionReturns
     {
         Finished,
@@ -36,17 +42,38 @@ namespace OpenGLTests.src
 
     }
 
-    class TossItemAction : ItemAction
+    class TossItemAction : ItemAction, IPlaceable
     {
-        GameAction chill = new ChillAction();
         public TossItemAction(Entity source, Item i)
         {
-
+            RangeShape = new FollowCircle(new GLCoordinate(0.5f, 0.5f), source);
+            RangeShape.Visible = false;
+            GameState.Drawables.Add(RangeShape);
         }
+
 
         public override Func<object, bool> GetAction()
         {
-            return (o) => { return chill.GetAction().Invoke(null); };
+            return (o) => { return true; };
+        }
+
+        public void Clicked()
+        {
+            RangeShape.Visible = true;
+            Console.WriteLine(this + " was clicked.");
+        }
+
+
+        public bool Placed(GameCoordinate location)
+        {
+            if (RangeShape.Contains(location))
+            {
+                Console.WriteLine(this + " was placed at " + location);
+                return true;
+            }
+
+            return false;
+
         }
     }
 

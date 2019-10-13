@@ -255,20 +255,77 @@ namespace OpenGLTests.src
 
     public class OutOfCombatActionHandler
     {
-        private List<GameAction> commitedActions = new List<GameAction>();
-        private GameAction currentAction;
-        public bool ExecutingOutOfCombatAction => currentAction == null;
+        private LinkedList<GameAction> commitedActions;
+        private GameAction activeAction;
+        private Type defaultGameActionType = typeof(MoveTowardsAction);
+
+        private IActor owner;
+
+        public OutOfCombatActionHandler(IActor owner)
+        {
+            this.owner = owner;
+            commitedActions = new LinkedList<GameAction>();
+        }
+
+        public void Clicked(GameAction action)
+        {
+            if (action is IPlaceable)
+            {
+                activeAction = action;
+                var placeableGameAction = (IPlaceable)activeAction;
+                placeableGameAction.Clicked();
+            }
+        }
+
+        public void Placed(GameCoordinate pos)
+        {
+            if (activeAction == null)
+            {
+                GameAction action = new MoveTowardsAction(pos, (Entity) owner);
+                EnqueueAction(action);
+            }
+            else
+            {
+                if (activeAction is IPlaceable)
+                {
+                    var placeableGameAction = (IPlaceable) activeAction;
+                    if (placeableGameAction.Placed(pos))
+                    {
+                        activeAction = null;
+                    }
+                    else
+                    {
+                        GameAction action = new MoveTowardsAction(pos, (Entity)owner);
+                        EnqueueAction(action);
+                    }
+                }
+            }
+        }
 
         public void EnqueueAction(GameAction action)
         {
-            commitedActions.RemoveAll(gameAction => gameAction.GetType() == action.GetType());
+            var node = commitedActions.First;
+            while (node != null)
+            {
+                if (node.Value.GetType() == defaultGameActionType)
+                {
+                    commitedActions.Remove(node);
+                }
 
-            commitedActions.Add(action);
+                node = node.Next;
+            }
+
+            commitedActions.AddFirst(action);
+        }
+
+        public void SetActiveAction(GameAction action)
+        {
+            this.activeAction = action;
         }
 
         public ActionReturns TickGameAction(int index)
         {
-            if (commitedActions.Count <= 0) return ActionReturns.AllFinished;
+            if (commitedActions.Count == 0) return ActionReturns.AllFinished;
             //get first action that has not been executed. if this action is null all actions have been executed.
             var firstAction = commitedActions.First();
             if (firstAction == null) return ActionReturns.AllFinished;
@@ -277,7 +334,7 @@ namespace OpenGLTests.src
             bool actionFinished = firstAction.GetAction().Invoke(index);
             if (actionFinished)
             {
-                commitedActions.RemoveAt(0);
+                commitedActions.RemoveFirst();
                 return ActionReturns.Finished;
             }
 

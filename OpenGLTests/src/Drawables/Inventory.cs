@@ -22,15 +22,13 @@ namespace OpenGLTests.src.Drawables
             this.Animation.IsStatic = true;
             OnInteraction = () =>
             {
-                //try
+                try
                 {
-                    inventory.Owner.OutOfCombatActionHandler.EnqueueAction(i.Action);
-                    //i.Action.GetAction().Invoke("ogelibogeli do some cool actioni");
-                    Console.WriteLine("Set current out of game action to: " + i.Action);
+                    inventory.Owner.OutOfCombatActionHandler.Clicked(i.Action);
                 }
-                //catch (Exception e)
+                catch (Exception e)
                 {
-                    //Console.WriteLine("Tried using an item withuot an action " + e);
+                    Console.WriteLine("Tried using an item without an action or something like that: " + e);
                 }
             };
         }

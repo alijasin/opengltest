@@ -22,7 +22,7 @@ namespace OpenGLTests.src.Drawables
             this.Location = new GameCoordinate(0f, 0f);
             this.Size = new GLCoordinate(0.1f, 0.1f);
             CombatActionHandler = new CombatActionHandler(this);
-            OutOfCombatActionHandler = new OutOfCombatActionHandler();
+            OutOfCombatActionHandler = new OutOfCombatActionHandler(this);
             this.Speed = new GameCoordinate(0.02f, 0.02f);
             this.Animation = new Animation(new SpriteSheet_ElfIdle());
 
@@ -70,7 +70,7 @@ namespace OpenGLTests.src.Drawables
         private static int outOfCombatIndex = 0;
         public void OutOfCombatStep()
         {
-            if (!OutOfCombatActionHandler.ExecutingOutOfCombatAction) return; //if you decide later than you want to get rid of action confirmation dont do this check.
+            
 
             ActionReturns res = OutOfCombatActionHandler.TickGameAction(outOfCombatIndex);
             if (res == ActionReturns.AllFinished)
