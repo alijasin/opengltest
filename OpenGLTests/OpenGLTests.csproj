@@ -66,7 +66,7 @@
     <Compile Include="src\Drawables\Particle.cs" />
     <Compile Include="src\Drawables\Rectangle.cs" />
     <Compile Include="src\Drawables\Unicorn.cs" />
-    <Compile Include="src\Drawablex.cs" />
+    <Compile Include="src\DrawableRepository.cs" />
     <Compile Include="src\GameAction.cs" />
     <Compile Include="src\GameController.cs" />
     <Compile Include="src\IActor.cs" />

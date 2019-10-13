@@ -14,7 +14,10 @@ namespace OpenGLTests.src.Drawables
         public Color Color { get; set; } = Color.Fuchsia;
         public GLCoordinate Size { get; set; } = new GLCoordinate(0.1f, 0.1f);
         public Animation Animation { get; set; }
+
+
         private GameCoordinate location;
+
         public virtual GameCoordinate Location
         {
             get
@@ -24,8 +27,6 @@ namespace OpenGLTests.src.Drawables
             }
             set { location = value; }
         }
-
-
         public virtual void DrawStep(DrawAdapter drawer)
         {
 
@@ -41,6 +42,7 @@ namespace OpenGLTests.src.Drawables
     public abstract class Entity : Drawable
     {
         public GameCoordinate Speed { get; set; } = new GameCoordinate(0, 0);
+
         public override void DrawStep(DrawAdapter drawer)
         {
             GLCoordinate location = Location.ToGLCoordinate(GameState.ActiveCamera.Location);
@@ -57,21 +59,11 @@ namespace OpenGLTests.src.Drawables
                 }
             }
         }
-
-        public virtual void CombatStep()
-        {
-
-        }
-
-        public virtual void OutOfCombatStep()
-        {
-
-        }
     }
 
     public abstract class Element : Drawable
     {
-        public virtual GLCoordinate Location { get; set; } = new GLCoordinate(0, 0);
+        public GLCoordinate Location { get; set; } = new GLCoordinate(0, 0);
 
         public override void DrawStep(DrawAdapter drawer)
         {

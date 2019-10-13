@@ -29,7 +29,7 @@ namespace OpenGLTests.src.Drawables
                 }
                 catch (Exception e)
                 {
-                    Console.WriteLine("Tried using an item withuot an action");
+                    Console.WriteLine("Tried using an item withuot an action " + e);
                 }
             };
         }

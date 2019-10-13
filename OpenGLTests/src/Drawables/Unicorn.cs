@@ -13,7 +13,7 @@ namespace OpenGLTests.src.Drawables
         {
             ActionPattern = new ChaseEntity(this, chasing);
             this.Location = location;
-            this.Speed = new GameCoordinate(0.01f, 0.01f);
+            this.Speed = new GameCoordinate(0.01f, 0.005f);
             pg = new ParticleGenerator();
             ActionPattern.Loop = true;
         }

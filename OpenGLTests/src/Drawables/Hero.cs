@@ -8,12 +8,13 @@ using OpenGLTests.src;
 
 namespace OpenGLTests.src.Drawables
 {
-    public class Hero : Entity, IActor
+    public class Hero : Entity, IActor, ICombatable
     {
         public Inventory Inventory;
         public CombatActionHandler CombatActionHandler { get; set; }
         public OutOfCombatActionHandler OutOfCombatActionHandler { get; set; }
         private bool ExecutingActions = false;
+        public bool InCombat { get; set; }
 
         public Hero()
         {
@@ -63,16 +64,16 @@ namespace OpenGLTests.src.Drawables
 
         }
         
-        public override void OutOfCombatStep()
+        public void OutOfCombatStep()
         {
             OutOfCombatActionHandler.DoGameAction();
         }
 
         private static int index = 0;
-        public override void CombatStep()
+        public void CombatStep()
         {
             if (!ExecutingActions) return; //if you decide later than you want to get rid of action confirmation dont do this check.
-            base.CombatStep();
+
             ActionReturns res = CombatActionHandler.TickPlacedActions(index);
             if (res == ActionReturns.AllFinished)
             {
@@ -88,5 +89,6 @@ namespace OpenGLTests.src.Drawables
                 index = 0;
             }
         }
+
     }
 }

@@ -42,9 +42,9 @@ namespace OpenGLTests.src
 
             try
             {
-                var size = GameState.Drawables.Get.Count;
+                var size = GameState.Drawables.GetAllDrawables.Count;
                 List<Drawable> drawables = new List<Drawable>(size);
-                drawables = GameState.Drawables.Get.GetRange(0, size);
+                drawables = GameState.Drawables.GetAllDrawables.GetRange(0, size);
 
                 foreach (var drawable in drawables)
                 {
@@ -53,7 +53,7 @@ namespace OpenGLTests.src
             }
             catch (Exception e)
             {
-
+                Console.WriteLine(e);
             }
 
 
@@ -98,7 +98,7 @@ namespace OpenGLTests.src
                 input =>
                 {
                     GameCoordinate clicked = new GameCoordinate(input.MouseButtonArgs.X, input.MouseButtonArgs.Y);
-                    var xd = GameState.Drawables.Get.Where(d => d is IInteractable).ToList();
+                    var xd = GameState.Drawables.GetAllDrawables.Where(d => d is IInteractable).ToList();
                     foreach (IInteractable i in xd)
                     {
                         if (i.Contains(clicked))
@@ -116,7 +116,7 @@ namespace OpenGLTests.src
                         }
                     }
 
-                    foreach(IClickable i in GameState.Drawables.Get.Where(d => d is IClickable))
+                    foreach(IClickable i in GameState.Drawables.GetAllDrawables.Where(d => d is IClickable))
                     {
                         if (i.Contains(clicked))
                         {

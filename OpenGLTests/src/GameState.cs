@@ -13,7 +13,7 @@ namespace OpenGLTests.src
     {
         public Hero Hero { get; set; }
         public static Camera ActiveCamera { get; set; }
-        public static Drawablex Drawables = new Drawablex();
+        public static DrawableRepository Drawables = new DrawableRepository();
         public static List<IInteractable> Interactables = new List<IInteractable>();
         public static bool Combat { get; set; } = false;
 
@@ -23,7 +23,7 @@ namespace OpenGLTests.src
             Drawables.Add(Hero);
 
             var angerdude = new AngryDude();
-            angerdude.Location = new GameCoordinate(0.2f, 0.5f);
+            angerdude.Location = new GameCoordinate(0.2f, 0.8f);
             Drawables.Add(angerdude);
 
             var patroldude = new PatrolGuy(new GameCoordinate(-0.6f, -0.4f));
@@ -55,16 +55,6 @@ namespace OpenGLTests.src
 
             Drawables.Add(testbutton);
 
-            Button toggleCombatButton = new Button();
-            toggleCombatButton.Location = new GLCoordinate(0, 1);
-            toggleCombatButton.OnInteraction = () =>
-            {
-                Combat = !Combat;
-                if(Combat) Console.WriteLine("Entered combat.");
-                else Console.WriteLine("Out of combat.");
-            };
-            Drawables.Add(toggleCombatButton);
-
             var unicorn = new Unicorn(new GameCoordinate(-0.5f, 0), Hero);
             Drawables.Add(unicorn);
 
@@ -72,10 +62,10 @@ namespace OpenGLTests.src
 
         public void Step()
         {
-            var entities = Drawables.Get.Where(d => d is Entity).Cast<Entity>().ToList();
+            var entities = Drawables.GetAllCombatables;
             foreach (var e in entities)
             {
-                if (Combat)
+                if (e.InCombat)
                 {
                     e.CombatStep();
                 }

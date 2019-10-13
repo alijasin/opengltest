@@ -7,23 +7,53 @@ using OpenGLTests.src.Util;
 
 namespace OpenGLTests.src.Drawables
 {
-    interface IAggro
+    interface IAggro : ICombatable
     {
         RangeShape AggroShape { get; set; }
     }
 
+    public interface ICombatable
+    {
+        bool InCombat { get; set; }
+
+        void CombatStep();
+
+        void OutOfCombatStep();
+
+    }
+
     abstract class Hostile : Entity, IAggro
     {
-        public RangeShape AggroShape { get; set; } = new Circle(new GLCoordinate(0.2f, 0.2f));
+        public RangeShape AggroShape { get; set; }
         protected ActionPattern ActionPattern;
+        public bool InCombat { get; set; }
 
-        public override void OutOfCombatStep()
+        public void CombatStep()
         {
-            base.OutOfCombatStep();
+            
+        }
+
+        public void OutOfCombatStep()
+        {
+
             if (ActionPattern != null)
             {
                 var status = ActionPattern.DoAction("SkertSkert");
             }
+
+            //check for combat
+            if (AggroShape == null) return;
+            foreach(Hero h in GameState.Drawables.GetAllHeroes)
+            {
+                if (AggroShape.Contains(h.Location))
+                {
+                    InCombat = true;
+                    h.InCombat = true;
+                    ActionPattern = new ChaseEntity(this, h);
+                    GameState.Combat = true;
+                }
+            }
+
         }
     }
 

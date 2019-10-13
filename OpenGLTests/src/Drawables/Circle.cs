@@ -12,7 +12,7 @@ namespace OpenGLTests.src.Drawables
 {
     public class Circle : RangeShape
     {
-        public GLCoordinate Radius { get; set; } = new GLCoordinate(0.3f, 0.3f);
+        public GLCoordinate Radius { get; set; } = new GLCoordinate(0, 0);
 
         public Circle(GLCoordinate radius)
         {
@@ -33,16 +33,6 @@ namespace OpenGLTests.src.Drawables
 
             return x * x + y * y < Radius.X * Radius.X; //todo no ellipsis, this is circle
         }
-
-//        public override bool Contains(GameCoordinate point)
-//        {
-//            var x = Math.Abs(point.X - Location.X);
-//            var y = Math.Abs(point.Y - Location.Y);
-//            //todo move this to somewhere else and fuck yourself.
-//            GLCoordinate clicked = new GLCoordinate(x * 2 / GibbWindow.WIDTH - 1, y * 2 / GibbWindow.HEIGHT - 1);
-//            return clicked.X * clicked.X + clicked.Y * clicked.Y < Radius.X * Radius.X; //todo no ellipsis, this is circle
-//            //return (clicked.X * clicked.X)*(Radius.Y * Radius.Y) + (clicked.Y * clicked.Y)*(Radius.X * Radius.X) <= (Radius.X*Radius.X*Radius.Y*Radius.Y);
-//        }
     }
 
     public class FollowCircle : Circle

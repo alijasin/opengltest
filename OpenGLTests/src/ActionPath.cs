@@ -147,7 +147,7 @@ namespace OpenGLTests.src
 
             /* this adds lines between all placed actions, although there is now way to remove them later.
             GameCoordinate origin = owner.Location;
-            var moves = PlacedActions.Get().ToList().Where(e => e.Marker is MoveMarker);
+            var moves = PlacedActions.GetAllDrawables().ToList().Where(e => e.Marker is MoveMarker);
             foreach (var pa in moves)
             {
                 GameCoordinate terminus = pa.Marker.Location;
