@@ -22,6 +22,15 @@ namespace OpenGLTests.src
         }
     }
 
+    public class Apple : Item
+    {
+        public Apple(Entity owner)
+        {
+            this.Action = new TossItemAction(owner, this);
+            this.Icon = SpriteID.item_apple;
+        }
+    }
+
     public class RedPotion : Item
     {
         public RedPotion(Entity owner)

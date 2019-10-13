@@ -13,7 +13,24 @@ namespace OpenGLTests.src
     {
         public List<Drawable> GetAllDrawables => Drawables;
         public List<Hero> GetAllHeroes => Drawables.Where(E => E is Hero).Cast<Hero>().ToList();
-        public List<ICombatable> GetAllCombatables => Drawables.Where(E => E is ICombatable).Cast<ICombatable>().ToList();
+        public List<ICombatable> GetAllCombatables 
+        {
+            
+            get
+            {
+                try
+                {
+                    return Drawables.Where(E => E is ICombatable).Cast<ICombatable>().ToList();
+                    /*var size = Drawables.Count(E => E is ICombatable);
+                    List<ICombatable> combtables = new List<ICombatable>(size);
+                    return Drawables.Where(E => E is ICombatable).Cast<ICombatable>().Take(size).ToList();*/
+                }
+                catch (Exception e)
+                {
+                    return new List<ICombatable>();
+                }
+            }
+        }
 
         public static List<Drawable> Drawables { get; } = new List<Drawable>();
 

@@ -15,7 +15,7 @@ namespace OpenGLTests.src.Drawables
             this.Location = location;
             this.Speed = new GameCoordinate(0.01f, 0.005f);
             pg = new ParticleGenerator();
-            ActionPattern.Loop = true;
+            //ActionPattern.Loop = true;
         }
 
         public override void DrawStep(DrawAdapter drawer)

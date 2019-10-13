@@ -36,6 +36,21 @@ namespace OpenGLTests.src
 
     }
 
+    class TossItemAction : ItemAction
+    {
+        GameAction chill = new ChillAction();
+        public TossItemAction(Entity source, Item i)
+        {
+
+        }
+
+        public override Func<object, bool> GetAction()
+        {
+            return (o) => { return chill.GetAction().Invoke(null); };
+        }
+    }
+
+
     class TurnRedAction : ItemAction
     {
         private Entity source;
@@ -66,8 +81,14 @@ namespace OpenGLTests.src
         {
             return (o) =>
             {
-                source.Size.X = source.Size.X * 1.5f;
-                source.Size.Y = source.Size.Y * 1.5f;
+                var index = (int) o;
+                if(index < 10)
+                {
+                    source.Size.X = source.Size.X * 1.1f;
+                    source.Size.Y = source.Size.Y * 1.1f;
+                    return false;
+                }
+
                 return true;
             };
         }

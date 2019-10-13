@@ -57,36 +57,55 @@ namespace OpenGLTests.src.Drawables
             };
             GameState.Drawables.Add(b);
 
-            Inventory = new Inventory();
+            Inventory = new Inventory(this);
             GameState.Drawables.Add(Inventory);
             Inventory.Add(new GrowingPoition(this));
             Inventory.Add(new RedPotion(this));
+            Inventory.Add(new Apple(this));
 
         }
-        
+
+
+        //todo refactror this so we dont have literally duplicated code
+        private static int outOfCombatIndex = 0;
         public void OutOfCombatStep()
         {
-            OutOfCombatActionHandler.DoGameAction();
+            if (!OutOfCombatActionHandler.ExecutingOutOfCombatAction) return; //if you decide later than you want to get rid of action confirmation dont do this check.
+
+            ActionReturns res = OutOfCombatActionHandler.TickGameAction(outOfCombatIndex);
+            if (res == ActionReturns.AllFinished)
+            {
+                outOfCombatIndex = 0;
+            }
+            else if (res == ActionReturns.Ongoing)
+            {
+                outOfCombatIndex++;
+            }
+            else if (res == ActionReturns.Finished)
+            {
+                outOfCombatIndex = 0;
+            }
         }
 
-        private static int index = 0;
+        //todo refactror this so we dont have literally duplicated code
+        private static int combatIndex = 0;
         public void CombatStep()
         {
             if (!ExecutingActions) return; //if you decide later than you want to get rid of action confirmation dont do this check.
 
-            ActionReturns res = CombatActionHandler.TickPlacedActions(index);
+            ActionReturns res = CombatActionHandler.TickPlacedActions(combatIndex);
             if (res == ActionReturns.AllFinished)
             {
-                index = 0;
+                combatIndex = 0;
                 ExecutingActions = false;
             }
             else if (res == ActionReturns.Ongoing)
             {
-                index++;
+                combatIndex++;
             }
             else if(res == ActionReturns.Finished)
             {
-                index = 0;
+                combatIndex = 0;
             }
         }
 

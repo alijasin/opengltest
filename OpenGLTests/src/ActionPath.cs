@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Resources;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
@@ -254,26 +255,32 @@ namespace OpenGLTests.src
 
     public class OutOfCombatActionHandler
     {
+        private List<GameAction> commitedActions = new List<GameAction>();
         private GameAction currentAction;
-        private object args;
+        public bool ExecutingOutOfCombatAction => currentAction == null;
 
-        public void SetCurrentAction(GameAction action, object args)
+        public void EnqueueAction(GameAction action)
         {
-            this.currentAction = action;
-            this.args = args;
+            commitedActions.RemoveAll(gameAction => gameAction.GetType() == action.GetType());
+
+            commitedActions.Add(action);
         }
 
-        public bool DoGameAction()
+        public ActionReturns TickGameAction(int index)
         {
-            if (currentAction == null) return false;
+            //get first action that has not been executed. if this action is null all actions have been executed.
+            var firstAction = commitedActions.First();
+            if (firstAction == null) return ActionReturns.AllFinished;
 
-            var res = currentAction.GetAction().Invoke(args);
-            if (res)
+            //call action with index. if action call returns true this specific action is Finished executing.
+            bool actionFinished = firstAction.GetAction().Invoke(index);
+            if (actionFinished)
             {
-                currentAction = null;
+                commitedActions.RemoveAt(0);
+                return ActionReturns.Finished;
             }
 
-            return res;
+            return ActionReturns.Ongoing;
         }
     }
 }

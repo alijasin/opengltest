@@ -33,6 +33,7 @@ namespace OpenGLTests.src.Util
 
         item_flask_big_red,
         item_flask_big_green,
+        item_apple,
 
     }
     static class ImageLoader
@@ -62,6 +63,8 @@ namespace OpenGLTests.src.Util
 
             Images[SpriteID.item_flask_big_red] = new Bitmap(Properties.Resources.flask_big_red);
             Images[SpriteID.item_flask_big_green] = new Bitmap(Properties.Resources.flask_big_green);
+            Images[SpriteID.item_apple] = new Bitmap(Properties.Resources.apple);
+
 
             Images[SpriteID.missing] = new Bitmap(Properties.Resources.empty);
             //foreach (var image in Enum.GetValues(typeof(SpriteID)).Cast<SpriteID>())

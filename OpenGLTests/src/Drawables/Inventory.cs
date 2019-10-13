@@ -12,7 +12,7 @@ namespace OpenGLTests.src.Drawables
         public Item Item;
         public static GLCoordinate StandardSize = new GLCoordinate(0.1f, 0.1f);
 
-        public InventorySlot(Item i)
+        public InventorySlot(Item i, Inventory inventory)
         {
             this.Item = i;
             this.Color = Color.Yellow;
@@ -22,14 +22,15 @@ namespace OpenGLTests.src.Drawables
             this.Animation.IsStatic = true;
             OnInteraction = () =>
             {
-                try
+                //try
                 {
-                    i.Action.GetAction().Invoke("ogelibogeli do some cool actioni");
-                    Console.WriteLine("Invoked item: " + i.Action);
+                    inventory.Owner.OutOfCombatActionHandler.EnqueueAction(i.Action);
+                    //i.Action.GetAction().Invoke("ogelibogeli do some cool actioni");
+                    Console.WriteLine("Set current out of game action to: " + i.Action);
                 }
-                catch (Exception e)
+                //catch (Exception e)
                 {
-                    Console.WriteLine("Tried using an item withuot an action " + e);
+                    //Console.WriteLine("Tried using an item withuot an action " + e);
                 }
             };
         }
@@ -42,12 +43,13 @@ namespace OpenGLTests.src.Drawables
         private int columns = 4;
         private int maxSlots => rows * columns;
         private float fodder = 0.01f;
-
-        public Inventory()
+        public IActor Owner;
+        public Inventory(IActor owner)
         {
             this.Visible = false;
             this.Location = new GLCoordinate(-0.5f, 0f);
             this.Size = new GLCoordinate(rows*InventorySlot.StandardSize.X + (rows+1)*(fodder), columns * InventorySlot.StandardSize.Y + (columns + 1) * (fodder));
+            this.Owner = owner;
         }
 
         public bool Add(Item i)
@@ -55,7 +57,7 @@ namespace OpenGLTests.src.Drawables
             var filledSlots = InventorySlots.Count;
             if (filledSlots < maxSlots)
             {
-                InventorySlot islot = new InventorySlot(i);
+                InventorySlot islot = new InventorySlot(i, this);
                 islot.Location = new GLCoordinate(this.Location.X - this.Size.X/2 + islot.Size.X/2, this.Location.Y + this.Size.Y/2 - islot.Size.Y/2);
                 int col = (filledSlots % columns);
                 int row = (filledSlots / rows);

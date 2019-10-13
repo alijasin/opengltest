@@ -168,7 +168,7 @@ namespace OpenGLTests.src
                     }
                     else
                     {
-                        Game.Hero.OutOfCombatActionHandler.SetCurrentAction(new MoveTowardsAction(xd, Game.Hero), xd);
+                        Game.Hero.OutOfCombatActionHandler.EnqueueAction(new MoveTowardsAction(xd, Game.Hero));
                     }
                 }
             ));

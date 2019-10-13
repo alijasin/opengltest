@@ -152,7 +152,8 @@ namespace OpenGLTests.src
         public SpriteSheet_Items() : base(new Dictionary<SpriteID, int>()
         {   { SpriteID.missing, 5 },
             { SpriteID.item_flask_big_red, 5 },
-            { SpriteID.item_flask_big_green, 5 }
+            { SpriteID.item_flask_big_green, 5 },
+            { SpriteID.item_apple, 5 }
 
         })
         { }
