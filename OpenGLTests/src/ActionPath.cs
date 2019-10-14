@@ -118,11 +118,12 @@ namespace OpenGLTests.src
         }
     }
 
+
+
     public class CombatActionHandler
     {
         private GameAction activeAction { get; set; }
         private GameAction previousActiveAction { get; set; }
-
         public PlacedActions PlacedActions = new PlacedActions();
 
         private IActor owner;
@@ -130,7 +131,6 @@ namespace OpenGLTests.src
         public CombatActionHandler(IActor owner)
         {
             this.owner = owner;
-
         }
 
         /// <summary>
@@ -145,16 +145,6 @@ namespace OpenGLTests.src
             {
                 PlacedActions.Add(activeAction, owner);
             }
-
-            /* this adds lines between all placed actions, although there is now way to remove them later.
-            GameCoordinate origin = owner.Location;
-            var moves = PlacedActions.GetAllDrawables().ToList().Where(e => e.Marker is MoveMarker);
-            foreach (var pa in moves)
-            {
-                GameCoordinate terminus = pa.Marker.Location;
-                GameState.AddDrawable(new Line(origin, terminus));
-                origin = terminus;
-            }*/
         }
 
         /// <summary>
@@ -238,17 +228,11 @@ namespace OpenGLTests.src
 
             return ActionReturns.Ongoing;
         }
-
-        public void DoActiveAction(GameCoordinate clicked)
-        {
-            activeAction.Marker.Location = clicked;
-            activeAction.GetAction().Invoke(2);
-        }
     }
 
     public class OutOfCombatActionHandler
     {
-        private LinkedList<GameAction> commitedActions;
+        private PlacedActions PlacedActions;
         private GameAction activeAction;
         private Type defaultGameActionType = typeof(MoveTowardsAction);
 
@@ -257,7 +241,7 @@ namespace OpenGLTests.src
         public OutOfCombatActionHandler(IActor owner)
         {
             this.owner = owner;
-            commitedActions = new LinkedList<GameAction>();
+            PlacedActions = new PlacedActions();
         }
 
         public void Clicked(GameAction action)
@@ -307,6 +291,7 @@ namespace OpenGLTests.src
 
         public void EnqueueAction(GameAction action)
         {
+            var commitedActions = PlacedActions.Get();
             var node = commitedActions.First;
             while (node != null)
             {
@@ -328,6 +313,7 @@ namespace OpenGLTests.src
 
         public ActionReturns TickGameAction(int index)
         {
+            var commitedActions = PlacedActions.Get();
             if (commitedActions.Count == 0) return ActionReturns.AllFinished;
             //get first action that has not been executed. if this action is null all actions have been executed.
             var firstAction = commitedActions.First();
@@ -343,5 +329,6 @@ namespace OpenGLTests.src
 
             return ActionReturns.Ongoing;
         }
+
     }
 }
