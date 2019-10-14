@@ -58,10 +58,7 @@ namespace OpenGLTests.src.Drawables
         public void Add(GameAction a)
         {
             var actionButton = new ActionButton(a, this);
-            if (Add(actionButton))
-            {
-                Owner.CombatActionHandler.AddNewAvailableAction(a);
-            }
+            Add(actionButton);
         }
 
         private bool Add(ActionButton ab)

@@ -122,7 +122,7 @@ namespace OpenGLTests.src
     {
         private GameAction activeAction { get; set; }
         private GameAction previousActiveAction { get; set; }
-        private List<GameAction> availableActions = new List<GameAction>();
+
         public PlacedActions PlacedActions = new PlacedActions();
 
         private IActor owner;
@@ -156,21 +156,13 @@ namespace OpenGLTests.src
                 origin = terminus;
             }*/
         }
-        /// <summary>
-        /// Add a new game action to the owners available actions.
-        /// </summary>
-        /// <param name="a"></param>
-        public void AddNewAvailableAction(GameAction a)
-        {
-            availableActions.Add(a);
-        }
+
         /// <summary>
         /// Returns the active action. If no action has been set to active: set the first available action to active and return it.
         /// </summary>
         /// <returns></returns>
         public GameAction GetActiveAction()
         {
-            if(activeAction == null) SetActiveAction(availableActions.First());
             return activeAction;
         }
 
@@ -181,6 +173,7 @@ namespace OpenGLTests.src
         /// <returns>Then returns the active actions range shape.</returns>
         public RangeShape GetActiveRangeShape()
         {
+            if (GetActiveAction() == null) return null;
             GetActiveAction().RangeShape.Location = getOriginOfRangeShape();
             return activeAction.RangeShape;
         }
