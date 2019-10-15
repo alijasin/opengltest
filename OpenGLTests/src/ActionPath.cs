@@ -141,13 +141,20 @@ namespace OpenGLTests.src
 
         public void SetActiveAction(GameAction action)
         {
-            CombatActionHandler.SetActiveAction(action);
+            var previousAction = activeAction;
+            if (previousAction != null)
+            {
+                previousAction.RangeShape.Visible = false;
+            }
+
+            activeAction = action;
+            GameState.Drawables.Add(activeAction.RangeShape);
         }
     }
 
     public class CombatActionHandler
     {
-        private GameAction previousActiveAction { get; set; }
+
         public PlacedActions PlacedActions = new PlacedActions();
 
 
@@ -235,21 +242,6 @@ namespace OpenGLTests.src
         public void RemoveAllPlacedAfterActive()
         {
             PlacedActions.Remove(activeAction);
-        }
-
-        /// <summary>
-        /// Set the active action to the received action. This will update the previous action the action that was active before the change.
-        /// </summary>
-        /// <param name="a"></param>
-        public void SetActiveAction(GameAction a)
-        {
-            previousActiveAction = activeAction;
-            activeAction = a;
-            if (previousActiveAction != null)
-            {
-                GameState.Drawables.Remove(previousActiveAction.RangeShape);
-            }
-            GameState.Drawables.Add(activeAction.RangeShape);
         }
 
 
