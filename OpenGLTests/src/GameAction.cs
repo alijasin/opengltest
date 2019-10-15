@@ -30,10 +30,8 @@ namespace OpenGLTests.src
 
         public void Dispose()
         {
-            Marker.Visible = false;
-            RangeShape.Visible = false;
-            //GameState.Drawables.Remove(Marker);
-            //GameState.Drawables.Remove(RangeShape);
+            if (Marker != null) Marker.Visible = false;
+            if (RangeShape != null) RangeShape.Visible = false;
         }
         /*
         public abstract bool PayPreConditions();

@@ -148,15 +148,14 @@ namespace OpenGLTests.src
             }
 
             activeAction = action;
+            activeAction.RangeShape.Visible = true;
             GameState.Drawables.Add(activeAction.RangeShape);
         }
     }
 
     public class CombatActionHandler
     {
-
         public PlacedActions PlacedActions = new PlacedActions();
-
 
         private ActionHandler handler;
         private GameAction activeAction
@@ -283,9 +282,6 @@ namespace OpenGLTests.src
 
     public class OutOfCombatActionHandler
     {
-        private PlacedActions PlacedActions;
-        private Type defaultGameActionType = typeof(MoveTowardsAction);
-
         private ActionHandler handler;
         private GameAction activeAction
         {
@@ -296,7 +292,6 @@ namespace OpenGLTests.src
         public OutOfCombatActionHandler(ActionHandler handler)
         {
             this.handler = handler;
-            PlacedActions = new PlacedActions();
         }
 
         public void Clicked(GameAction action)
@@ -309,76 +304,22 @@ namespace OpenGLTests.src
             }
         }
 
-        /// <summary>
-        /// If no active action has been set(for instance, if no item in the inventory has been clicked) then the default is to move to the clicked location.
-        /// Else the active action is checked if it can be placed where it was clicked(for instance within range).
-        ///     if the click is within range the active action is placed in queue.
-        ///     else tries to move towards the clicked point.
-        ///
-        /// Todo: Refactor this so that it makes sense without a novel to explain the function.
-        /// </summary>
-        /// <param name="pos"></param>
         public void Placed(GameCoordinate pos)
         {
             if (activeAction == null)
             {
-                GameAction action = new MoveTowardsAction(pos, (Entity) owner);
-                EnqueueAction(action);
+                activeAction = new MoveTowardsAction(pos, (Entity) owner);
             }
-            else
-            {
-                if (activeAction is IPlaceable)
-                {
-                    var placeableGameAction = (IPlaceable) activeAction;
-                    if (placeableGameAction.Placed(pos))
-                    {
-                        EnqueueAction(activeAction);
-                    }
-                    else
-                    {
-                        GameAction action = new MoveTowardsAction(pos, (Entity)owner);
-                        EnqueueAction(action);
-                    }
-                    activeAction = null;
-                }
-            }
-        }
-
-        public void EnqueueAction(GameAction action)
-        {
-            var commitedActions = PlacedActions.Get();
-            var node = commitedActions.First;
-            while (node != null)
-            {
-                if (node.Value.GetType() == defaultGameActionType)
-                {
-                    commitedActions.Remove(node);
-                }
-
-                node = node.Next;
-            }
-
-            commitedActions.AddFirst(action);
-        }
-
-        public void SetActiveAction(GameAction action)
-        {
-            this.activeAction = action;
         }
 
         public ActionReturns TickGameAction(int index)
         {
-            var commitedActions = PlacedActions.Get();
-            if (commitedActions.Count == 0) return ActionReturns.AllFinished;
-            //get first action that has not been executed. if this action is null all actions have been executed.
-            var firstAction = commitedActions.First();
-            if (firstAction == null) return ActionReturns.AllFinished;
+            if (activeAction == null) return ActionReturns.Finished;
 
-            //call action with index. if action call returns true this specific action is Finished executing.
-            bool actionFinished = firstAction.GetAction().Invoke(index);
+            bool actionFinished = activeAction.GetAction().Invoke(index);
             if (actionFinished)
             {
-                commitedActions.RemoveFirst();
+                handler.ClearActiveAction();
                 return ActionReturns.Finished;
             }
 

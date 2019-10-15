@@ -10,11 +10,8 @@ namespace OpenGLTests.src.Drawables
     public interface ICombatable
     {
         bool InCombat { get; set; }
-
         void CombatStep();
-
         void OutOfCombatStep();
-
     }
 
     interface IAggro : ICombatable
@@ -42,7 +39,7 @@ namespace OpenGLTests.src.Drawables
 
             //check for combat
             if (AggroShape == null) return;
-            foreach(Hero h in GameState.Drawables.GetAllHeroes)
+            foreach (Hero h in GameState.Drawables.GetAllHeroes)
             {
                 if (AggroShape.Contains(h.Location))
                 {

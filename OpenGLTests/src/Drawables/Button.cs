@@ -77,8 +77,7 @@ namespace OpenGLTests.src.Drawables
             {
                 try
                 {
-
-                    //inventory.Owner.ActionHandler.OutOfCombatActionHandler.Clicked(i.Action);
+                    inventory.Owner.ActionHandler.SetActiveAction(i.Action);
                 }
                 catch (Exception e)
                 {

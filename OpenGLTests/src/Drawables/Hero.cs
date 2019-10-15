@@ -68,8 +68,6 @@ namespace OpenGLTests.src.Drawables
         private static int outOfCombatIndex = 0;
         public void OutOfCombatStep()
         {
-            
-
             ActionReturns res = ActionHandler.OutOfCombatActionHandler.TickGameAction(outOfCombatIndex);
             if (res == ActionReturns.AllFinished)
             {

@@ -150,14 +150,11 @@ namespace OpenGLTests.src
 
                     if (GameState.Combat)
                     {
-
                           Game.Hero.ActionHandler.CombatActionHandler.TryEnqueueAction(xd);
-     
                     }
                     else
                     {
                         Game.Hero.ActionHandler.OutOfCombatActionHandler.Placed(xd);
-                        //Game.Hero.OutOfCombatActionHandler.TryEnqueueAction(new MoveTowardsAction(xd, Game.Hero));
                     }
                 }
             ));
