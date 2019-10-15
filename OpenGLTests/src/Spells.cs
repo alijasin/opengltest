@@ -8,13 +8,13 @@ using OpenGLTests.src.Util;
 
 namespace OpenGLTests.src
 {
-    public abstract class Spell
+    public abstract class Ability
     {
         public GameAction Action;
         public SpriteID Icon;
     }
 
-    public class Yell : Spell
+    public class Yell : Ability
     {
         public Yell(Entity owner)
         {
@@ -27,7 +27,7 @@ namespace OpenGLTests.src
         }
     }
 
-    public class Teleport : Spell
+    public class Teleport : Ability
     {
         public Teleport(Entity owner)
         {
@@ -36,7 +36,7 @@ namespace OpenGLTests.src
         }
     }
 
-    public class Move : Spell
+    public class Move : Ability
     {
         public Move(Entity owner)
         {
@@ -45,7 +45,7 @@ namespace OpenGLTests.src
         }
     }
 
-    public class TossBomb : Spell
+    public class TossBomb : Ability
     {
         public TossBomb(Entity owner)
         {

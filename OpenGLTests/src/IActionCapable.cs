@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace OpenGLTests.src
 {
-    public interface IActor
+    public interface IActionCapable
     {
         ActionHandler ActionHandler { get; set; }
         GameCoordinate Location { get; set; }

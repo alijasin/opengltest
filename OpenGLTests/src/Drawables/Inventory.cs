@@ -14,8 +14,8 @@ namespace OpenGLTests.src.Drawables
         private int columns = 4;
         private int maxSlots => rows * columns;
         private float fodder = 0.01f;
-        public IActor Owner;
-        public Inventory(IActor owner)
+        public IActionCapable Owner;
+        public Inventory(IActionCapable owner)
         {
             this.Visible = false;
             this.Location = new GLCoordinate(-0.5f, 0f);

@@ -69,7 +69,7 @@
     <Compile Include="src\DrawableRepository.cs" />
     <Compile Include="src\GameAction.cs" />
     <Compile Include="src\GameController.cs" />
-    <Compile Include="src\IActor.cs" />
+    <Compile Include="src\IActionCapable.cs" />
     <Compile Include="src\IInteractable.cs" />
     <Compile Include="src\Items.cs" />
     <Compile Include="src\Spells.cs" />

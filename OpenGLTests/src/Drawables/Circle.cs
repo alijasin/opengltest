@@ -44,7 +44,6 @@ namespace OpenGLTests.src.Drawables
             this.following = following;
         }
 
-
         public override GameCoordinate Location
         {
             get
@@ -58,6 +57,11 @@ namespace OpenGLTests.src.Drawables
     public abstract class RangeShape : Entity
     {
         public abstract bool Contains(GameCoordinate point);
+
+        protected RangeShape()
+        {
+            GameState.Drawables.Add(this);
+        }
         //public ActionMarker Marker { get; set; }
     }
 

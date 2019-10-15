@@ -14,6 +14,8 @@ namespace OpenGLTests.src.Drawables
         {
             this.Location = loc;
             this.Size = new GLCoordinate(0.02f, 0.02f);
+            this.Visible = false;
+            GameState.Drawables.Add(this);
         }
 
         public void SetMarkerLine(MarkerLine ml)

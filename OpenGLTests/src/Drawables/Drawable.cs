@@ -15,9 +15,8 @@ namespace OpenGLTests.src.Drawables
         public GLCoordinate Size { get; set; } = new GLCoordinate(0.1f, 0.1f);
         public Animation Animation { get; set; }
 
-
+        //todo: refactor this. We dont want drawable to  have game location. We want entity to have game location and element ot have gl location.
         private GameCoordinate location;
-
         public virtual GameCoordinate Location
         {
             get
@@ -46,7 +45,6 @@ namespace OpenGLTests.src.Drawables
         public override void DrawStep(DrawAdapter drawer)
         {
             GLCoordinate location = Location.ToGLCoordinate(GameState.ActiveCamera.Location);
-
             if (Visible)
             {
                 if (Animation == null)

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Resources;
 using System.Text;
@@ -17,7 +18,7 @@ namespace OpenGLTests.src
         private GameCoordinate terminus;
         private GameCoordinate origin;
 
-        public MarkerLine(LinkedList<GameAction> actions, IActor owner)
+        public MarkerLine(LinkedList<GameAction> actions, IActionCapable owner)
         {
             var node = actions.Last;
             while (node != null)
@@ -60,7 +61,7 @@ namespace OpenGLTests.src
     {
         LinkedList<GameAction> linkedList = new LinkedList<GameAction>();
 
-        public void Add(GameAction placed, IActor owner)
+        public void Add(GameAction placed, IActionCapable owner)
         {
             //add a new marker, both for drawing and in linked list
             GameState.Drawables.Add(placed.Marker);
@@ -120,6 +121,93 @@ namespace OpenGLTests.src
     }
 
     public class ActionHandler
+    {
+        private Button CurrentActionButton { get; set; }
+        private GameAction CurrentAction { get; set; }
+        private IActionCapable owner;
+        private CombatActionHandler combatActionHandler { get; set; }
+        private OutOfCombatActionHandler outOfCombatActionHandler { get; set; }
+
+        public ActionHandler(IActionCapable owner)
+        {
+            //save owner
+            this.owner = owner;
+
+            //init button
+            CurrentActionButton = new Button();
+            CurrentActionButton.Size = new GLCoordinate(0.2f, 0.2f);
+            CurrentActionButton.Location = new GLCoordinate(-0.9f, -0.9f);
+            CurrentActionButton.Color = Color.NavajoWhite;
+            GameState.Drawables.Add(CurrentActionButton);
+
+            //init handlers
+            combatActionHandler = new CombatActionHandler();
+            outOfCombatActionHandler = new OutOfCombatActionHandler();
+        }
+
+        /// <summary>
+        /// Called from an inventory button or an action bar button
+        /// </summary>
+        /// <param name="ab"></param>
+        public void ActionButtonClicked(ActionButton ab)
+        {
+            //Updates the button indicating which ability is currently active.
+            ab.Animation.GetSprite();
+            CurrentActionButton.Animation = ab.Animation;
+            CurrentActionButton.Animation.SetSprite(ab.Animation.GetSprite().sid);
+
+            //Update current action
+            CurrentAction = ab.GameAction;
+        }
+
+        /// <summary>
+        /// Called from Screen when mouse has been clicked down.
+        /// </summary>
+        /// <param name="location"></param>
+        public void Down(GameCoordinate location)
+        {
+            if (CurrentAction == null) return;
+            CurrentAction.RangeShape.Visible = true;
+        }
+
+        /// <summary>
+        /// Called from Screen when mouse has been released.
+        /// </summary>
+        /// <param name="location"></param>
+        public void Up(GameCoordinate location)
+        {
+            if (CurrentAction == null) return;
+            CurrentAction.RangeShape.Visible = false;
+
+            if (CurrentAction.RangeShape.Contains(location))
+            {
+                if (CurrentAction.Ready)
+                {
+
+                }
+                //if in combat -> queue
+                //else do it(unless its placeable)
+            }
+        }
+
+        public ActionReturns TryInvokeCurrentAction(object args)
+        {
+            if (CurrentAction.Ready)
+            {
+                bool finished = CurrentAction.GetAction().Invoke(args);
+                if (finished) return ActionReturns.Finished;
+                return ActionReturns.Ongoing;
+            }
+            else return ActionReturns.NotReady;
+        }
+    }
+
+    public class CombatActionHandler
+    {
+
+    }
+
+    public class OutOfCombatActionHandler
     {
 
     }

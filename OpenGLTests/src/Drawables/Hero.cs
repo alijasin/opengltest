@@ -8,7 +8,7 @@ using OpenGLTests.src;
 
 namespace OpenGLTests.src.Drawables
 {
-    public class Hero : Entity, IActor, ICombatable
+    public class Hero : Entity, IActionCapable, ICombatable
     {
         public Inventory Inventory;
         public ActionHandler ActionHandler { get; set; }
@@ -20,7 +20,7 @@ namespace OpenGLTests.src.Drawables
             Color = Color.CadetBlue;
             this.Location = new GameCoordinate(0f, 0f);
             this.Size = new GLCoordinate(0.1f, 0.1f);
-            ActionHandler = new ActionHandler();
+            ActionHandler = new ActionHandler(this);
             this.Speed = new GameCoordinate(0.02f, 0.02f);
             this.Animation = new Animation(new SpriteSheet_ElfIdle());
 
@@ -53,45 +53,19 @@ namespace OpenGLTests.src.Drawables
         }
 
 
+
         //todo refactror this so we dont have literally duplicated code
         private static int outOfCombatIndex = 0;
         public void OutOfCombatStep()
         {
-            /*ActionReturns res = ActionHandler.OutOfCombatActionHandler.TickGameAction(outOfCombatIndex);
-            if (res == ActionReturns.AllFinished)
-            {
-                outOfCombatIndex = 0;
-            }
-            else if (res == ActionReturns.Ongoing)
-            {
-                outOfCombatIndex++;
-            }
-            else if (res == ActionReturns.Finished)
-            {
-                outOfCombatIndex = 0;
-            }*/
+            //ActionHandler.TryInvokeCurrentAction(outOfCombatIndex);
         }
 
         //todo refactror this so we dont have literally duplicated code
         private static int combatIndex = 0;
         public void CombatStep()
         {
-            /*if (!ExecutingActions) return; //if you decide later than you want to get rid of action confirmation dont do this check.
-
-            ActionReturns res = ActionHandler.CombatActionHandler.TickPlacedActions(combatIndex);
-            if (res == ActionReturns.AllFinished)
-            {
-                combatIndex = 0;
-                ExecutingActions = false;
-            }
-            else if (res == ActionReturns.Ongoing)
-            {
-                combatIndex++;
-            }
-            else if(res == ActionReturns.Finished)
-            {
-                combatIndex = 0;
-            }*/
+            //ActionHandler.TryInvokeCurrentAction(combatIndex);
         }
     }
 }

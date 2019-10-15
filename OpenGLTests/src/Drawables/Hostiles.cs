@@ -25,6 +25,11 @@ namespace OpenGLTests.src.Drawables
         protected ActionPattern ActionPattern;
         public bool InCombat { get; set; }
 
+        protected Hostile()
+        {
+            AggroShape = new FollowCircle(new GLCoordinate(0, 0), this);
+        }
+
         public void CombatStep()
         {
             

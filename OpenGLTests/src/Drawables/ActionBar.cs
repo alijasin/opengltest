@@ -9,14 +9,14 @@ namespace OpenGLTests.src.Drawables
 {
     class ActionBar : Element
     {
-        public IActor Owner;
+        public IActionCapable Owner;
         private List<ActionBarButton> actionButtons = new List<ActionBarButton>();
 
         public int MaxActionSlots = 8;
         public int FilledActionSlots = 0;
         private float fodder = 0.01f;
 
-        public ActionBar(IActor owner)
+        public ActionBar(IActionCapable owner)
         {
             this.Location = new GLCoordinate(0, -1);
             this.Size = new GLCoordinate(ActionBarButton.StandardSize.X*MaxActionSlots + fodder*MaxActionSlots, 0.2f + fodder*4); //fodder between each action barButton as well as over and under
@@ -29,7 +29,7 @@ namespace OpenGLTests.src.Drawables
         /// Else does nothing.
         /// </summary>
         /// <param name="ab"></param>
-        public void Add(Spell s)
+        public void Add(Ability s)
         {
             var ab = new ActionBarButton(s, this);
             if (FilledActionSlots < MaxActionSlots)

@@ -134,6 +134,9 @@ namespace OpenGLTests.src
                 input => input.IsMouseInput && input.MouseButtonArgs.Button == MouseButton.Right,
                 input =>
                 {
+                    GameCoordinate placed = new GameCoordinate(input.MouseButtonArgs.X, input.MouseButtonArgs.Y);
+                    var xd = CoordinateFuckery.ClickToGLRelativeToCamera(placed, new GameCoordinate(0, 0));
+                    Game.Hero.ActionHandler.Down(xd);
                     if (GameState.Combat)
                     {
                       //  Game.Hero.ActionHandler.CombatActionHandler.Down();
@@ -147,7 +150,7 @@ namespace OpenGLTests.src
                 {
                     GameCoordinate placed = new GameCoordinate(input.MouseButtonArgs.X, input.MouseButtonArgs.Y);
                     var xd = CoordinateFuckery.ClickToGLRelativeToCamera(placed, new GameCoordinate(0, 0));
-
+                    Game.Hero.ActionHandler.Up(xd);
                     if (GameState.Combat)
                     {
                         //  Game.Hero.ActionHandler.CombatActionHandler.TryEnqueueAction(xd);

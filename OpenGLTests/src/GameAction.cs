@@ -20,19 +20,25 @@ namespace OpenGLTests.src
         Finished,
         AllFinished,
         Ongoing,
-        Placing
+        Placing,
+        Invoked,
+        NotReady
     }
 
     public abstract class GameAction
     {
         public RangeShape RangeShape { get; set; }
-        public abstract Func<object, bool> GetAction(); //todo, add post action stuff to all functions.
+        public abstract Func<object, bool> GetAction(); 
         public Marker Marker { get; set; }
+        public bool Ready { get; set; } = true;
 
-        public void Dispose()
+        protected GameAction()
         {
-            if (Marker != null) Marker.Visible = false;
-            if (RangeShape != null) RangeShape.Visible = false;
+            RangeShape = new RangeCircle(new GLCoordinate(0, 0));
+            Marker = new MoveMarker(new GameCoordinate(0, 0));
+            RangeShape.Visible = false;
+            Marker.Visible = false;
+
         }
         /*
         public abstract bool PayPreConditions();
@@ -55,7 +61,7 @@ namespace OpenGLTests.src
         {
             RangeShape = new FollowCircle(new GLCoordinate(0.5f, 0.5f), source);
             RangeShape.Visible = false;
-            GameState.Drawables.Add(RangeShape);
+            Ready = false;
         }
 
         public override Func<object, bool> GetAction()
@@ -80,6 +86,7 @@ namespace OpenGLTests.src
             if (RangeShape.Contains(location))
             {
                 Console.WriteLine(this + " was placed at " + location);
+                Ready = true;
                 return true;
             }
 

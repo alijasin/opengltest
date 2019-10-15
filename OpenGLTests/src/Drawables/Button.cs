@@ -44,13 +44,13 @@ namespace OpenGLTests.src.Drawables
 
     public abstract class ActionButton : Button
     {
-        public GameAction GameAction;
         public static GLCoordinate StandardSize = new GLCoordinate(0.1f, 0.1f);
+        public GameAction GameAction { get; set; }
         protected ActionButton()
         {
             OnInteraction += () =>
             {
-
+                
             };
         }
 
@@ -69,13 +69,12 @@ namespace OpenGLTests.src.Drawables
             this.Animation = new Animation(new SpriteSheet_Items());
             this.Animation.SetSprite(i.Icon);
             this.Animation.IsStatic = true;
-
+            this.GameAction = i.Action;
             OnInteraction += () =>
             {
                 try
                 {
-                   // if(i.Action is IPlaceable nonPlacedAction) inventory.Owner.ActionHandler.Clicked(nonPlacedAction); 
-                    //else inventory.Owner.ActionHandler.SetActiveAction(i.Action);
+                    inventory.Owner.ActionHandler.ActionButtonClicked(this);
                 }
                 catch (Exception e)
                 {
@@ -88,17 +87,17 @@ namespace OpenGLTests.src.Drawables
     class ActionBarButton : ActionButton
     {
         public static GLCoordinate StandardSize = new GLCoordinate(0.1f, 0.1f);
-        public ActionBarButton(Spell sa, ActionBar inBar)
+        public ActionBarButton(Ability sa, ActionBar inBar)
         {
             this.Size = StandardSize;
             this.Color = Color.HotPink;
             this.Animation = new Animation(new SpriteSheet_ActionButtons());
             this.Animation.SetSprite(sa.Icon);
             this.Animation.IsStatic = true;
-
+            this.GameAction = sa.Action;
             OnInteraction += () =>
             {
-                //inBar.SetActiveButton(this);
+                inBar.Owner.ActionHandler.ActionButtonClicked(this);
             };
         }
     }
