@@ -29,29 +29,22 @@ namespace OpenGLTests.src.Drawables
         /// Else does nothing.
         /// </summary>
         /// <param name="ab"></param>
-        public void Add(GameAction a)
+        public void Add(Spell s)
         {
-            var actionButton = new ActionBarButton(a, this);
-            Add(actionButton);
-        }
-
-        private bool Add(ActionBarButton ab)
-        {
+            var ab = new ActionBarButton(s, this);
             if (FilledActionSlots < MaxActionSlots)
             {
                 ab.OnInteraction += () =>
                 {
-                    Owner.ActionHandler.SetActiveAction(ab.GameAction);
+                    //Owner.ActionHandler.SetActiveAction(ab.GameAction);
                 };
-                ab.Location = new GLCoordinate(fodder * (FilledActionSlots+1) + this.Location.X - this.Size.X/2 + FilledActionSlots * ab.Size.X + ab.Size.X/2, this.Location.Y + ab.Size.Y /2 + fodder);
+                ab.Location = new GLCoordinate(fodder * (FilledActionSlots + 1) + this.Location.X - this.Size.X / 2 + FilledActionSlots * ab.Size.X + ab.Size.X / 2, this.Location.Y + ab.Size.Y / 2 + fodder);
                 actionButtons.Add(ab);
                 GameState.Drawables.Add(ab);
                 FilledActionSlots += 1;
-                return true;
             }
-
-            return false;
         }
+
 
         public void SetActiveButton(ActionBarButton barButton)
         {

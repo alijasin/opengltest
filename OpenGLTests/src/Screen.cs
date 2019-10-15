@@ -136,7 +136,7 @@ namespace OpenGLTests.src
                 {
                     if (GameState.Combat)
                     {
-                        Game.Hero.ActionHandler.CombatActionHandler.Down();
+                      //  Game.Hero.ActionHandler.CombatActionHandler.Down();
                     }
                     else
                     {
@@ -150,11 +150,11 @@ namespace OpenGLTests.src
 
                     if (GameState.Combat)
                     {
-                          Game.Hero.ActionHandler.CombatActionHandler.TryEnqueueAction(xd);
+                        //  Game.Hero.ActionHandler.CombatActionHandler.TryEnqueueAction(xd);
                     }
                     else
                     {
-                        Game.Hero.ActionHandler.OutOfCombatActionHandler.Placed(xd);
+                       // Game.Hero.ActionHandler.OutOfCombatActionHandler.Placed(xd);
                     }
                 }
             ));

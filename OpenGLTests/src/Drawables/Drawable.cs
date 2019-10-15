@@ -11,7 +11,7 @@ namespace OpenGLTests.src.Drawables
     public abstract class Drawable
     {
         public bool Visible { get; set; } = true;
-        public Color Color { get; set; } = Color.Fuchsia;
+        public Color Color { get; set; } = Color.Red;
         public GLCoordinate Size { get; set; } = new GLCoordinate(0.1f, 0.1f);
         public Animation Animation { get; set; }
 

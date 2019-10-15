@@ -158,6 +158,18 @@ namespace OpenGLTests.src
         })
         { }
     }
+
+    class SpriteSheet_ActionButtons : SpriteSheet
+    {
+        public SpriteSheet_ActionButtons() : base(new Dictionary<SpriteID, int>()
+        {   { SpriteID.action_move, 5 },
+            { SpriteID.action_attack, 5 },
+            { SpriteID.action_charge, 5 },
+            { SpriteID.floor_1, 5 }
+
+        })
+        { }
+    }
     public class Sprite
     {
         public int GLID;

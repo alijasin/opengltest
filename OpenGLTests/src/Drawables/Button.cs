@@ -62,11 +62,8 @@ namespace OpenGLTests.src.Drawables
 
     class InventorySlot : ActionButton
     {
-        public Item Item;
-
         public InventorySlot(Item i, Inventory inventory)
         {
-            this.Item = i;
             this.Color = Color.Yellow;
             this.Size = StandardSize;
             this.Animation = new Animation(new SpriteSheet_Items());
@@ -77,8 +74,8 @@ namespace OpenGLTests.src.Drawables
             {
                 try
                 {
-                    if(i.Action is IPlaceable nonPlacedAction) inventory.Owner.ActionHandler.Clicked(nonPlacedAction); 
-                    else inventory.Owner.ActionHandler.SetActiveAction(i.Action);
+                   // if(i.Action is IPlaceable nonPlacedAction) inventory.Owner.ActionHandler.Clicked(nonPlacedAction); 
+                    //else inventory.Owner.ActionHandler.SetActiveAction(i.Action);
                 }
                 catch (Exception e)
                 {
@@ -91,14 +88,17 @@ namespace OpenGLTests.src.Drawables
     class ActionBarButton : ActionButton
     {
         public static GLCoordinate StandardSize = new GLCoordinate(0.1f, 0.1f);
-        public ActionBarButton(GameAction ga, ActionBar inBar)
+        public ActionBarButton(Spell sa, ActionBar inBar)
         {
-            GameAction = ga;
             this.Size = StandardSize;
             this.Color = Color.HotPink;
+            this.Animation = new Animation(new SpriteSheet_ActionButtons());
+            this.Animation.SetSprite(sa.Icon);
+            this.Animation.IsStatic = true;
+
             OnInteraction += () =>
             {
-                inBar.SetActiveButton(this);
+                //inBar.SetActiveButton(this);
             };
         }
     }
