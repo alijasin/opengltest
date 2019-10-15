@@ -7,36 +7,10 @@ using System.Threading.Tasks;
 
 namespace OpenGLTests.src.Drawables
 {
-    class ActionButton : Button
-    {
-        public GameAction GameAction;
-        public static GLCoordinate StandardSize = new GLCoordinate(0.1f, 0.1f);
-        public ActionButton(GameAction ga, ActionBar inBar)
-        {
-            this.Size = StandardSize;
-            GameAction = ga;
-            OnInteraction += () =>
-            {
-                inBar.SetActiveButton(this);
-            };
-            DeActivate();
-        }
-
-        public void DeActivate()
-        {
-            this.Color = Color.Orange;
-        }
-
-        public void Activate()
-        {
-            this.Color = Color.Red;
-        }
-    }
-
     class ActionBar : Element
     {
         public IActor Owner;
-        private List<ActionButton> actionButtons = new List<ActionButton>();
+        private List<ActionBarButton> actionButtons = new List<ActionBarButton>();
 
         public int MaxActionSlots = 8;
         public int FilledActionSlots = 0;
@@ -45,23 +19,23 @@ namespace OpenGLTests.src.Drawables
         public ActionBar(IActor owner)
         {
             this.Location = new GLCoordinate(0, -1);
-            this.Size = new GLCoordinate(ActionButton.StandardSize.X*MaxActionSlots + fodder*MaxActionSlots, 0.2f + fodder*4); //fodder between each action button as well as over and under
+            this.Size = new GLCoordinate(ActionBarButton.StandardSize.X*MaxActionSlots + fodder*MaxActionSlots, 0.2f + fodder*4); //fodder between each action barButton as well as over and under
             this.Color = Color.Purple;
             this.Owner = owner;
         }
 
         /// <summary>
-        /// If there are slots in the action bar left: adds the action button to the action bar. 
+        /// If there are slots in the action bar left: adds the action barButton to the action bar. 
         /// Else does nothing.
         /// </summary>
         /// <param name="ab"></param>
         public void Add(GameAction a)
         {
-            var actionButton = new ActionButton(a, this);
+            var actionButton = new ActionBarButton(a, this);
             Add(actionButton);
         }
 
-        private bool Add(ActionButton ab)
+        private bool Add(ActionBarButton ab)
         {
             if (FilledActionSlots < MaxActionSlots)
             {
@@ -79,13 +53,13 @@ namespace OpenGLTests.src.Drawables
             return false;
         }
 
-        public void SetActiveButton(ActionButton button)
+        public void SetActiveButton(ActionBarButton barButton)
         {
-            foreach (var ab in actionButtons.Where(but => but != button))
+            foreach (var ab in actionButtons.Where(but => but != barButton))
             {
-                ab.DeActivate();
+                ab.Toggle();
             }
-            button.Activate();
+            barButton.Toggle();
         }
     }
     

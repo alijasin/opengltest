@@ -73,6 +73,7 @@
     <Compile Include="src\IInteractable.cs" />
     <Compile Include="src\Items.cs" />
     <Compile Include="src\Sprite.cs" />
+    <Compile Include="src\Util\Coloring.cs" />
     <Compile Include="src\Util\Coordinate.cs" />
     <Compile Include="src\Drawables\Circle.cs" />
     <Compile Include="src\Drawables\Drawable.cs" />

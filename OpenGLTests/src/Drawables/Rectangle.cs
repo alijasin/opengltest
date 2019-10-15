@@ -6,13 +6,8 @@ using System.Threading.Tasks;
 
 namespace OpenGLTests.src.Drawables
 {
-    public class Rectangle : Element, IInteractable
+    public class Rectangle : Element
     {
-        public Action OnInteraction { get; set; } = () =>
-        {
-            Console.WriteLine("Rect clicked");
-        };
-
         public bool Contains(GameCoordinate point)
         {
             var x = Math.Abs(point.X - Location.X);

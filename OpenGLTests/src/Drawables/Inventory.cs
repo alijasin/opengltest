@@ -7,33 +7,6 @@ using System.Threading.Tasks;
 
 namespace OpenGLTests.src.Drawables
 {
-    class InventorySlot : Button
-    {
-        public Item Item;
-        public static GLCoordinate StandardSize = new GLCoordinate(0.1f, 0.1f);
-
-        public InventorySlot(Item i, Inventory inventory)
-        {
-            this.Item = i;
-            this.Color = Color.Yellow;
-            this.Size = StandardSize;
-            this.Animation = new Animation(new SpriteSheet_Items());
-            this.Animation.SetSprite(i.Icon);
-            this.Animation.IsStatic = true;
-            OnInteraction = () =>
-            {
-                try
-                {
-                    inventory.Owner.OutOfCombatActionHandler.Clicked(i.Action);
-                }
-                catch (Exception e)
-                {
-                    Console.WriteLine("Tried using an item without an action or something like that: " + e);
-                }
-            };
-        }
-    }
-
     public class Inventory : Rectangle, IClickable
     {
         private List<InventorySlot> InventorySlots = new List<InventorySlot>();
