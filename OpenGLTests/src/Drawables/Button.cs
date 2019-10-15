@@ -8,7 +8,7 @@ using OpenGLTests.src.Util;
 
 namespace OpenGLTests.src.Drawables
 {
-    class Button : Rectangle, IInteractable
+    public class Button : Rectangle, IInteractable
     {
         private Color initialColor;
         private Color toggleColor;
@@ -42,7 +42,7 @@ namespace OpenGLTests.src.Drawables
         }
     }
 
-    abstract class ActionButton : Button
+    public abstract class ActionButton : Button
     {
         public GameAction GameAction;
         public static GLCoordinate StandardSize = new GLCoordinate(0.1f, 0.1f);
@@ -77,7 +77,8 @@ namespace OpenGLTests.src.Drawables
             {
                 try
                 {
-                    inventory.Owner.ActionHandler.SetActiveAction(i.Action);
+                    if(i.Action is IPlaceable nonPlacedAction) inventory.Owner.ActionHandler.Clicked(nonPlacedAction); 
+                    else inventory.Owner.ActionHandler.SetActiveAction(i.Action);
                 }
                 catch (Exception e)
                 {

@@ -124,6 +124,7 @@ namespace OpenGLTests.src
         public CombatActionHandler CombatActionHandler { get; set; }
         public OutOfCombatActionHandler OutOfCombatActionHandler { get; set; }
         public GameAction activeAction { get; set; }
+        public IPlaceable nonPlacedActiveAction { get; set; }
         public IActor owner { get; set; }
 
         public ActionHandler(IActor owner)
@@ -144,12 +145,19 @@ namespace OpenGLTests.src
             var previousAction = activeAction;
             if (previousAction != null)
             {
+                if(previousAction.RangeShape != null)
                 previousAction.RangeShape.Visible = false;
             }
 
             activeAction = action;
             activeAction.RangeShape.Visible = true;
             GameState.Drawables.Add(activeAction.RangeShape);
+        }
+
+        public void Clicked(IPlaceable placeable)
+        {
+            placeable.Clicked();
+            nonPlacedActiveAction = placeable;
         }
     }
 
@@ -283,32 +291,49 @@ namespace OpenGLTests.src
     public class OutOfCombatActionHandler
     {
         private ActionHandler handler;
+        
         private GameAction activeAction
         {
             get { return handler.activeAction; }
             set { handler.activeAction = value; }
         }
         private IActor owner => handler.owner;
+
         public OutOfCombatActionHandler(ActionHandler handler)
         {
             this.handler = handler;
         }
 
-        public void Clicked(GameAction action)
-        {
-            if (action is IPlaceable)
-            {
-                activeAction = action;
-                var placeableGameAction = (IPlaceable)activeAction;
-                placeableGameAction.Clicked();
-            }
-        }
-
+        /// <summary>
+        /// If no active action - make a move action.
+        /// If active action exists but it is a move action - replace it with move action.
+        /// Else call the iplaceable placed function of the active action.
+        /// </summary>
+        /// <param name="pos"></param>
         public void Placed(GameCoordinate pos)
         {
-            if (activeAction == null)
+            if (handler.nonPlacedActiveAction != null)
             {
-                activeAction = new MoveTowardsAction(pos, (Entity) owner);
+                bool placed = handler.nonPlacedActiveAction.Placed(pos);
+                if (placed)
+                {
+                    activeAction = (GameAction) handler.nonPlacedActiveAction;
+                    handler.nonPlacedActiveAction = null;
+                }
+            }
+            else if (activeAction != null)
+            {
+                if (activeAction.GetType() == typeof(MoveTowardsAction))
+                {
+                    activeAction = new MoveTowardsAction(pos, (Entity)owner);
+                }
+                else
+                {
+                }
+            }
+            else
+            {
+                activeAction = new MoveTowardsAction(pos, (Entity)owner);
             }
         }
 
@@ -325,6 +350,5 @@ namespace OpenGLTests.src
 
             return ActionReturns.Ongoing;
         }
-
     }
 }

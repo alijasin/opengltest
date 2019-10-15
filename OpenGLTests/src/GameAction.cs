@@ -19,7 +19,8 @@ namespace OpenGLTests.src
     {
         Finished,
         AllFinished,
-        Ongoing
+        Ongoing,
+        Placing
     }
 
     public abstract class GameAction
@@ -57,13 +58,12 @@ namespace OpenGLTests.src
             GameState.Drawables.Add(RangeShape);
         }
 
-
         public override Func<object, bool> GetAction()
         {
             return (o) =>
             {
-                Console.WriteLine("Tossed " + (int)o);
-                if ((int)o > 10) return true;
+                Console.WriteLine("Tossed " + (int) o);
+                if ((int) o >= 10) return true;
                 return false;
             };
         }
@@ -84,10 +84,8 @@ namespace OpenGLTests.src
             }
 
             return false;
-
         }
     }
-
 
     class TurnRedAction : ItemAction
     {
