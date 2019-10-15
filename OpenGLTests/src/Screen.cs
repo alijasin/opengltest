@@ -136,13 +136,7 @@ namespace OpenGLTests.src
                 {
                     if (GameState.Combat)
                     {
-                        Game.Hero.CombatActionHandler.RemoveAllPlacedAfterActive();
-                        var rs = Game.Hero.CombatActionHandler.GetActiveRangeShape();
-
-                        if (rs != null)
-                        {
-                            rs.Visible = true;
-                        }
+                        Game.Hero.ActionHandler.CombatActionHandler.Down();
                     }
                     else
                     {
@@ -153,23 +147,17 @@ namespace OpenGLTests.src
                 {
                     GameCoordinate placed = new GameCoordinate(input.MouseButtonArgs.X, input.MouseButtonArgs.Y);
                     var xd = CoordinateFuckery.ClickToGLRelativeToCamera(placed, new GameCoordinate(0, 0));
-                    var rs = Game.Hero.CombatActionHandler.GetActiveRangeShape();
 
                     if (GameState.Combat)
                     {
-                        if (rs != null)
-                        {
-                            rs.Visible = false;
-                            if (rs.Contains(xd))
-                            {
-                                Game.Hero.CombatActionHandler.EnqueueAction(xd);
-                            }
-                        }
+
+                          Game.Hero.ActionHandler.CombatActionHandler.TryEnqueueAction(xd);
+     
                     }
                     else
                     {
-                        Game.Hero.OutOfCombatActionHandler.Placed(xd);
-                        //Game.Hero.OutOfCombatActionHandler.EnqueueAction(new MoveTowardsAction(xd, Game.Hero));
+                        Game.Hero.ActionHandler.OutOfCombatActionHandler.Placed(xd);
+                        //Game.Hero.OutOfCombatActionHandler.TryEnqueueAction(new MoveTowardsAction(xd, Game.Hero));
                     }
                 }
             ));

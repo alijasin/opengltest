@@ -8,8 +8,7 @@ namespace OpenGLTests.src
 {
     public interface IActor
     {
-        OutOfCombatActionHandler OutOfCombatActionHandler { get; set; }
-        CombatActionHandler CombatActionHandler { get; set; }
+        ActionHandler ActionHandler { get; set; }
         GameCoordinate Location { get; set; }
         //void CommitAction(Action Action);
         //void DoCommitedActions();

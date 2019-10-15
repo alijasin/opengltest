@@ -41,7 +41,7 @@ namespace OpenGLTests.src.Drawables
             {
                 ab.OnInteraction += () =>
                 {
-                    Owner.CombatActionHandler.SetActiveAction(ab.GameAction);
+                    Owner.ActionHandler.SetActiveAction(ab.GameAction);
                 };
                 ab.Location = new GLCoordinate(fodder * (FilledActionSlots+1) + this.Location.X - this.Size.X/2 + FilledActionSlots * ab.Size.X + ab.Size.X/2, this.Location.Y + ab.Size.Y /2 + fodder);
                 actionButtons.Add(ab);
@@ -57,9 +57,9 @@ namespace OpenGLTests.src.Drawables
         {
             foreach (var ab in actionButtons.Where(but => but != barButton))
             {
-                ab.Toggle();
+                ab.Deactivate();
             }
-            barButton.Toggle();
+            barButton.Activate();
         }
     }
     

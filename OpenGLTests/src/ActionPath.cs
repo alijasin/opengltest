@@ -8,6 +8,7 @@ using System.Xml.Linq;
 using OpenGLTests.src;
 using OpenGLTests.src.Drawables;
 
+//this is a mess. Todo: refactor action handlers
 namespace OpenGLTests.src
 {
     public class MarkerLine : Drawable
@@ -118,19 +119,49 @@ namespace OpenGLTests.src
         }
     }
 
+    public class ActionHandler
+    {
+        public CombatActionHandler CombatActionHandler { get; set; }
+        public OutOfCombatActionHandler OutOfCombatActionHandler { get; set; }
+        public GameAction activeAction { get; set; }
+        public IActor owner { get; set; }
 
+        public ActionHandler(IActor owner)
+        {
+            OutOfCombatActionHandler = new OutOfCombatActionHandler(this);
+            CombatActionHandler = new CombatActionHandler(this);
+            this.owner = owner;
+        }
+
+        public void ClearActiveAction()
+        {
+            activeAction.Dispose();
+            activeAction = null;
+        }
+
+        public void SetActiveAction(GameAction action)
+        {
+            CombatActionHandler.SetActiveAction(action);
+        }
+    }
 
     public class CombatActionHandler
     {
-        private GameAction activeAction { get; set; }
         private GameAction previousActiveAction { get; set; }
         public PlacedActions PlacedActions = new PlacedActions();
 
-        private IActor owner;
 
-        public CombatActionHandler(IActor owner)
+        private ActionHandler handler;
+        private GameAction activeAction
         {
-            this.owner = owner;
+            get { return handler.activeAction; }
+            set { handler.activeAction = value; }
+        }
+        private IActor owner => handler.owner;
+
+        public CombatActionHandler(ActionHandler handler)
+        {
+            this.handler = handler;
         }
 
         /// <summary>
@@ -138,13 +169,23 @@ namespace OpenGLTests.src
         /// Else enqueue the action at the targeted position.
         /// </summary>
         /// <param name="position"></param>
-        public void EnqueueAction(GameCoordinate position)
+        public void TryEnqueueAction(GameCoordinate position)
         {
+            if (activeAction?.RangeShape == null) return;
+
+            activeAction.RangeShape = GetActiveRangeShape();
             activeAction.Marker.Location = position;
-            if (!PlacedActions.Get().ToList().Contains(activeAction))
+            activeAction.RangeShape.Visible = true;
+
+
+            if (activeAction.RangeShape.Contains(position))
             {
-                PlacedActions.Add(activeAction, owner);
+                if (!PlacedActions.Get().ToList().Contains(activeAction))
+                {
+                    PlacedActions.Add(activeAction, owner);
+                }
             }
+            
         }
 
         /// <summary>
@@ -160,7 +201,7 @@ namespace OpenGLTests.src
         /// Sets the active actions range shape location to the last placed move marker. If no move marker has been placed: the location of the owner.
         /// Then returns the active actions range shape.
         /// </summary>
-        /// <returns>Then returns the active actions range shape.</returns>
+        /// <returns>Rreturns the active actions range shape centered at last placed action's location or hero's location if no placed actions.</returns>
         public RangeShape GetActiveRangeShape()
         {
             if (GetActiveAction() == null) return null;
@@ -214,33 +255,55 @@ namespace OpenGLTests.src
 
         public ActionReturns TickPlacedActions(int index)
         {
-            //get first action that has not been executed. if this action is null all actions have been executed.
+            //get first action that has not been executed
             var firstAction = PlacedActions.First();
-            if (firstAction == null) return ActionReturns.AllFinished;
 
             //call action with index. if action call returns true this specific action is Finished executing.
             bool actionFinished = firstAction.GetAction().Invoke(index);
             if (actionFinished)
             {
                 PlacedActions.RemoveFirst();
+                if (PlacedActions.First() == null)
+                {
+                    handler.ClearActiveAction();
+                    return ActionReturns.AllFinished;
+                }
                 return ActionReturns.Finished;
             }
 
             return ActionReturns.Ongoing;
+        }
+
+        public void Down()
+        {
+            if (activeAction?.RangeShape == null) return;
+            setRangeShapeVisibility(true);
+
+            RemoveAllPlacedAfterActive();
+        }
+
+        private void setRangeShapeVisibility(bool visible)
+        {
+            activeAction.RangeShape = GetActiveRangeShape();
+            activeAction.RangeShape.Visible = visible;
         }
     }
 
     public class OutOfCombatActionHandler
     {
         private PlacedActions PlacedActions;
-        private GameAction activeAction;
         private Type defaultGameActionType = typeof(MoveTowardsAction);
 
-        private IActor owner;
-
-        public OutOfCombatActionHandler(IActor owner)
+        private ActionHandler handler;
+        private GameAction activeAction
         {
-            this.owner = owner;
+            get { return handler.activeAction; }
+            set { handler.activeAction = value; }
+        }
+        private IActor owner => handler.owner;
+        public OutOfCombatActionHandler(ActionHandler handler)
+        {
+            this.handler = handler;
             PlacedActions = new PlacedActions();
         }
 

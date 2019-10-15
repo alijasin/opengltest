@@ -10,20 +10,35 @@ namespace OpenGLTests.src.Drawables
 {
     class Button : Rectangle, IInteractable
     {
+        private Color initialColor;
+        private Color toggleColor;
         public Button()
         {
+            initialColor = Color;
+            toggleColor = Coloring.Opposite(initialColor);
             this.Size = new GLCoordinate(0.2f, 0.2f);
             OnInteraction += () =>
             {
-                Toggle();
+                //Toggle();
             };
         }
 
         public Action OnInteraction { get; set; }
 
+        public void Activate()
+        {
+            Color = toggleColor;
+        }
+
+        public void Deactivate()
+        {
+            Color = initialColor;
+        }
+
         public void Toggle()
         {
-            Color = Coloring.Opposite(Color);
+            if(Color == initialColor) Color = toggleColor;
+            else Color = initialColor;
         }
     }
 
@@ -35,8 +50,13 @@ namespace OpenGLTests.src.Drawables
         {
             OnInteraction += () =>
             {
-                Console.WriteLine("I was clicked " + this);
+
             };
+        }
+
+        public void SetGameAction(GameAction ga)
+        {
+
         }
     }
 
@@ -52,11 +72,13 @@ namespace OpenGLTests.src.Drawables
             this.Animation = new Animation(new SpriteSheet_Items());
             this.Animation.SetSprite(i.Icon);
             this.Animation.IsStatic = true;
+
             OnInteraction += () =>
             {
                 try
                 {
-                    inventory.Owner.OutOfCombatActionHandler.Clicked(i.Action);
+
+                    //inventory.Owner.ActionHandler.OutOfCombatActionHandler.Clicked(i.Action);
                 }
                 catch (Exception e)
                 {
@@ -68,19 +90,16 @@ namespace OpenGLTests.src.Drawables
 
     class ActionBarButton : ActionButton
     {
-
         public static GLCoordinate StandardSize = new GLCoordinate(0.1f, 0.1f);
         public ActionBarButton(GameAction ga, ActionBar inBar)
         {
-            this.Size = StandardSize;
-            this.Color = Color.Pink;
             GameAction = ga;
+            this.Size = StandardSize;
+            this.Color = Color.HotPink;
             OnInteraction += () =>
             {
                 inBar.SetActiveButton(this);
             };
-            Toggle();
         }
     }
-
 }

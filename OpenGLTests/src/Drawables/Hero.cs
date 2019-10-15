@@ -11,8 +11,7 @@ namespace OpenGLTests.src.Drawables
     public class Hero : Entity, IActor, ICombatable
     {
         public Inventory Inventory;
-        public CombatActionHandler CombatActionHandler { get; set; }
-        public OutOfCombatActionHandler OutOfCombatActionHandler { get; set; }
+        public ActionHandler ActionHandler { get; set; }
         private bool ExecutingActions = false;
         public bool InCombat { get; set; }
 
@@ -21,8 +20,7 @@ namespace OpenGLTests.src.Drawables
             Color = Color.CadetBlue;
             this.Location = new GameCoordinate(0f, 0f);
             this.Size = new GLCoordinate(0.1f, 0.1f);
-            CombatActionHandler = new CombatActionHandler(this);
-            OutOfCombatActionHandler = new OutOfCombatActionHandler(this);
+            ActionHandler = new ActionHandler(this);
             this.Speed = new GameCoordinate(0.02f, 0.02f);
             this.Animation = new Animation(new SpriteSheet_ElfIdle());
 
@@ -72,7 +70,7 @@ namespace OpenGLTests.src.Drawables
         {
             
 
-            ActionReturns res = OutOfCombatActionHandler.TickGameAction(outOfCombatIndex);
+            ActionReturns res = ActionHandler.OutOfCombatActionHandler.TickGameAction(outOfCombatIndex);
             if (res == ActionReturns.AllFinished)
             {
                 outOfCombatIndex = 0;
@@ -93,7 +91,7 @@ namespace OpenGLTests.src.Drawables
         {
             if (!ExecutingActions) return; //if you decide later than you want to get rid of action confirmation dont do this check.
 
-            ActionReturns res = CombatActionHandler.TickPlacedActions(combatIndex);
+            ActionReturns res = ActionHandler.CombatActionHandler.TickPlacedActions(combatIndex);
             if (res == ActionReturns.AllFinished)
             {
                 combatIndex = 0;
@@ -108,6 +106,5 @@ namespace OpenGLTests.src.Drawables
                 combatIndex = 0;
             }
         }
-
     }
 }

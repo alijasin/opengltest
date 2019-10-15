@@ -27,6 +27,14 @@ namespace OpenGLTests.src
         public RangeShape RangeShape { get; set; }
         public abstract Func<object, bool> GetAction(); //todo, add post action stuff to all functions.
         public Marker Marker { get; set; }
+
+        public void Dispose()
+        {
+            Marker.Visible = false;
+            RangeShape.Visible = false;
+            //GameState.Drawables.Remove(Marker);
+            //GameState.Drawables.Remove(RangeShape);
+        }
         /*
         public abstract bool PayPreConditions();
         */
