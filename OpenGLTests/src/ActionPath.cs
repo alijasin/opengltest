@@ -137,6 +137,7 @@ namespace OpenGLTests.src
         {
             if (CurrentAction == null) return;
             CurrentAction.RangeShape.Visible = true;
+            CurrentAction.Marker.Visible = true;
 
             if (owner.InCombat)
             {
@@ -194,8 +195,7 @@ namespace OpenGLTests.src
             //set the location of the marker to location as well as the lines terminus to location
             action.Marker.UpdatePositionOfLineAndMarker(location);
 
-            var lastPlacedAction = placedActions.Last();
-            action.Marker.Visible = true;
+            var lastPlacedAction = placedActions.LastMoveAction();
 
             if (lastPlacedAction != null)
             {

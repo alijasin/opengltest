@@ -38,7 +38,40 @@ namespace OpenGLTests.src
             Marker = new MoveMarker(new GameCoordinate(0, 0));
             RangeShape.Visible = false;
             Marker.Visible = false;
+        }
 
+        public void Show()
+        {
+            if (Marker != null)
+            {
+                Marker.Visible = true;
+                if (Marker.MarkerLine != null)
+                {
+                    Marker.MarkerLine.Visible = true;
+                }
+            }
+
+            if (RangeShape != null)
+            {
+                RangeShape.Visible = true;
+            }
+        }
+
+        public void Hide()
+        {
+            if (Marker != null)
+            {
+                Marker.Visible = false;
+                if (Marker.MarkerLine != null)
+                {
+                    Marker.MarkerLine.Visible = false;
+                }
+            }
+
+            if (RangeShape != null)
+            {
+                RangeShape.Visible = false;
+            }
         }
         /*
         public abstract bool PayPreConditions();

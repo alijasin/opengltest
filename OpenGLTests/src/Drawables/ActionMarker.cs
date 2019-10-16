@@ -19,33 +19,33 @@ namespace OpenGLTests.src.Drawables
     }
     public class ActionMarker : Marker
     {
-        protected ActionLine markerLine { get; set; }
+        public ActionLine MarkerLine { get; set; }
         public ActionMarker(GameCoordinate loc) : base(loc)
         {
             this.Color = Color.DarkGoldenrod;
-            this.markerLine = new ActionLine(this.Location);
+            this.MarkerLine = new ActionLine(this.Location);
         }
 
         public override void DrawStep(DrawAdapter drawer)
         {
             base.DrawStep(drawer);
-            if (markerLine != null) markerLine.DrawStep(drawer);
+            if (MarkerLine != null) MarkerLine.DrawStep(drawer);
         }
 
         public override void Dispose()
         {
-            GameState.Drawables.Remove(markerLine);
+            GameState.Drawables.Remove(MarkerLine);
         }
 
         public void UpdatePositionOfLineAndMarker(GameCoordinate location)
         {
             this.Location = location;
-            this.markerLine.Location = location;
+            this.MarkerLine.Location = location;
         }
 
         public void SetLineOrigin(GameCoordinate gameCoordinate)
         {
-            this.markerLine.Origin = gameCoordinate;
+            this.MarkerLine.Origin = gameCoordinate;
         }
     }
 
