@@ -60,7 +60,7 @@ namespace OpenGLTests.src
             while (node != null)
             {
                 //make interface for all move kinds
-                if (node.Value is MoveAction) return node.Value;
+                if (node.Value.Marker is MoveMarker) return node.Value;
                 node = node.Previous;
             }
 
