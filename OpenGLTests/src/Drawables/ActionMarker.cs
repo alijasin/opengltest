@@ -56,6 +56,7 @@ namespace OpenGLTests.src.Drawables
         {
             this.Color = Color.Red;
             this.aoeSize = aoeSize;
+            this.MarkerLine.LineType = LineType.Dashed;
         }
 
         public override void DrawStep(DrawAdapter drawer)
@@ -71,6 +72,7 @@ namespace OpenGLTests.src.Drawables
         public MoveMarker(GameCoordinate loc) : base(loc)
         {
             this.Color = Color.Aqua;
+            this.MarkerLine.LineType = LineType.Solid;
         }
     }
 }
