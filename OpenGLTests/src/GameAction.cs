@@ -29,7 +29,7 @@ namespace OpenGLTests.src
     {
         public RangeShape RangeShape { get; set; }
         public abstract Func<object, bool> GetAction(); 
-        public Marker Marker { get; set; }
+        public ActionMarker Marker { get; set; }
         public bool Ready { get; set; } = true;
 
         protected GameAction()

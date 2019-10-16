@@ -15,40 +15,36 @@ namespace OpenGLTests.src.Drawables
 
     public abstract class Line : Drawable
     {
-        protected GameCoordinate origin;
-        protected GameCoordinate terminus;
-        protected LineType LineType = Drawables.LineType.Solid;
+        public virtual GameCoordinate Origin { get; set; }
+        public virtual GameCoordinate Terminus { get; set; }
+        public LineType LineType = LineType.Solid;
 
-        protected Line(GameCoordinate origin, GameCoordinate terminus)
+        protected Line(GameCoordinate origin, GameCoordinate terminus, LineType LineType = LineType.Solid)
         {
-            this.origin = origin;
-            this.terminus = terminus;
+            this.Origin = origin;
+            this.Terminus = terminus;
             this.Color = Color.Green;
+            this.LineType = LineType;
         }
 
         public override void DrawStep(DrawAdapter drawer)
         {
-            GLCoordinate GLo = origin.ToGLCoordinate(GameState.ActiveCamera.Location);
-            GLCoordinate GLt = terminus.ToGLCoordinate(GameState.ActiveCamera.Location);
+            GLCoordinate GLo = Origin.ToGLCoordinate(GameState.ActiveCamera.Location);
+            GLCoordinate GLt = Terminus.ToGLCoordinate(GameState.ActiveCamera.Location);
             drawer.DrawLine(GLo, GLt, Color, LineType);
         }
     }
 
-    public class SolidLine : Line
+    public class ActionLine : Line
     {
-        public SolidLine(GameCoordinate origin, GameCoordinate terminus) : base(origin, terminus)
+        public ActionLine(GameCoordinate origin) : base(origin, origin)
         {
-            this.Color = Color.LawnGreen;
-            this.LineType = LineType.Solid;
         }
-    }
 
-    public class DashedLine : Line
-    {
-        public DashedLine(GameCoordinate origin, GameCoordinate terminus) : base(origin, terminus)
+        public override GameCoordinate Location
         {
-            this.Color = Color.DarkGoldenrod;
-            this.LineType = LineType.Dashed;
+            get { return Terminus; }
+            set { Terminus = value; }
         }
     }
 }

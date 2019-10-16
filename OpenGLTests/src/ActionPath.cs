@@ -12,56 +12,6 @@ using OpenGLTests.src.Drawables;
 //this is a mess. Todo: refactor action handlers
 namespace OpenGLTests.src
 {
-    public class MLine
-    {
-
-    }
-
-    public class MarkerLine : Drawable
-    {
-        private Line line;
-        private GameCoordinate terminus;
-        private GameCoordinate origin;
-
-        public MarkerLine(LinkedList<GameAction> actions, IActionCapable owner)
-        {
-            var node = actions.Last;
-            while (node != null)
-            {
-                if (terminus == null)
-                {
-                    terminus = node.Value.Marker.Location;
-                }
-                else if (node.Value.Marker is MoveMarker)
-                {
-                    origin = node.Value.Marker.Location;
-                    break; //donezo
-                }
-                node = node.Previous;
-            }
-
-            if (origin == null) origin = owner.Location;
-
-            if (actions.Last.Value.Marker is MoveMarker)
-            {
-                line = new SolidLine(terminus, origin);
-            }
-            else if (actions.Last.Value.Marker is ActionMarker)
-            {
-                line = new DashedLine(terminus, origin);
-            }
-            else //default
-            {
-                line = new SolidLine(terminus, origin);
-            }
-        }
-
-        public override void DrawStep(DrawAdapter drawer)
-        {
-            line.DrawStep(drawer);
-        }
-    }
-
     public class PlacedActions
     {
         LinkedList<GameAction> linkedList = new LinkedList<GameAction>();
@@ -103,6 +53,20 @@ namespace OpenGLTests.src
             return linkedList;
         }
 
+        public GameAction LastMoveAction()
+        {
+            var node = linkedList.Last;
+
+            while (node != null)
+            {
+                //make interface for all move kinds
+                if (node.Value is MoveAction) return node.Value;
+                node = node.Previous;
+            }
+
+            return null;
+        }
+
         public GameAction Last()
         {
             if (linkedList.Count == 0) return null;
@@ -126,6 +90,7 @@ namespace OpenGLTests.src
     public class ActionHandler
     {
         private Button CurrentActionButton { get; set; }
+        private GameAction previousGameAction { get; set; }
         private GameAction CurrentAction { get; set; }
         private IActionCapable owner;
         private CombatActionHandler combatActionHandler { get; set; }
@@ -159,7 +124,8 @@ namespace OpenGLTests.src
             CurrentActionButton.Animation = ab.Animation;
             CurrentActionButton.Animation.SetSprite(ab.Animation.GetSprite().sid);
 
-            //Update current action
+            //Update current actions
+            previousGameAction = CurrentAction;
             CurrentAction = ab.GameAction;
         }
 
@@ -171,6 +137,13 @@ namespace OpenGLTests.src
         {
             if (CurrentAction == null) return;
             CurrentAction.RangeShape.Visible = true;
+
+            if (owner.InCombat)
+            {
+                var origin = combatActionHandler.GetOriginOfLastPlacedAction();
+                if (origin != null) CurrentAction.RangeShape.Location = previousGameAction.Marker.Location;
+            }
+
         }
 
         /// <summary>
@@ -218,10 +191,31 @@ namespace OpenGLTests.src
 
         public void PlaceAction(GameAction action, GameCoordinate location, IActionCapable owner)
         {
-            action.Marker.Location = location;
+            //set the location of the marker to location as well as the lines terminus to location
+            action.Marker.UpdatePositionOfLineAndMarker(location);
+
+            var lastPlacedAction = placedActions.Last();
             action.Marker.Visible = true;
-            action.Marker.SetMarkerLine(location);
+
+            if (lastPlacedAction != null)
+            {
+                action.Marker.SetLineOrigin(lastPlacedAction.Marker.Location);
+            }
+            else
+            {
+                action.Marker.SetLineOrigin(owner.Location);
+            }
+
+
             placedActions.Add(action, owner);
+        }
+
+        public GameCoordinate GetOriginOfLastPlacedAction()
+        {
+            var lma = placedActions.LastMoveAction();
+
+            if (lma == null) return null;
+            else return lma.Marker.Location;
         }
     }
 

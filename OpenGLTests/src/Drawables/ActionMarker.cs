@@ -9,7 +9,6 @@ namespace OpenGLTests.src.Drawables
 {
     public abstract class Marker : Entity
     {
-        private MarkerLine markerLine { get; set; }
         protected Marker(GameCoordinate loc)
         {
             this.Location = loc;
@@ -17,37 +16,40 @@ namespace OpenGLTests.src.Drawables
             this.Visible = false;
             GameState.Drawables.Add(this);
         }
-
-        public void SetMarkerLine(GameCoordinate loc)
+    }
+    public class ActionMarker : Marker
+    {
+        protected ActionLine markerLine { get; set; }
+        public ActionMarker(GameCoordinate loc) : base(loc)
         {
-            this.markerLine.Location = loc;
-        }
-
-        public void SetMarkerLine(MarkerLine ml)
-        {
-            this.markerLine = ml;
+            this.Color = Color.DarkGoldenrod;
+            this.markerLine = new ActionLine(this.Location);
         }
 
         public override void DrawStep(DrawAdapter drawer)
         {
             base.DrawStep(drawer);
-            if(markerLine != null) markerLine.DrawStep(drawer);
+            if (markerLine != null) markerLine.DrawStep(drawer);
         }
 
         public override void Dispose()
         {
             GameState.Drawables.Remove(markerLine);
         }
-    }
-    public class ActionMarker : Marker
-    {
-        public ActionMarker(GameCoordinate loc) : base(loc)
+
+        public void UpdatePositionOfLineAndMarker(GameCoordinate location)
         {
-            this.Color = Color.DarkGoldenrod;
+            this.Location = location;
+            this.markerLine.Location = location;
+        }
+
+        public void SetLineOrigin(GameCoordinate gameCoordinate)
+        {
+            this.markerLine.Origin = gameCoordinate;
         }
     }
 
-    public class AOEMarker : Marker
+    public class AOEMarker : ActionMarker
     {
         public GLCoordinate aoeSize;
         public AOEMarker(GameCoordinate loc, GLCoordinate aoeSize) : base(loc)
@@ -64,7 +66,7 @@ namespace OpenGLTests.src.Drawables
         }
     }
 
-    public class MoveMarker : Marker
+    public class MoveMarker : ActionMarker
     {
         public MoveMarker(GameCoordinate loc) : base(loc)
         {
