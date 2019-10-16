@@ -55,13 +55,12 @@ namespace OpenGLTests.src
 
     }
 
-    class TossItemAction : ItemAction, IPlaceable
+    class TossItemAction : ItemAction
     {
         public TossItemAction(Entity source, Item i)
         {
             RangeShape = new FollowCircle(new GLCoordinate(0.5f, 0.5f), source);
             RangeShape.Visible = false;
-            Ready = false;
         }
 
         public override Func<object, bool> GetAction()
@@ -72,25 +71,6 @@ namespace OpenGLTests.src
                 if ((int) o >= 10) return true;
                 return false;
             };
-        }
-
-        public void Clicked()
-        {
-            RangeShape.Visible = true;
-            Console.WriteLine(this + " was clicked.");
-        }
-
-
-        public bool Placed(GameCoordinate location)
-        {
-            if (RangeShape.Contains(location))
-            {
-                Console.WriteLine(this + " was placed at " + location);
-                Ready = true;
-                return true;
-            }
-
-            return false;
         }
     }
 

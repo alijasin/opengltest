@@ -12,6 +12,11 @@ using OpenGLTests.src.Drawables;
 //this is a mess. Todo: refactor action handlers
 namespace OpenGLTests.src
 {
+    public class MLine
+    {
+
+    }
+
     public class MarkerLine : Drawable
     {
         private Line line;
@@ -63,13 +68,11 @@ namespace OpenGLTests.src
 
         public void Add(GameAction placed, IActionCapable owner)
         {
-            //add a new marker, both for drawing and in linked list
-            GameState.Drawables.Add(placed.Marker);
             linkedList.AddLast(placed);
-
+            
             //create line between previous set marker and newly placed marker
-            MarkerLine ml = new MarkerLine(linkedList, owner);
-            placed.Marker.SetMarkerLine(ml);
+            //MarkerLine ml = new MarkerLine(linkedList, owner);
+            //placed.Marker.SetMarkerLine(ml);
         }
 
         public void Remove(GameAction action)
@@ -179,11 +182,14 @@ namespace OpenGLTests.src
             if (CurrentAction == null) return;
             CurrentAction.RangeShape.Visible = false;
 
-            if (CurrentAction.RangeShape.Contains(location))
+            if (CurrentAction.RangeShape.Contains(location) || CurrentAction.RangeShape.IsInfinite)
             {
                 if (CurrentAction.Ready)
                 {
-
+                    if (owner.InCombat)
+                    {
+                        combatActionHandler.PlaceAction(CurrentAction, location, owner);
+                    }
                 }
                 //if in combat -> queue
                 //else do it(unless its placeable)
@@ -204,7 +210,19 @@ namespace OpenGLTests.src
 
     public class CombatActionHandler
     {
+        private PlacedActions placedActions;
+        public CombatActionHandler()
+        {
+            placedActions = new PlacedActions();
+        }
 
+        public void PlaceAction(GameAction action, GameCoordinate location, IActionCapable owner)
+        {
+            action.Marker.Location = location;
+            action.Marker.Visible = true;
+            action.Marker.SetMarkerLine(location);
+            placedActions.Add(action, owner);
+        }
     }
 
     public class OutOfCombatActionHandler

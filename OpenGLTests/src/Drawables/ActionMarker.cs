@@ -18,10 +18,14 @@ namespace OpenGLTests.src.Drawables
             GameState.Drawables.Add(this);
         }
 
+        public void SetMarkerLine(GameCoordinate loc)
+        {
+            this.markerLine.Location = loc;
+        }
+
         public void SetMarkerLine(MarkerLine ml)
         {
             this.markerLine = ml;
-            GameState.Drawables.Add(ml);
         }
 
         public override void DrawStep(DrawAdapter drawer)

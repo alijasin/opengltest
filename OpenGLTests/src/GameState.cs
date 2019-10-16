@@ -75,17 +75,6 @@ namespace OpenGLTests.src
                 }
             }
             ActiveCamera.Step();
-
-
-            foreach (Drawable e in GameState.Drawables.GetAllDrawables)
-            {
-                if (e is FollowCircle r && e.Visible)
-                {
-                    
-                   // Console.WriteLine(r.Location);
-                }
-                
-            }
         }
     }
 }
