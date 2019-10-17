@@ -16,6 +16,7 @@ namespace OpenGLTests.src.Drawables
             this.Color = Color.White;
             this.Visible = false;
             this.Animation = new Animation(new SpriteSheet_Icons());
+            GameState.Drawables.Add(this);
         }
 
         public override void DrawStep(DrawAdapter drawer)

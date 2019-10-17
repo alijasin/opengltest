@@ -25,6 +25,7 @@ namespace OpenGLTests.src.Drawables
             this.Terminus = terminus;
             this.Color = Color.Green;
             this.LineType = LineType;
+            GameState.Drawables.Add(this);
         }
 
         public override void DrawStep(DrawAdapter drawer)
