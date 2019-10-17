@@ -14,6 +14,7 @@ namespace OpenGLTests.src.Drawables
         public ActionHandler ActionHandler { get; set; }
         private bool ExecutingActions = false;
         public bool InCombat { get; set; }
+        private bool waitingForActionCommit = true;
 
         public Hero()
         {
@@ -41,6 +42,7 @@ namespace OpenGLTests.src.Drawables
             b.OnInteraction += () =>
             {
                 ExecutingActions = true;
+                waitingForActionCommit = false;
             };
             GameState.Drawables.Add(b);
 
@@ -58,14 +60,31 @@ namespace OpenGLTests.src.Drawables
         private static int outOfCombatIndex = 0;
         public void OutOfCombatStep()
         {
-            //ActionHandler.TryInvokeCurrentAction(outOfCombatIndex);
+
         }
 
         //todo refactror this so we dont have literally duplicated code
         private static int combatIndex = 0;
         public void CombatStep()
         {
-            //ActionHandler.TryInvokeCurrentAction(combatIndex);
+            if (waitingForActionCommit == true) return;
+
+
+            var status = ActionHandler.TryInvokePlacedActions(combatIndex);
+            if (status == ActionReturns.AllFinished)
+            {
+                combatIndex = 0;
+                waitingForActionCommit = true;
+            }
+            else if (status == ActionReturns.Finished)
+            {
+                combatIndex = 0;
+            }
+            else if (status == ActionReturns.Ongoing)
+            {
+                combatIndex += 1;
+            }
+            
         }
     }
 }

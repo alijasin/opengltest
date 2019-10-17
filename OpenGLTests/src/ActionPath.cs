@@ -70,7 +70,7 @@ namespace OpenGLTests.src
         public void RemoveFirst()
         {
             var node = linkedList.First;
-            GameState.Drawables.Remove(node.Value.Marker);
+            node.Value.Dispose();
             linkedList.Remove(node);
         }
 
@@ -89,6 +89,11 @@ namespace OpenGLTests.src
             }
 
             return false;
+        }
+
+        public int Count()
+        {
+            return linkedList.Count;
         }
     }
 
@@ -177,6 +182,12 @@ namespace OpenGLTests.src
             }
         }
 
+        public ActionReturns TryInvokePlacedActions(object args)
+        {
+            ActionReturns status = combatActionHandler.DoAction(args);
+            return status;
+        }
+
         public ActionReturns TryInvokeCurrentAction(object args)
         {
             if (CurrentAction.Ready)
@@ -229,6 +240,20 @@ namespace OpenGLTests.src
             {
                 placedActions.Remove(currentAction);
             }
+        }
+
+        public ActionReturns DoAction(object arg)
+        {
+            bool completed = placedActions.First().GetAction().Invoke(arg);
+            if (completed)
+            {
+                placedActions.RemoveFirst();
+            }
+            else return ActionReturns.Ongoing;
+
+            if (placedActions.Count() == 0) return ActionReturns.AllFinished;
+            else return ActionReturns.Finished;
+
         }
     }
 
