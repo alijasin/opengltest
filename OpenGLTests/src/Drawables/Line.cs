@@ -29,9 +29,17 @@ namespace OpenGLTests.src.Drawables
 
         public override void DrawStep(DrawAdapter drawer)
         {
-            GLCoordinate GLo = Origin.ToGLCoordinate(GameState.ActiveCamera.Location);
-            GLCoordinate GLt = Terminus.ToGLCoordinate(GameState.ActiveCamera.Location);
-            drawer.DrawLine(GLo, GLt, Color, LineType);
+            if (Visible)
+            {
+                GLCoordinate GLo = Origin.ToGLCoordinate(GameState.ActiveCamera.Location);
+                GLCoordinate GLt = Terminus.ToGLCoordinate(GameState.ActiveCamera.Location);
+                drawer.DrawLine(GLo, GLt, Color, LineType);
+            }
+        }
+
+        public override string ToString()
+        {
+            return "Origin: " + Origin + "\nTerminus" + Terminus;
         }
     }
 

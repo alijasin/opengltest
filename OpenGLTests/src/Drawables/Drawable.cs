@@ -10,7 +10,7 @@ namespace OpenGLTests.src.Drawables
 {
     public abstract class Drawable
     {
-        public bool Visible { get; set; } = true;
+        public virtual bool Visible { get; set; }
         public Color Color { get; set; } = Color.Red;
         public GLCoordinate Size { get; set; } = new GLCoordinate(0.1f, 0.1f);
         public Animation Animation { get; set; }
@@ -36,11 +36,22 @@ namespace OpenGLTests.src.Drawables
 
         }
 
+        public Drawable()
+        {
+            GameState.Drawables.Add(this);
+            this.Visible = false;
+        }
+
     }
 
     public abstract class Entity : Drawable
     {
         public GameCoordinate Speed { get; set; } = new GameCoordinate(0, 0);
+
+        public Entity()
+        {
+            this.Visible = true;
+        }
 
         public override void DrawStep(DrawAdapter drawer)
         {
@@ -62,6 +73,11 @@ namespace OpenGLTests.src.Drawables
     public abstract class Element : Drawable
     {
         public GLCoordinate Location { get; set; } = new GLCoordinate(0, 0);
+
+        public Element()
+        {
+            this.Visible = true;
+        }
 
         public override void DrawStep(DrawAdapter drawer)
         {

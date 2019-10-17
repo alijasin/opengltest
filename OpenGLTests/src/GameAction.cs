@@ -30,49 +30,49 @@ namespace OpenGLTests.src
         public RangeShape RangeShape { get; set; }
         public abstract Func<object, bool> GetAction(); 
         public ActionMarker Marker { get; set; }
+        public ActionLine ActionLine { get; set; }
         public bool Ready { get; set; } = true;
+        public bool IsPlaced { get; set; } = false;
 
+
+        //base GameAction properties
         protected GameAction()
         {
             RangeShape = new RangeCircle(new GLCoordinate(0, 0));
-            Marker = new MoveMarker(new GameCoordinate(0, 0));
+            ActionLine = new ActionLine(new GameCoordinate(0,0));
+            Marker = new ActionMarker(new GameCoordinate(0,0));
+
             RangeShape.Visible = false;
+            ActionLine.Visible = false;
             Marker.Visible = false;
+
+            ActionLine.LineType = LineType.Solid;
         }
 
-        public void Show()
+        public void PositionLine(GameCoordinate origin, GameCoordinate terminus)
         {
-            if (Marker != null)
-            {
-                Marker.Visible = true;
-                if (Marker.MarkerLine != null)
-                {
-                    Marker.MarkerLine.Visible = true;
-                }
-            }
-
-            if (RangeShape != null)
-            {
-                RangeShape.Visible = true;
-            }
+            if (origin != null) ActionLine.Origin = origin;
+            if (terminus != null) ActionLine.Terminus = terminus;
         }
 
-        public void Hide()
+        public void Dispose()
         {
-            if (Marker != null)
-            {
-                Marker.Visible = false;
-                if (Marker.MarkerLine != null)
-                {
-                    Marker.MarkerLine.Visible = false;
-                }
-            }
+            IsPlaced = false;
 
-            if (RangeShape != null)
-            {
-                RangeShape.Visible = false;
-            }
+            Marker.Visible = false;
+            ActionLine.Visible = false;
         }
+
+        public void Place()
+        {
+            IsPlaced = true;
+
+            Marker.Visible = true;
+            ActionLine.Visible = true;
+        }
+
+
+
         /*
         public abstract bool PayPreConditions();
         */
@@ -85,7 +85,10 @@ namespace OpenGLTests.src
 
     public abstract class ItemAction : GameAction
     {
-
+        protected ItemAction()
+        {
+            ActionLine.LineType = LineType.Dashed;
+        }
     }
 
     class TossItemAction : ItemAction
@@ -94,6 +97,7 @@ namespace OpenGLTests.src
         {
             RangeShape = new FollowCircle(new GLCoordinate(0.5f, 0.5f), source);
             RangeShape.Visible = false;
+            Marker = new AOEMarker(new GameCoordinate(0.5f, 0.5f), new GLCoordinate(0.2f, 0.2f));
         }
 
         public override Func<object, bool> GetAction()
@@ -160,6 +164,7 @@ namespace OpenGLTests.src
             RangeShape = new RangeCircle(radius);
             this.Marker = new MoveMarker(RangeShape.Location);
             this.source = source;
+            this.ActionLine.LineType = LineType.Solid;
         }
 
         public override Func<object, bool> GetAction()
@@ -210,6 +215,7 @@ namespace OpenGLTests.src
         {
             RangeShape = new RangeCircle(new GLCoordinate(0.8f, 0.8f));
             this.Marker = new ActionMarker(RangeShape.Location);
+            this.ActionLine.LineType = LineType.Dashed;
             a = f;
         }
 
@@ -225,14 +231,17 @@ namespace OpenGLTests.src
 
     class AOEEffectAction : CombatAction
     {
-        private AOEMarker m;
         private GLCoordinate initialAOERange;
+
+        private AOEMarker marker => Marker as AOEMarker;
+
         public AOEEffectAction(GLCoordinate actionRange, GLCoordinate aoeRange)
         {
             RangeShape = new RangeCircle(actionRange);
-            m = new AOEMarker(RangeShape.Location, aoeRange);
+            this.Marker = new AOEMarker(RangeShape.Location, aoeRange);
+            
             initialAOERange = new GLCoordinate(aoeRange.X, aoeRange.Y);
-            this.Marker = m;
+            this.ActionLine.LineType = LineType.Dashed;
         }
 
         public override Func<object, bool> GetAction()
@@ -240,15 +249,14 @@ namespace OpenGLTests.src
             return (o) =>
             {
                 int index = (int) o;
-
-                if (m.aoeSize.X < 0.0f || m.aoeSize.Y < 0.0f || index > 100)
+                if (marker.aoeSize.X < 0.0f || marker.aoeSize.Y < 0.0f || index > 100)
                 {
-                    m.aoeSize = initialAOERange;
+                    marker.aoeSize = initialAOERange;
                     return true;
                 }
 
-                m.aoeSize.X -= 0.01f;
-                m.aoeSize.Y -= 0.01f;
+                marker.aoeSize.X -= 0.01f;
+                marker.aoeSize.Y -= 0.01f;
 
                 return false;
             };
@@ -262,6 +270,7 @@ namespace OpenGLTests.src
         public MoveTowardsEntityAction(Entity source)
         {
             this.source = source;
+            this.ActionLine.LineType = LineType.Solid;
         }
         
         public override Func<object, bool> GetAction()
@@ -303,6 +312,7 @@ namespace OpenGLTests.src
             this.source = source;
             this.point = point;
             this.Marker = new MoveMarker(point);
+            this.ActionLine.LineType = LineType.Solid;
             //GameState.Drawables.Add(this.Marker);
         }
 
@@ -386,6 +396,7 @@ namespace OpenGLTests.src
             RangeShape = new RangeCircle(radius);
             this.Marker = new MoveMarker(RangeShape.Location);
             this.source = source;
+            this.ActionLine.LineType = LineType.Solid;
         }
 
         public override Func<object, bool> GetAction()

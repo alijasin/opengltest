@@ -60,7 +60,6 @@ namespace OpenGLTests.src.Drawables
         public bool IsInfinite => Size == new GLCoordinate(0, 0);
         protected RangeShape()
         {
-            GameState.Drawables.Add(this);
         }
         //public ActionMarker Marker { get; set; }
     }

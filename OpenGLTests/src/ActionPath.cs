@@ -16,41 +16,30 @@ namespace OpenGLTests.src
     {
         LinkedList<GameAction> linkedList = new LinkedList<GameAction>();
 
-        public void Add(GameAction placed, IActionCapable owner)
+        public void Add(GameAction placed)
         {
             linkedList.AddLast(placed);
-            
-            //create line between previous set marker and newly placed marker
-            //MarkerLine ml = new MarkerLine(linkedList, owner);
-            //placed.Marker.SetMarkerLine(ml);
         }
 
         public void Remove(GameAction action)
         {
-            var node = linkedList.First;
+            var node = linkedList.Last;
+
             while (node != null)
             {
-                var nextNode = node.Next;
                 if (node.Value == action)
                 {
+                    node.Value.Dispose();
                     linkedList.Remove(node);
-                    GameState.Drawables.Remove(node.Value.Marker);
-                    node = nextNode;
-                    while (node != null)
-                    {
-                        var temp = node;
-                        node = node.Next;
-                        linkedList.Remove(temp);
-                        GameState.Drawables.Remove(temp.Value.Marker);
-                    }
+                    return;
                 }
-                node = nextNode;
-            }
-        }
 
-        public LinkedList<GameAction> Get()
-        {
-            return linkedList;
+                var prev = node.Previous;
+
+                node.Value.Dispose();
+                linkedList.Remove(node);
+                node = prev;
+            }
         }
 
         public GameAction LastMoveAction()
@@ -59,7 +48,6 @@ namespace OpenGLTests.src
 
             while (node != null)
             {
-                //make interface for all move kinds
                 if (node.Value.Marker is MoveMarker) return node.Value;
                 node = node.Previous;
             }
@@ -84,6 +72,23 @@ namespace OpenGLTests.src
             var node = linkedList.First;
             GameState.Drawables.Remove(node.Value.Marker);
             linkedList.Remove(node);
+        }
+
+        //todo compares by action instead of unique way. this will prevent duplicated pga.
+        public bool AlreadyPlaced(GameAction pga)
+        {
+            var node = linkedList.First;
+            while (node != null)
+            {
+                if (node.Value.GetAction() == pga.GetAction())
+                {
+                    return true;
+                }
+
+                node = node.Next;
+            }
+
+            return false;
         }
     }
 
@@ -137,12 +142,13 @@ namespace OpenGLTests.src
         {
             if (CurrentAction == null) return;
             CurrentAction.RangeShape.Visible = true;
-            CurrentAction.Marker.Visible = true;
 
             if (owner.InCombat)
             {
+                combatActionHandler.ClearPreviouslyPlacedBefore(CurrentAction);
                 var origin = combatActionHandler.GetOriginOfLastPlacedAction();
-                if (origin != null) CurrentAction.RangeShape.Location = previousGameAction.Marker.Location;
+                if (origin == null || previousGameAction == null) CurrentAction.RangeShape.Location = owner.Location;
+                else CurrentAction.RangeShape.Location = origin;
             }
 
         }
@@ -192,22 +198,20 @@ namespace OpenGLTests.src
 
         public void PlaceAction(GameAction action, GameCoordinate location, IActionCapable owner)
         {
-            //set the location of the marker to location as well as the lines terminus to location
-            action.Marker.UpdatePositionOfLineAndMarker(location);
+            action.Marker.Location = location;
+            var lastMoveAction = placedActions.LastMoveAction();
 
-            var lastPlacedAction = placedActions.LastMoveAction();
-
-            if (lastPlacedAction != null)
+            if (lastMoveAction != null)
             {
-                action.Marker.SetLineOrigin(lastPlacedAction.Marker.Location);
+                action.PositionLine(lastMoveAction.Marker.Location, location);
             }
             else
             {
-                action.Marker.SetLineOrigin(owner.Location);
+                action.PositionLine(owner.Location, location);
             }
 
-
-            placedActions.Add(action, owner);
+            action.Place();
+            placedActions.Add(action);
         }
 
         public GameCoordinate GetOriginOfLastPlacedAction()
@@ -216,6 +220,14 @@ namespace OpenGLTests.src
 
             if (lma == null) return null;
             else return lma.Marker.Location;
+        }
+
+        public void ClearPreviouslyPlacedBefore(GameAction currentAction)
+        {
+            if (placedActions.AlreadyPlaced(currentAction))
+            {
+                placedActions.Remove(currentAction);
+            }
         }
     }
 

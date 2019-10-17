@@ -14,38 +14,14 @@ namespace OpenGLTests.src.Drawables
             this.Location = loc;
             this.Size = new GLCoordinate(0.02f, 0.02f);
             this.Visible = false;
-            GameState.Drawables.Add(this);
         }
     }
+
     public class ActionMarker : Marker
     {
-        public ActionLine MarkerLine { get; set; }
         public ActionMarker(GameCoordinate loc) : base(loc)
         {
             this.Color = Color.DarkGoldenrod;
-            this.MarkerLine = new ActionLine(this.Location);
-        }
-
-        public override void DrawStep(DrawAdapter drawer)
-        {
-            base.DrawStep(drawer);
-            if (MarkerLine != null) MarkerLine.DrawStep(drawer);
-        }
-
-        public override void Dispose()
-        {
-            GameState.Drawables.Remove(MarkerLine);
-        }
-
-        public void UpdatePositionOfLineAndMarker(GameCoordinate location)
-        {
-            this.Location = location;
-            this.MarkerLine.Location = location;
-        }
-
-        public void SetLineOrigin(GameCoordinate gameCoordinate)
-        {
-            this.MarkerLine.Origin = gameCoordinate;
         }
     }
 
@@ -56,14 +32,17 @@ namespace OpenGLTests.src.Drawables
         {
             this.Color = Color.Red;
             this.aoeSize = aoeSize;
-            this.MarkerLine.LineType = LineType.Dashed;
         }
 
         public override void DrawStep(DrawAdapter drawer)
         {
-            base.DrawStep(drawer);
-            GLCoordinate location = Location.ToGLCoordinate(GameState.ActiveCamera.Location);
-            drawer.FillCircle(location.X, location.Y, aoeSize, Color.Red);
+            if (Visible)
+            {
+                base.DrawStep(drawer);
+                GLCoordinate location = Location.ToGLCoordinate(GameState.ActiveCamera.Location);
+                drawer.FillCircle(location.X, location.Y, aoeSize, Color.Red);
+            }
+
         }
     }
 
@@ -72,7 +51,6 @@ namespace OpenGLTests.src.Drawables
         public MoveMarker(GameCoordinate loc) : base(loc)
         {
             this.Color = Color.Aqua;
-            this.MarkerLine.LineType = LineType.Solid;
         }
     }
 }
