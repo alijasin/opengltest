@@ -60,7 +60,7 @@ namespace OpenGLTests.src.Drawables
         private static int outOfCombatIndex = 0;
         public void OutOfCombatStep()
         {
-
+            
         }
 
         //todo refactror this so we dont have literally duplicated code
@@ -68,7 +68,6 @@ namespace OpenGLTests.src.Drawables
         public void CombatStep()
         {
             if (waitingForActionCommit == true) return;
-
 
             var status = ActionHandler.TryInvokePlacedActions(combatIndex);
             if (status == ActionReturns.AllFinished)
@@ -84,7 +83,7 @@ namespace OpenGLTests.src.Drawables
             {
                 combatIndex += 1;
             }
-            
+
         }
     }
 }

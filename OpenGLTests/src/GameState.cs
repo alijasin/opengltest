@@ -29,8 +29,8 @@ namespace OpenGLTests.src
             var patroldude = new PatrolGuy(new GameCoordinate(-0.6f, -0.4f));
             Drawables.Add(patroldude);
 
-            var chasingdude = new ChasingPerson(new GameCoordinate(0.5f, 0), Hero);
-            Drawables.Add(chasingdude);
+            //var chasingdude = new ChasingPerson(new GameCoordinate(0.5f, 0), Hero);
+            //Drawables.Add(chasingdude);
 
             var followCamera = new FollowCamera(Hero);
             var staticCamera = new MovableCamera(Hero.Location);

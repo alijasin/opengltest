@@ -34,7 +34,7 @@ namespace OpenGLTests.src
         public ActionLine ActionLine { get; set; }
         public bool Ready { get; set; } = true;
         public bool IsPlaced { get; set; } = false;
-
+        public bool IsInstant { get; set; } = false;
 
 
         //base GameAction properties
@@ -125,6 +125,7 @@ namespace OpenGLTests.src
         public TurnRedAction(Entity source)
         {
             this.source = source;
+            IsInstant = true;
         }
 
         public override Func<object, bool> GetAction()

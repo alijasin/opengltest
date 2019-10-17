@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 using OpenGLTests.src.Drawables;
 using OpenGLTests.src.Util;
 
+/// <summary>
+/// these are for action bars
+/// </summary>
 namespace OpenGLTests.src
 {
     public abstract class Ability

@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using System.Xml.Linq;
 using OpenGLTests.src;
 using OpenGLTests.src.Drawables;
+using OpenGLTests.src.Util;
 
 //this is a mess. Todo: refactor action handlers
 namespace OpenGLTests.src
@@ -95,6 +96,29 @@ namespace OpenGLTests.src
         {
             return linkedList.Count;
         }
+
+        /// <summary>
+        /// Todo: This just returns a constant. In the future there should be some kind of placed action panel that can be hovered or similiar.
+        ///  Not just paint it at a fixed location.
+        /// </summary>
+        /// <param name="lpa"></param>
+        /// <returns></returns>
+        public GameCoordinate InstantLocationOffset(GameAction lpa)
+        {
+            var node = linkedList.First;
+            GameCoordinate offset = new GameCoordinate(0f, -lpa.Marker.Size.Y);
+            while (node != null)
+            {
+                if (node.Value == lpa)
+                {
+                    //if(lpa.Marker.)
+                }
+
+                node = node.Next;
+            }
+
+            return offset;
+        }
     }
 
     public class ActionHandler
@@ -154,6 +178,8 @@ namespace OpenGLTests.src
                 var origin = combatActionHandler.GetOriginOfLastPlacedAction();
                 if (origin == null || previousGameAction == null) CurrentAction.RangeShape.Location = owner.Location;
                 else CurrentAction.RangeShape.Location = origin;
+
+                if(CurrentAction.IsInstant) combatActionHandler.PlaceAction(CurrentAction, owner.Location, owner, CurrentActionButton.Animation.GetSprite().sid, true);
             }
 
         }
@@ -173,8 +199,8 @@ namespace OpenGLTests.src
                 {
                     if (owner.InCombat)
                     {
-                        combatActionHandler.PlaceAction(CurrentAction, location, owner);
-                        CurrentAction.SetMarkerIcon(CurrentActionButton.Animation.GetSprite().sid);
+                        combatActionHandler.PlaceAction(CurrentAction, location, owner, CurrentActionButton.Animation.GetSprite().sid);
+                        //CurrentAction.SetMarkerIcon(CurrentActionButton.Animation.GetSprite().sid);
                     }
                 }
                 //if in combat -> queue
@@ -203,25 +229,37 @@ namespace OpenGLTests.src
     public class CombatActionHandler
     {
         private PlacedActions placedActions;
+
         public CombatActionHandler()
         {
             placedActions = new PlacedActions();
         }
-
-        public void PlaceAction(GameAction action, GameCoordinate location, IActionCapable owner)
+        
+        public void PlaceAction(GameAction action, GameCoordinate location, IActionCapable owner, SpriteID sid, bool instant = false)
         {
             action.Marker.Location = location;
             var lastMoveAction = placedActions.LastMoveAction();
 
+            GameCoordinate lineOrigin = location;
+            GameCoordinate lineTerminus;
+
             if (lastMoveAction != null)
             {
-                action.PositionLine(lastMoveAction.Marker.Location, location);
+                lineTerminus = lastMoveAction.Marker.Location;
+                if (instant)
+                {
+                    lineOrigin = lastMoveAction.Marker.Location;
+                    action.Marker.Location = lastMoveAction.Marker.Location + placedActions.InstantLocationOffset(lastMoveAction);
+                }
             }
             else
             {
-                action.PositionLine(owner.Location, location);
+                lineTerminus = owner.Location;
             }
 
+            action.PositionLine(lineOrigin, lineTerminus);
+
+            action.SetMarkerIcon(sid);
             action.Place();
             placedActions.Add(action);
         }
