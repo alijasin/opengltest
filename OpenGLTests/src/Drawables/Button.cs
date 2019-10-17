@@ -12,11 +12,16 @@ namespace OpenGLTests.src.Drawables
     {
         private Color initialColor;
         private Color toggleColor;
-        public Button()
+        public Button() : this(new GLCoordinate(0.2f, 0.2f))
+        {
+
+        }
+
+        public Button(GLCoordinate size)
         {
             initialColor = Color;
             toggleColor = Coloring.Opposite(initialColor);
-            this.Size = new GLCoordinate(0.2f, 0.2f);
+            this.Size = size;
             OnInteraction += () =>
             {
                 //Toggle();
@@ -66,7 +71,7 @@ namespace OpenGLTests.src.Drawables
         {
             this.Color = Color.Yellow;
             this.Size = StandardSize;
-            this.Animation = new Animation(new SpriteSheet_Items());
+            this.Animation = new Animation(new SpriteSheet_Icons());
             this.Animation.SetSprite(i.Icon);
             this.Animation.IsStatic = true;
             this.GameAction = i.Action;
@@ -91,7 +96,7 @@ namespace OpenGLTests.src.Drawables
         {
             this.Size = StandardSize;
             this.Color = Color.HotPink;
-            this.Animation = new Animation(new SpriteSheet_ActionButtons());
+            this.Animation = new Animation(new SpriteSheet_Icons());
             this.Animation.SetSprite(sa.Icon);
             this.Animation.IsStatic = true;
             this.GameAction = sa.Action;

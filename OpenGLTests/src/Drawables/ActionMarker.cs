@@ -12,8 +12,19 @@ namespace OpenGLTests.src.Drawables
         protected Marker(GameCoordinate loc)
         {
             this.Location = loc;
-            this.Size = new GLCoordinate(0.02f, 0.02f);
+            this.Size = new GLCoordinate(0.070f, 0.070f);
+            this.Color = Color.White;
             this.Visible = false;
+            this.Animation = new Animation(new SpriteSheet_Icons());
+        }
+
+        public override void DrawStep(DrawAdapter drawer)
+        {
+            base.DrawStep(drawer);
+            if (Visible)
+            {
+                drawer.DrawSprite(this, DrawAdapter.DrawMode.Centered);
+            }
         }
     }
 
@@ -21,7 +32,7 @@ namespace OpenGLTests.src.Drawables
     {
         public ActionMarker(GameCoordinate loc) : base(loc)
         {
-            this.Color = Color.DarkGoldenrod;
+            //this.Color = Color.DarkGoldenrod;
         }
     }
 
@@ -30,7 +41,7 @@ namespace OpenGLTests.src.Drawables
         public GLCoordinate aoeSize;
         public AOEMarker(GameCoordinate loc, GLCoordinate aoeSize) : base(loc)
         {
-            this.Color = Color.Red;
+            //this.Color = Color.Red;
             this.aoeSize = aoeSize;
         }
 
@@ -50,7 +61,7 @@ namespace OpenGLTests.src.Drawables
     {
         public MoveMarker(GameCoordinate loc) : base(loc)
         {
-            this.Color = Color.Aqua;
+            //this.Color = Color.Aqua;
         }
     }
 }

@@ -25,6 +25,7 @@ namespace OpenGLTests.src
         NotReady
     }
 
+    //todo split GameAction into Placed Action and Game Action
     public abstract class GameAction
     {
         public RangeShape RangeShape { get; set; }
@@ -35,6 +36,7 @@ namespace OpenGLTests.src
         public bool IsPlaced { get; set; } = false;
 
 
+
         //base GameAction properties
         protected GameAction()
         {
@@ -42,11 +44,17 @@ namespace OpenGLTests.src
             ActionLine = new ActionLine(new GameCoordinate(0,0));
             Marker = new ActionMarker(new GameCoordinate(0,0));
 
+
             RangeShape.Visible = false;
             ActionLine.Visible = false;
             Marker.Visible = false;
 
             ActionLine.LineType = LineType.Solid;
+        }
+
+        public void SetMarkerIcon(SpriteID sid)
+        {
+            this.Marker.Animation.SetSprite(sid);
         }
 
         public void PositionLine(GameCoordinate origin, GameCoordinate terminus)

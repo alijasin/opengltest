@@ -17,6 +17,11 @@ namespace OpenGLTests.src
         public Animation(SpriteSheet sheet)
         {
             spriteSheet = sheet;
+            
+            if (sheet is SpriteSheet_Icons)
+            {
+                IsStatic = true;
+            }
         }
 
         //todo: assert this actually works.
@@ -79,7 +84,8 @@ namespace OpenGLTests.src
             {
                 if (sw.Key.WithinRange(frame)) return sw.Value;
             }
-            throw new Exception("index not assigned to sprite frame");
+            Console.WriteLine("Trying to draw something with an animatino that hasnt a set sprite index");
+            return null;
         }
     }
 
@@ -147,22 +153,14 @@ namespace OpenGLTests.src
         { }
     }
 
-    class SpriteSheet_Items : SpriteSheet
+    class SpriteSheet_Icons : SpriteSheet
     {
-        public SpriteSheet_Items() : base(new Dictionary<SpriteID, int>()
+        public SpriteSheet_Icons() : base(new Dictionary<SpriteID, int>()
         {   { SpriteID.missing, 5 },
             { SpriteID.item_flask_big_red, 5 },
             { SpriteID.item_flask_big_green, 5 },
-            { SpriteID.item_apple, 5 }
-
-        })
-        { }
-    }
-
-    class SpriteSheet_ActionButtons : SpriteSheet
-    {
-        public SpriteSheet_ActionButtons() : base(new Dictionary<SpriteID, int>()
-        {   { SpriteID.action_move, 5 },
+            { SpriteID.item_apple, 5 },
+            { SpriteID.action_move, 5 },
             { SpriteID.action_attack, 5 },
             { SpriteID.action_charge, 5 },
             { SpriteID.floor_1, 5 }
@@ -170,6 +168,7 @@ namespace OpenGLTests.src
         })
         { }
     }
+
     public class Sprite
     {
         public int GLID;

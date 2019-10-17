@@ -169,6 +169,7 @@ namespace OpenGLTests.src
                     if (owner.InCombat)
                     {
                         combatActionHandler.PlaceAction(CurrentAction, location, owner);
+                        CurrentAction.SetMarkerIcon(CurrentActionButton.Animation.GetSprite().sid);
                     }
                 }
                 //if in combat -> queue

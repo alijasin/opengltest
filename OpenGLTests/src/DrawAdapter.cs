@@ -29,7 +29,7 @@ namespace OpenGLTests.src
         public void DrawSprite(Drawable drawable, DrawMode drawMode = DrawMode.Centered)
         {
             Sprite sprite = drawable.Animation.GetSprite();
-
+            if (sprite == null) return;
             //todo: do this before entering draw
             GLCoordinate location;
             if (drawable is Entity) location = drawable.Location.ToGLCoordinate(GameState.ActiveCamera.Location);
