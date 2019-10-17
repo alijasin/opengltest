@@ -95,7 +95,7 @@ namespace OpenGLTests.src
     {
         public TossItemAction(Entity source, Item i)
         {
-            RangeShape = new FollowCircle(new GLCoordinate(0.5f, 0.5f), source);
+            RangeShape = new Circle(new GLCoordinate(0.5f, 0.5f));
             RangeShape.Visible = false;
             Marker = new AOEMarker(new GameCoordinate(0.5f, 0.5f), new GLCoordinate(0.2f, 0.2f));
         }
