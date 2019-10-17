@@ -177,17 +177,10 @@ namespace OpenGLTests.src
 
         public override Func<object, bool> GetAction()
         {
-            Color initialColor = source.Color;
-
             return (a) =>
             {
                 Color c = source.Color;
                 var index = (int)a;
-
-                if (index == 0)
-                {
-                    initialColor = c;
-                }
 
                 if (index < 15)
                 {
