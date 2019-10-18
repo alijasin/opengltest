@@ -361,10 +361,10 @@ namespace OpenGLTests.src
             if (finished)
             {
                 PlacedActions.RemoveGameAction(currentAction);
+                if (PlacedActions.Count == 0) return ActionReturns.AllFinished;
                 return ActionReturns.Finished;
             }
-            else if (currentAction.IsPlaced == false) return ActionReturns.Placing;
-            return ActionReturns.Ongoing;
+            else return ActionReturns.Ongoing;
         }
 
     }

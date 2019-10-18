@@ -163,7 +163,6 @@ namespace OpenGLTests.src
                     Source.Size.Y = Source.Size.Y * 1.1f;
                     return false;
                 }
-
                 return true;
             };
         }

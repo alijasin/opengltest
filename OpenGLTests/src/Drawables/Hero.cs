@@ -12,7 +12,6 @@ namespace OpenGLTests.src.Drawables
     {
         public Inventory Inventory;
         public IActionHandler ActionHandler { get; set; }
-        private bool ExecutingActions = false;
         public bool InCombat { get; set; } = false;
         private bool waitingForActionCommit = true;
 
@@ -41,7 +40,6 @@ namespace OpenGLTests.src.Drawables
             b.Location = new GLCoordinate(1, 1);
             b.OnInteraction += () =>
             {
-                ExecutingActions = true;
                 waitingForActionCommit = false;
             };
             GameState.Drawables.Add(b);
@@ -57,13 +55,14 @@ namespace OpenGLTests.src.Drawables
         {
             InCombat = inCombat;
             ActionHandler.Dispose();
+            actionIndex = 0;
             if (InCombat)
             {
                 ActionHandler = new CombatActionHandler(this);
+                waitingForActionCommit = true;
             }
             else
             {
-                
                 ActionHandler = new OutOfCombatActionHandler(this);
             }
         }
@@ -77,14 +76,30 @@ namespace OpenGLTests.src.Drawables
 
         private void CombatStep()
         {
-            
+            if (waitingForActionCommit) return;
+
+            var status = ActionHandler.CommitActions(actionIndex);
+
+            if (status == ActionReturns.Placing) return;
+            if (status == ActionReturns.Finished)
+            {
+                actionIndex = 0;
+                return;
+            }
+            else if (status == ActionReturns.AllFinished)
+            {
+                actionIndex = 0;
+                waitingForActionCommit = true;
+            }
+            else actionIndex++;
         }
 
         private void OutOfCombatStep()
         {
             var status = ActionHandler.CommitActions(actionIndex);
-
-            if (status == ActionReturns.Placing) return;
+            Console.WriteLine(status);
+            if (status == ActionReturns.NoAction) return;
+   
             if (status == ActionReturns.Finished || status == ActionReturns.AllFinished)
             {
                 actionIndex = 0;
