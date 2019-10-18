@@ -31,13 +31,19 @@ namespace OpenGLTests.src.Drawables
         public bool InCombat { get; set; }
         public void Step()
         {
-             if (ActionPattern != null)
+            if(InCombat == false) OutOfCombatStep();  
+        }
+
+        private void OutOfCombatStep()
+        {
+            if (ActionPattern != null)
             {
                 var status = ActionPattern.DoAction("SkertSkert");
             }
 
             //check for combat
             if (AggroShape == null) return;
+
             foreach (Hero h in GameState.Drawables.GetAllHeroes)
             {
                 if (AggroShape.Contains(h.Location))
@@ -54,18 +60,6 @@ namespace OpenGLTests.src.Drawables
         {
             AggroShape = new RangeCircle(new GLCoordinate(0, 0), this);
         }
-
-        public void CombatStep()
-        {
-            
-        }
-
-        public void OutOfCombatStep()
-        {
-           
-
-        }
-
     }
 
     class AngryDude : Hostile

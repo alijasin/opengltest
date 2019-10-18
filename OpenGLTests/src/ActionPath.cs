@@ -182,12 +182,20 @@ namespace OpenGLTests.src
         }
 
         public ActionReturns CommitActions(object args)
-        {/*
-            if (SubsequentlyPlacedActions.Count() == 0) return ActionReturns.AllFinished;
+        {
+            if (SubsequentlyPlacedActions.Count() == 0) return ActionReturns.NoAction;
 
             var first = SubsequentlyPlacedActions.First();
-            */
-
+            var finished = first.GetAction().Invoke(args);
+            if (finished)
+            {
+                SubsequentlyPlacedActions.RemoveFirst();
+                if (SubsequentlyPlacedActions.Count() == 0) return ActionReturns.AllFinished;
+                return ActionReturns.Finished;
+            }
+            else if (first.IsPlaced == false) return ActionReturns.Placing;
+            
+            return ActionReturns.Ongoing;
         }
 
         public void OnMouseUp(GameCoordinate mouseLocation)
@@ -202,7 +210,10 @@ namespace OpenGLTests.src
         {
             if (SelectedAction == null) return;
 
-            if(SubsequentlyPlacedActions.AlreadyPlaced(SelectedAction)) SubsequentlyPlacedActions.Remove(SelectedAction);
+            if (SubsequentlyPlacedActions.AlreadyPlaced(SelectedAction))
+            {
+                SubsequentlyPlacedActions.Remove(SelectedAction);
+            }
 
 
             //Update location of rangeshape and line.

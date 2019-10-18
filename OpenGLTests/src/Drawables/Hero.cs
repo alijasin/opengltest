@@ -13,7 +13,7 @@ namespace OpenGLTests.src.Drawables
         public Inventory Inventory;
         public IActionHandler ActionHandler { get; set; }
         private bool ExecutingActions = false;
-        public bool InCombat { get; set; }
+        public bool InCombat { get; set; } = false;
         private bool waitingForActionCommit = true;
 
         public Hero()
@@ -71,17 +71,26 @@ namespace OpenGLTests.src.Drawables
         private int actionIndex = 0;
         public void Step()
         {
-            var status = ActionHandler.CommitActions(actionIndex);
-            if (status == ActionReturns.Placing) return;
-            if (status == ActionReturns.AllFinished || status == ActionReturns.Finished) actionIndex = 0;
-            else if (status == ActionReturns.Ongoing) actionIndex++;
+            if (InCombat) CombatStep();
+            else OutOfCombatStep();
         }
 
-        //todo refactror this so we dont have literally duplicated code
-
-        public void OutOfCombatStep()
+        private void CombatStep()
         {
+            
+        }
 
+        private void OutOfCombatStep()
+        {
+            var status = ActionHandler.CommitActions(actionIndex);
+
+            if (status == ActionReturns.Placing) return;
+            if (status == ActionReturns.Finished || status == ActionReturns.AllFinished)
+            {
+                actionIndex = 0;
+                return;
+            }
+            else actionIndex++;
         }
     }
 }
