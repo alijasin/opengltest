@@ -30,7 +30,7 @@ namespace OpenGLTests.src
 
             var chasingdude = new ChasingPerson(new GameCoordinate(0.5f, 0), Hero);
             Drawables.Add(chasingdude);
-
+            
 
 
             var followCamera = new FollowCamera(Hero);

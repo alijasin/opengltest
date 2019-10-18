@@ -19,20 +19,20 @@ namespace OpenGLTests.src
 
     public class Yell : Ability
     {
-        public Yell(Entity owner)
+        public Yell(ICombatable owner)
         {
             this.Action = new LambdaAction((o) =>
             {
                 Console.WriteLine("waaa");
                 return true;
-            });
+            }, owner);
             this.Icon = SpriteID.action_charge;
         }
     }
 
     public class Teleport : Ability
     {
-        public Teleport(Entity owner)
+        public Teleport(ICombatable owner)
         {
             this.Action = new TeleportAction(new GLCoordinate(0.4f, 0.4f), owner);
             this.Icon = SpriteID.floor_1;
@@ -41,18 +41,18 @@ namespace OpenGLTests.src
 
     public class Move : Ability
     {
-        public Move(Entity owner)
+        public Move(ICombatable owner)
         {
-            this.Action = new MoveAction(new GLCoordinate(0.3f, 0.3f), owner);
+            this.Action = new CombatMoveAction(new GLCoordinate(0.3f, 0.3f), owner);
             this.Icon = SpriteID.action_move;
         }
     }
 
     public class TossBomb : Ability
     {
-        public TossBomb(Entity owner)
+        public TossBomb(ICombatable owner)
         {
-            this.Action = new AOEEffectAction(new GLCoordinate(0.6f, 0.6f), new GLCoordinate(0.2f, 0.2f));
+            this.Action = new AOEEffectAction(new GLCoordinate(0.6f, 0.6f), new GLCoordinate(0.2f, 0.2f), owner);
             this.Icon = SpriteID.action_attack;
         }
     }

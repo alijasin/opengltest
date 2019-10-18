@@ -11,7 +11,7 @@ namespace OpenGLTests.src.Drawables
     public class Hero : Entity, IActionCapable, ICombatable
     {
         public Inventory Inventory;
-        public ActionHandler ActionHandler { get; set; }
+        public IActionHandler ActionHandler { get; set; }
         private bool ExecutingActions = false;
         public bool InCombat { get; set; }
         private bool waitingForActionCommit = true;
@@ -21,7 +21,7 @@ namespace OpenGLTests.src.Drawables
             Color = Color.CadetBlue;
             this.Location = new GameCoordinate(0f, 0f);
             this.Size = new GLCoordinate(0.1f, 0.1f);
-            ActionHandler = new ActionHandler(this);
+            ActionHandler = new OutOfCombatActionHandler(this);
             this.Speed = new GameCoordinate(0.02f, 0.02f);
             this.Animation = new Animation(new SpriteSheet_ElfIdle());
 
@@ -57,16 +57,20 @@ namespace OpenGLTests.src.Drawables
 
 
         //todo refactror this so we dont have literally duplicated code
-        private static int outOfCombatIndex = 0;
+        private int outOfCombatIndex = 0;
         public void OutOfCombatStep()
         {
-            
+            var status = ActionHandler.CommitActions(outOfCombatIndex);
+            Console.WriteLine(outOfCombatIndex);
+            if (status == ActionReturns.Placing) return;
+            if (status == ActionReturns.AllFinished || status == ActionReturns.Finished) outOfCombatIndex = 0;
+            else if (status == ActionReturns.Ongoing) outOfCombatIndex++;
         }
 
         //todo refactror this so we dont have literally duplicated code
         private static int combatIndex = 0;
         public void CombatStep()
-        {
+        {/*
             if (waitingForActionCommit == true) return;
 
             var status = ActionHandler.TryInvokePlacedActions(combatIndex);
@@ -82,7 +86,7 @@ namespace OpenGLTests.src.Drawables
             else if (status == ActionReturns.Ongoing)
             {
                 combatIndex += 1;
-            }
+            }*/
 
         }
     }

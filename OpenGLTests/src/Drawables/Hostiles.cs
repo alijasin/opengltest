@@ -8,11 +8,16 @@ using OpenGLTests.src.Util;
 
 namespace OpenGLTests.src.Drawables
 {
+    //todo: move stuff to Entity
     public interface ICombatable
     {
         bool InCombat { get; set; }
         void CombatStep();
         void OutOfCombatStep();
+        GameCoordinate Location { get; set; }
+        GameCoordinate Speed { get; set; }
+        GLCoordinate Size { get; set; }
+        Color Color { get; set; }
     }
 
     interface IAggro : ICombatable
@@ -20,7 +25,7 @@ namespace OpenGLTests.src.Drawables
         RangeShape AggroShape { get; set; }
     }
 
-    abstract class Hostile : Entity, IAggro
+    abstract class Hostile : Entity, IAggro, ICombatable
     {
         public RangeShape AggroShape { get; set; }
         protected ActionPattern ActionPattern;
@@ -57,6 +62,7 @@ namespace OpenGLTests.src.Drawables
             }
 
         }
+
     }
 
     class AngryDude : Hostile
@@ -92,10 +98,11 @@ namespace OpenGLTests.src.Drawables
 
     class ChasingPerson : Hostile
     {
-        public ChasingPerson(GameCoordinate location, Entity chasing)
+        public ChasingPerson(GameCoordinate location, ICombatable chasing)
         {
             this.Location = location;
             this.Speed = new GameCoordinate(0.001f, 0.001f);
+
             ActionPattern = new ChaseEntity(this, chasing);
             ActionPattern.Loop = true;
         }

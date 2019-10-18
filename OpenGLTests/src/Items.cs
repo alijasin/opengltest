@@ -19,7 +19,7 @@ namespace OpenGLTests.src
 
     public class Nothing : Item
     {
-        public Nothing(Entity owner)
+        public Nothing(ICombatable owner)
         {
 
         }
@@ -27,7 +27,7 @@ namespace OpenGLTests.src
 
     public class Apple : Item
     {
-        public Apple(Entity owner)
+        public Apple(ICombatable owner)
         {
             this.Action = new TossItemAction(owner, this);
             this.Icon = SpriteID.item_apple;
@@ -36,7 +36,7 @@ namespace OpenGLTests.src
 
     public class RedPotion : Item
     {
-        public RedPotion(Entity owner)
+        public RedPotion(ICombatable owner)
         {
             this.Action = new TurnRedAction(owner);
             this.Icon = SpriteID.item_flask_big_red;
@@ -45,7 +45,7 @@ namespace OpenGLTests.src
 
     public class GrowingPoition : Item
     {
-        public GrowingPoition(Entity owner)
+        public GrowingPoition(ICombatable owner)
         {
             this.Action = new GrowAction(owner);
             this.Icon = SpriteID.item_flask_big_green;

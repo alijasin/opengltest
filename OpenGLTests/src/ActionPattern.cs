@@ -42,10 +42,10 @@ namespace OpenGLTests.src
 
     class ChaseEntity : ActionPattern
     {
-        private Entity source;
+        private ICombatable source;
         private object argument;
 
-        public ChaseEntity(Entity source, Entity chasing)
+        public ChaseEntity(ICombatable source, ICombatable chasing)
         {
             this.source = source;
 
@@ -74,8 +74,8 @@ namespace OpenGLTests.src
 
     class MoveAroundAndChill : ActionPattern
     {
-        private Entity source;
-        public MoveAroundAndChill(Entity source) 
+        private ICombatable source;
+        public MoveAroundAndChill(ICombatable source) 
         {
             this.source = source;
             InitPattern();
@@ -85,7 +85,7 @@ namespace OpenGLTests.src
         {
             Actions = new List<GameAction>()
             {
-                new MoveTowardsAction(RNG.RandomPointWithinCircleRelativeToLocation(source.Location, new GLCoordinate(0.4f, 0.4f)), source),
+                new MoveAction(RNG.RandomPointWithinCircleRelativeToLocation(source.Location, new GLCoordinate(0.4f, 0.4f)), source),
                 new ChillAction(),
             };
         }
@@ -93,9 +93,9 @@ namespace OpenGLTests.src
 
     class NeverEndingPatrol : ActionPattern
     {
-        private Entity source;
+        private ICombatable source;
         private GameCoordinate patrolDelta;
-        public NeverEndingPatrol(Entity source, GameCoordinate patrolDelta)
+        public NeverEndingPatrol(ICombatable source, GameCoordinate patrolDelta)
         {
             this.source = source;
             this.patrolDelta = patrolDelta;
@@ -121,9 +121,9 @@ namespace OpenGLTests.src
     /// </summary>
     class PatrolAndChill : ActionPattern
     {
-        private Entity source;
+        private ICombatable source;
         private GameCoordinate patrolDelta;
-        public PatrolAndChill(Entity source, GameCoordinate patrolDelta)
+        public PatrolAndChill(ICombatable source, GameCoordinate patrolDelta)
         {
             this.source = source;
             this.patrolDelta = patrolDelta;
@@ -136,9 +136,9 @@ namespace OpenGLTests.src
 
             Actions = new List<GameAction>()
             {
-                new MoveTowardsAction(new GameCoordinate(source.Location.X + patrolDelta.X, source.Location.Y + patrolDelta.Y), source),
+                new MoveAction(new GameCoordinate(source.Location.X + patrolDelta.X, source.Location.Y + patrolDelta.Y), source),
                 new ChillAction(),
-                new MoveTowardsAction(new GameCoordinate(source.Location.X - patrolDelta.X, source.Location.Y - patrolDelta.Y), source),
+                new MoveAction(new GameCoordinate(source.Location.X - patrolDelta.X, source.Location.Y - patrolDelta.Y), source),
                 new ChillAction(),
             };
         }

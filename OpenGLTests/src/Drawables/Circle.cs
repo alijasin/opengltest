@@ -21,9 +21,8 @@ namespace OpenGLTests.src.Drawables
 
         public override void DrawStep(DrawAdapter drawer)
         {
-
             GLCoordinate location = Location.ToGLCoordinate(GameState.ActiveCamera.Location);
-            if (Visible) drawer.FillCircle(location.X, location.Y, Radius, Color.Crimson);
+            if (Visible && IsInfinite == false) drawer.FillCircle(location.X, location.Y, Radius, Color.Crimson);
         }
 
         public override bool Contains(GameCoordinate point)
@@ -37,9 +36,9 @@ namespace OpenGLTests.src.Drawables
 
     public class FollowCircle : Circle
     {
-        private Entity following;
+        private ICombatable following;
 
-        public FollowCircle(GLCoordinate radius, Entity following) : base(radius)
+        public FollowCircle(GLCoordinate radius, ICombatable following) : base(radius)
         {
             this.following = following;
         }
@@ -57,9 +56,10 @@ namespace OpenGLTests.src.Drawables
     public abstract class RangeShape : Entity
     {
         public abstract bool Contains(GameCoordinate point);
-        public bool IsInfinite => Size == new GLCoordinate(0, 0);
+        public bool IsInfinite { get; set; } = false;
         protected RangeShape()
         {
+            Visible = false;
             GameState.Drawables.Add(this);
         }
         //public ActionMarker Marker { get; set; }

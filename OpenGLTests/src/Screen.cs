@@ -136,13 +136,13 @@ namespace OpenGLTests.src
                 {
                     GameCoordinate placed = new GameCoordinate(input.MouseButtonArgs.X, input.MouseButtonArgs.Y);
                     var xd = CoordinateFuckery.ClickToGLRelativeToCamera(placed, new GameCoordinate(0, 0));
-                    Game.Hero.ActionHandler.Down(xd);
+                    Game.Hero.ActionHandler.OnMouseDown(xd);
                 },
                 input =>
                 {
                     GameCoordinate placed = new GameCoordinate(input.MouseButtonArgs.X, input.MouseButtonArgs.Y);
                     var xd = CoordinateFuckery.ClickToGLRelativeToCamera(placed, new GameCoordinate(0, 0));
-                    Game.Hero.ActionHandler.Up(xd);
+                    Game.Hero.ActionHandler.OnMouseUp(xd);
                     if (GameState.Combat)
                     {
                         //  Game.Hero.ActionHandler.CombatActionHandler.TryEnqueueAction(xd);

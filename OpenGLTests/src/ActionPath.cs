@@ -9,8 +9,11 @@ using System.Xml.Linq;
 using OpenGLTests.src;
 using OpenGLTests.src.Drawables;
 using OpenGLTests.src.Util;
+using OpenTK.Graphics.ES10;
 
-//this is a mess. Todo: refactor action handlers
+//this is a mess. Todo: refactor action handlers.
+//Have OutOFCombat action handler and CombatActionHandler inherit from ActionHandler. Then depending on whether owner is in combat utilize the correct one.
+//Commonalities: Up, Down, Queue Action, Execution actions.
 namespace OpenGLTests.src
 {
     public class PlacedActions
@@ -20,6 +23,25 @@ namespace OpenGLTests.src
         public void Add(GameAction placed)
         {
             linkedList.AddLast(placed);
+        }
+
+        public void Clear()
+        {
+            linkedList.Clear();
+        }
+
+        public int CountExceptThisType(Type exceptionType)
+        {
+            int c = 0;
+
+            var node = linkedList.First;
+            while (node != null)
+            {
+                if (node.Value.GetType() != exceptionType) c++;
+                node = node.Next;
+            }
+
+            return c;
         }
 
         public void Remove(GameAction action)
@@ -81,7 +103,7 @@ namespace OpenGLTests.src
             var node = linkedList.First;
             while (node != null)
             {
-                if (node.Value.GetAction() == pga.GetAction())
+                if (node.Value.GetType() == pga.GetType())
                 {
                     return true;
                 }
@@ -121,113 +143,15 @@ namespace OpenGLTests.src
         }
     }
 
-    public class ActionHandler
+    public interface IActionHandler
     {
-        private Button CurrentActionButton { get; set; }
-        private GameAction previousGameAction { get; set; }
-        private GameAction CurrentAction { get; set; }
-        private IActionCapable owner;
-        private CombatActionHandler combatActionHandler { get; set; }
-        private OutOfCombatActionHandler outOfCombatActionHandler { get; set; }
-
-        public ActionHandler(IActionCapable owner)
-        {
-            //save owner
-            this.owner = owner;
-
-            //init button
-            CurrentActionButton = new Button();
-            CurrentActionButton.Size = new GLCoordinate(0.2f, 0.2f);
-            CurrentActionButton.Location = new GLCoordinate(-0.9f, -0.9f);
-            CurrentActionButton.Color = Color.NavajoWhite;
-            GameState.Drawables.Add(CurrentActionButton);
-
-            //init handlers
-            combatActionHandler = new CombatActionHandler();
-            outOfCombatActionHandler = new OutOfCombatActionHandler();
-        }
-
-        /// <summary>
-        /// Called from an inventory button or an action bar button
-        /// </summary>
-        /// <param name="ab"></param>
-        public void ActionButtonClicked(ActionButton ab)
-        {
-            //Updates the button indicating which ability is currently active.
-            ab.Animation.GetSprite();
-            CurrentActionButton.Animation = ab.Animation;
-            CurrentActionButton.Animation.SetSprite(ab.Animation.GetSprite().sid);
-
-            //Update current actions
-            previousGameAction = CurrentAction;
-            CurrentAction = ab.GameAction;
-        }
-
-        /// <summary>
-        /// Called from Screen when mouse has been clicked down.
-        /// </summary>
-        /// <param name="location"></param>
-        public void Down(GameCoordinate location)
-        {
-            if (CurrentAction == null) return;
-            CurrentAction.RangeShape.Visible = true;
-
-            if (owner.InCombat)
-            {
-                combatActionHandler.ClearPreviouslyPlacedBefore(CurrentAction);
-                var origin = combatActionHandler.GetOriginOfLastPlacedAction();
-                if (origin == null || previousGameAction == null) CurrentAction.RangeShape.Location = owner.Location;
-                else CurrentAction.RangeShape.Location = origin;
-
-                if(CurrentAction.IsInstant) combatActionHandler.PlaceAction(CurrentAction, owner.Location, owner, CurrentActionButton.Animation.GetSprite().sid, true);
-            }
-            else
-            {
-                //outOfCombatActionHandler.SetAction()
-            }
-
-        }
-
-        /// <summary>
-        /// Called from Screen when mouse has been released.
-        /// </summary>
-        /// <param name="location"></param>
-        public void Up(GameCoordinate location)
-        {
-            if (CurrentAction == null) return;
-            CurrentAction.RangeShape.Visible = false;
-
-            if (CurrentAction.RangeShape.Contains(location) || CurrentAction.RangeShape.IsInfinite)
-            {
-                if (CurrentAction.Ready)
-                {
-                    if (owner.InCombat)
-                    {
-                        combatActionHandler.PlaceAction(CurrentAction, location, owner, CurrentActionButton.Animation.GetSprite().sid);
-                        //CurrentAction.SetMarkerIcon(CurrentActionButton.Animation.GetSprite().sid);
-                    }
-                }
-                //if in combat -> queue
-                //else do it(unless its placeable)
-            }
-        }
-
-        public ActionReturns TryInvokePlacedActions(object args)
-        {
-            ActionReturns status = combatActionHandler.DoAction(args);
-            return status;
-        }
-
-        public ActionReturns TryInvokeCurrentAction(object args)
-        {
-            if (CurrentAction.Ready)
-            {
-                bool finished = CurrentAction.GetAction().Invoke(args);
-                if (finished) return ActionReturns.Finished;
-                return ActionReturns.Ongoing;
-            }
-            else return ActionReturns.NotReady;
-        }
+        IActionCapable Owner { get; set; }
+        GameAction SelectedAction { get; set; }
+        void TryPlaceAction(GameAction action, GameCoordinate location);
+        ActionReturns CommitActions(object args);
+        void OnMouseUp(GameCoordinate mouseLocation);
+        void OnMouseDown(GameCoordinate mouseLocation);
+        void ActionButtonClicked(ActionButton actionButton);
     }
 
     public class CombatActionHandler
@@ -264,7 +188,7 @@ namespace OpenGLTests.src
             action.PositionLine(lineOrigin, lineTerminus);
 
             action.SetMarkerIcon(sid);
-            action.Place();
+            //action.Place(location);
             placedActions.Add(action);
         }
 
@@ -299,8 +223,114 @@ namespace OpenGLTests.src
         }
     }
 
-    public class OutOfCombatActionHandler
+    public class OutOfCombatPlacedActions : List<GameAction>
     {
+        public void RemoveWhere(Func<GameAction, bool> filter)
+        {
+            List<GameAction> toRemove = new List<GameAction>();
+            foreach (var pa in this)
+            {
+                if (filter(pa))
+                {
+                    pa.Dispose();
+                    toRemove.Add(pa);
+                }
+            }
+
+            this.RemoveAll(pa => toRemove.Contains(pa));
+        }
+
+        public void RemoveGameAction(GameAction ga)
+        {
+            ga.Dispose();
+            this.Remove(ga);
+        }
+
+        public List<GameAction> GetWhere(Func<GameAction, bool> filter)
+        {
+            List<GameAction> matching = new List<GameAction>();
+            foreach (var pa in this)
+            {
+                if(filter(pa)) matching.Add(pa);
+            }
+
+            return matching;
+        }
+    }
+
+    public class OutOfCombatActionHandler : IActionHandler
+    {
+        private static int i = 0;
+        OutOfCombatPlacedActions PlacedActions = new OutOfCombatPlacedActions();
+        public IActionCapable Owner { get; set; }
+        public GameAction SelectedAction { get; set; }
+        private SpriteID SelectedActionIcon { get; set; }
+
+        public OutOfCombatActionHandler(IActionCapable owner)
+        {
+            this.Owner = owner;
+
+        }
+
+        public void TryPlaceAction(GameAction action, GameCoordinate location)
+        {
+            //If clicked within range or if the range is infinite
+            i++;
+            Console.WriteLine(i);
+            if (action.RangeShape.IsInfinite || action.RangeShape.Contains(location))
+            {
+                Console.WriteLine("Placed " + action);
+
+                //remove all placed actions that are identical to the new one.
+                PlacedActions.RemoveWhere(pa => pa.GetType() == action.GetType());
+
+                action.Place(location, SelectedActionIcon);
+                PlacedActions.Add(action);
+            }
+            else
+            {
+                Console.WriteLine("Did not place " + action);
+            }
+        }
+
+        public void OnMouseUp(GameCoordinate mouseLocation)
+        {
+            if(SelectedAction == null) return;
+
+            SelectedAction.RangeShape.Visible = false;
+            TryPlaceAction(SelectedAction, mouseLocation);
+        }
+
+        public void OnMouseDown(GameCoordinate mouseLocation)
+        {
+            if (SelectedAction == null) return;
+
+            SelectedAction.RangeShape.Visible = true;
+
+        }
+
+        public void ActionButtonClicked(ActionButton actionButton)
+        {
+            SelectedAction = actionButton.GameAction;
+            SelectedActionIcon = actionButton.Animation.GetSprite().sid;
+            Console.WriteLine("Selected action: " + SelectedAction);
+        }
+
+        public ActionReturns CommitActions(object args)
+        {
+            if (PlacedActions.Count == 0) return ActionReturns.NoAction;
+
+            var currentAction = PlacedActions.First();
+
+            var finished = currentAction.GetAction().Invoke(args);
+            if (finished)
+            {
+                PlacedActions.RemoveGameAction(currentAction);
+                return ActionReturns.Finished;
+            }
+            else if (currentAction.IsPlaced == false) return ActionReturns.Placing;
+            return ActionReturns.Ongoing;
+        }
 
     }
 }

@@ -8,10 +8,8 @@ namespace OpenGLTests.src
 {
     public interface IActionCapable
     {
-        ActionHandler ActionHandler { get; set; }
+        IActionHandler ActionHandler { get; set; }
         GameCoordinate Location { get; set; }
         bool InCombat { get; set; }
-        //void CommitAction(Action Action);
-        //void DoCommitedActions();
     }
 }

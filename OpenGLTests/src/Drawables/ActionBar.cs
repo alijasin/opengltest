@@ -45,7 +45,6 @@ namespace OpenGLTests.src.Drawables
             }
         }
 
-
         public void SetActiveButton(ActionBarButton barButton)
         {
             foreach (var ab in actionButtons.Where(but => but != barButton))
