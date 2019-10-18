@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using OpenGLTests.src;
 
@@ -14,7 +15,7 @@ namespace OpenGLTests.src.Drawables
         public IActionHandler ActionHandler { get; set; }
         public bool InCombat { get; set; } = false;
         private bool waitingForActionCommit = true;
-
+        private bool phasing = true;
         public Hero()
         {
             Color = Color.CadetBlue;
@@ -23,6 +24,11 @@ namespace OpenGLTests.src.Drawables
             ActionHandler = new OutOfCombatActionHandler(this);
             this.Speed = new GameCoordinate(0.02f, 0.02f);
             this.Animation = new Animation(new SpriteSheet_ElfIdle());
+
+            System.Timers.Timer t = new System.Timers.Timer(2000);
+            t.Elapsed += (sender, args) => { phasing = false; t.Dispose(); };
+            t.Start();
+
 
             initGUI();
         }
@@ -53,11 +59,13 @@ namespace OpenGLTests.src.Drawables
 
         public void SetCombat(bool inCombat)
         {
+            if (phasing) return;
             InCombat = inCombat;
             ActionHandler.Dispose();
             actionIndex = 0;
             if (InCombat)
             {
+                Console.WriteLine("entered combat");
                 ActionHandler = new CombatActionHandler(this);
                 waitingForActionCommit = true;
             }
@@ -97,7 +105,7 @@ namespace OpenGLTests.src.Drawables
         private void OutOfCombatStep()
         {
             var status = ActionHandler.CommitActions(actionIndex);
-            Console.WriteLine(status);
+
             if (status == ActionReturns.NoAction) return;
    
             if (status == ActionReturns.Finished || status == ActionReturns.AllFinished)
