@@ -46,11 +46,18 @@ namespace OpenGLTests.src.Drawables
 
     public class ActionLine : Line
     {
-        private Entity originE;
-        public ActionLine(Entity originEntity) : base(originEntity.Location, originEntity.Location)
+        private IFollowable originE;
+        public ActionLine(IFollowable originEntity) : base(originEntity.Location, originEntity.Location)
         {
             originE = originEntity;
         }
+
+        public void Set(IFollowable origin, GameCoordinate loc)
+        {
+            this.originE = origin;
+            this.Location = loc;
+        }
+
 
         public override GameCoordinate Location
         {

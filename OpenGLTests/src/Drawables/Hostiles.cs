@@ -9,9 +9,9 @@ using OpenGLTests.src.Util;
 namespace OpenGLTests.src.Drawables
 {
     //todo: move stuff to Entity
-    public interface ICombatable
+    public interface ICombatable : IFollowable
     {
-        bool InCombat { get; set; }
+        bool InCombat { get; }
         void CombatStep();
         void OutOfCombatStep();
         GameCoordinate Location { get; set; }
@@ -33,7 +33,7 @@ namespace OpenGLTests.src.Drawables
 
         protected Hostile()
         {
-            AggroShape = new FollowCircle(new GLCoordinate(0, 0), this);
+            AggroShape = new RangeCircle(new GLCoordinate(0, 0), this);
         }
 
         public void CombatStep()
@@ -55,7 +55,7 @@ namespace OpenGLTests.src.Drawables
                 if (AggroShape.Contains(h.Location))
                 {
                     InCombat = true;
-                    h.InCombat = true;
+                    h.SetCombat(true);
                     ActionPattern = new ChaseEntity(this, h);
                     GameState.Combat = true;
                 }
@@ -70,7 +70,7 @@ namespace OpenGLTests.src.Drawables
         public AngryDude(GameCoordinate Location)
         {
             this.Location = Location;
-            this.AggroShape = new FollowCircle(new GLCoordinate(0.3f, 0.3f), this);
+            this.AggroShape = new RangeCircle(new GLCoordinate(0.3f, 0.3f), this);
             this.AggroShape.Visible = true;
             this.Speed = new GameCoordinate(0.01f, 0.01f);
             ActionPattern = new MoveAroundAndChill(this);

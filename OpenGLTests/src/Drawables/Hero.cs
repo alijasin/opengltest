@@ -51,9 +51,22 @@ namespace OpenGLTests.src.Drawables
             Inventory.Add(new GrowingPoition(this));
             Inventory.Add(new RedPotion(this));
             Inventory.Add(new Apple(this));
-
         }
 
+        public void SetCombat(bool inCombat)
+        {
+            InCombat = inCombat;
+            ActionHandler.Dispose();
+            if (InCombat)
+            {
+                ActionHandler = new CombatActionHandler(this);
+            }
+            else
+            {
+                
+                ActionHandler = new OutOfCombatActionHandler(this);
+            }
+        }
 
 
         //todo refactror this so we dont have literally duplicated code
@@ -61,7 +74,6 @@ namespace OpenGLTests.src.Drawables
         public void OutOfCombatStep()
         {
             var status = ActionHandler.CommitActions(outOfCombatIndex);
-            Console.WriteLine(outOfCombatIndex);
             if (status == ActionReturns.Placing) return;
             if (status == ActionReturns.AllFinished || status == ActionReturns.Finished) outOfCombatIndex = 0;
             else if (status == ActionReturns.Ongoing) outOfCombatIndex++;

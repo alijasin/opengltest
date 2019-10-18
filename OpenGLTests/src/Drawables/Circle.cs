@@ -10,7 +10,46 @@ using OpenGLTests.src.Entities;
 
 namespace OpenGLTests.src.Drawables
 {
-    public class Circle : RangeShape
+    public interface IFollowable
+    {
+        GameCoordinate Location { get; set; }
+    }
+    interface IClickable
+    {
+        Action<GameCoordinate> OnClick { get; set; }
+        bool Contains(GameCoordinate point);
+    }
+
+    public abstract class RangeShape : Entity
+    {
+        private IFollowable following;
+
+        public abstract bool Contains(GameCoordinate point);
+        public bool IsInfinite { get; set; } = false;
+
+        protected RangeShape(IFollowable following)
+        {
+            this.following = following;
+            this.Visible = false;
+            GameState.Drawables.Add(this);
+        }
+
+        public override GameCoordinate Location
+        {
+            get
+            {
+                if (this.following?.Location == null) return new GameCoordinate(0, 0);
+                return this.following.Location;
+            }
+        }
+
+        public void SetFollowing(IFollowable follow)
+        {
+            this.following = follow;
+        }
+    }
+
+    public class Circle : Entity
     {
         public GLCoordinate Radius { get; set; } = new GLCoordinate(0, 0);
 
@@ -22,10 +61,10 @@ namespace OpenGLTests.src.Drawables
         public override void DrawStep(DrawAdapter drawer)
         {
             GLCoordinate location = Location.ToGLCoordinate(GameState.ActiveCamera.Location);
-            if (Visible && IsInfinite == false) drawer.FillCircle(location.X, location.Y, Radius, Color.Crimson);
+            if (Visible) drawer.FillCircle(location.X, location.Y, Radius, Color.Crimson);
         }
 
-        public override bool Contains(GameCoordinate point)
+        public bool Contains(GameCoordinate point)
         {
             var x = Math.Abs(point.X - Location.X);
             var y = Math.Abs(point.Y - Location.Y);
@@ -34,56 +73,26 @@ namespace OpenGLTests.src.Drawables
         }
     }
 
-    public class FollowCircle : Circle
+    public class RangeCircle : RangeShape
     {
-        private ICombatable following;
+        private Circle circle;
 
-        public FollowCircle(GLCoordinate radius, ICombatable following) : base(radius)
+        public RangeCircle(GLCoordinate radius, IFollowable following) : base(following)
         {
-            this.following = following;
+            circle = new Circle(radius);
+            //this.Visible = true;
+            //circle.Visible = true;
         }
 
-        public override GameCoordinate Location
+        public override bool Contains(GameCoordinate point)
         {
-            get
-            {
-                if (this.following?.Location == null) return new GameCoordinate(0, 0);
-                return this.following.Location;
-            }
+            return circle.Contains(point);
+        }
+
+        public override void DrawStep(DrawAdapter drawer)
+        {
+            circle.Location = this.Location; //is this stupid? Currently we are drawing the circle's draw and not range circle. And the circle's draw uses its own location instaed of RangeShape's location(which is the following unit)
+            if(Visible && IsInfinite == false) circle.DrawStep(drawer);
         }
     }
-
-    public abstract class RangeShape : Entity
-    {
-        public abstract bool Contains(GameCoordinate point);
-        public bool IsInfinite { get; set; } = false;
-        protected RangeShape()
-        {
-            Visible = false;
-            GameState.Drawables.Add(this);
-        }
-        //public ActionMarker Marker { get; set; }
-    }
-
-    interface IClickable
-    {
-        Action<GameCoordinate> OnClick { get; set; }
-        bool Contains(GameCoordinate point);
-    }
-
-    public class RangeCircle : Circle, IClickable
-    {
-        public Action<GameCoordinate> OnClick { get; set; }
-
-        public RangeCircle(GLCoordinate radius) : base(radius)
-        {
-            this.Visible = false;
-            OnClick = (GameCoordinate gc) =>
-            {
-                //this.Marker.Location = CoordinateFuckery.ClickToGLRelativeToCamera(gc, this.Location);
-
-            };
-        }
-    }
-
 }

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace OpenGLTests.src.Drawables
 {
-    public abstract class Marker : Entity
+    public abstract class Marker : Entity, IFollowable
     {
         protected Marker(GameCoordinate loc)
         {

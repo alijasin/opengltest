@@ -53,7 +53,6 @@ namespace OpenGLTests.src
                 }
                 ActiveCamera.Location = Hero.Location;
             };
-
             Drawables.Add(testbutton);
 
             var unicorn = new Unicorn(new GameCoordinate(-0.5f, 0), Hero);
@@ -64,6 +63,7 @@ namespace OpenGLTests.src
         public void Step()
         {
             var combatables = Drawables.GetAllCombatables;
+            
             foreach (var combatable in combatables)
             {
                 if (combatable.InCombat)

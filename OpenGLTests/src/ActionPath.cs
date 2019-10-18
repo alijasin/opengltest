@@ -16,7 +16,7 @@ using OpenTK.Graphics.ES10;
 //Commonalities: Up, Down, Queue Action, Execution actions.
 namespace OpenGLTests.src
 {
-    public class PlacedActions
+    public class SubsequentlyPlacedActions
     {
         LinkedList<GameAction> linkedList = new LinkedList<GameAction>();
 
@@ -27,6 +27,10 @@ namespace OpenGLTests.src
 
         public void Clear()
         {
+            foreach (var ga in linkedList)
+            {
+                ga.Dispose();
+            }
             linkedList.Clear();
         }
 
@@ -152,8 +156,87 @@ namespace OpenGLTests.src
         void OnMouseUp(GameCoordinate mouseLocation);
         void OnMouseDown(GameCoordinate mouseLocation);
         void ActionButtonClicked(ActionButton actionButton);
+        void Dispose();
     }
+    //todo move common things to abstract base 
+    public class CombatActionHandler : IActionHandler
+    {
+        private SpriteID SelectedActionIcon { get; set; }
+        public IActionCapable Owner { get; set; }
+        public GameAction SelectedAction { get; set; }
+        private SubsequentlyPlacedActions SubsequentlyPlacedActions;
 
+        public CombatActionHandler(IActionCapable owner)
+        {
+            this.Owner = owner;
+            SubsequentlyPlacedActions = new SubsequentlyPlacedActions();
+        }
+
+        public void TryPlaceAction(GameAction action, GameCoordinate location)
+        {
+            if (action.RangeShape.Contains(location) || action.RangeShape.IsInfinite)
+            {
+                SubsequentlyPlacedActions.Add(action);
+                action.Place(location, SelectedActionIcon);
+            }
+        }
+
+        public ActionReturns CommitActions(object args)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void OnMouseUp(GameCoordinate mouseLocation)
+        {
+            if (SelectedAction == null) return;
+
+            SelectedAction.RangeShape.Visible = false;
+            TryPlaceAction(SelectedAction, mouseLocation);
+        }
+
+        public void OnMouseDown(GameCoordinate mouseLocation)
+        {
+            if (SelectedAction == null) return;
+
+            if(SubsequentlyPlacedActions.AlreadyPlaced(SelectedAction)) SubsequentlyPlacedActions.Remove(SelectedAction);
+
+
+            //Update location of rangeshape and line.
+            //line's location:
+            //  origin: last placed move location or hero's location if none placed.
+            //  terminus: mouse click location
+            //Rangeshape's location: last placed move location or hero's location if none placed.
+            var lma = SubsequentlyPlacedActions.LastMoveAction();
+            IFollowable newFollow;
+            if (lma != null)
+            {
+                newFollow = lma.Marker;
+            }
+            else
+            {
+                newFollow = Owner as IFollowable;
+            }
+            SelectedAction.RangeShape.SetFollowing(newFollow);
+            SelectedAction.ActionLine.Set(newFollow, mouseLocation);
+
+
+            SelectedAction.RangeShape.Visible = true;
+
+        }
+
+        public void ActionButtonClicked(ActionButton actionButton)
+        {
+            SelectedAction = actionButton.GameAction;
+            SelectedActionIcon = actionButton.Animation.GetSprite().sid;
+            Console.WriteLine("Selected action: " + SelectedAction);
+        }
+
+        public void Dispose()
+        {
+            SubsequentlyPlacedActions.Clear();
+        }
+    }
+    /*
     public class CombatActionHandler
     {
         private PlacedActions placedActions;
@@ -222,7 +305,7 @@ namespace OpenGLTests.src
 
         }
     }
-
+    */
     public class OutOfCombatPlacedActions : List<GameAction>
     {
         public void RemoveWhere(Func<GameAction, bool> filter)
@@ -269,7 +352,6 @@ namespace OpenGLTests.src
         public OutOfCombatActionHandler(IActionCapable owner)
         {
             this.Owner = owner;
-
         }
 
         public void TryPlaceAction(GameAction action, GameCoordinate location)
@@ -314,6 +396,12 @@ namespace OpenGLTests.src
             SelectedAction = actionButton.GameAction;
             SelectedActionIcon = actionButton.Animation.GetSprite().sid;
             Console.WriteLine("Selected action: " + SelectedAction);
+        }
+
+        public void Dispose()
+        {
+            //remove all
+            PlacedActions.RemoveWhere(e => true);
         }
 
         public ActionReturns CommitActions(object args)
