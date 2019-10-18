@@ -68,37 +68,19 @@ namespace OpenGLTests.src.Drawables
             }
         }
 
-
-        //todo refactror this so we dont have literally duplicated code
-        private int outOfCombatIndex = 0;
-        public void OutOfCombatStep()
+        private int actionIndex = 0;
+        public void Step()
         {
-            var status = ActionHandler.CommitActions(outOfCombatIndex);
+            var status = ActionHandler.CommitActions(actionIndex);
             if (status == ActionReturns.Placing) return;
-            if (status == ActionReturns.AllFinished || status == ActionReturns.Finished) outOfCombatIndex = 0;
-            else if (status == ActionReturns.Ongoing) outOfCombatIndex++;
+            if (status == ActionReturns.AllFinished || status == ActionReturns.Finished) actionIndex = 0;
+            else if (status == ActionReturns.Ongoing) actionIndex++;
         }
 
         //todo refactror this so we dont have literally duplicated code
-        private static int combatIndex = 0;
-        public void CombatStep()
-        {/*
-            if (waitingForActionCommit == true) return;
 
-            var status = ActionHandler.TryInvokePlacedActions(combatIndex);
-            if (status == ActionReturns.AllFinished)
-            {
-                combatIndex = 0;
-                waitingForActionCommit = true;
-            }
-            else if (status == ActionReturns.Finished)
-            {
-                combatIndex = 0;
-            }
-            else if (status == ActionReturns.Ongoing)
-            {
-                combatIndex += 1;
-            }*/
+        public void OutOfCombatStep()
+        {
 
         }
     }

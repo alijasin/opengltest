@@ -148,6 +148,7 @@ namespace OpenGLTests.src
     {
         public GrowAction(ICombatable source) : base(source)
         {
+            IsInstant = true;
         }
 
         public override Func<object, bool> GetAction()
@@ -155,7 +156,8 @@ namespace OpenGLTests.src
             return (o) =>
             {
                 var index = (int) o;
-                if(index < 10)
+                Console.WriteLine(index);
+                if (index < 10)
                 {
                     Source.Size.X = Source.Size.X * 1.1f;
                     Source.Size.Y = Source.Size.Y * 1.1f;

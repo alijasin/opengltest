@@ -182,8 +182,12 @@ namespace OpenGLTests.src
         }
 
         public ActionReturns CommitActions(object args)
-        {
-            throw new NotImplementedException();
+        {/*
+            if (SubsequentlyPlacedActions.Count() == 0) return ActionReturns.AllFinished;
+
+            var first = SubsequentlyPlacedActions.First();
+            */
+
         }
 
         public void OnMouseUp(GameCoordinate mouseLocation)
@@ -236,76 +240,6 @@ namespace OpenGLTests.src
             SubsequentlyPlacedActions.Clear();
         }
     }
-    /*
-    public class CombatActionHandler
-    {
-        private PlacedActions placedActions;
-
-        public CombatActionHandler()
-        {
-            placedActions = new PlacedActions();
-        }
-        
-        public void PlaceAction(GameAction action, GameCoordinate location, IActionCapable owner, SpriteID sid, bool instant = false)
-        {
-            action.Marker.Location = location;
-            var lastMoveAction = placedActions.LastMoveAction();
-
-            GameCoordinate lineOrigin = location;
-            GameCoordinate lineTerminus;
-
-            if (lastMoveAction != null)
-            {
-                lineTerminus = lastMoveAction.Marker.Location;
-                if (instant)
-                {
-                    lineOrigin = lastMoveAction.Marker.Location;
-                    action.Marker.Location = lastMoveAction.Marker.Location + placedActions.InstantLocationOffset(lastMoveAction);
-                }
-            }
-            else
-            {
-                lineTerminus = owner.Location;
-            }
-
-            action.PositionLine(lineOrigin, lineTerminus);
-
-            action.SetMarkerIcon(sid);
-            //action.Place(location);
-            placedActions.Add(action);
-        }
-
-        public GameCoordinate GetOriginOfLastPlacedAction()
-        {
-            var lma = placedActions.LastMoveAction();
-
-            if (lma == null) return null;
-            else return lma.Marker.Location;
-        }
-
-        public void ClearPreviouslyPlacedBefore(GameAction currentAction)
-        {
-            if (placedActions.AlreadyPlaced(currentAction))
-            {
-                placedActions.Remove(currentAction);
-            }
-        }
-
-        public ActionReturns DoAction(object arg)
-        {
-            bool completed = placedActions.First().GetAction().Invoke(arg);
-            if (completed)
-            {
-                placedActions.RemoveFirst();
-            }
-            else return ActionReturns.Ongoing;
-
-            if (placedActions.Count() == 0) return ActionReturns.AllFinished;
-            else return ActionReturns.Finished;
-
-        }
-    }
-    */
     public class OutOfCombatPlacedActions : List<GameAction>
     {
         public void RemoveWhere(Func<GameAction, bool> filter)
@@ -357,9 +291,11 @@ namespace OpenGLTests.src
         public void TryPlaceAction(GameAction action, GameCoordinate location)
         {
             //If clicked within range or if the range is infinite
-            i++;
-            Console.WriteLine(i);
-            if (action.RangeShape.IsInfinite || action.RangeShape.Contains(location))
+            if (action.IsInstant)
+            {
+                PlacedActions.Add(action);
+            }
+            else if (action.RangeShape.IsInfinite || action.RangeShape.Contains(location))
             {
                 Console.WriteLine("Placed " + action);
 

@@ -66,14 +66,7 @@ namespace OpenGLTests.src
             
             foreach (var combatable in combatables)
             {
-                if (combatable.InCombat)
-                {
-                    combatable.CombatStep();
-                }
-                else
-                {
-                    combatable.OutOfCombatStep();
-                }
+                combatable.Step();
             }
             ActiveCamera.Step();
         }

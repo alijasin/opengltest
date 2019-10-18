@@ -12,8 +12,7 @@ namespace OpenGLTests.src.Drawables
     public interface ICombatable : IFollowable
     {
         bool InCombat { get; }
-        void CombatStep();
-        void OutOfCombatStep();
+        void Step();
         GameCoordinate Location { get; set; }
         GameCoordinate Speed { get; set; }
         GLCoordinate Size { get; set; }
@@ -30,20 +29,9 @@ namespace OpenGLTests.src.Drawables
         public RangeShape AggroShape { get; set; }
         protected ActionPattern ActionPattern;
         public bool InCombat { get; set; }
-
-        protected Hostile()
+        public void Step()
         {
-            AggroShape = new RangeCircle(new GLCoordinate(0, 0), this);
-        }
-
-        public void CombatStep()
-        {
-            
-        }
-
-        public void OutOfCombatStep()
-        {
-            if (ActionPattern != null)
+             if (ActionPattern != null)
             {
                 var status = ActionPattern.DoAction("SkertSkert");
             }
@@ -60,6 +48,21 @@ namespace OpenGLTests.src.Drawables
                     GameState.Combat = true;
                 }
             }
+        }
+
+        protected Hostile()
+        {
+            AggroShape = new RangeCircle(new GLCoordinate(0, 0), this);
+        }
+
+        public void CombatStep()
+        {
+            
+        }
+
+        public void OutOfCombatStep()
+        {
+           
 
         }
 
