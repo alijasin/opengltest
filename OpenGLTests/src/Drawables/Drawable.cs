@@ -34,7 +34,7 @@ namespace OpenGLTests.src.Drawables
 
         public virtual void Dispose()
         {
-
+            
         }
     }
 

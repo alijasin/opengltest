@@ -58,7 +58,6 @@ namespace OpenGLTests.src.Drawables
 
         private void init()
         {
-
             this.Location = following.Location;
             this.Size = StandardSize;
             this.Color = RNG.RandomColor();

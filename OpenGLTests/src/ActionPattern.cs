@@ -85,7 +85,7 @@ namespace OpenGLTests.src
         {
             Actions = new List<GameAction>()
             {
-                new MoveTowardsAction(RNG.RandomPointWithinCircle(new GLCoordinate(0.4f, 0.4f)), source),
+                new MoveTowardsAction(RNG.RandomPointWithinCircleRelativeToLocation(source.Location, new GLCoordinate(0.4f, 0.4f)), source),
                 new ChillAction(),
             };
         }

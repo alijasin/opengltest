@@ -4,6 +4,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using OpenGLTests.src.Drawables;
 
 namespace OpenGLTests.src.Util
 {
@@ -39,9 +40,15 @@ namespace OpenGLTests.src.Util
             var re = Radius.X * Math.Sqrt(r.NextDouble());
             var theta = r.NextDouble() * 2 * (float)Math.PI;
 
-
             return new GameCoordinate((float) (re * (float)Math.Cos(theta)), (float) (re * (float)Math.Sin(theta)));
         }
+
+        public static GameCoordinate RandomPointWithinCircleRelativeToLocation(GameCoordinate location, GLCoordinate circleRadius)
+        {
+            var pointInCircle = RandomPointWithinCircle(circleRadius);
+            return new GameCoordinate(location.X + pointInCircle.X, location.Y + pointInCircle.Y);
+        }
+
         /// <summary>
         /// Think this should return true if x out of y times.
         /// For example x = 5, y = 100. This would return true 5 in 100 times.

@@ -181,6 +181,10 @@ namespace OpenGLTests.src
 
                 if(CurrentAction.IsInstant) combatActionHandler.PlaceAction(CurrentAction, owner.Location, owner, CurrentActionButton.Animation.GetSprite().sid, true);
             }
+            else
+            {
+                //outOfCombatActionHandler.SetAction()
+            }
 
         }
 

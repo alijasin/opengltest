@@ -315,7 +315,10 @@ namespace OpenGLTests.src
             this.point = point;
             this.Marker = new MoveMarker(point);
             this.ActionLine.LineType = LineType.Solid;
-            //GameState.Drawables.Add(this.Marker);
+            this.Marker.Visible = true;
+            this.Marker.Animation = new Animation(new SpriteSheet_Icons());
+            this.Marker.Animation.SetSprite(SpriteID.action_move);
+            this.Marker.Size = new GLCoordinate(0.05f, 0.05f);
         }
 
         public override Func<object, bool> GetAction()
@@ -325,6 +328,7 @@ namespace OpenGLTests.src
                 if (source.Location.Distance(point) < source.Speed.X || source.Location.Distance(point) < source.Speed.Y)
                 {
                     //we are close enough
+                    this.Marker.Dispose();
                     return true;
                 }
                 else

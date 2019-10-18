@@ -61,7 +61,6 @@ namespace OpenGLTests.src
 
         public void Remove(Drawable d)
         {
-            d.Dispose();
             drawableRepo.Remove(d);
         }
     }

@@ -22,8 +22,7 @@ namespace OpenGLTests.src
             Hero = new Hero();
             Drawables.Add(Hero);
 
-            var angerdude = new AngryDude();
-            angerdude.Location = new GameCoordinate(0.2f, 0.8f);
+            var angerdude = new AngryDude(new GameCoordinate(0.2f, 0.8f));
             Drawables.Add(angerdude);
 
             var patroldude = new PatrolGuy(new GameCoordinate(-0.6f, -0.4f));
@@ -32,8 +31,6 @@ namespace OpenGLTests.src
             var chasingdude = new ChasingPerson(new GameCoordinate(0.5f, 0), Hero);
             Drawables.Add(chasingdude);
 
-            var particle2 = new ParticleGenerator2(Hero, 30);
-            Drawables.Add(particle2);
 
 
             var followCamera = new FollowCamera(Hero);

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -60,8 +61,9 @@ namespace OpenGLTests.src.Drawables
 
     class AngryDude : Hostile
     {
-        public AngryDude()
+        public AngryDude(GameCoordinate Location)
         {
+            this.Location = Location;
             this.AggroShape = new FollowCircle(new GLCoordinate(0.3f, 0.3f), this);
             this.AggroShape.Visible = true;
             this.Speed = new GameCoordinate(0.01f, 0.01f);

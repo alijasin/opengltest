@@ -137,14 +137,6 @@ namespace OpenGLTests.src
                     GameCoordinate placed = new GameCoordinate(input.MouseButtonArgs.X, input.MouseButtonArgs.Y);
                     var xd = CoordinateFuckery.ClickToGLRelativeToCamera(placed, new GameCoordinate(0, 0));
                     Game.Hero.ActionHandler.Down(xd);
-                    if (GameState.Combat)
-                    {
-                      //  Game.Hero.ActionHandler.CombatActionHandler.Down();
-                    }
-                    else
-                    {
-                        
-                    }
                 },
                 input =>
                 {

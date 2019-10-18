@@ -27,6 +27,12 @@ namespace OpenGLTests.src.Drawables
                 drawer.DrawSprite(this, DrawAdapter.DrawMode.Centered);
             }
         }
+
+        public override void Dispose()
+        {
+            base.Dispose();
+            GameState.Drawables.Remove(this);
+        }
     }
 
     public class ActionMarker : Marker
