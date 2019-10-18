@@ -59,9 +59,17 @@ namespace OpenGLTests.src
             Drawables.Add(unicorn);
 
         }
-
+        
+        private int initSteps = 25;
+        private int initStepsCount = 0;
         public void Step()
         {
+            if (initStepsCount < initSteps)
+            {
+                initStepsCount++;
+                return;
+            }
+
             var combatables = Drawables.GetAllCombatables;
             
             foreach (var combatable in combatables)
