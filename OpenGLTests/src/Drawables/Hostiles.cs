@@ -46,6 +46,7 @@ namespace OpenGLTests.src.Drawables
 
             foreach (Hero h in GameState.Drawables.GetAllHeroes)
             {
+                AggroShape.Location = Location; //might not need..
                 if (AggroShape.Contains(h.Location))
                 {
                     InCombat = true;
