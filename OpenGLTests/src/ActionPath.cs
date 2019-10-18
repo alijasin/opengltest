@@ -174,7 +174,7 @@ namespace OpenGLTests.src
 
         public void TryPlaceAction(GameAction action, GameCoordinate location)
         {
-            if (action.RangeShape.Contains(location) || action.RangeShape.IsInfinite)
+            if (action.RangeShape.Contains(location) || action.RangeShape.IsInfinite || action.IsInstant)
             {
                 SubsequentlyPlacedActions.Add(action);
                 action.Place(location, SelectedActionIcon);
