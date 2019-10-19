@@ -115,7 +115,7 @@ namespace OpenGLTests.src
         {
             RangeShape = new RangeCircle(new GLCoordinate(0.5f, 0.5f), source);
             RangeShape.Visible = false;
-            Marker = new AOEMarker(new GameCoordinate(0.5f, 0.5f), new GLCoordinate(0.2f, 0.2f));
+            Marker = new AOEMarker(new GameCoordinate(0.5f, 0.5f), new RangeCircle(new GLCoordinate(0.2f, 0.2f), source));
         }
 
         public override Func<object, bool> GetAction()
@@ -124,9 +124,10 @@ namespace OpenGLTests.src
             {
                 if ((int) o >= 10)
                 {
+                    var aoeShape = (Marker as AOEMarker).aoeShape;
                     foreach (var others in GameState.Drawables.GetAllCombatables.Where(d => d != Source))
                     {
-                        if (RangeShape.Contains(others.Location))
+                        if (aoeShape.Contains(others.Location))
                         {
                             others.HitPoints--;
                         }
@@ -252,19 +253,19 @@ namespace OpenGLTests.src
 
         private AOEMarker marker => Marker as AOEMarker;
 
-        public AOEEffectAction(GLCoordinate actionRange, GLCoordinate aoeRange, ICombatable source) : base(source)
+        public AOEEffectAction(GLCoordinate actionRange, RangeShape aoeShape, ICombatable source) : base(source)
         {
             RangeShape = new RangeCircle(actionRange, source);
-            this.Marker = new AOEMarker(RangeShape.Location, aoeRange);
+            this.Marker = new AOEMarker(RangeShape.Location, aoeShape);
             
-            initialAOERange = new GLCoordinate(aoeRange.X, aoeRange.Y);
+            initialAOERange = new GLCoordinate(aoeShape.Size.X, aoeShape.Size.Y);
             this.ActionLine.LineType = LineType.Dashed;
         }
 
         public override Func<object, bool> GetAction()
         {
             return (o) =>
-            {
+            {/*
                 int index = (int) o;
                 if (marker.aoeSize.X < 0.0f || marker.aoeSize.Y < 0.0f || index > 100)
                 {
@@ -275,7 +276,8 @@ namespace OpenGLTests.src
                 marker.aoeSize.X -= 0.01f;
                 marker.aoeSize.Y -= 0.01f;
 
-                return false;
+                return false;*/
+                return true;
             };
         }
     }

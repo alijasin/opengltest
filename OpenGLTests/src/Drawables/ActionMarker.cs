@@ -45,11 +45,12 @@ namespace OpenGLTests.src.Drawables
 
     public class AOEMarker : ActionMarker
     {
-        public GLCoordinate aoeSize;
-        public AOEMarker(GameCoordinate loc, GLCoordinate aoeSize) : base(loc)
+        public RangeShape aoeShape;
+        public AOEMarker(GameCoordinate loc, RangeShape aoeShape) : base(loc)
         {
-            //this.Color = Color.Red;
-            this.aoeSize = aoeSize;
+            this.Location = loc;
+            this.aoeShape = aoeShape;
+            aoeShape.SetFollowing(this);
         }
 
         public override void DrawStep(DrawAdapter drawer)
@@ -57,10 +58,17 @@ namespace OpenGLTests.src.Drawables
             if (Visible)
             {
                 base.DrawStep(drawer);
-                GLCoordinate location = Location.ToGLCoordinate(GameState.ActiveCamera.Location);
-                drawer.FillCircle(location.X, location.Y, aoeSize, Color.Red);
+                aoeShape.DrawStep(drawer);
             }
+        }
 
+        public override bool Visible
+        {
+            set
+            {
+                base.Visible = value;
+                if(aoeShape != null) aoeShape.Visible = value;
+            }
         }
     }
 

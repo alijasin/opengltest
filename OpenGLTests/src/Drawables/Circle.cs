@@ -13,6 +13,7 @@ namespace OpenGLTests.src.Drawables
     public interface IFollowable
     {
         GameCoordinate Location { get; set; }
+        bool Visible { get; set; }
     }
     interface IClickable
     {
@@ -22,7 +23,7 @@ namespace OpenGLTests.src.Drawables
 
     public abstract class RangeShape : Entity
     {
-        private IFollowable following;
+        protected IFollowable following;
 
         public abstract bool Contains(GameCoordinate point);
         public bool IsInfinite { get; set; } = false;
@@ -91,7 +92,7 @@ namespace OpenGLTests.src.Drawables
 
         public override void DrawStep(DrawAdapter drawer)
         {
-            circle.Location = this.Location; //is this stupid? Currently we are drawing the circle's draw and not range circle. And the circle's draw uses its own location instaed of RangeShape's location(which is the following unit)
+            circle.Location = this.Location; //is this stupid? Currently we are drawing the circle's draw and not range circle. And the circle's draw uses its own location instaed of RangeShape's location(which is the following)
             if(Visible && IsInfinite == false) circle.DrawStep(drawer);
         }
     }

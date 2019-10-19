@@ -52,7 +52,7 @@ namespace OpenGLTests.src
     {
         public TossBomb(ICombatable owner)
         {
-            this.Action = new AOEEffectAction(new GLCoordinate(0.6f, 0.6f), new GLCoordinate(0.2f, 0.2f), owner);
+            this.Action = new AOEEffectAction(new GLCoordinate(0.6f, 0.6f), new RangeCircle(new GLCoordinate(0.2f, 0.2f), owner as IFollowable), owner); 
             this.Icon = SpriteID.action_attack;
         }
     }

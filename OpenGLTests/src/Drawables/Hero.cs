@@ -14,7 +14,6 @@ namespace OpenGLTests.src.Drawables
         public Inventory Inventory;
         public ActionHandler ActionHandler { get; set; }
         private ActionBar ActionBar { get; set; }
-        private Button DefaultButton { get; set; }
         public int HitPoints { get; set; } = 5;
         public bool InCombat { get; set; }
         private bool waitingForActionCommit = true;
