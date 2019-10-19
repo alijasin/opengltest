@@ -15,6 +15,9 @@ namespace OpenGLTests.src.Drawables
         public ActionHandler ActionHandler { get; set; }
         private ActionBar ActionBar { get; set; }
         public int HitPoints { get; set; } = 1;
+
+        private void SetDefaultAction() => ActionBar.GetDefaultButton().OnInteraction.Invoke();
+
         public void OnDeath()
         {
             Console.WriteLine("hero died!!!!");
@@ -33,6 +36,8 @@ namespace OpenGLTests.src.Drawables
                 if (this.InCombat == value) return; //already set in combat
                 this.InCombat = value;
                 ActionHandler.Dispose();
+
+                
                 actionIndex = 0;
                 if (InCombat)
                 {
@@ -49,6 +54,8 @@ namespace OpenGLTests.src.Drawables
                     defaultAction.RangeShape.IsInfinite = true;
                     ActionHandler = new OutOfCombatActionHandler(this);
                 }
+
+                SetDefaultAction();
             }
         }
 
