@@ -76,9 +76,9 @@ namespace OpenGLTests.src.Drawables
             ActionHandler = new OutOfCombatActionHandler(this);
             InCombat = false;
 
-            //set default action to first action button in the action bar
-            ActionBar.GetDefaultButton().OnInteraction.Invoke();
-
+            
+            ActionBar.GetDefaultButton().OnInteraction.Invoke();//set default action to first action button in the action bar
+            ActionHandler.SelectedAction.RangeShape.IsInfinite = true;//set it to infinite range
             initGUI();
         }
 
