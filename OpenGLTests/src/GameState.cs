@@ -78,13 +78,12 @@ namespace OpenGLTests.src
             {
                 if (aggro.AggroShape.Contains(Hero.Location))
                 {
-                    var h = Hero as ICombatable;
-                    h.InCombat = true;
                     aggro.InCombat = true;
                     heroInCombat = true;
                 }
             }
-            if (heroInCombat == false) (Hero as ICombatable).InCombat = false;
+
+            (Hero as ICombatable).InCombat = heroInCombat;
 
             foreach (var combatable in combatables)
             {

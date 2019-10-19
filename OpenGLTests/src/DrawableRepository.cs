@@ -35,19 +35,20 @@ namespace OpenGLTests.src
 
         public List<ICombatable> GetAllCombatables 
         {
-            
             get
             {
                 try
                 {
-                    var xd = drawableRepo.Where(E => E is ICombatable).Cast<ICombatable>().ToList();
-                    return xd;
-                    /*var size = drawableRepo.Count(E => E is ICombatable);
+                    /*var xd = drawableRepo.Where(E => E is ICombatable).Cast<ICombatable>().ToList();
+                    return xd;*/
+                    var size = drawableRepo.Count(E => E is ICombatable);
                     List<ICombatable> combtables = new List<ICombatable>(size);
-                    return drawableRepo.Where(E => E is ICombatable).Cast<ICombatable>().Take(size).ToList();*/
+                    return drawableRepo.Where(E => E is ICombatable).Cast<ICombatable>().Take(size).ToList();
                 }
                 catch (Exception e)
                 {
+                    Console.WriteLine("fuck");
+                    Console.WriteLine(e);
                     return new List<ICombatable>();
                 }
             }

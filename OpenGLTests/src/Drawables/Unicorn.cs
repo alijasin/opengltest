@@ -15,14 +15,14 @@ namespace OpenGLTests.src.Drawables
             this.AggroShape.Visible = false;
             this.Location = location;
             //this.Speed = new GameCoordinate(0.01f, 0.005f);
-            pg = new ParticleGenerator();
+            pg = new ParticleGenerator(80, this.Location);
             //ActionPattern.Loop = true;
         }
 
         public override void DrawStep(DrawAdapter drawer)
         {
             base.DrawStep(drawer);
-            pg.GenerateParticles(10, this.Location);
+            pg.Draw(drawer);
         }
     }
 }

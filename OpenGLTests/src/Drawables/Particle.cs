@@ -11,13 +11,22 @@ namespace OpenGLTests.src.Drawables
     class Particle : Entity
     {
         private int life;
-
+        private GameCoordinate origin;
+        private GLCoordinate size;
         public Particle(GameCoordinate origin)
         {
+            this.origin = origin;
+            this.size = new GLCoordinate(0.1f, 0.1f);
+            init(origin);
+        }
+
+        private void init(GameCoordinate origin)
+        {
             life = RNG.IntegerBetween(20, 40);
-            Speed = new GameCoordinate(RNG.BetweenZeroAndOne()/100 * RNG.NegativeOrPositiveOne(), (RNG.BetweenZeroAndOne()/100*RNG.NegativeOrPositiveOne()));
+            Speed = new GameCoordinate(RNG.BetweenZeroAndOne() / 100 * RNG.NegativeOrPositiveOne(), (RNG.BetweenZeroAndOne() / 100 * RNG.NegativeOrPositiveOne()));
             Location = origin;
             this.Color = RNG.RandomColor();
+            this.Size = new GLCoordinate(size);
         }
 
         public override void DrawStep(DrawAdapter drawer)
@@ -28,19 +37,31 @@ namespace OpenGLTests.src.Drawables
             this.Location += Speed;
             if (life < 0)
             {
-                GameState.Drawables.Remove(this);
+                init(origin);
             }
         }
     }
 
     class ParticleGenerator
     {
-        public void GenerateParticles(int n, GameCoordinate location)
+        private List<Particle> particles;
+
+        public ParticleGenerator(int n, GameCoordinate location)
         {
+            particles = new List<Particle>(n);
             for (int i = 0; i < n; i++)
             {
                 Particle p = new Particle(location);
+                particles.Add(p);
                 GameState.Drawables.Add(p);
+            }
+        }
+
+        public void Draw(DrawAdapter drawer)
+        {
+            foreach (var p in particles)
+            {
+                p.DrawStep(drawer);
             }
         }
     }

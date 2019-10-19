@@ -44,6 +44,7 @@ namespace OpenGLTests.src.Drawables
                     Console.WriteLine("entered combat");
                     var defaultAction = ActionBar.GetDefaultButton().GameAction;
                     defaultAction.RangeShape.IsInfinite = false; //assumes that the default action sh ouldnt be infinite in combat. 
+                    ActionHandler.Dispose();
                     ActionHandler = new CombatActionHandler(this);
                     waitingForActionCommit = true;
                 }
@@ -52,6 +53,7 @@ namespace OpenGLTests.src.Drawables
                     Console.WriteLine("left combat");
                     var defaultAction = ActionBar.GetDefaultButton().GameAction;
                     defaultAction.RangeShape.IsInfinite = true;
+                    ActionHandler.Dispose();
                     ActionHandler = new OutOfCombatActionHandler(this);
                 }
 
