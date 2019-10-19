@@ -11,9 +11,6 @@ using OpenGLTests.src.Drawables;
 using OpenGLTests.src.Util;
 using OpenTK.Graphics.ES10;
 
-//this is a mess. Todo: refactor action handlers.
-//Have OutOFCombat action handler and CombatActionHandler inherit from ActionHandler. Then depending on whether owner is in combat utilize the correct one.
-//Commonalities: Up, Down, Queue Action, Execution actions.
 namespace OpenGLTests.src
 {
     public class SubsequentlyPlacedActions
@@ -147,37 +144,51 @@ namespace OpenGLTests.src
         }
     }
 
-    public interface IActionHandler
-    {
-        IActionCapable Owner { get; set; }
-        GameAction SelectedAction { get; set; }
-        void TryPlaceAction(GameAction action, GameCoordinate location);
-        ActionReturns CommitActions(object args);
-        void OnMouseUp(GameCoordinate mouseLocation);
-        void OnMouseDown(GameCoordinate mouseLocation);
-        void ActionButtonClicked(ActionButton actionButton);
-        void Dispose();
-    }
 
-    //todo move common functionality to this class.
     public abstract class ActionHandler
     {
-
-    }
-    public class CombatActionHandler : ActionHandler, IActionHandler
-    {
-        private SpriteID SelectedActionIcon { get; set; }
+        protected SpriteID SelectedActionIcon { get; set; }
         public IActionCapable Owner { get; set; }
         public GameAction SelectedAction { get; set; }
+
+        public ActionHandler(IActionCapable owner)
+        {
+            Owner = owner;
+        }
+
+        public abstract void TryPlaceAction(GameAction action, GameCoordinate location);
+
+        public abstract ActionReturns CommitActions(object args);
+
+        public void OnMouseUp(GameCoordinate mouseLocation)
+        {
+            if (SelectedAction == null) return;
+
+            SelectedAction.RangeShape.Visible = false;
+            TryPlaceAction(SelectedAction, mouseLocation);
+        }
+
+        public abstract void OnMouseDown(GameCoordinate mouseLocation);
+
+        public void ActionButtonClicked(ActionButton actionButton)
+        {
+            SelectedAction = actionButton.GameAction;
+            SelectedActionIcon = actionButton.Animation.GetSprite().sid;
+        }
+
+        public abstract void Dispose();
+    }
+
+    public class CombatActionHandler : ActionHandler
+    {
         private SubsequentlyPlacedActions SubsequentlyPlacedActions;
 
-        public CombatActionHandler(IActionCapable owner)
+        public CombatActionHandler(IActionCapable owner) : base(owner)
         {
-            this.Owner = owner;
             SubsequentlyPlacedActions = new SubsequentlyPlacedActions();
         }
 
-        public void TryPlaceAction(GameAction action, GameCoordinate location)
+        public override void TryPlaceAction(GameAction action, GameCoordinate location)
         {
             if (action.RangeShape.Contains(location) || action.RangeShape.IsInfinite || action.IsInstant)
             {
@@ -186,7 +197,7 @@ namespace OpenGLTests.src
             }
         }
 
-        public ActionReturns CommitActions(object args)
+        public override ActionReturns CommitActions(object args)
         {
             if (SubsequentlyPlacedActions.Count() == 0) return ActionReturns.NoAction;
 
@@ -203,15 +214,7 @@ namespace OpenGLTests.src
             return ActionReturns.Ongoing;
         }
 
-        public void OnMouseUp(GameCoordinate mouseLocation)
-        {
-            if (SelectedAction == null) return;
-
-            SelectedAction.RangeShape.Visible = false;
-            TryPlaceAction(SelectedAction, mouseLocation);
-        }
-
-        public void OnMouseDown(GameCoordinate mouseLocation)
+        public override void OnMouseDown(GameCoordinate mouseLocation)
         {
             if (SelectedAction == null) return;
 
@@ -219,7 +222,6 @@ namespace OpenGLTests.src
             {
                 SubsequentlyPlacedActions.Remove(SelectedAction);
             }
-
 
             //Update location of rangeshape and line.
             //line's location:
@@ -239,23 +241,15 @@ namespace OpenGLTests.src
             SelectedAction.RangeShape.SetFollowing(newFollow);
             SelectedAction.ActionLine.Set(newFollow, mouseLocation);
 
-
             SelectedAction.RangeShape.Visible = true;
-
         }
 
-        public void ActionButtonClicked(ActionButton actionButton)
-        {
-            SelectedAction = actionButton.GameAction;
-            SelectedActionIcon = actionButton.Animation.GetSprite().sid;
-            Console.WriteLine("Selected action: " + SelectedAction);
-        }
-
-        public void Dispose()
+        public override void Dispose()
         {
             SubsequentlyPlacedActions.Clear();
         }
     }
+
     public class OutOfCombatPlacedActions : List<GameAction>
     {
         public void RemoveWhere(Func<GameAction, bool> filter)
@@ -278,33 +272,18 @@ namespace OpenGLTests.src
             ga.Dispose();
             this.Remove(ga);
         }
-
-        public List<GameAction> GetWhere(Func<GameAction, bool> filter)
-        {
-            List<GameAction> matching = new List<GameAction>();
-            foreach (var pa in this)
-            {
-                if(filter(pa)) matching.Add(pa);
-            }
-
-            return matching;
-        }
     }
 
-    public class OutOfCombatActionHandler : IActionHandler
+    public class OutOfCombatActionHandler : ActionHandler
     {
-        private static int i = 0;
         OutOfCombatPlacedActions PlacedActions = new OutOfCombatPlacedActions();
-        public IActionCapable Owner { get; set; }
-        public GameAction SelectedAction { get; set; }
-        private SpriteID SelectedActionIcon { get; set; }
 
-        public OutOfCombatActionHandler(IActionCapable owner)
+        public OutOfCombatActionHandler(IActionCapable owner) : base(owner)
         {
-            this.Owner = owner;
+
         }
 
-        public void TryPlaceAction(GameAction action, GameCoordinate location)
+        public override void TryPlaceAction(GameAction action, GameCoordinate location)
         {
             //If clicked within range or if the range is infinite
             if (action.IsInstant)
@@ -313,50 +292,28 @@ namespace OpenGLTests.src
             }
             else if (action.RangeShape.IsInfinite || action.RangeShape.Contains(location))
             {
-                Console.WriteLine("Placed " + action);
-
                 //remove all placed actions that are identical to the new one.
                 PlacedActions.RemoveWhere(pa => pa.GetType() == action.GetType());
 
                 action.Place(location, SelectedActionIcon);
                 PlacedActions.Add(action);
             }
-            else
-            {
-                Console.WriteLine("Did not place " + action);
-            }
         }
 
-        public void OnMouseUp(GameCoordinate mouseLocation)
-        {
-            if(SelectedAction == null) return;
-
-            SelectedAction.RangeShape.Visible = false;
-            TryPlaceAction(SelectedAction, mouseLocation);
-        }
-
-        public void OnMouseDown(GameCoordinate mouseLocation)
+        public override void OnMouseDown(GameCoordinate mouseLocation)
         {
             if (SelectedAction == null) return;
 
             SelectedAction.RangeShape.Visible = true;
-
         }
 
-        public void ActionButtonClicked(ActionButton actionButton)
-        {
-            SelectedAction = actionButton.GameAction;
-            SelectedActionIcon = actionButton.Animation.GetSprite().sid;
-            Console.WriteLine("Selected action: " + SelectedAction);
-        }
-
-        public void Dispose()
+        public override void Dispose()
         {
             //remove all
             PlacedActions.RemoveWhere(e => true);
         }
 
-        public ActionReturns CommitActions(object args)
+        public override ActionReturns CommitActions(object args)
         {
             if (PlacedActions.Count == 0) return ActionReturns.NoAction;
 
@@ -371,6 +328,5 @@ namespace OpenGLTests.src
             }
             else return ActionReturns.Ongoing;
         }
-
     }
 }

@@ -8,7 +8,7 @@ namespace OpenGLTests.src
 {
     public interface IActionCapable
     {
-        IActionHandler ActionHandler { get; set; }
+        ActionHandler ActionHandler { get; set; }
         GameCoordinate Location { get; set; }
         bool InCombat { get; set; }
     }

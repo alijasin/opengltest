@@ -46,7 +46,6 @@ namespace OpenGLTests.src
         {
             Source = source;
 
-
             Marker = new ActionMarker(new GameCoordinate(0,0));
  
             Marker.Visible = false;
@@ -84,7 +83,10 @@ namespace OpenGLTests.src
             ActionLine.Visible = true;
         }
 
-
+        public void SetRangeShape(RangeShape r)
+        {
+            this.RangeShape = r;
+        }
 
         /*
         public abstract bool PayPreConditions();

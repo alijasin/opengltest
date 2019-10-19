@@ -143,28 +143,27 @@ namespace OpenGLTests.src
                     GameCoordinate placed = new GameCoordinate(input.MouseButtonArgs.X, input.MouseButtonArgs.Y);
                     var xd = CoordinateFuckery.ClickToGLRelativeToCamera(placed, new GameCoordinate(0, 0));
                     Game.Hero.ActionHandler.OnMouseUp(xd);
-                    if (GameState.Combat)
-                    {
-                        //  Game.Hero.ActionHandler.CombatActionHandler.TryEnqueueAction(xd);
-                    }
-                    else
-                    {
-                       // Game.Hero.ActionHandler.OutOfCombatActionHandler.Placed(xd);
-                    }
                 }
             ));
 
+            /*var x = 0;
+            var y = 0;
             Bind(new Hotkey(
-                input => input.IsMouseInput && input.Direction == InputUnion.Directions.Moved,
+                input => input.IsMouseMove ,
                 input =>
                 {
-
+                    x += input.MouseMoveArgs.XDelta;
+                    y += input.MouseMoveArgs.YDelta;
+                    var gc = new GameCoordinate(x, y);
+                    var xd = CoordinateFuckery.ClickToGLRelativeToCamera(gc, new GameCoordinate(0, 0));
+                    Console.WriteLine(xd);
+                    //Console.WriteLine(gc);
                 },
                 input =>
                 {
 
                 }
-            ));
+            ));*/
 
         }
 

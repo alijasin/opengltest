@@ -12,7 +12,7 @@ namespace OpenGLTests.src.Drawables
     public class Hero : Entity, IActionCapable, ICombatable
     {
         public Inventory Inventory;
-        public IActionHandler ActionHandler { get; set; }
+        public ActionHandler ActionHandler { get; set; }
         public bool InCombat { get; set; } = false;
         private bool waitingForActionCommit = true;
         private bool phasing = true;
@@ -28,7 +28,6 @@ namespace OpenGLTests.src.Drawables
             System.Timers.Timer t = new System.Timers.Timer(2000);
             t.Elapsed += (sender, args) => { phasing = false; t.Dispose(); };
             t.Start();
-
 
             initGUI();
         }
