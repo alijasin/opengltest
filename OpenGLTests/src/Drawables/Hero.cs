@@ -20,7 +20,38 @@ namespace OpenGLTests.src.Drawables
             Console.WriteLine("hero died!!!!");
         }
 
-        public bool InCombat { get; set; }
+        private bool InCombat { get; set; }
+
+        bool ICombatable.InCombat
+        {
+            get
+            {
+                return this.InCombat;
+            }
+            set
+            {
+                if (this.InCombat == value) return; //already set in combat
+                this.InCombat = value;
+                ActionHandler.Dispose();
+                actionIndex = 0;
+                if (InCombat)
+                {
+                    Console.WriteLine("entered combat");
+                    var defaultAction = ActionBar.GetDefaultButton().GameAction;
+                    defaultAction.RangeShape.IsInfinite = false; //assumes that the default action sh ouldnt be infinite in combat. 
+                    ActionHandler = new CombatActionHandler(this);
+                    waitingForActionCommit = true;
+                }
+                else
+                {
+                    Console.WriteLine("left combat");
+                    var defaultAction = ActionBar.GetDefaultButton().GameAction;
+                    defaultAction.RangeShape.IsInfinite = true;
+                    ActionHandler = new OutOfCombatActionHandler(this);
+                }
+            }
+        }
+
         private bool waitingForActionCommit = true;
 
         public Hero()
@@ -34,7 +65,7 @@ namespace OpenGLTests.src.Drawables
             initActionBar();
 
             ActionHandler = new OutOfCombatActionHandler(this);
-            SetCombat(false);
+            InCombat = false;
 
             //set default action to first action button in the action bar
             ActionBar.GetDefaultButton().OnInteraction.Invoke();
@@ -70,27 +101,6 @@ namespace OpenGLTests.src.Drawables
             Inventory.Add(new Apple(this));
         }
 
-        public void SetCombat(bool inCombat)
-        {
-            InCombat = inCombat;
-            ActionHandler.Dispose();
-            actionIndex = 0;
-            if (InCombat)
-            {
-                Console.WriteLine("entered combat");
-                var defaultAction = ActionBar.GetDefaultButton().GameAction;
-                defaultAction.RangeShape.IsInfinite = false; //assumes that the default action sh ouldnt be infinite in combat. 
-                ActionHandler = new CombatActionHandler(this);
-                waitingForActionCommit = true;
-            }
-            else
-            {
-                Console.WriteLine("left combat");
-                var defaultAction = ActionBar.GetDefaultButton().GameAction;
-                defaultAction.RangeShape.IsInfinite = true;
-                ActionHandler = new OutOfCombatActionHandler(this);
-            }
-        }
 
         private int actionIndex = 0;
         public void Step()

@@ -11,7 +11,7 @@ namespace OpenGLTests.src.Drawables
     //todo: move stuff to Entity
     public interface ICombatable : IFollowable
     {
-        bool InCombat { get; }
+        bool InCombat { get; set; }
         void Step();
         GameCoordinate Location { get; set; }
         GameCoordinate Speed { get; set; }
@@ -44,26 +44,16 @@ namespace OpenGLTests.src.Drawables
             if(InCombat == false) OutOfCombatStep();  
         }
 
+        public void EnteredCombat(ICombatable triggeringEntity)
+        {
+            ActionPattern = new ChaseEntity(this, triggeringEntity);
+        }
+
         private void OutOfCombatStep()
         {
             if (ActionPattern != null)
             {
                 var status = ActionPattern.DoAction("SkertSkert");
-            }
-
-            //check for combat
-            if (AggroShape == null) return;
-
-            foreach (Hero h in GameState.Drawables.GetAllHeroes)
-            {
-                AggroShape.Location = Location; //might not need..
-                if (AggroShape.Contains(h.Location))
-                {
-                    InCombat = true;
-                    h.SetCombat(true);
-                    ActionPattern = new ChaseEntity(this, h);
-                    GameState.Combat = true;
-                }
             }
         }
 
