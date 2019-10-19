@@ -6,3 +6,9 @@ Additionally, after exiting the aggro range the queued attacks are cleared which
 Two bugs, but one solution: don't leave combat until the aggro'd creature is dead(or outside some certain range).
 Difficulty: 6
 
+Burrower doesnt teleport every burrow. (only every second.)
+Not sure why this is but dont think it might be hard to trace down on.
+Difficulty 4
+Additionally, the hacks to get the burrower to do stuff is severe. Need to find a more flexible way of doing stuff depending on animation frame.
+Difficulty 6
+

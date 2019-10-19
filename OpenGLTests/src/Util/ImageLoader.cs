@@ -18,6 +18,20 @@ namespace OpenGLTests.src.Util
         elf_m_idle_anim_f2,
         elf_m_idle_anim_f3,
 
+        burrowing_swamper_f0,
+        burrowing_swamper_f1,
+        burrowing_swamper_f2,
+        burrowing_swamper_f3,
+        burrowing_swamper_f4,
+        burrowing_swamper_f5,
+        burrowing_swamper_f6,
+        burrowing_swamper_f7,
+        burrowing_swamper_f8,
+        burrowing_swamper_f9,
+        burrowing_swamper_f10,
+        burrowing_swamper_f11,
+        burrowing_swamper_f12,
+
         floor_1,
         floor_2,
         floor_3,
@@ -49,6 +63,20 @@ namespace OpenGLTests.src.Util
             Images[SpriteID.elf_m_idle_anim_f1] = new Bitmap(Properties.Resources.elf_f_idle_anim_f1);
             Images[SpriteID.elf_m_idle_anim_f2] = new Bitmap(Properties.Resources.elf_f_idle_anim_f2);
             Images[SpriteID.elf_m_idle_anim_f3] = new Bitmap(Properties.Resources.elf_f_idle_anim_f3);
+
+            Images[SpriteID.burrowing_swamper_f0] = new Bitmap(Properties.Resources.burrowing_swamper_f00);
+            Images[SpriteID.burrowing_swamper_f1] = new Bitmap(Properties.Resources.burrowing_swamper_f01);
+            Images[SpriteID.burrowing_swamper_f2] = new Bitmap(Properties.Resources.burrowing_swamper_f02);
+            Images[SpriteID.burrowing_swamper_f3] = new Bitmap(Properties.Resources.burrowing_swamper_f03);
+            Images[SpriteID.burrowing_swamper_f4] = new Bitmap(Properties.Resources.burrowing_swamper_f04);
+            Images[SpriteID.burrowing_swamper_f5] = new Bitmap(Properties.Resources.burrowing_swamper_f05);
+            Images[SpriteID.burrowing_swamper_f6] = new Bitmap(Properties.Resources.burrowing_swamper_f06);
+            Images[SpriteID.burrowing_swamper_f7] = new Bitmap(Properties.Resources.burrowing_swamper_f07);
+            Images[SpriteID.burrowing_swamper_f8] = new Bitmap(Properties.Resources.burrowing_swamper_f08);
+            Images[SpriteID.burrowing_swamper_f9] = new Bitmap(Properties.Resources.burrowing_swamper_f09);
+            Images[SpriteID.burrowing_swamper_f10] = new Bitmap(Properties.Resources.burrowing_swamper_f10);
+            Images[SpriteID.burrowing_swamper_f11] = new Bitmap(Properties.Resources.burrowing_swamper_f11);
+            Images[SpriteID.burrowing_swamper_f12] = new Bitmap(Properties.Resources.burrowing_swamper_f12);
 
             Images[SpriteID.floor_1] = new Bitmap(Properties.Resources.floor_1);
             Images[SpriteID.floor_2] = new Bitmap(Properties.Resources.floor_2);

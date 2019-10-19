@@ -181,6 +181,27 @@ namespace OpenGLTests.src
         }
     }
 
+    class InstantTeleport : CombatAction
+    {
+        private GameCoordinate loc;
+        public InstantTeleport(GameCoordinate location, ICombatable source) : base(source) 
+        {
+            this.loc = location;
+        }
+
+        public override Func<object, bool> GetAction()
+        {
+            return (o) =>
+            {
+                Console.WriteLine(Source.Location);
+                Console.WriteLine(loc);
+                Source.Location = loc;
+                return true;
+            };
+        }
+    }
+
+    //todo: dont teleport within radius, but instead of a rangeshape
     class TeleportAction : CombatAction
     {
         private bool isOnCooldown = false;
@@ -364,11 +385,23 @@ namespace OpenGLTests.src
 
     class ChillAction : GameAction
     {
+        private int n;
+        private int r;
+        /// <summary>
+        /// true n out of r times.
+        /// </summary>
+        /// <param name="n">times out of</param>
+        /// <param name="r">r</param>
+        public ChillAction(int n = 2, int r = 100)
+        {
+            this.n = n;
+            this.r = r;
+        }
         public override Func<object, bool> GetAction()
         {
             return (o) =>
             {
-                if (RNG.XTimesInY(2, 100)) return true;
+                if (RNG.XTimesInY(n, r)) return true;
                 else return false;
             };
         }

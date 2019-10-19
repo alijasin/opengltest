@@ -49,6 +49,26 @@ namespace OpenGLTests.src
         }
     }
 
+    class TeleportPattern : ActionPattern
+    {
+        private GLCoordinate range;
+        private ICombatable source;
+        public TeleportPattern(ICombatable source, GLCoordinate range)
+        {
+            this.source = source;
+            this.range = range;
+            InitPattern();
+        }
+
+        public override void InitPattern()
+        {
+            Actions = new List<GameAction>()
+            {
+                new InstantTeleport(RNG.RandomPointWithinCircleRelativeToLocation(source.Location, range), source),
+            };
+        }
+    }
+
     class ChaseEntity : ActionPattern
     {
         private ICombatable source;

@@ -1,0 +1,13 @@
+C:\Users\Jasin\source\repos\OpenGLTests\OpenGLTests\bin\Debug\OpenGLTests.exe.config
+C:\Users\Jasin\source\repos\OpenGLTests\OpenGLTests\bin\Debug\OpenGLTests.exe
+C:\Users\Jasin\source\repos\OpenGLTests\OpenGLTests\bin\Debug\OpenGLTests.pdb
+C:\Users\Jasin\source\repos\OpenGLTests\OpenGLTests\bin\Debug\OpenTK.dll
+C:\Users\Jasin\source\repos\OpenGLTests\OpenGLTests\bin\Debug\OpenTK.pdb
+C:\Users\Jasin\source\repos\OpenGLTests\OpenGLTests\bin\Debug\OpenTK.xml
+C:\Users\Jasin\source\repos\OpenGLTests\OpenGLTests\obj\Debug\OpenGLTests.csprojAssemblyReference.cache
+C:\Users\Jasin\source\repos\OpenGLTests\OpenGLTests\obj\Debug\OpenGLTests.csproj.CoreCompileInputs.cache
+C:\Users\Jasin\source\repos\OpenGLTests\OpenGLTests\obj\Debug\OpenGLTests.csproj.CopyComplete
+C:\Users\Jasin\source\repos\OpenGLTests\OpenGLTests\obj\Debug\OpenGLTests.exe
+C:\Users\Jasin\source\repos\OpenGLTests\OpenGLTests\obj\Debug\OpenGLTests.pdb
+C:\Users\Jasin\source\repos\OpenGLTests\OpenGLTests\obj\Debug\OpenGLTests.Properties.Resources.resources
+C:\Users\Jasin\source\repos\OpenGLTests\OpenGLTests\obj\Debug\OpenGLTests.csproj.GenerateResource.cache

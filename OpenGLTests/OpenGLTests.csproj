@@ -65,6 +65,7 @@
     <Compile Include="src\Drawables\Line.cs" />
     <Compile Include="src\Drawables\Particle.cs" />
     <Compile Include="src\Drawables\Rectangle.cs" />
+    <Compile Include="src\Drawables\Swamper.cs" />
     <Compile Include="src\Drawables\Unicorn.cs" />
     <Compile Include="src\DrawableRepository.cs" />
     <Compile Include="src\GameAction.cs" />
@@ -1100,6 +1101,22 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\empty.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="known bugs.txt" />
+    <None Include="Resources\burrowing_swamper_f12.png" />
+    <None Include="Resources\burrowing_swamper_f11.png" />
+    <None Include="Resources\burrowing_swamper_f10.png" />
+    <None Include="Resources\burrowing_swamper_f09.png" />
+    <None Include="Resources\burrowing_swamper_f08.png" />
+    <None Include="Resources\burrowing_swamper_f07.png" />
+    <None Include="Resources\burrowing_swamper_f06.png" />
+    <None Include="Resources\burrowing_swamper_f05.png" />
+    <None Include="Resources\burrowing_swamper_f04.png" />
+    <None Include="Resources\burrowing_swamper_f03.png" />
+    <None Include="Resources\burrowing_swamper_f02.png" />
+    <None Include="Resources\burrowing_swamper_f01.png" />
+    <None Include="Resources\burrowing_swamper_f00.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

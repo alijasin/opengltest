@@ -263,6 +263,136 @@ namespace OpenGLTests.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap burrowing_swamper_f00 {
+            get {
+                object obj = ResourceManager.GetObject("burrowing_swamper_f00", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap burrowing_swamper_f01 {
+            get {
+                object obj = ResourceManager.GetObject("burrowing_swamper_f01", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap burrowing_swamper_f02 {
+            get {
+                object obj = ResourceManager.GetObject("burrowing_swamper_f02", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap burrowing_swamper_f03 {
+            get {
+                object obj = ResourceManager.GetObject("burrowing_swamper_f03", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap burrowing_swamper_f04 {
+            get {
+                object obj = ResourceManager.GetObject("burrowing_swamper_f04", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap burrowing_swamper_f05 {
+            get {
+                object obj = ResourceManager.GetObject("burrowing_swamper_f05", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap burrowing_swamper_f06 {
+            get {
+                object obj = ResourceManager.GetObject("burrowing_swamper_f06", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap burrowing_swamper_f07 {
+            get {
+                object obj = ResourceManager.GetObject("burrowing_swamper_f07", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap burrowing_swamper_f08 {
+            get {
+                object obj = ResourceManager.GetObject("burrowing_swamper_f08", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap burrowing_swamper_f09 {
+            get {
+                object obj = ResourceManager.GetObject("burrowing_swamper_f09", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap burrowing_swamper_f10 {
+            get {
+                object obj = ResourceManager.GetObject("burrowing_swamper_f10", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap burrowing_swamper_f11 {
+            get {
+                object obj = ResourceManager.GetObject("burrowing_swamper_f11", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap burrowing_swamper_f12 {
+            get {
+                object obj = ResourceManager.GetObject("burrowing_swamper_f12", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap chest_empty_open_anim_f0 {
             get {
                 object obj = ResourceManager.GetObject("chest_empty_open_anim_f0", resourceCulture);

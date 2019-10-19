@@ -11,7 +11,7 @@ namespace OpenGLTests.src
     public class Animation
     {
         private SpriteSheet spriteSheet;
-        private int spriteIndex = 0;
+        public int SpriteIndex { get; set; }= 0;
         public bool IsStatic = false;
 
         public Animation(SpriteSheet sheet)
@@ -27,14 +27,14 @@ namespace OpenGLTests.src
         //todo: assert this actually works.
         public void SetSprite(SpriteID sid)
         {
-            spriteIndex = spriteSheet.IndexOfSpriteID(sid);
+            SpriteIndex = spriteSheet.IndexOfSpriteID(sid);
         }
 
         public Sprite GetSprite()
         {
-            if (!IsStatic) spriteIndex++;
-            if (spriteIndex == spriteSheet.NumberOfSprites()) spriteIndex = 0;
-            return spriteSheet.GetSprite(spriteIndex);
+            if (!IsStatic) SpriteIndex++;
+            if (SpriteIndex == spriteSheet.NumberOfSprites()) SpriteIndex = 0;
+            return spriteSheet.GetSprite(SpriteIndex);
         }
     }
 
@@ -166,6 +166,27 @@ namespace OpenGLTests.src
             { SpriteID.floor_1, 5 }
 
         })
+        { }
+    }
+
+    class SpriteSheet_Swamper : SpriteSheet
+    {
+        public SpriteSheet_Swamper() : base(new Dictionary<SpriteID, int>()
+        {
+            { SpriteID.burrowing_swamper_f0, 12 },
+            { SpriteID.burrowing_swamper_f1, 12 },
+            { SpriteID.burrowing_swamper_f2, 12 },
+            { SpriteID.burrowing_swamper_f3, 12 },
+            { SpriteID.burrowing_swamper_f4, 12 },
+            { SpriteID.burrowing_swamper_f5, 12 },
+            { SpriteID.burrowing_swamper_f6, 12 },
+            { SpriteID.burrowing_swamper_f7, 144 },
+            { SpriteID.burrowing_swamper_f8, 12 },
+            { SpriteID.burrowing_swamper_f9, 12 },
+            { SpriteID.burrowing_swamper_f10, 12 },
+            { SpriteID.burrowing_swamper_f11, 12 },
+            { SpriteID.burrowing_swamper_f12, 12 }
+            })
         { }
     }
 

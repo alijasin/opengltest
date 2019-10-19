@@ -49,11 +49,11 @@ namespace OpenGLTests.src.Drawables
             //ActionPattern = new ChaseEntity(this, triggeringEntity);
         }
 
-        private void OutOfCombatStep()
+        public virtual void OutOfCombatStep()
         {
             if (ActionPattern != null)
             {
-                var status = ActionPattern.DoAction("SkertSkert");
+                var status = ActionPattern.DoAction(1);
             }
         }
 

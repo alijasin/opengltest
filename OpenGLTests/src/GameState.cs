@@ -31,6 +31,9 @@ namespace OpenGLTests.src
             var chasingdude = new ChasingPerson(new GameCoordinate(0.5f, 0), Hero);
             Drawables.Add(chasingdude);
 
+            var swamper = new Swamper(new GameCoordinate(0.5f, -0.5f));
+            Drawables.Add(swamper);
+
             //var MouseParticleGenerator = new TestParticleGenerator(50);
             //Drawables.Add(MouseParticleGenerator);
 
