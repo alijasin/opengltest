@@ -92,6 +92,11 @@ namespace OpenGLTests.src.Drawables
             ActionBar.Add(new TossBomb(this));
         }
 
+        private void initInventory()
+        {
+            //todo
+        }
+
         private void initGUI()
         {
 

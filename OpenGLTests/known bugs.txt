@@ -1,0 +1,8 @@
+﻿
+(description, est. difficulty fixing(1-10))
+
+After exiting aggro range the hero leaves combat even though the aggro unit is still alive.  
+Additionally, after exiting the aggro range the queued attacks are cleared which is not desirable.
+Two bugs, but one solution: don't leave combat until the aggro'd creature is dead(or outside some certain range).
+Difficulty: 6
+
