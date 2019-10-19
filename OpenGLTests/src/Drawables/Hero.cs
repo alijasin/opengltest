@@ -13,33 +13,47 @@ namespace OpenGLTests.src.Drawables
     {
         public Inventory Inventory;
         public ActionHandler ActionHandler { get; set; }
-        public bool InCombat { get; set; } = false;
+        private ActionBar ActionBar { get; set; }
+        private Button DefaultButton { get; set; }
+
+        public bool InCombat { get; set; }
         private bool waitingForActionCommit = true;
-        private bool phasing = true;
+        //private bool phasing = true;
         public Hero()
         {
             Color = Color.CadetBlue;
             this.Location = new GameCoordinate(0f, 0f);
             this.Size = new GLCoordinate(0.1f, 0.1f);
-            ActionHandler = new OutOfCombatActionHandler(this);
             this.Speed = new GameCoordinate(0.02f, 0.02f);
             this.Animation = new Animation(new SpriteSheet_ElfIdle());
 
-            System.Timers.Timer t = new System.Timers.Timer(2000);
+            /*System.Timers.Timer t = new System.Timers.Timer(2000);
             t.Elapsed += (sender, args) => { phasing = false; t.Dispose(); };
-            t.Start();
+            t.Start();*/
+
+            initActionBar();
+
+            ActionHandler = new OutOfCombatActionHandler(this);
+            SetCombat(false);
+
+            //set default action to first action button in the action bar
+            ActionBar.GetDefaultButton().OnInteraction.Invoke();
 
             initGUI();
         }
 
+        private void initActionBar()
+        {
+            ActionBar = new ActionBar(this);
+            GameState.Drawables.Add(ActionBar);
+            ActionBar.Add(new Move(this));
+            ActionBar.Add(new Yell(this));
+            ActionBar.Add(new Teleport(this));
+            ActionBar.Add(new TossBomb(this));
+        }
+
         private void initGUI()
         {
-            var actionBar = new ActionBar(this);
-            GameState.Drawables.Add(actionBar);
-            actionBar.Add(new Move(this));
-            actionBar.Add(new Yell(this));
-            actionBar.Add(new Teleport(this));
-            actionBar.Add(new TossBomb(this));
 
             Button b = new Button();
             b.Location = new GLCoordinate(1, 1);
@@ -58,18 +72,23 @@ namespace OpenGLTests.src.Drawables
 
         public void SetCombat(bool inCombat)
         {
-            if (phasing) return;
+            //if (phasing) return;
             InCombat = inCombat;
             ActionHandler.Dispose();
             actionIndex = 0;
             if (InCombat)
             {
                 Console.WriteLine("entered combat");
+                var defaultAction = ActionBar.GetDefaultButton().GameAction;
+                defaultAction.RangeShape.IsInfinite = false; //assumes that the default action sh ouldnt be infinite in combat. 
                 ActionHandler = new CombatActionHandler(this);
                 waitingForActionCommit = true;
             }
             else
             {
+                Console.WriteLine("left combat");
+                var defaultAction = ActionBar.GetDefaultButton().GameAction;
+                defaultAction.RangeShape.IsInfinite = true;
                 ActionHandler = new OutOfCombatActionHandler(this);
             }
         }

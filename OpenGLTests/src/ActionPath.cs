@@ -144,7 +144,6 @@ namespace OpenGLTests.src
         }
     }
 
-
     public abstract class ActionHandler
     {
         protected SpriteID SelectedActionIcon { get; set; }
@@ -164,8 +163,8 @@ namespace OpenGLTests.src
         {
             if (SelectedAction == null) return;
 
-            SelectedAction.RangeShape.Visible = false;
             TryPlaceAction(SelectedAction, mouseLocation);
+            SelectedAction.RangeShape.Visible = false;
         }
 
         public abstract void OnMouseDown(GameCoordinate mouseLocation);
@@ -200,7 +199,6 @@ namespace OpenGLTests.src
         public override ActionReturns CommitActions(object args)
         {
             if (SubsequentlyPlacedActions.Count() == 0) return ActionReturns.NoAction;
-
             var first = SubsequentlyPlacedActions.First();
             var finished = first.GetAction().Invoke(args);
             if (finished)
@@ -210,7 +208,7 @@ namespace OpenGLTests.src
                 return ActionReturns.Finished;
             }
             else if (first.IsPlaced == false) return ActionReturns.Placing;
-            
+
             return ActionReturns.Ongoing;
         }
 
@@ -326,7 +324,8 @@ namespace OpenGLTests.src
                 if (PlacedActions.Count == 0) return ActionReturns.AllFinished;
                 return ActionReturns.Finished;
             }
-            else return ActionReturns.Ongoing;
+
+            return ActionReturns.Ongoing;
         }
     }
 }
