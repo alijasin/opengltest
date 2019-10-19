@@ -122,8 +122,18 @@ namespace OpenGLTests.src
         {
             return (o) =>
             {
-                Console.WriteLine("Tossed " + (int) o);
-                if ((int) o >= 10) return true;
+                if ((int) o >= 10)
+                {
+                    foreach (var others in GameState.Drawables.GetAllCombatables.Where(d => d != Source))
+                    {
+                        if (RangeShape.Contains(others.Location))
+                        {
+                            others.HitPoints--;
+                        }
+                    }
+
+                    return true;
+                }
                 return false;
             };
         }

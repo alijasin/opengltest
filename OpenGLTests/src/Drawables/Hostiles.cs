@@ -17,6 +17,7 @@ namespace OpenGLTests.src.Drawables
         GameCoordinate Speed { get; set; }
         GLCoordinate Size { get; set; }
         Color Color { get; set; }
+        int HitPoints { get; set; }
     }
 
     interface IAggro : ICombatable
@@ -29,8 +30,12 @@ namespace OpenGLTests.src.Drawables
         public RangeShape AggroShape { get; set; }
         protected ActionPattern ActionPattern;
         public bool InCombat { get; set; }
+        public int HitPoints { get; set; }
+
         public void Step()
         {
+            if(HitPoints <= 0) this.Color = Color.Black;
+            
             if(InCombat == false) OutOfCombatStep();  
         }
 
@@ -60,6 +65,7 @@ namespace OpenGLTests.src.Drawables
         protected Hostile()
         {
             AggroShape = new RangeCircle(new GLCoordinate(0, 0), this);
+            this.HitPoints = 1;
         }
     }
 

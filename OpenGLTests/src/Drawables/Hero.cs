@@ -15,10 +15,10 @@ namespace OpenGLTests.src.Drawables
         public ActionHandler ActionHandler { get; set; }
         private ActionBar ActionBar { get; set; }
         private Button DefaultButton { get; set; }
-
+        public int HitPoints { get; set; } = 5;
         public bool InCombat { get; set; }
         private bool waitingForActionCommit = true;
-        //private bool phasing = true;
+
         public Hero()
         {
             Color = Color.CadetBlue;
@@ -26,10 +26,6 @@ namespace OpenGLTests.src.Drawables
             this.Size = new GLCoordinate(0.1f, 0.1f);
             this.Speed = new GameCoordinate(0.02f, 0.02f);
             this.Animation = new Animation(new SpriteSheet_ElfIdle());
-
-            /*System.Timers.Timer t = new System.Timers.Timer(2000);
-            t.Elapsed += (sender, args) => { phasing = false; t.Dispose(); };
-            t.Start();*/
 
             initActionBar();
 
@@ -72,7 +68,6 @@ namespace OpenGLTests.src.Drawables
 
         public void SetCombat(bool inCombat)
         {
-            //if (phasing) return;
             InCombat = inCombat;
             ActionHandler.Dispose();
             actionIndex = 0;
