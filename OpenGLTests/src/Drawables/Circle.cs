@@ -48,6 +48,11 @@ namespace OpenGLTests.src.Drawables
         {
             this.following = follow;
         }
+
+        public override void Dispose()
+        {
+            base.Dispose();
+        }
     }
 
     public class Circle : Entity

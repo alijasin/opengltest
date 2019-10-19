@@ -76,7 +76,10 @@ namespace OpenGLTests.src
             foreach (var combatable in combatables)
             {
                 combatable.Step();
+                if(combatable.HitPoints <= 0) combatable.OnDeath();
             }
+
+
             ActiveCamera.Step();
         }
     }

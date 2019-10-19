@@ -14,7 +14,12 @@ namespace OpenGLTests.src.Drawables
         public Inventory Inventory;
         public ActionHandler ActionHandler { get; set; }
         private ActionBar ActionBar { get; set; }
-        public int HitPoints { get; set; } = 5;
+        public int HitPoints { get; set; } = 1;
+        public void OnDeath()
+        {
+            Console.WriteLine("hero died!!!!");
+        }
+
         public bool InCombat { get; set; }
         private bool waitingForActionCommit = true;
 

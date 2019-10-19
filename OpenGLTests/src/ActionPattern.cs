@@ -38,6 +38,15 @@ namespace OpenGLTests.src
                 return ActionReturns.Ongoing;
             }
         }
+
+        public void Dispose()
+        {
+            foreach (var a in Actions)
+            {
+                GameState.Drawables.Remove(a.Marker);
+                GameState.Drawables.Remove(a.RangeShape);
+            }
+        }
     }
 
     class ChaseEntity : ActionPattern
