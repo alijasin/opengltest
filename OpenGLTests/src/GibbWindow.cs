@@ -61,6 +61,11 @@ namespace OpenGLTests.src
 
         }
 
+        protected override void OnMouseMove(MouseMoveEventArgs e)
+        {
+            GraphicsController.ActiveScreen?.HandleInput(new InputUnion(InputUnion.Directions.Down, e));
+        }
+
         protected override void OnMouseDown(MouseButtonEventArgs e)
         {
             GraphicsController.ActiveScreen?.HandleInput(new InputUnion(InputUnion.Directions.Down, e));

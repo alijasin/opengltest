@@ -153,6 +153,19 @@ namespace OpenGLTests.src
                     }
                 }
             ));
+
+            Bind(new Hotkey(
+                input => input.IsMouseInput && input.Direction == InputUnion.Directions.Moved,
+                input =>
+                {
+
+                },
+                input =>
+                {
+
+                }
+            ));
+
         }
 
         public void Bind(Hotkey hotkey)

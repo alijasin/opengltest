@@ -9,7 +9,7 @@ namespace OpenGLTests.src.Util
 {
     class InputUnion
     {
-        public enum Directions { Undefined, Up, Down, Repeat };
+        public enum Directions { Undefined, Up, Down, Repeat, Moved };
         public Directions Direction { get; }
 
         public KeyboardKeyEventArgs KeyboardArgs { get; }
@@ -37,6 +37,12 @@ namespace OpenGLTests.src.Util
         {
             Direction = direction;
             GamePadButtonArgs = gamePadButtonArgs;
+        }
+
+        public InputUnion(Directions direction, MouseMoveEventArgs gamePadButtonArgs)
+        {
+            Direction = direction;
+            MouseButtonArgs = null;
         }
 
         public override string ToString()

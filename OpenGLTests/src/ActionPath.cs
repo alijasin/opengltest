@@ -158,8 +158,13 @@ namespace OpenGLTests.src
         void ActionButtonClicked(ActionButton actionButton);
         void Dispose();
     }
-    //todo move common things to abstract base 
-    public class CombatActionHandler : IActionHandler
+
+    //todo move common functionality to this class.
+    public abstract class ActionHandler
+    {
+
+    }
+    public class CombatActionHandler : ActionHandler, IActionHandler
     {
         private SpriteID SelectedActionIcon { get; set; }
         public IActionCapable Owner { get; set; }

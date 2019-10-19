@@ -61,7 +61,7 @@ namespace OpenGLTests.src.Drawables
         public override void DrawStep(DrawAdapter drawer)
         {
             GLCoordinate location = Location.ToGLCoordinate(GameState.ActiveCamera.Location);
-            if (Visible) drawer.FillCircle(location.X, location.Y, Radius, Color.Crimson);
+            if (Visible) drawer.FillCircle(location.X, location.Y, Radius, Color);
         }
 
         public bool Contains(GameCoordinate point)

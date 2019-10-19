@@ -45,62 +45,137 @@ namespace OpenGLTests.src.Drawables
         }
     }
 
-    class Particle2 : Entity
+    public class Particle2 : Circle
     {
-        private GLCoordinate StandardSize = new GLCoordinate(0.4f, 0.4f);
-        private Entity following;
-        public Particle2(Entity following)
+        private int life;
+        public Particle2(GameCoordinate location) : base(new GLCoordinate(0.0002f, 0.02f))
         {
-            this.following = following;
-            init();
-
+            Init(location);
         }
 
-        private void init()
+        public void Init(GameCoordinate location)
         {
-            this.Location = following.Location;
-            this.Size = StandardSize;
+            life = RNG.IntegerBetween(80, 160);
+            Speed = new GameCoordinate(RNG.BetweenZeroAndOne() / 100 * RNG.NegativeOrPositiveOne(), (RNG.BetweenZeroAndOne() / 100 * RNG.NegativeOrPositiveOne()));
+            Radius = new GLCoordinate(0.005f*RNG.BetweenZeroAndOne(), 0.005f*RNG.BetweenZeroAndOne());
             this.Color = RNG.RandomColor();
-            this.Speed = new GameCoordinate(0, 0);
+            this.Location = location;
         }
 
         public override void DrawStep(DrawAdapter drawer)
         {
             base.DrawStep(drawer);
-            this.Size = new GLCoordinate(Size.X / 1.1f, Size.Y/1.1f);
-            if (Size.X < 0.1f || Size.Y < 0.1f)
+            life -= 1;
+            this.Size = new GLCoordinate(this.Size.X / 1.1f, this.Size.Y / 1.1f);
+            this.Location += Speed;
+
+            if (life % 10 == 0)
             {
-                init();
+                Speed = new GameCoordinate(RNG.BetweenZeroAndOne() / 100 * RNG.NegativeOrPositiveOne(), (RNG.BetweenZeroAndOne() / 100 * RNG.NegativeOrPositiveOne()));
+                this.Radius += new GLCoordinate(0.001f, 0.001f);
+            }
+
+            if (life < 0)
+            {
+                Init(new GameCoordinate(0, 0));
             }
         }
     }
 
-    class ParticleGenerator2 : Entity
+    //velocity decreases as time goes on.
+    public class Particle3 : Entity
     {
-        private Entity following;
-        private List<Particle2> particles;
-        public ParticleGenerator2(Entity follow, int n)
+        private int life;
+        private GameCoordinate origin;
+
+
+        public Particle3(GameCoordinate origin)
         {
-            following = follow;
-            particles = new List<Particle2>(n);
+
+            this.origin = origin;
+
+        }
+
+        public void Init()
+        {
+            this.Color = RNG.RandomColor();
+            Location = origin;
+            life = RNG.IntegerBetween(360, 720);
+            Speed = new GameCoordinate(RNG.BetweenZeroAndOne() / 100 * RNG.NegativeOrPositiveOne(), (RNG.BetweenZeroAndOne() / 100 * RNG.NegativeOrPositiveOne()));
+            this.Size = new GLCoordinate(0.008f, 0.008f);
+
+        }
+
+        public override void DrawStep(DrawAdapter drawer)
+        {
+            base.DrawStep(drawer);
+            this.Speed = new GameCoordinate(this.Speed.X / 1.01f, this.Speed.Y/1.01f);
+            life -= 1;
+            this.Location += Speed;
+            if (life < 0)
+            {
+                Init();
+            }
+        }
+    }
+
+    //circle 
+    public class Particle4 : Entity
+    {
+        private int life;
+        private GameCoordinate origin;
+        private float rad = 0;
+        private int speed = 4;
+        private float radInc = 0.005f;
+        public Particle4(GameCoordinate origin)
+        {
+
+            this.origin = origin;
+
+        }
+
+        public void Init()
+        {
+            rad = RNG.BetweenZeroAndOne() / 100;
+            this.Color = RNG.RandomColor();
+            Location = new GameCoordinate(origin.X + rad * RNG.NegativeOrPositiveOne(), origin.Y +rad * RNG.NegativeOrPositiveOne());
+            life = RNG.IntegerBetween(360*2, 720*4);
+            this.Size = new GLCoordinate(0.008f, 0.008f);
+
+        }
+
+        public override void DrawStep(DrawAdapter drawer)
+        {
+            base.DrawStep(drawer);
+            life -= 1;
+            this.Location = new GameCoordinate((float)Math.Cos(life* speed * Math.PI/180f)*rad, (float)Math.Sin(life* speed * Math.PI/180f)*rad);
+            rad += radInc;
+
+            if (life < 0)
+            {
+                Init();
+                radInc = radInc * -1;
+                rad = RNG.BetweenZeroAndOne() / 100;
+                Location = new GameCoordinate(origin.X + rad * RNG.NegativeOrPositiveOne(), origin.Y + rad * RNG.NegativeOrPositiveOne());
+            }
+
+        }
+    }
+
+    public class TestParticleGenerator : Entity
+    {
+        public TestParticleGenerator(int n)
+        {
+            n *= 10;
             for (int i = 0; i < n; i++)
             {
-                particles.Add(new Particle2(following));
-            }
-        }
-
-        public override GameCoordinate Location
-        {
-            get { return following.Location; }
-        }
-
-        public override void DrawStep(DrawAdapter drawer)
-        {
-            base.DrawStep(drawer);
-            foreach (var p in particles.ToArray().Reverse())
-            {
-                p.DrawStep(drawer);
+                Particle4 p = new Particle4(new GameCoordinate(0, 0));
+                GameState.Drawables.Add(p);
+                this.Visible = false;
             }
         }
     }
+
+
+    
 }

@@ -30,8 +30,9 @@ namespace OpenGLTests.src
 
             var chasingdude = new ChasingPerson(new GameCoordinate(0.5f, 0), Hero);
             Drawables.Add(chasingdude);
-            
 
+            var MouseParticleGenerator = new TestParticleGenerator(50);
+            Drawables.Add(MouseParticleGenerator);
 
             var followCamera = new FollowCamera(Hero);
             var staticCamera = new MovableCamera(Hero.Location);
