@@ -51,8 +51,6 @@ namespace OpenGLTests.src
                 ActiveCamera.Location = Hero.Location;
             };
             Drawables.Add(testbutton);
-
- 
         }
 
         //todo: create class room and let room load entities from a file.
@@ -77,8 +75,7 @@ namespace OpenGLTests.src
 
         private void LoadTestRoom()
         {
-            MazeCreator mc = new MazeCreator(new Crate(new GameCoordinate(0, 0)), new GameCoordinate(-1, -1), new GameCoordinate(1, 1));
-            mc.CreateMaze();
+            RoomLoader rl = new RoomLoader();
         }
 
         private int initSteps = 25;

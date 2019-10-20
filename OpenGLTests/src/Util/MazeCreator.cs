@@ -38,6 +38,8 @@ namespace OpenGLTests.src.Util
             {
                 GameCoordinate dir = direction();
                 current += dir;
+
+                GameState.Drawables.Add(new Crate(current));
             }
         }
 
