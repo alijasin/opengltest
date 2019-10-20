@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using OpenGLTests.src.Drawables;
 using OpenGLTests.src.Entities;
+using OpenGLTests.src.Util;
 using OpenTK.Graphics.OpenGL;
 
 namespace OpenGLTests.src
@@ -76,8 +77,8 @@ namespace OpenGLTests.src
 
         private void LoadTestRoom()
         {
-            Crate c = new Crate(new GameCoordinate(0.5f, 0.5f));
-            GameState.Drawables.Add(c);
+            MazeCreator mc = new MazeCreator(new Crate(new GameCoordinate(0, 0)), new GameCoordinate(-1, -1), new GameCoordinate(1, 1));
+            mc.CreateMaze();
         }
 
         private int initSteps = 25;

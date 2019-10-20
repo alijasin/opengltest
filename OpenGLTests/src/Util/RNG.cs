@@ -62,7 +62,7 @@ namespace OpenGLTests.src.Util
         }
 
         /// <summary>
-        /// Returns an integer between a and b
+        /// Returns an integer between a(including) and b(excluding)
         /// </summary>
         /// <param name="a">min</param>
         /// <param name="b">max</param>
