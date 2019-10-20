@@ -11,6 +11,7 @@ namespace OpenGLTests.src
 {
     public class GameState
     {
+
         public Hero Hero { get; set; }
         public static Camera ActiveCamera { get; set; }
         public static DrawableRepository Drawables = new DrawableRepository();
@@ -22,17 +23,8 @@ namespace OpenGLTests.src
             Hero = new Hero();
             Drawables.Add(Hero);
 
-            var angerdude = new AngryDude(new GameCoordinate(0.2f, 0.8f));
-            Drawables.Add(angerdude);
-
-            var patroldude = new PatrolGuy(new GameCoordinate(-0.6f, -0.4f));
-            Drawables.Add(patroldude);
-
-            var chasingdude = new ChasingPerson(new GameCoordinate(0.5f, 0), Hero);
-            Drawables.Add(chasingdude);
-
-            var swamper = new Swamper(new GameCoordinate(0.5f, -0.5f));
-            Drawables.Add(swamper);
+            //LoadRoom();
+            LoadTestRoom();
 
             //var MouseParticleGenerator = new TestParticleGenerator(50);
             //Drawables.Add(MouseParticleGenerator);
@@ -59,11 +51,35 @@ namespace OpenGLTests.src
             };
             Drawables.Add(testbutton);
 
+ 
+        }
+
+        //todo: create class room and let room load entities from a file.
+        private void LoadRoom()
+        {
+            var angerdude = new AngryDude(new GameCoordinate(0.2f, 0.8f));
+            Drawables.Add(angerdude);
+
+            var patroldude = new PatrolGuy(new GameCoordinate(-0.6f, -0.4f));
+            Drawables.Add(patroldude);
+
+            var chasingdude = new ChasingPerson(new GameCoordinate(0.5f, 0), Hero);
+            Drawables.Add(chasingdude);
+
+            var swamper = new Swamper(new GameCoordinate(0.5f, -0.5f));
+            Drawables.Add(swamper);
+
             var unicorn = new Unicorn(new GameCoordinate(-0.5f, 0), Hero);
             Drawables.Add(unicorn);
 
         }
-        
+
+        private void LoadTestRoom()
+        {
+            Crate c = new Crate(new GameCoordinate(0.5f, 0.5f));
+            GameState.Drawables.Add(c);
+        }
+
         private int initSteps = 25;
         private int initStepsCount = 0;
         public void Step()

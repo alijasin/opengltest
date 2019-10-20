@@ -59,6 +59,7 @@
     <Compile Include="src\Drawables\ActionBar.cs" />
     <Compile Include="src\Drawables\ActionMarker.cs" />
     <Compile Include="src\Drawables\Button.cs" />
+    <Compile Include="src\Drawables\Crate.cs" />
     <Compile Include="src\Drawables\Hero.cs" />
     <Compile Include="src\Drawables\Hostiles.cs" />
     <Compile Include="src\Drawables\Inventory.cs" />

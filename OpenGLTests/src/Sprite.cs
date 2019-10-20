@@ -143,6 +143,15 @@ namespace OpenGLTests.src
         { }
     }
 
+    class SpriteSheet_Stuff : SpriteSheet
+    {
+        public SpriteSheet_Stuff() : base(new Dictionary<SpriteID, int>()
+        {
+            {SpriteID.crate, 5}
+        })
+        { }
+    }
+
     class SpriteSheet_Actions : SpriteSheet
     {
         public SpriteSheet_Actions() : base(new Dictionary<SpriteID, int>()

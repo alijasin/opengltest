@@ -41,6 +41,8 @@ namespace OpenGLTests.src.Util
         floor_7,
         floor_8,
 
+        crate,
+
         action_move,
         action_attack,
         action_charge,
@@ -86,6 +88,8 @@ namespace OpenGLTests.src.Util
             Images[SpriteID.floor_6] = new Bitmap(Properties.Resources.floor_6);
             Images[SpriteID.floor_7] = new Bitmap(Properties.Resources.floor_7);
             Images[SpriteID.floor_8] = new Bitmap(Properties.Resources.floor_8);
+
+            Images[SpriteID.crate] = new Bitmap(Properties.Resources.crate);
 
             Images[SpriteID.action_move] = new Bitmap(Properties.Resources.action_move);
             Images[SpriteID.action_attack] = new Bitmap(Properties.Resources.action_attack);
