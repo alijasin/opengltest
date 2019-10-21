@@ -91,7 +91,7 @@ namespace OpenGLTests.src
             var combatables = Drawables.GetAllCombatables;
 
             bool heroInCombat = false;
-            foreach (IAggro aggro in combatables.Where(c => c is IAggro))
+            foreach (ICombatable aggro in combatables.Where(c => c is ICombatable && !(c is Hero)))
             {
                 if (aggro.AggroShape.Contains(Hero.Location))
                 {

@@ -5,6 +5,8 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
 
 namespace OpenGLTests.src.Drawables
 {
@@ -40,6 +42,7 @@ namespace OpenGLTests.src.Drawables
 
     public abstract class Entity : Drawable
     {
+        [JsonProperty]
         public GameCoordinate Speed { get; set; } = new GameCoordinate(0, 0);
 
         public Entity()

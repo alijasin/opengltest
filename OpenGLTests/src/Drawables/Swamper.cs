@@ -18,9 +18,11 @@ namespace OpenGLTests.src.Drawables
             this.Color = Color.PaleGreen;
             this.ActionPattern = new TeleportPattern(this, new GLCoordinate(0.3f, 0.3f));
             this.ActionPattern.Loop = true;
+            this.AggroShape = new RangeCircle(new GLCoordinate(0.2f, 0.2f), this);
         }
 
         private bool teleported = false;
+
         public override void OutOfCombatStep()
         {
             //base.OutOfCombatStep(); dont do it

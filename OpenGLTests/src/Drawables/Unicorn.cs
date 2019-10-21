@@ -12,11 +12,12 @@ namespace OpenGLTests.src.Drawables
         public Unicorn(GameCoordinate location, ICombatable chasing)
         {
             ActionPattern = new ChaseEntity(this, chasing);
-            this.AggroShape.Visible = false;
+
             this.Location = location;
             //this.Speed = new GameCoordinate(0.01f, 0.005f);
             pg = new ParticleGenerator(80, this.Location);
             //ActionPattern.Loop = true;
+            this.AggroShape = new RangeCircle(new GLCoordinate(0.2f, 0.2f), this);
         }
 
         public override void DrawStep(DrawAdapter drawer)

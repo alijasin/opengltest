@@ -2,10 +2,12 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using OpenGLTests.src.Drawables;
 
 namespace OpenGLTests.src
 {
@@ -13,23 +15,44 @@ namespace OpenGLTests.src
     {
         public RoomLoader()
         {
-            TestEntity te = new TestEntity();
-            WriteToJsonFile<TestEntity>("testfile.json", te);
+            List<Entity> entitiesToWrite = new List<Entity>();
 
-            var xd = ReadFromJsonFile<JObject>("testfile.json");
+            TestEntity te = new TestEntity(new GameCoordinate(-0.5f, 0.2222f));
+            entitiesToWrite.Add(te);
+            TestEntity te2 = new TestEntity(new GameCoordinate(0.4f, 0.5f));
+            entitiesToWrite.Add(te2);
+            PatrolGuy pat = new PatrolGuy(new GameCoordinate(0, -0.8f));
+            entitiesToWrite.Add(pat);
+            AngryDude dude = new AngryDude(new GameCoordinate(-.1f, -1));
+            entitiesToWrite.Add(dude);
+            //Unicorn uni = new Unicorn(new GameCoordinate(0.2f, 0.5f), pat);
+            //entitiesToWrite.Add(uni);
+
+
+
+            WriteToJsonFile("testfile.json", entitiesToWrite);
+
+            JArray entities = ReadFromJsonFile<JArray>("testfile.json");
+            //var xd = JsonConvert.DeserializeObject<List<Entity>>(teOut.ToString());
+            foreach(var entity in entities)
+            {
+                string sType = entity["$type"].ToString();
+                Type entityType = Type.GetType(sType);
+                Console.WriteLine(entityType);
+                dynamic ent = JsonConvert.DeserializeObject(entity.ToString(), entityType);
+                GameState.Drawables.Add(ent);
+            }
 
         }
 
 
-        public class TestEntity
+
+        public class TestEntity : Hostile
         {
-            [JsonProperty]
-            private GameCoordinate Location { get; set; } = new GameCoordinate(5f, 0.4f);
-
-            [JsonConstructor]
-            public TestEntity()
+            public TestEntity(GameCoordinate location)
             {
-
+                this.AggroShape = new RangeCircle(new GLCoordinate(0.2f, 0.2f), this);
+                this.Location = location;
             }
         }
 
@@ -48,10 +71,11 @@ namespace OpenGLTests.src
             TextWriter writer = null;
             try
             {
-                var contentsToWriteToFile = JsonConvert.SerializeObject(objectToWrite, typeof(TestEntity),
+                var contentsToWriteToFile = JsonConvert.SerializeObject(objectToWrite,
                     new JsonSerializerSettings
                     {
-                        TypeNameHandling = TypeNameHandling.All,
+                        TypeNameHandling = TypeNameHandling.Auto,
+
                         Formatting = Formatting.Indented
                     });
                 writer = new StreamWriter(filePath, append);
@@ -78,12 +102,34 @@ namespace OpenGLTests.src
             {
                 reader = new StreamReader(filePath);
                 var fileContents = reader.ReadToEnd();
-                return JsonConvert.DeserializeObject<T>(fileContents);
+                return JsonConvert.DeserializeObject<T>(fileContents, new JsonSerializerSettings
+                {
+                    TypeNameHandling = TypeNameHandling.Auto,
+
+                });
             }
             finally
             {
                 if (reader != null)
                     reader.Close();
+            }
+        }
+
+
+        public class ConcreteConverter<T> : JsonConverter
+        {
+            public override bool CanConvert(Type objectType) => true;
+
+            public override object ReadJson(JsonReader reader,
+                Type objectType, object existingValue, JsonSerializer serializer)
+            {
+                return serializer.Deserialize<T>(reader);
+            }
+
+            public override void WriteJson(JsonWriter writer,
+                object value, JsonSerializer serializer)
+            {
+                serializer.Serialize(writer, value);
             }
         }
     }

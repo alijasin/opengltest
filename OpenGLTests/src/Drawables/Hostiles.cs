@@ -4,13 +4,16 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
 using OpenGLTests.src.Util;
 
 namespace OpenGLTests.src.Drawables
 {
     //todo: move stuff to Entity
+    
     public interface ICombatable : IFollowable
     {
+        RangeShape AggroShape { get; set; }
         bool InCombat { get; set; }
         void Step();
         GameCoordinate Location { get; set; }
@@ -21,14 +24,10 @@ namespace OpenGLTests.src.Drawables
         void OnDeath();
     }
 
-    interface IAggro : ICombatable
+    abstract class Hostile : Entity, ICombatable
     {
-        RangeShape AggroShape { get; set; }
-    }
-
-    abstract class Hostile : Entity, IAggro, ICombatable
-    {
-        public RangeShape AggroShape { get; set; }
+        [JsonConverter(typeof(RoomLoader.ConcreteConverter<RangeCircle>))]
+        public RangeShape AggroShape { get; set; } 
         protected ActionPattern ActionPattern;
         public bool InCombat { get; set; }
         public int HitPoints { get; set; }
@@ -56,11 +55,10 @@ namespace OpenGLTests.src.Drawables
                 var status = ActionPattern.DoAction(1);
             }
         }
-
-        protected Hostile()
+        public Hostile()
         {
-            AggroShape = new RangeCircle(new GLCoordinate(0, 0), this);
             this.HitPoints = 1;
+            this.AggroShape = new RangeCircle(new GLCoordinate(0.2f, 0.2f), this);
         }
 
         public override void Dispose()
@@ -111,6 +109,7 @@ namespace OpenGLTests.src.Drawables
 
             ActionPattern = new ChaseEntity(this, chasing);
             ActionPattern.Loop = true;
+
         }
     }
 }

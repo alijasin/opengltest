@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
 using OpenGLTests.src.Drawables;
 
 namespace OpenGLTests.src
@@ -24,7 +25,7 @@ namespace OpenGLTests.src
     {
         public float X { get; set; }
         public float Y { get; set; }
-
+        [JsonConstructor]
         public GameCoordinate(float x, float y)
         {
             X = x;
@@ -90,6 +91,7 @@ namespace OpenGLTests.src
         public float X { get; set; }
         public float Y { get; set; }
 
+        [JsonConstructor]
         public GLCoordinate(float x, float y)
         {
             X = x;

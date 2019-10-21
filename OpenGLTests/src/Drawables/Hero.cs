@@ -23,6 +23,7 @@ namespace OpenGLTests.src.Drawables
             Console.WriteLine("hero died!!!!");
         }
 
+        public RangeShape AggroShape { get; set; }
         private bool InCombat { get; set; }
 
         bool ICombatable.InCombat
@@ -70,7 +71,7 @@ namespace OpenGLTests.src.Drawables
             this.Size = new GLCoordinate(0.1f, 0.1f);
             this.Speed = new GameCoordinate(0.02f, 0.02f);
             this.Animation = new Animation(new SpriteSheet_ElfIdle());
-
+            this.AggroShape = new RangeCircle(new GLCoordinate(0, 0), this);
             initActionBar();
 
             ActionHandler = new OutOfCombatActionHandler(this);
