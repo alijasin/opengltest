@@ -34,7 +34,6 @@ namespace OpenGLTests.src.Drawables
         {
             this.following = following;
             this.Visible = false;
-
             GameState.Drawables.Add(this);
         }
 
@@ -65,7 +64,7 @@ namespace OpenGLTests.src.Drawables
         public Circle(GLCoordinate radius)
         {
             this.Radius = radius;
-            Console.Write(radius);
+            this.Visible = false;
         }
 
         public override void DrawStep(DrawAdapter drawer)
@@ -76,7 +75,7 @@ namespace OpenGLTests.src.Drawables
 
         public bool Contains(GameCoordinate point)
         {
-            Console.WriteLine(Radius + " = " + "0");
+            //Console.WriteLine(Radius + " = " + "0");
             if (Radius == null) return false;
 
             var x = Math.Abs(point.X - Location.X);
@@ -93,9 +92,11 @@ namespace OpenGLTests.src.Drawables
 
         public RangeCircle(GLCoordinate radius, IFollowable following) : base(following)
         {
+            Console.WriteLine(radius);
             circle = new Circle(radius);
-            //this.Visible = true;
-            //circle.Visible = true;
+
+            
+            this.Visible = true;
         }
 
         public override bool Contains(GameCoordinate point)

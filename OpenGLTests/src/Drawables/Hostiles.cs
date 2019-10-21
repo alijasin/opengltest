@@ -24,6 +24,7 @@ namespace OpenGLTests.src.Drawables
         void OnDeath();
     }
 
+
     abstract class Hostile : Entity, ICombatable
     {
         [JsonConverter(typeof(RoomLoader.ConcreteConverter<RangeCircle>))]

@@ -19,22 +19,22 @@ namespace OpenGLTests.src
 
             TestEntity te = new TestEntity(new GameCoordinate(-0.5f, 0.2222f));
             entitiesToWrite.Add(te);
-            TestEntity te2 = new TestEntity(new GameCoordinate(0.4f, 0.5f));
-            entitiesToWrite.Add(te2);
-            PatrolGuy pat = new PatrolGuy(new GameCoordinate(0, -0.8f));
-            entitiesToWrite.Add(pat);
-            AngryDude dude = new AngryDude(new GameCoordinate(-.1f, -1));
+            //TestEntity te2 = new TestEntity(new GameCoordinate(0.4f, 0.5f));
+            //entitiesToWrite.Add(te2);
+            //PatrolGuy pat = new PatrolGuy(new GameCoordinate(0, -0.8f));
+            //entitiesToWrite.Add(pat);
+            /*AngryDude dude = new AngryDude(new GameCoordinate(-.1f, -1));
             entitiesToWrite.Add(dude);
-            //Unicorn uni = new Unicorn(new GameCoordinate(0.2f, 0.5f), pat);
-            //entitiesToWrite.Add(uni);
+            Unicorn uni = new Unicorn(new GameCoordinate(0.2f, 0.5f), pat);
+            entitiesToWrite.Add(uni);*/
 
 
 
             WriteToJsonFile("testfile.json", entitiesToWrite);
 
-            JArray entities = ReadFromJsonFile<JArray>("testfile.json");
-            //var xd = JsonConvert.DeserializeObject<List<Entity>>(teOut.ToString());
-            foreach(var entity in entities)
+            JObject entitiesList = ReadFromJsonFile<JObject>("testfile.json");
+            JArray entities = entitiesList["$values"] as JArray;
+            foreach (var entity in entities)
             {
                 string sType = entity["$type"].ToString();
                 Type entityType = Type.GetType(sType);
@@ -42,7 +42,6 @@ namespace OpenGLTests.src
                 dynamic ent = JsonConvert.DeserializeObject(entity.ToString(), entityType);
                 GameState.Drawables.Add(ent);
             }
-
         }
 
 
@@ -53,6 +52,7 @@ namespace OpenGLTests.src
             {
                 this.AggroShape = new RangeCircle(new GLCoordinate(0.2f, 0.2f), this);
                 this.Location = location;
+                this.AggroShape.Visible = true;
             }
         }
 
@@ -74,7 +74,7 @@ namespace OpenGLTests.src
                 var contentsToWriteToFile = JsonConvert.SerializeObject(objectToWrite,
                     new JsonSerializerSettings
                     {
-                        TypeNameHandling = TypeNameHandling.Auto,
+                        TypeNameHandling = TypeNameHandling.All,
 
                         Formatting = Formatting.Indented
                     });
@@ -104,7 +104,7 @@ namespace OpenGLTests.src
                 var fileContents = reader.ReadToEnd();
                 return JsonConvert.DeserializeObject<T>(fileContents, new JsonSerializerSettings
                 {
-                    TypeNameHandling = TypeNameHandling.Auto,
+                    TypeNameHandling = TypeNameHandling.All,
 
                 });
             }
