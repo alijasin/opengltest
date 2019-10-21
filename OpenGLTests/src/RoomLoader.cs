@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
@@ -31,7 +32,7 @@ namespace OpenGLTests.src
 
 
             WriteToJsonFile("testfile.json", entitiesToWrite);
-
+            
             JObject entitiesList = ReadFromJsonFile<JObject>("testfile.json");
             JArray entities = entitiesList["$values"] as JArray;
             foreach (var entity in entities)
@@ -40,7 +41,6 @@ namespace OpenGLTests.src
                 Type entityType = Type.GetType(sType);
                 Console.WriteLine(entityType);
                 dynamic ent = JsonConvert.DeserializeObject(entity.ToString(), entityType);
-                GameState.Drawables.Add(ent);
             }
         }
 
@@ -53,6 +53,13 @@ namespace OpenGLTests.src
                 this.AggroShape = new RangeCircle(new GLCoordinate(0.2f, 0.2f), this);
                 this.Location = location;
                 this.AggroShape.Visible = true;
+                GameState.Drawables.Add(this);
+                GameState.Drawables.Add(this.AggroShape);
+            }
+
+            public TestEntity()
+            {
+
             }
         }
 

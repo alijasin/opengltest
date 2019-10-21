@@ -59,7 +59,6 @@ namespace OpenGLTests.src.Drawables
         public Hostile()
         {
             this.HitPoints = 1;
-            this.AggroShape = new RangeCircle(new GLCoordinate(0.2f, 0.2f), this);
         }
 
         public override void Dispose()

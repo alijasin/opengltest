@@ -10,6 +10,7 @@ using Newtonsoft.Json.Serialization;
 
 namespace OpenGLTests.src.Drawables
 {
+
     public abstract class Drawable
     {
         public virtual bool Visible { get; set; }
@@ -20,6 +21,7 @@ namespace OpenGLTests.src.Drawables
 
         //todo: refactor this. We dont want drawable to  have game location. We want entity to have game location and element ot have gl location.
         private GameCoordinate location;
+        [JsonIgnore]
         public virtual GameCoordinate Location
         {
             get

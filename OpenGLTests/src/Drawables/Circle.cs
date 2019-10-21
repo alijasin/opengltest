@@ -34,7 +34,6 @@ namespace OpenGLTests.src.Drawables
         {
             this.following = following;
             this.Visible = false;
-            GameState.Drawables.Add(this);
         }
 
         public override GameCoordinate Location
@@ -70,7 +69,7 @@ namespace OpenGLTests.src.Drawables
         public override void DrawStep(DrawAdapter drawer)
         {
             GLCoordinate location = Location.ToGLCoordinate(GameState.ActiveCamera.Location);
-            if (Visible && Radius != null) drawer.FillCircle(location.X, location.Y, Radius, Color);
+            if (Radius != null) drawer.FillCircle(location.X, location.Y, Radius, Color);
         }
 
         public bool Contains(GameCoordinate point)
@@ -88,15 +87,13 @@ namespace OpenGLTests.src.Drawables
 
     public class RangeCircle : RangeShape
     {
+        [JsonProperty]
         private Circle circle;
 
         public RangeCircle(GLCoordinate radius, IFollowable following) : base(following)
         {
             Console.WriteLine(radius);
             circle = new Circle(radius);
-
-            
-            this.Visible = true;
         }
 
         public override bool Contains(GameCoordinate point)
@@ -106,7 +103,8 @@ namespace OpenGLTests.src.Drawables
 
         public override void DrawStep(DrawAdapter drawer)
         {
-            if (circle == null) return;
+            if (circle == null)
+                return;
             circle.Location = this.Location; //is this stupid? Currently we are drawing the circle's draw and not range circle. And the circle's draw uses its own location instaed of RangeShape's location(which is the following)
             if(Visible && IsInfinite == false) circle.DrawStep(drawer);
         }
