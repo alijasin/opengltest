@@ -16,50 +16,55 @@ namespace OpenGLTests.src
     {
         public RoomLoader()
         {
-            List<Entity> entitiesToWrite = new List<Entity>();
-
-            TestEntity te = new TestEntity(new GameCoordinate(-0.5f, 0.2222f));
-            entitiesToWrite.Add(te);
-            //TestEntity te2 = new TestEntity(new GameCoordinate(0.4f, 0.5f));
-            //entitiesToWrite.Add(te2);
-            //PatrolGuy pat = new PatrolGuy(new GameCoordinate(0, -0.8f));
-            //entitiesToWrite.Add(pat);
-            /*AngryDude dude = new AngryDude(new GameCoordinate(-.1f, -1));
-            entitiesToWrite.Add(dude);
-            Unicorn uni = new Unicorn(new GameCoordinate(0.2f, 0.5f), pat);
-            entitiesToWrite.Add(uni);*/
+            bool WRITE = true;
 
 
+            if (WRITE)
+            {
+                List<Entity> entitiesToWrite = new List<Entity>();
+                TestEntity te = new TestEntity(new GameCoordinate(-0.5f, 0.2222f));
+                entitiesToWrite.Add(te);
 
-            WriteToJsonFile("testfile.json", entitiesToWrite);
-            
+                //
+                //
+                //TestEntity te2 = new TestEntity(new GameCoordinate(0.4f, 0.5f));
+                //entitiesToWrite.Add(te2);
+                //PatrolGuy pat = new PatrolGuy(new GameCoordinate(0, -0.8f));
+                //entitiesToWrite.Add(pat);
+                /*AngryDude dude = new AngryDude(new GameCoordinate(-.1f, -1));
+                entitiesToWrite.Add(dude);
+                Unicorn uni = new Unicorn(new GameCoordinate(0.2f, 0.5f), pat);
+                entitiesToWrite.Add(uni);*/
+
+                WriteToJsonFile("testfile.json", entitiesToWrite);
+            }
+
+
+
             JObject entitiesList = ReadFromJsonFile<JObject>("testfile.json");
             JArray entities = entitiesList["$values"] as JArray;
             foreach (var entity in entities)
             {
                 string sType = entity["$type"].ToString();
                 Type entityType = Type.GetType(sType);
-                Console.WriteLine(entityType);
-                dynamic ent = JsonConvert.DeserializeObject(entity.ToString(), entityType);
+                dynamic xd = JsonConvert.DeserializeObject(entity.ToString(), entityType);
+                GameState.Drawables.Add(xd);
             }
         }
-
-
 
         public class TestEntity : Hostile
         {
             public TestEntity(GameCoordinate location)
             {
-                this.AggroShape = new RangeCircle(new GLCoordinate(0.2f, 0.2f), this);
                 this.Location = location;
-                this.AggroShape.Visible = true;
-                GameState.Drawables.Add(this);
-                GameState.Drawables.Add(this.AggroShape);
             }
 
             public TestEntity()
             {
-
+                this.AggroShape = new RangeShape(new Circle(new GLCoordinate(0.2f, 0.2f)), this);
+                this.AggroShape.Visible = true;
+                this.Location = Location;
+                Add();
             }
         }
 
@@ -78,11 +83,12 @@ namespace OpenGLTests.src
             TextWriter writer = null;
             try
             {
-                var contentsToWriteToFile = JsonConvert.SerializeObject(objectToWrite,
+                var contentsToWriteToFile = JsonConvert.SerializeObject(objectToWrite, typeof(Entity),
                     new JsonSerializerSettings
                     {
-                        TypeNameHandling = TypeNameHandling.All,
-
+                        
+                        TypeNameHandling = TypeNameHandling.Auto,
+                        ReferenceLoopHandling = ReferenceLoopHandling.Ignore,
                         Formatting = Formatting.Indented
                     });
                 writer = new StreamWriter(filePath, append);
@@ -112,7 +118,7 @@ namespace OpenGLTests.src
                 return JsonConvert.DeserializeObject<T>(fileContents, new JsonSerializerSettings
                 {
                     TypeNameHandling = TypeNameHandling.All,
-
+                    ReferenceLoopHandling = ReferenceLoopHandling.Ignore
                 });
             }
             finally

@@ -21,7 +21,7 @@ namespace OpenGLTests.src.Drawables
 
         //todo: refactor this. We dont want drawable to  have game location. We want entity to have game location and element ot have gl location.
         private GameCoordinate location;
-        [JsonIgnore]
+        [JsonProperty]
         public virtual GameCoordinate Location
         {
             get

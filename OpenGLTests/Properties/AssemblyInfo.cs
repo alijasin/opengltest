@@ -2,7 +2,7 @@
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
-// General Information about an assembly is controlled through the following
+// General Information about an assembly is controlled through the Following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("OpenGLTests")]
@@ -19,10 +19,10 @@ using System.Runtime.InteropServices;
 // COM, set the ComVisible attribute to true on that type.
 [assembly: ComVisible(false)]
 
-// The following GUID is for the ID of the typelib if this project is exposed to COM
+// The Following GUID is for the ID of the typelib if this project is exposed to COM
 [assembly: Guid("e91d253b-3f9e-4bcb-9d90-61c60a72745e")]
 
-// Version information for an assembly consists of the following four values:
+// Version information for an assembly consists of the Following four values:
 //
 //      Major Version
 //      Minor Version

@@ -10,7 +10,7 @@ using OpenGLTests.src.Util;
 namespace OpenGLTests.src.Drawables
 {
     //todo: move stuff to Entity
-    
+    //todo: dont chain interfaces. its jobbigt
     public interface ICombatable : IFollowable
     {
         RangeShape AggroShape { get; set; }
@@ -27,7 +27,7 @@ namespace OpenGLTests.src.Drawables
 
     abstract class Hostile : Entity, ICombatable
     {
-        [JsonConverter(typeof(RoomLoader.ConcreteConverter<RangeCircle>))]
+        //[JsonConverter(typeof(RoomLoader.ConcreteConverter<RangeCircle>))]
         public RangeShape AggroShape { get; set; } 
         protected ActionPattern ActionPattern;
         public bool InCombat { get; set; }
@@ -67,6 +67,12 @@ namespace OpenGLTests.src.Drawables
             AggroShape.Dispose();
             ActionPattern.Dispose();
         }
+
+        protected void Add()
+        {
+            GameState.Drawables.Add(this);
+            GameState.Drawables.Add(this.AggroShape);
+        }
     }
 
     class AngryDude : Hostile
@@ -74,7 +80,7 @@ namespace OpenGLTests.src.Drawables
         public AngryDude(GameCoordinate Location)
         {
             this.Location = Location;
-            this.AggroShape = new RangeCircle(new GLCoordinate(0.3f, 0.3f), this);
+            this.AggroShape = new RangeShape(new Circle(new GLCoordinate(0.2f, 0.2f)), this);
             this.AggroShape.Visible = true;
             this.Speed = new GameCoordinate(0.01f, 0.01f);
             ActionPattern = new MoveAroundAndChill(this);

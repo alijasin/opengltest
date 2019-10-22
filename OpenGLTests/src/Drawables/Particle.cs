@@ -66,43 +66,6 @@ namespace OpenGLTests.src.Drawables
         }
     }
 
-    public class Particle2 : Circle
-    {
-        private int life;
-        public Particle2(GameCoordinate location) : base(new GLCoordinate(0.0002f, 0.02f))
-        {
-            Init(location);
-        }
-
-        public void Init(GameCoordinate location)
-        {
-            life = RNG.IntegerBetween(80, 160);
-            Speed = new GameCoordinate(RNG.BetweenZeroAndOne() / 100 * RNG.NegativeOrPositiveOne(), (RNG.BetweenZeroAndOne() / 100 * RNG.NegativeOrPositiveOne()));
-            Radius = new GLCoordinate(0.005f*RNG.BetweenZeroAndOne(), 0.005f*RNG.BetweenZeroAndOne());
-            this.Color = RNG.RandomColor();
-            this.Location = location;
-        }
-
-        public override void DrawStep(DrawAdapter drawer)
-        {
-            base.DrawStep(drawer);
-            life -= 1;
-            this.Size = new GLCoordinate(this.Size.X / 1.1f, this.Size.Y / 1.1f);
-            this.Location += Speed;
-
-            if (life % 10 == 0)
-            {
-                Speed = new GameCoordinate(RNG.BetweenZeroAndOne() / 100 * RNG.NegativeOrPositiveOne(), (RNG.BetweenZeroAndOne() / 100 * RNG.NegativeOrPositiveOne()));
-                this.Radius += new GLCoordinate(0.001f, 0.001f);
-            }
-
-            if (life < 0)
-            {
-                Init(new GameCoordinate(0, 0));
-            }
-        }
-    }
-
     //velocity decreases as time goes on.
     public class Particle3 : Entity
     {

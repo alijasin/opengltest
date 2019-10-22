@@ -24,8 +24,8 @@ namespace OpenGLTests.src
             Hero = new Hero();
             Drawables.Add(Hero);
 
-            //LoadRoom();
-            LoadTestRoom();
+            LoadRoom();
+            //LoadTestRoom();
 
             //var MouseParticleGenerator = new TestParticleGenerator(50);
             //Drawables.Add(MouseParticleGenerator);
@@ -91,7 +91,7 @@ namespace OpenGLTests.src
             var combatables = Drawables.GetAllCombatables;
 
             bool heroInCombat = false;
-            foreach (ICombatable aggro in combatables.Where(c => c is ICombatable && !(c is Hero)))
+            foreach (ICombatable aggro in combatables.Where(c => c is ICombatable && !(c is Hero) && c.AggroShape != null))
             {
                 if (aggro.AggroShape.Contains(Hero.Location))
                 {

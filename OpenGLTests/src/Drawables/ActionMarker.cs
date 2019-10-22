@@ -50,7 +50,7 @@ namespace OpenGLTests.src.Drawables
         {
             this.Location = loc;
             this.aoeShape = aoeShape;
-            aoeShape.SetFollowing(this);
+            aoeShape.Following = this;
         }
 
         public override void DrawStep(DrawAdapter drawer)

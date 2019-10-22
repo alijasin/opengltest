@@ -161,8 +161,6 @@ namespace OpenGLTests.src
 
         public override void InitPattern()
         {
-            Console.WriteLine(source.Location.X);
-
             Actions = new List<GameAction>()
             {
                 new MoveAction(new GameCoordinate(source.Location.X + patrolDelta.X, source.Location.Y + patrolDelta.Y), source),

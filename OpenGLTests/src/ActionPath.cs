@@ -236,7 +236,7 @@ namespace OpenGLTests.src
             {
                 newFollow = Owner as IFollowable;
             }
-            SelectedAction.RangeShape.SetFollowing(newFollow);
+            SelectedAction.RangeShape.Following = newFollow;
             SelectedAction.ActionLine.Set(newFollow, mouseLocation);
 
             SelectedAction.RangeShape.Visible = true;

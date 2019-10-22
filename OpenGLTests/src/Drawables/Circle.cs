@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
@@ -22,91 +23,70 @@ namespace OpenGLTests.src.Drawables
         bool Contains(GameCoordinate point);
     }
 
-
-    public abstract class RangeShape : Entity
+    //include location in IShape?
+    public interface IShape
     {
-        protected IFollowable following;
+        bool Contains(GameCoordinate point, GameCoordinate location);
+        void DrawStep(DrawAdapter drawer, GameCoordinate location);
+    }
 
-        public abstract bool Contains(GameCoordinate point);
+    public class RangeShape : Entity
+    {
+        public IShape Shape { get; set; }
         public bool IsInfinite { get; set; } = false;
+        public IFollowable Following { get; set; }
 
-        public RangeShape(IFollowable following)
+        public RangeShape(IShape shape, IFollowable following)
         {
-            this.following = following;
-            this.Visible = false;
+            this.Shape = shape;
+            this.Following = following;
         }
 
         public override GameCoordinate Location
         {
             get
             {
-                if (this.following?.Location == null) return new GameCoordinate(0, 0);
-                return this.following.Location;
+                if (this.Following?.Location == null)
+                {
+                    Console.WriteLine(this + ": following is null.");
+                    return new GameCoordinate(0, 0);
+                }
+                return this.Following.Location;
             }
         }
 
-        public void SetFollowing(IFollowable follow)
+        public bool Contains(GameCoordinate point)
         {
-            this.following = follow;
+            if (IsInfinite) return true;
+            return Shape.Contains(point, Location);
         }
 
-        public override void Dispose()
+        public override void DrawStep(DrawAdapter drawer)
         {
-            base.Dispose();
+            if(Visible) Shape.DrawStep(drawer, Location);
         }
     }
-
-    public class Circle : Entity
+    
+    public class Circle : IShape
     {
         public GLCoordinate Radius { get; set; }
 
         public Circle(GLCoordinate radius)
         {
             this.Radius = radius;
-            this.Visible = false;
         }
 
-        public override void DrawStep(DrawAdapter drawer)
+        public bool Contains(GameCoordinate point, GameCoordinate location)
         {
-            GLCoordinate location = Location.ToGLCoordinate(GameState.ActiveCamera.Location);
-            if (Radius != null) drawer.FillCircle(location.X, location.Y, Radius, Color);
-        }
-
-        public bool Contains(GameCoordinate point)
-        {
-            //Console.WriteLine(Radius + " = " + "0");
-            if (Radius == null) return false;
-
-            var x = Math.Abs(point.X - Location.X);
-            var y = Math.Abs(point.Y - Location.Y);
+            var x = Math.Abs(point.X - location.X);
+            var y = Math.Abs(point.Y - location.Y);
 
             return x * x + y * y < Radius.X * Radius.X; //todo no ellipsis, this is circle
         }
-    }
 
-
-    public class RangeCircle : RangeShape
-    {
-        [JsonProperty]
-        private Circle circle;
-
-        public RangeCircle(GLCoordinate radius, IFollowable following) : base(following)
+        public void DrawStep(DrawAdapter drawer, GameCoordinate location)
         {
-            Console.WriteLine(radius);
-            circle = new Circle(radius);
-        }
-
-        public override bool Contains(GameCoordinate point)
-        {
-            return circle.Contains(point);
-        }
-
-        public override void DrawStep(DrawAdapter drawer)
-        {
-            if (circle == null)
-                return;
-            circle.Location = this.Location; //is this stupid? Currently we are drawing the circle's draw and not range circle. And the circle's draw uses its own location instaed of RangeShape's location(which is the following)
-            if(Visible && IsInfinite == false) circle.DrawStep(drawer);
+            drawer.FillCircle(location.X, -location.Y, Radius, Color.Red);
         }
     }
 }

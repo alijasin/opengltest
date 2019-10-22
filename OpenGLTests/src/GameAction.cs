@@ -55,7 +55,7 @@ namespace OpenGLTests.src
                 ActionLine.Visible = false;
                 ActionLine.LineType = LineType.Solid;
 
-                RangeShape = new RangeCircle(new GLCoordinate(0, 0), source);
+                RangeShape = new RangeShape(new Circle(new GLCoordinate(0f, 0f)), Marker);
             }
         }
 
@@ -113,9 +113,9 @@ namespace OpenGLTests.src
     {
         public TossItemAction(ICombatable source, Item i) : base(source)
         {
-            RangeShape = new RangeCircle(new GLCoordinate(0.5f, 0.5f), source);
+            RangeShape = new RangeShape(new Circle(new GLCoordinate(0.5f, 0.5f)), source);
             RangeShape.Visible = false;
-            Marker = new AOEMarker(new GameCoordinate(0.5f, 0.5f), new RangeCircle(new GLCoordinate(0.2f, 0.2f), source));
+            Marker = new AOEMarker(new GameCoordinate(0.5f, 0.5f), new RangeShape(new Circle(new GLCoordinate(0.5f, 0.5f)), source));
         }
 
         public override Func<object, bool> GetAction()
@@ -208,7 +208,7 @@ namespace OpenGLTests.src
 
         public TeleportAction(GLCoordinate radius, ICombatable source) : base(source)
         {
-            RangeShape = new RangeCircle(radius, source);
+            RangeShape = new RangeShape(new Circle(radius), source);
             this.Marker = new MoveMarker(RangeShape.Location);
             this.ActionLine.LineType = LineType.Solid;
         }
@@ -252,7 +252,7 @@ namespace OpenGLTests.src
         private Func<object, bool> a; 
         public LambdaAction(Func<object, bool> f, ICombatable source) : base(source)
         {
-            RangeShape = new RangeCircle(new GLCoordinate(0.8f, 0.8f), source);
+            RangeShape = new RangeShape(new Circle(new GLCoordinate(0.8f, 0.8f)), source);
             this.Marker = new ActionMarker(RangeShape.Location);
             this.ActionLine.LineType = LineType.Dashed;
             a = f;
@@ -276,7 +276,7 @@ namespace OpenGLTests.src
 
         public AOEEffectAction(GLCoordinate actionRange, RangeShape aoeShape, ICombatable source) : base(source)
         {
-            RangeShape = new RangeCircle(actionRange, source);
+            new RangeShape(new Circle(actionRange), source);
             this.Marker = new AOEMarker(RangeShape.Location, aoeShape);
             
             initialAOERange = new GLCoordinate(aoeShape.Size.X, aoeShape.Size.Y);
@@ -445,7 +445,7 @@ namespace OpenGLTests.src
 
         public CombatMoveAction(GLCoordinate radius, ICombatable source) : base(source)
         {
-            RangeShape = new RangeCircle(radius, source);
+            RangeShape = new RangeShape(new Circle(radius), source);
             this.Marker = new MoveMarker(RangeShape.Location);
             this.ActionLine.LineType = LineType.Solid;
         }
