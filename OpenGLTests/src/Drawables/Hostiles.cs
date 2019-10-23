@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
@@ -9,8 +10,8 @@ using OpenGLTests.src.Util;
 
 namespace OpenGLTests.src.Drawables
 {
-    //todo: move stuff to Entity
     //todo: dont chain interfaces. its jobbigt
+    //todo: interface segragate
     public interface ICombatable : IFollowable
     {
         RangeShape AggroShape { get; set; }
@@ -28,6 +29,7 @@ namespace OpenGLTests.src.Drawables
     abstract class Hostile : Entity, ICombatable
     {
         //[JsonConverter(typeof(RoomLoader.ConcreteConverter<RangeCircle>))]
+        [JsonIgnore]
         public RangeShape AggroShape { get; set; } 
         protected ActionPattern ActionPattern;
         public bool InCombat { get; set; }
@@ -59,6 +61,7 @@ namespace OpenGLTests.src.Drawables
         public Hostile()
         {
             this.HitPoints = 1;
+            Add();
         }
 
         public override void Dispose()
@@ -71,8 +74,10 @@ namespace OpenGLTests.src.Drawables
         protected void Add()
         {
             GameState.Drawables.Add(this);
-            GameState.Drawables.Add(this.AggroShape);
+            if(AggroShape != null) GameState.Drawables.Add(this.AggroShape);
         }
+
+
     }
 
     class AngryDude : Hostile
@@ -104,6 +109,8 @@ namespace OpenGLTests.src.Drawables
             ActionPattern = new NeverEndingPatrol(this, new GameCoordinate(0.2f, 0));
             ActionPattern.Loop = true;
         }
+
+
     }
 
     class ChasingPerson : Hostile

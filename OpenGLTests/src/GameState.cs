@@ -24,8 +24,8 @@ namespace OpenGLTests.src
             Hero = new Hero();
             Drawables.Add(Hero);
 
-            LoadRoom();
-            //LoadTestRoom();
+            //LoadRoom();
+            LoadTestRoom();
 
             //var MouseParticleGenerator = new TestParticleGenerator(50);
             //Drawables.Add(MouseParticleGenerator);

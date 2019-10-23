@@ -23,7 +23,6 @@ namespace OpenGLTests.src.Drawables
         bool Contains(GameCoordinate point);
     }
 
-    //include location in IShape?
     public interface IShape
     {
         bool Contains(GameCoordinate point, GameCoordinate location);
@@ -46,11 +45,7 @@ namespace OpenGLTests.src.Drawables
         {
             get
             {
-                if (this.Following?.Location == null)
-                {
-                    Console.WriteLine(this + ": following is null.");
-                    return new GameCoordinate(0, 0);
-                }
+                if (this.Following?.Location == null) return new GameCoordinate(0, 0);
                 return this.Following.Location;
             }
         }
@@ -86,7 +81,8 @@ namespace OpenGLTests.src.Drawables
 
         public void DrawStep(DrawAdapter drawer, GameCoordinate location)
         {
-            drawer.FillCircle(location.X, -location.Y, Radius, Color.Red);
+            GLCoordinate locationx = location.ToGLCoordinate(GameState.ActiveCamera.Location);
+            drawer.FillCircle(locationx.X, locationx.Y, Radius, Color.Red);
         }
     }
 }

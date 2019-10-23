@@ -16,55 +16,51 @@ namespace OpenGLTests.src
     {
         public RoomLoader()
         {
-            bool WRITE = true;
-
+            bool WRITE = false;
+            bool READ = true;
 
             if (WRITE)
             {
                 List<Entity> entitiesToWrite = new List<Entity>();
                 TestEntity te = new TestEntity(new GameCoordinate(-0.5f, 0.2222f));
                 entitiesToWrite.Add(te);
-
-                //
-                //
-                //TestEntity te2 = new TestEntity(new GameCoordinate(0.4f, 0.5f));
-                //entitiesToWrite.Add(te2);
-                //PatrolGuy pat = new PatrolGuy(new GameCoordinate(0, -0.8f));
-                //entitiesToWrite.Add(pat);
-                /*AngryDude dude = new AngryDude(new GameCoordinate(-.1f, -1));
+                TestEntity te2 = new TestEntity(new GameCoordinate(0.4f, 0.5f));
+                entitiesToWrite.Add(te2);
+                PatrolGuy pat = new PatrolGuy(new GameCoordinate(0, -0.8f));
+                entitiesToWrite.Add(pat);
+                AngryDude dude = new AngryDude(new GameCoordinate(-.1f, -1));
                 entitiesToWrite.Add(dude);
-                Unicorn uni = new Unicorn(new GameCoordinate(0.2f, 0.5f), pat);
-                entitiesToWrite.Add(uni);*/
 
                 WriteToJsonFile("testfile.json", entitiesToWrite);
             }
 
 
-
-            JObject entitiesList = ReadFromJsonFile<JObject>("testfile.json");
-            JArray entities = entitiesList["$values"] as JArray;
-            foreach (var entity in entities)
+            if (READ)
             {
-                string sType = entity["$type"].ToString();
-                Type entityType = Type.GetType(sType);
-                dynamic xd = JsonConvert.DeserializeObject(entity.ToString(), entityType);
-                GameState.Drawables.Add(xd);
+
+                JObject entitiesList = ReadFromJsonFile<JObject>("testfile.json");
+                JArray entities = entitiesList["$values"] as JArray;
+                foreach (var entity in entities)
+                {
+                    string sType = entity["$type"].ToString();
+                    Type entityType = Type.GetType(sType);
+                    dynamic xd = JsonConvert.DeserializeObject(entity.ToString(), entityType);
+                    //GameState.Drawables.Add(xd);
+                }
             }
         }
 
         public class TestEntity : Hostile
         {
+            /// <summary>
+            /// Called and used by the programmer
+            /// </summary>
+            /// <param name="location"></param>
             public TestEntity(GameCoordinate location)
             {
                 this.Location = location;
-            }
-
-            public TestEntity()
-            {
                 this.AggroShape = new RangeShape(new Circle(new GLCoordinate(0.2f, 0.2f)), this);
                 this.AggroShape.Visible = true;
-                this.Location = Location;
-                Add();
             }
         }
 
