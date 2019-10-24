@@ -11,3 +11,5 @@ C:\Users\Jasin\source\repos\OpenGLTests\OpenGLTests\obj\Debug\OpenGLTests.exe
 C:\Users\Jasin\source\repos\OpenGLTests\OpenGLTests\obj\Debug\OpenGLTests.pdb
 C:\Users\Jasin\source\repos\OpenGLTests\OpenGLTests\obj\Debug\OpenGLTests.Properties.Resources.resources
 C:\Users\Jasin\source\repos\OpenGLTests\OpenGLTests\obj\Debug\OpenGLTests.csproj.GenerateResource.cache
+C:\Users\Jasin\source\repos\OpenGLTests\OpenGLTests\bin\Debug\Newtonsoft.Json.dll
+C:\Users\Jasin\source\repos\OpenGLTests\OpenGLTests\bin\Debug\Newtonsoft.Json.xml

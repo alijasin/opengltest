@@ -78,6 +78,7 @@
     <Compile Include="src\IInteractable.cs" />
     <Compile Include="src\Items.cs" />
     <Compile Include="src\Abilities.cs" />
+    <Compile Include="src\RoomGenerator.cs" />
     <Compile Include="src\RoomLoader.cs" />
     <Compile Include="src\Sprite.cs" />
     <Compile Include="src\Util\Coloring.cs" />
@@ -94,6 +95,7 @@
     <Compile Include="src\Screen.cs" />
     <Compile Include="src\Util\ImageLoader.cs" />
     <Compile Include="src\Util\InputUnion.cs" />
+    <Compile Include="src\Util\EntitySerializer.cs" />
     <Compile Include="src\Util\MazeCreator.cs" />
     <Compile Include="src\Util\RNG.cs" />
     <Compile Include="src\Util\Shader.cs" />

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.CodeDom;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
@@ -85,6 +86,26 @@ namespace OpenGLTests.src.Util
         public static Color RandomColor()
         {
             return Color.FromArgb(255, r.Next(255), r.Next(255), r.Next(255));
+        }
+
+        public static GameCoordinate RandomLocationWithinSquare(GameCoordinate origin, GameCoordinate terminus)
+        {
+            //assert origin < terminus bla bla..
+            var rngLoc = new GameCoordinate((float)r.NextDouble() % (terminus.X - origin.X) + origin.X, (float)r.NextDouble() % (terminus.Y - origin.Y) + origin.Y);
+            return rngLoc;
+        }
+
+        //todo: move this from RNG to Coords or something
+        public static GameCoordinate SnapCoordinate(GameCoordinate coord, GameCoordinate snapSize)
+        {
+            var x = Math.Round(coord.X / snapSize.X);
+            var y = Math.Round(coord.Y / snapSize.Y);
+            return new GameCoordinate((float)x*snapSize.X, (float)y*snapSize.Y);
+        }
+
+        public static T RandomElement<T>(List<T> list)
+        {
+            return list.ElementAt(RNG.IntegerBetween(0, list.Count()));
         }
     }
 }
