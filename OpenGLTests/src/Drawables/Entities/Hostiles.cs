@@ -41,6 +41,7 @@ namespace OpenGLTests.src.Drawables
         {
             this.HitPoints = 1;
             Add();
+            
         }
 
         public void OnDeath()
@@ -109,7 +110,7 @@ namespace OpenGLTests.src.Drawables
         public override void DrawStep(DrawAdapter drawer)
         {
             base.DrawStep(drawer);
-            AggroShape.DrawStep(drawer);
+            if(AggroShape != null) AggroShape.DrawStep(drawer);
         }
     }
 }

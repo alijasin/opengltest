@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using OpenGLTests.src.Drawables;
@@ -45,19 +46,21 @@ namespace OpenGLTests.src
     {
         public GameConsole GameConsole;
         public static DrawableRepository Drawables = new DrawableRepository();
-
+        public static Drawable CurrentlySelected { get; set; }
         public EditorScreen()
         {
             GameConsole = new GameConsole();
             Drawables.Add(GameConsole.container);
+            GameConsole.AddDrawableToBar(new Crate(new GameCoordinate(0,0)));
+            GameConsole.AddDrawableToBar(new AngryDude(new GameCoordinate(0, 0)));
         }
 
         public override void Draw(DrawAdapter drawer)
         {
             GL.PushMatrix();
             GL.Translate(-new GameCoordinate(0, 0).X, -new GameCoordinate(0, 0).Y, 0);
-            
-            try
+            ActiveCamera.Step();
+           // try
             {
                 foreach (var ent in Drawables.GetAllDrawables)
                 {
@@ -65,9 +68,9 @@ namespace OpenGLTests.src
                 }
 
             }
-            catch (Exception e)
+            //catch (Exception e)
             {
-                Console.WriteLine(e);
+            //    Console.WriteLine(e);
             }
             GL.PopMatrix();
         }
@@ -108,15 +111,39 @@ namespace OpenGLTests.src
                 input => input.IsMouseInput && input.MouseButtonArgs.Button == MouseButton.Left,
                 input =>
                 {
+                   
+
                     GameCoordinate clicked = new GameCoordinate(input.MouseButtonArgs.X, input.MouseButtonArgs.Y);
                     var xd = CoordinateFuckery.ClickToGLRelativeToCamera(clicked, new GameCoordinate(0, 0));
-                    Drawables.Add(new AngryDude(xd));
+                    if (!GameConsole.container.Contains(clicked) && CurrentlySelected != null)
+                    {
+                        CurrentlySelected.Location = xd;
+                        Drawables.Add(CurrentlySelected);
+                        CurrentlySelected = CurrentlySelected.Clone() as Drawable;
+                        //var xde = Cloner.CloneJson(CurrentlySelected);
+                        //xde.Location = xd;
+                        //Drawables.Add(xde);
+                    }
+         
+
+                    foreach (var inter in Drawables.GetAllInteractables)
+                    {
+                        if(inter.Contains(clicked))
+                        {
+                            inter.OnInteraction.Invoke(); //updates the currently selected drawable
+                        }
+                    }
                 },
                 input =>
                 {
 
                 }
             ));
+        }
+
+        private T Create<T>() where T : class, new()
+        {
+            return new T();
         }
     }
 

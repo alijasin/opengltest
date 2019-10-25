@@ -64,6 +64,7 @@
     <Compile Include="src\Drawables\Button.cs" />
     <Compile Include="src\Drawables\Crate.cs" />
     <Compile Include="src\Drawables\Entities\Chaser.cs" />
+    <Compile Include="src\Drawables\Entities\DrawableButton.cs" />
     <Compile Include="src\Drawables\Entities\Hero.cs" />
     <Compile Include="src\Drawables\Entities\Hostiles.cs" />
     <Compile Include="src\Drawables\Entities\PatrolGuy.cs" />

@@ -11,7 +11,7 @@ using Newtonsoft.Json.Serialization;
 namespace OpenGLTests.src.Drawables
 {
 
-    public abstract class Drawable
+    public abstract class Drawable : ICloneable
     {
         public virtual bool Visible { get; set; }
         public Color Color { get; set; } = Color.White;
@@ -39,6 +39,12 @@ namespace OpenGLTests.src.Drawables
         public virtual void Dispose()
         {
             GameState.Drawables.Remove(this);
+        }
+
+        //create shallow copy
+        public object Clone()
+        {
+            return this.MemberwiseClone();
         }
     }
 

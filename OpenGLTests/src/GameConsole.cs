@@ -6,6 +6,7 @@ using System.Security.Policy;
 using System.Text;
 using System.Threading.Tasks;
 using OpenGLTests.src.Drawables;
+using OpenGLTests.src.Drawables.Entities;
 using OpenGLTests.src.Util;
 using Rectangle = OpenGLTests.src.Drawables.Rectangle;
 
@@ -24,7 +25,7 @@ namespace OpenGLTests.src
 
             for (int i = 0; i < 18 * 2; i++)
             {
-                CreateDrawableButton(null);
+                AddDrawableToBar(new Button());
             }
         }
 
@@ -33,14 +34,14 @@ namespace OpenGLTests.src
             container.Visible = !container.Visible;
         }
 
-        public void CreateDrawableButton(Drawable d)
+        public void AddDrawableToBar(Drawable d)
         {
-            container.AddElement(new Button());
+            container.AddElement(d);
         }
     }
 
 
-    public class ElementRectangle : Rectangle
+    public class ElementRectangle : Rectangle, IInteractable
     {
         private int filledSlots = 0;
         private int maxFilledSlot = 0;
@@ -57,27 +58,42 @@ namespace OpenGLTests.src
             this.Visible = false;
             this.Color = Color.Green;
 
-            for (int c = 0; c < columns; c++)
+            for (int r = 0; r < rows; r++)
             {
-                for(int r = 0; r < rows; r++)
-                { 
+                for (int c = 0; c < columns; c++)
+                {
                     slotPosition.Add(new GLCoordinate(c*slotSize.X, r*slotSize.Y));
                 }
             }
+            GameState.Drawables.RegisterInteractable(this);
         }
 
-        public void AddElement(Element e)
+        public void AddElement(Drawable d)
         {
+            var e = new DrawableButton(d);
             if (filledSlots >= maxFilledSlot)
             {
-                Console.WriteLine("Bar is full!");
-                return;
+                Console.WriteLine("Bar is full, starting to clear from start.");
+                filledSlots = 0;
             }
+
+            if (elementSlot.Count > filledSlots)
+            {
+                if (elementSlot.ElementAt(filledSlots).Key != null)
+                {
+                    //todo: this is a mess.
+                    elementSlot.ElementAt(filledSlots).Key.Dispose();
+                    EditorScreen.Drawables.Remove(elementSlot.ElementAt(filledSlots).Key);
+                    elementSlot.Remove(elementSlot.ElementAt(filledSlots).Key);
+                }
+            }
+            
 
             e.Size = slotSize;
             e.Location = new GLCoordinate(this.Location.X -this.Size.X/2 + slotPosition[filledSlots].X + slotSize.X/2, this.Location.Y - this.Size.Y/2 + slotPosition[filledSlots].Y + slotSize.Y / 2);
             e.Visible = true;
             e.Color = RNG.RandomColor();
+
             elementSlot.Add(e, filledSlots);
 
             filledSlots++;
@@ -92,5 +108,7 @@ namespace OpenGLTests.src
                 e.Key.DrawStep(drawer);
             }
         }
+
+        public Action OnInteraction { get; set; } = () => { };
     }
 }

@@ -71,6 +71,11 @@ namespace OpenGLTests.src
             interactableRepo.Add(i);
         }
 
+        public void UnRegisterInteractable(IInteractable i)
+        {
+            interactableRepo.Remove(i);
+        }
+
         /// <summary>
         /// Adds a drawable to the drawable repo. All drawable's onDraw function will be called on each render automatically.
         /// </summary>

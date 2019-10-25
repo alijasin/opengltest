@@ -45,6 +45,12 @@ namespace OpenGLTests.src.Drawables
             if(Color == initialColor) Color = toggleColor;
             else Color = initialColor;
         }
+
+        public override void Dispose()
+        {
+            base.Dispose();
+            GameState.Drawables.UnRegisterInteractable(this);
+        }
     }
 
     public abstract class ActionButton : Button
