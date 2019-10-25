@@ -150,6 +150,7 @@ namespace OpenGLTests.src
         public void DrawLine(GLCoordinate origin, GLCoordinate terminus, Color color, LineType type, float width = 3)
         {
             GL.PushAttrib(AttribMask.EnableBit);
+            GL.Enable(EnableCap.Blend);
             GL.LineWidth(width);
             if (type == LineType.Dashed)
             {

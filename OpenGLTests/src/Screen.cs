@@ -102,11 +102,11 @@ namespace OpenGLTests.src
             {
                 for (int x = -10; x < 20; x++)
                 {
-                    drawer.DrawLine(new GLCoordinate(x*0.1f, -1), new GLCoordinate(x*0.1f, 1), Color.Chocolate, LineType.Solid);
+                    drawer.DrawLine(new GLCoordinate(x*0.1f, -1), new GLCoordinate(x*0.1f, 1), Color.FromArgb(95, Color.Chocolate), LineType.Solid);
                 }
                 for (int y = -10; y < 20; y++)
                 {
-                    drawer.DrawLine(new GLCoordinate(-1f, y * 0.1f), new GLCoordinate(1f, y * 0.1f), Color.Chocolate, LineType.Solid);
+                    drawer.DrawLine(new GLCoordinate(-1f, y * 0.1f), new GLCoordinate(1f, y * 0.1f), Color.FromArgb(95, Color.Chocolate), LineType.Solid);
                 }
             }
 
