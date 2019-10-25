@@ -3,12 +3,23 @@
 
 After exiting aggro range the hero leaves combat even though the aggro unit is still alive.  
 Additionally, after exiting the aggro range the queued attacks are cleared which is not desirable.
-Two bugs, but one solution: don't leave combat until the aggro'd creature is dead(or outside some certain range).
+Two bugs, but one solution: don't leave combat until the aggro'd creature is dead(or outside some certain wider range).
 Difficulty: 6
 
 Burrower doesnt teleport every burrow. (only every second.)
 Not sure why this is but dont think it might be hard to trace down on.
 Difficulty 4
-Additionally, the hacks to get the burrower to do stuff is severe. Need to find a more flexible way of doing stuff depending on animation frame.
+Additionally, the hacks to get the burrower to do stuff is severe. Maybe need to find a more flexible way of doing stuff depending on animation frame.
 Difficulty 6
 
+Rangeshapes and lines are not visible anymore. 
+Difficulty 3
+
+Casting a spell/making a move does not reset to default move action.
+Difficulty 4
+
+While we render and remove/add stuff which are to be rendered we are manipulating the drawable repo. This means that while we iterate through the drawables there might be an exception.
+Currently this is solved by just try/catching these errors and proceeding. This means that on some renders nothing new will be rendered, or just a subset.
+I think we should have some kind of queue when we add stuff to drawables and add it before each draw. Although this might be quite the overhead. 
+In either way the current way will not be acceptable later on.
+Difficulty 2-8.

@@ -13,6 +13,9 @@ namespace OpenGLTests.src
     {
         private static List<Drawable> drawableRepo { get; } = new List<Drawable>();
         public List<Drawable> GetAllDrawables => drawableRepo;
+        public List<Entity> GetAllEntities => drawableRepo.Where(e => e is Entity).Cast<Entity>().ToList();
+        public List<Element> GetAllElements => drawableRepo.Where(e => e is Element).Cast<Element>().ToList();
+
         public List<Hero> GetAllHeroes
         {
             get

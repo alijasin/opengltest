@@ -73,6 +73,7 @@
     <Compile Include="src\Drawables\Unicorn.cs" />
     <Compile Include="src\DrawableRepository.cs" />
     <Compile Include="src\GameAction.cs" />
+    <Compile Include="src\GameConsole.cs" />
     <Compile Include="src\GameController.cs" />
     <Compile Include="src\IActionCapable.cs" />
     <Compile Include="src\IInteractable.cs" />

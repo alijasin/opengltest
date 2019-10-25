@@ -12,7 +12,6 @@ namespace OpenGLTests.src
 {
     public class GameState
     {
-
         public Hero Hero { get; set; }
         public static Camera ActiveCamera { get; set; }
         public static DrawableRepository Drawables = new DrawableRepository();
@@ -21,12 +20,13 @@ namespace OpenGLTests.src
 
         public GameState()
         {
+            GameConsole.Init();
             Hero = new Hero();
             Drawables.Add(Hero);
 
-            //LoadRoom();
+            LoadRoom();
             //LoadTestRoom();
-            RoomLoader.LoadRoom(RoomLoader.Room.RandomGenerated);
+            //RoomLoader.LoadRoom(RoomLoader.Room.RandomGenerated);
             //var MouseParticleGenerator = new TestParticleGenerator(50);
             //Drawables.Add(MouseParticleGenerator);
 

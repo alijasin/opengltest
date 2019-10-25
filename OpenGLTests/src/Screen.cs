@@ -40,15 +40,20 @@ namespace OpenGLTests.src
             GL.PushMatrix();
             GL.Translate(-new GameCoordinate(0, 0).X, -new GameCoordinate(0, 0).Y , 0);
 
+            //todo: i think theres a bug and with adding and removing entities while we are drawing. Fix this so we don't have to try catch and sometimes not render.
             try
             {
-                var size = GameState.Drawables.GetAllDrawables.Count;
-                List<Drawable> drawables = new List<Drawable>(size);
-                drawables = GameState.Drawables.GetAllDrawables.GetRange(0, size);
-
-                foreach (var drawable in drawables)
+                //var size = GameState.Drawables.GetAllDrawables.Count;
+                //List<Drawable> drawables = new List<Drawable>(size);
+                //drawables = GameState.Drawables.GetAllDrawables.GetRange(0, size);
+                foreach (var ent in GameState.Drawables.GetAllEntities)
                 {
-                    drawable.DrawStep(drawer);
+                    ent.DrawStep(drawer);
+                }
+
+                foreach (var ele in GameState.Drawables.GetAllElements)
+                {
+                    ele.DrawStep(drawer);
                 }
             }
             catch (Exception e)
@@ -85,6 +90,12 @@ namespace OpenGLTests.src
                 input => input.IsKeyboardInput && input.KeyboardArgs.Key == OpenTK.Input.Key.S,
                 _ => GameState.ActiveCamera.Speed.Y = 0.01f,
                 _ => GameState.ActiveCamera.Speed.Y = 0
+            ));
+
+            Bind(new Hotkey(
+                input => input.IsKeyboardInput && input.KeyboardArgs.Key == OpenTK.Input.Key.Tilde,
+                _ => GameConsole.ToggleVisibility(),
+                _ => { }
             ));
 
             Bind(new Hotkey(
