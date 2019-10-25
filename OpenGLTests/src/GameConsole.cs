@@ -6,64 +6,78 @@ using System.Security.Policy;
 using System.Text;
 using System.Threading.Tasks;
 using OpenGLTests.src.Drawables;
+using OpenGLTests.src.Util;
 using Rectangle = OpenGLTests.src.Drawables.Rectangle;
 
 namespace OpenGLTests.src
 {
-    public static class GameConsole
+    public class GameConsole
     {
-        static ElementRectangle container = new ElementRectangle();
-        public static void Init()
-        {
-            Button b = new Button(new GLCoordinate(0.2f, 0.2f));
-            b.Color = Color.Yellow;
-            b.OnInteraction = () =>
-            {
-                Console.WriteLine("yayeet");
-            };
-            
-            container.AddElement(b);
-            GameState.Drawables.RegisterInteractable(b as IInteractable);
-            GameState.Drawables.Add(container);
+        public ElementRectangle container;
 
-            Console.WriteLine("Console initialized.");
+        public GameConsole()
+        {
+            container = new ElementRectangle(18, 2);
+            container.Location = new GLCoordinate(0, -1 + container.Size.Y/2);
+            container.Color = Color.Red;
+            container.Visible = true;
+
+            for (int i = 0; i < 18 * 2; i++)
+            {
+                CreateDrawableButton(null);
+            }
         }
 
-        public static void ToggleVisibility()
+        public void ToggleVisibility()
         {
             container.Visible = !container.Visible;
         }
+
+        public void CreateDrawableButton(Drawable d)
+        {
+            container.AddElement(new Button());
+        }
     }
 
-    class ElementRectangle : Rectangle
+
+    public class ElementRectangle : Rectangle
     {
         private int filledSlots = 0;
+        private int maxFilledSlot = 0;
         private Dictionary<Element, int> elementSlot = new Dictionary<Element, int>();
-        private static GLCoordinate slotSize = new GLCoordinate(0.3f, 0.3f);
+        private static GLCoordinate slotSize = new GLCoordinate(0.1f, 0.1f);
 
-        private List<GLCoordinate> slotPosition = new List<GLCoordinate>()
-        {
-            new GLCoordinate(0, 0),
-            new GLCoordinate(slotSize.X, 0),
-            new GLCoordinate(0, slotSize.Y),
-            new GLCoordinate(slotSize.X, slotSize.Y),
-        };
+        private List<GLCoordinate> slotPosition = new List<GLCoordinate>();
 
-        public ElementRectangle()
+        public ElementRectangle(int columns, int rows)
         {
-            this.Size = new GLCoordinate(slotSize.X*2, slotSize.Y*2);
+            maxFilledSlot = columns * rows;
+            this.Size = new GLCoordinate(slotSize.X*columns, slotSize.Y*rows);
             this.Location = new GLCoordinate(1 - this.Size.X, 1 - this.Size.Y);
             this.Visible = false;
             this.Color = Color.Green;
+
+            for (int c = 0; c < columns; c++)
+            {
+                for(int r = 0; r < rows; r++)
+                { 
+                    slotPosition.Add(new GLCoordinate(c*slotSize.X, r*slotSize.Y));
+                }
+            }
         }
 
         public void AddElement(Element e)
         {
-            if (filledSlots >= 4) return;
-            e.Size = slotSize;
-            e.Location = new GLCoordinate(this.Location.X + slotPosition[filledSlots].X - slotSize.X/2, this.Location.Y + slotPosition[filledSlots].Y + slotSize.Y / 2);
-            e.Visible = true;
+            if (filledSlots >= maxFilledSlot)
+            {
+                Console.WriteLine("Bar is full!");
+                return;
+            }
 
+            e.Size = slotSize;
+            e.Location = new GLCoordinate(this.Location.X -this.Size.X/2 + slotPosition[filledSlots].X + slotSize.X/2, this.Location.Y - this.Size.Y/2 + slotPosition[filledSlots].Y + slotSize.Y / 2);
+            e.Visible = true;
+            e.Color = RNG.RandomColor();
             elementSlot.Add(e, filledSlots);
 
             filledSlots++;

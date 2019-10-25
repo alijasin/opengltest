@@ -43,7 +43,15 @@ namespace OpenGLTests.src
 
     class EditorScreen : Screen
     {
-        List<Drawable> drawables = new List<Drawable>();
+        public GameConsole GameConsole;
+        public static DrawableRepository Drawables = new DrawableRepository();
+
+        public EditorScreen()
+        {
+            GameConsole = new GameConsole();
+            Drawables.Add(GameConsole.container);
+        }
+
         public override void Draw(DrawAdapter drawer)
         {
             GL.PushMatrix();
@@ -51,7 +59,7 @@ namespace OpenGLTests.src
             
             try
             {
-                foreach (var ent in drawables)
+                foreach (var ent in Drawables.GetAllDrawables)
                 {
                     ent.DrawStep(drawer);
                 }
@@ -90,15 +98,19 @@ namespace OpenGLTests.src
                 _ => ActiveCamera.Speed.Y = 0.01f,
                 _ => ActiveCamera.Speed.Y = 0
             ));
-
+            Bind(new Hotkey(
+                input => input.IsKeyboardInput && input.KeyboardArgs.Key == OpenTK.Input.Key.Tilde,
+                _ => GameConsole.ToggleVisibility(),
+                _ => { }
+            ));
             // Mouse
             Bind(new Hotkey(
                 input => input.IsMouseInput && input.MouseButtonArgs.Button == MouseButton.Left,
                 input =>
                 {
                     GameCoordinate clicked = new GameCoordinate(input.MouseButtonArgs.X, input.MouseButtonArgs.Y);
-
-                    drawables.Add(new AngryDude(clicked));
+                    var xd = CoordinateFuckery.ClickToGLRelativeToCamera(clicked, new GameCoordinate(0, 0));
+                    Drawables.Add(new AngryDude(xd));
                 },
                 input =>
                 {
@@ -167,12 +179,6 @@ namespace OpenGLTests.src
                 input => input.IsKeyboardInput && input.KeyboardArgs.Key == OpenTK.Input.Key.S,
                 _ => ActiveCamera.Speed.Y = 0.01f,
                 _ => ActiveCamera.Speed.Y = 0
-            ));
-
-            Bind(new Hotkey(
-                input => input.IsKeyboardInput && input.KeyboardArgs.Key == OpenTK.Input.Key.Tilde,
-                _ => GameConsole.ToggleVisibility(),
-                _ => { }
             ));
 
             Bind(new Hotkey(

@@ -20,7 +20,6 @@ namespace OpenGLTests.src
 
         public GameState()
         {
-            GameConsole.Init();
             for (int x = -10; x < 20; x++)
             {
                 for (int y = -10; y < 20; y++)

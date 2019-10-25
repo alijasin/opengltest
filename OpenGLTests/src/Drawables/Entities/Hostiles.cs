@@ -37,6 +37,12 @@ namespace OpenGLTests.src.Drawables
         public bool InCombat { get; set; }
         public int HitPoints { get; set; }
 
+        public Hostile()
+        {
+            this.HitPoints = 1;
+            Add();
+        }
+
         public void OnDeath()
         {
             Console.WriteLine("{0} died.", this);
@@ -69,11 +75,6 @@ namespace OpenGLTests.src.Drawables
             {
                 var status = ActionPattern.DoAction(1);
             }
-        }
-        public Hostile()
-        {
-            this.HitPoints = 1;
-            Add();
         }
 
         public override void Dispose()
