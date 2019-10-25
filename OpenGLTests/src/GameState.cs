@@ -99,7 +99,6 @@ namespace OpenGLTests.src
                     heroInCombat = true;
                 }
             }
-
             (Hero as ICombatable).InCombat = heroInCombat;
 
             foreach (var combatable in combatables)

@@ -36,7 +36,6 @@ namespace OpenGLTests.src.Drawables
                 islot.Location.X += col * islot.Size.X + fodder*(1+col);
                 islot.Location.Y += row * -islot.Size.Y - fodder*(1+row);
                 InventorySlots.Add(islot);
-                GameState.Drawables.RegisterInteractable(islot);
                 return true;
             }
 

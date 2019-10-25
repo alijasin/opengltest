@@ -43,10 +43,10 @@ namespace OpenGLTests.src
             //todo: i think theres a bug and with adding and removing entities while we are drawing. Fix this so we don't have to try catch and sometimes not render.
             try
             {
-                //var size = GameState.Drawables.GetAllDrawables.Count;
-                //List<Drawable> drawables = new List<Drawable>(size);
-                //drawables = GameState.Drawables.GetAllDrawables.GetRange(0, size);
-                foreach (var ent in GameState.Drawables.GetAllEntities)
+                var size = GameState.Drawables.GetAllDrawables.Count;
+                List<Drawable> drawables = new List<Drawable>(size);
+                drawables = GameState.Drawables.GetAllDrawables.GetRange(0, size);
+                foreach (var ent in drawables)
                 {
                     ent.DrawStep(drawer);
                 }
@@ -109,16 +109,7 @@ namespace OpenGLTests.src
                 input =>
                 {
                     GameCoordinate clicked = new GameCoordinate(input.MouseButtonArgs.X, input.MouseButtonArgs.Y);
-                    var xd = GameState.Drawables.GetAllDrawables.Where(d => d is IInteractable).ToList();
-                    foreach (IInteractable i in xd)
-                    {
-                        if (i.Contains(clicked))
-                        {
-                            i.OnInteraction.Invoke();
-                        }
-                    }
 
-                    //todo move all interactables from drawables to interactables
                     foreach (var i in GameState.Drawables.GetAllInteractables)
                     {
                         if (i.Contains(clicked))

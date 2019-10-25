@@ -47,7 +47,6 @@ namespace OpenGLTests.src
             Source = source;
 
             Marker = new ActionMarker(new GameCoordinate(0,0));
- 
             Marker.Visible = false;
             if (source != null)
             {

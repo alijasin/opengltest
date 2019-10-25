@@ -37,8 +37,10 @@ namespace OpenGLTests.src.Drawables
 
         public RangeShape(IShape shape, IFollowable following)
         {
+            this.Visible = false;
             this.Shape = shape;
             this.Following = following;
+            GameState.Drawables.Add(this);
         }
 
         public override GameCoordinate Location
@@ -58,6 +60,7 @@ namespace OpenGLTests.src.Drawables
 
         public override void DrawStep(DrawAdapter drawer)
         {
+            if (IsInfinite) return;
             if(Visible) Shape.DrawStep(drawer, Location);
         }
     }

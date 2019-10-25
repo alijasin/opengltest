@@ -14,7 +14,7 @@ namespace OpenGLTests.src.Drawables
         private Color toggleColor;
         public Button() : this(new GLCoordinate(0.2f, 0.2f))
         {
-
+            GameState.Drawables.RegisterInteractable(this);
         }
 
         public Button(GLCoordinate size)
