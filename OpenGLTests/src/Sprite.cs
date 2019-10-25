@@ -176,6 +176,24 @@ namespace OpenGLTests.src
             { SpriteID.floor_8, 12 },
         })
         { }
+
+        //todo make this more beautiful
+        public SpriteID GetRandom()
+        {
+            var rng = RNG.IntegerBetween(0, 8);
+            switch (rng)
+            {
+                case 0: return SpriteID.floor_1;
+                case 1: return SpriteID.floor_2;
+                case 2: return SpriteID.floor_3;
+                case 3: return SpriteID.floor_4;
+                case 4: return SpriteID.floor_5;
+                case 5: return SpriteID.floor_6;
+                case 6: return SpriteID.floor_7;
+                case 7: return SpriteID.floor_8;
+                default: return SpriteID.missing;
+            }
+        }
     }
 
     class SpriteSheet_Stuff : SpriteSheet

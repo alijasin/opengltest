@@ -26,45 +26,7 @@ namespace OpenGLTests.src.Drawables
 
         public RangeShape AggroShape { get; set; }
         public bool InCombat { get; set; }
-
-
-        /*bool ICombatable.InCombat
-        {
-            get
-            {
-                return this.InCombat;
-            }
-            set
-            {
-                //if (this.InCombat == value) return; //already set in combat
-                this.InCombat = value;
-                ActionHandler.Dispose();
-
-                
-                actionIndex = 0;
-                if (InCombat)
-                {
-                    Console.WriteLine("entered combat");
-                    var defaultAction = ActionBar.GetDefaultButton().GameAction;
-                    defaultAction.RangeShape.IsInfinite = false; //assumes that the default action sh ouldnt be infinite in combat. 
-                    ActionHandler.Dispose();
-                    ActionHandler = new CombatActionHandler(this);
-                    waitingForActionCommit = true;
-                }
-                else
-                {
-                    Console.WriteLine("left combat");
-                    var defaultAction = ActionBar.GetDefaultButton().GameAction;
-                    defaultAction.RangeShape.IsInfinite = true;
-                    ActionHandler.Dispose();
-                    ActionHandler = new OutOfCombatActionHandler(this);
-                }
-
-                SetDefaultAction();
-            }
-        }*/
-
-        private bool waitingForActionCommit = true;
+        private bool waitingForActionCommit = true; //todo remove this and call the commit from interaction button directly.
 
         public Hero()
         {
@@ -173,7 +135,6 @@ namespace OpenGLTests.src.Drawables
                 ActionHandler = new OutOfCombatActionHandler(this);
                 SetDefaultAction();
             }
-
         }
 
         public void OnAggro(ICombatable aggroed)
@@ -184,8 +145,8 @@ namespace OpenGLTests.src.Drawables
 
             ActionHandler.Dispose();
 
+            //if we are in aggro already and we aggro another one this will reset. Todo:
             actionIndex = 0;
-            Console.WriteLine("entered combat");
             var defaultAction = ActionBar.GetDefaultButton().GameAction;
             defaultAction.RangeShape.IsInfinite = false; //assumes that the default action sh ouldnt be infinite in combat. 
             ActionHandler.Dispose();

@@ -74,6 +74,7 @@
     <Compile Include="src\Drawables\Entities\Swamper.cs" />
     <Compile Include="src\Drawables\Entities\Unicorn.cs" />
     <Compile Include="src\DrawableRepository.cs" />
+    <Compile Include="src\Drawables\Terrain\Floor.cs" />
     <Compile Include="src\GameAction.cs" />
     <Compile Include="src\GameConsole.cs" />
     <Compile Include="src\GameController.cs" />

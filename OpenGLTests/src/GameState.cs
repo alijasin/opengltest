@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using OpenGLTests.src.Drawables;
 using OpenGLTests.src.Drawables.Entities;
+using OpenGLTests.src.Drawables.Terrain;
 using OpenGLTests.src.Entities;
 using OpenGLTests.src.Util;
 using OpenTK.Graphics.OpenGL;
@@ -21,9 +22,15 @@ namespace OpenGLTests.src
         public GameState()
         {
             GameConsole.Init();
+            for (int x = -10; x < 20; x++)
+            {
+                for (int y = -10; y < 20; y++)
+                {
+                    GameState.Drawables.Add(new Floor(new GameCoordinate(0.1f * x, 0.1f * y)));
+                }
+            }
             Hero = new Hero();
             Drawables.Add(Hero);
-
             LoadRoom();
             //LoadTestRoom();
             //RoomLoader.LoadRoom(RoomLoader.Room.RandomGenerated);
@@ -56,6 +63,8 @@ namespace OpenGLTests.src
         //todo: create class room and let room load entities from a file.
         private void LoadRoom()
         {
+
+
             var angerdude = new AngryDude(new GameCoordinate(0.2f, 0.8f));
             Drawables.Add(angerdude);
 
@@ -68,8 +77,8 @@ namespace OpenGLTests.src
             var swamper = new Swamper(new GameCoordinate(0.5f, -0.5f));
             Drawables.Add(swamper);
 
-            var unicorn = new Unicorn(new GameCoordinate(-0.5f, 0), Hero);
-            Drawables.Add(unicorn);
+            //var unicorn = new Unicorn(new GameCoordinate(-0.5f, 0), Hero);
+            //Drawables.Add(unicorn);
 
         }
 

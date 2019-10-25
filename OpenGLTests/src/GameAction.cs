@@ -114,7 +114,7 @@ namespace OpenGLTests.src
         {
             RangeShape = new RangeShape(new Circle(new GLCoordinate(0.5f, 0.5f)), source);
             RangeShape.Visible = false;
-            Marker = new AOEMarker(new GameCoordinate(0.5f, 0.5f), new RangeShape(new Circle(new GLCoordinate(0.5f, 0.5f)), source));
+            Marker = new AOEMarker(new GameCoordinate(0.5f, 0.5f), new RangeShape(new Circle(new GLCoordinate(0.05f, 0.05f)), source));
         }
 
         public override Func<object, bool> GetAction()
