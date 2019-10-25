@@ -12,7 +12,7 @@ namespace OpenGLTests.src
     /// <summary>
     /// Contains a list of game actions that will be executed and returns the execution status.
     /// </summary>
-    abstract class ActionPattern
+    public abstract class ActionPattern
     {
         public abstract void InitPattern();
         public List<GameAction> Actions;

@@ -15,6 +15,7 @@ namespace OpenGLTests.src.Drawables
         public ActionHandler ActionHandler { get; set; }
         private ActionBar ActionBar { get; set; }
         public int HitPoints { get; set; } = 1;
+        private HashSet<ICombatable> AggroFrom = new HashSet<ICombatable>();
 
         private void SetDefaultAction() => ActionBar.GetDefaultButton().OnInteraction.Invoke();
 
@@ -25,6 +26,7 @@ namespace OpenGLTests.src.Drawables
 
         public RangeShape AggroShape { get; set; }
         private bool InCombat { get; set; }
+
 
         bool ICombatable.InCombat
         {
@@ -76,7 +78,6 @@ namespace OpenGLTests.src.Drawables
 
             ActionHandler = new OutOfCombatActionHandler(this);
             InCombat = false;
-
             
             ActionBar.GetDefaultButton().OnInteraction.Invoke();//set default action to first action button in the action bar
             ActionHandler.SelectedAction.RangeShape.IsInfinite = true;//set it to infinite range
@@ -120,6 +121,9 @@ namespace OpenGLTests.src.Drawables
         private int actionIndex = 0;
         public void Step()
         {
+            if (AggroFrom.Count == 0) InCombat = false;
+            else InCombat = true;
+
             if (InCombat) CombatStep();
             else OutOfCombatStep();
         }
@@ -157,5 +161,18 @@ namespace OpenGLTests.src.Drawables
             }
             else actionIndex++;
         }
+
+        public void Deaggro(ICombatable deAggroed)
+        {
+            Console.WriteLine("hero deaggroed " + deAggroed);
+            AggroFrom.Remove(deAggroed);
+        }
+
+        public void OnAggro(ICombatable aggroed)
+        {
+            Console.WriteLine("hero aggroed " + aggroed);
+            AggroFrom.Add(aggroed);
+        }
+
     }
 }

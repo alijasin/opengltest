@@ -23,22 +23,34 @@ namespace OpenGLTests.src.Drawables
         Color Color { get; set; }
         int HitPoints { get; set; }
         void OnDeath();
+        void OnAggro(ICombatable aggroed);
     }
 
 
-    abstract class Hostile : Entity, ICombatable
+    public abstract class Hostile : Entity, ICombatable
     {
         //[JsonConverter(typeof(RoomLoader.ConcreteConverter<RangeCircle>))]
         [JsonIgnore]
         public RangeShape AggroShape { get; set; } 
         protected ActionPattern ActionPattern;
+        private ICombatable currentAggro;
         public bool InCombat { get; set; }
         public int HitPoints { get; set; }
 
         public void OnDeath()
         {
             Console.WriteLine("{0} died.", this);
+            if (currentAggro is Hero hero)
+            {
+                hero.Deaggro(this);
+            }
             this.Dispose();
+        }
+
+        public void OnAggro(ICombatable aggroed)
+        {
+            currentAggro = aggroed;
+            InCombat = true;
         }
 
         public void Step()
