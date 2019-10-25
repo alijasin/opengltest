@@ -21,8 +21,9 @@ namespace OpenGLTests.src
             {
                 Console.WriteLine("yayeet");
             };
-
+            
             container.AddElement(b);
+            GameState.Drawables.RegisterInteractable(b as IInteractable);
             GameState.Drawables.Add(container);
 
             Console.WriteLine("Console initialized.");

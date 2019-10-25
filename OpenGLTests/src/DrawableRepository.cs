@@ -9,14 +9,15 @@ using OpenGLTests.src.Entities;
 
 namespace OpenGLTests.src
 {
+    //Todo: this whole class is shit and you should feel bad.
     public class DrawableRepository
     {
         private static List<Drawable> drawableRepo { get; } = new List<Drawable>();
+        private static List<IInteractable> interactableRepo { get; } = new List<IInteractable>();
         public List<Drawable> GetAllDrawables => drawableRepo;
         public List<Entity> GetAllEntities => drawableRepo.Where(e => e is Entity).Cast<Entity>().ToList();
         public List<Element> GetAllElements => drawableRepo.Where(e => e is Element).Cast<Element>().ToList();
-        public List<IInteractable> GetAllInteractables => drawableRepo.Where(e => e is IInteractable).Cast<IInteractable>().ToList();
-
+        public List<IInteractable> GetAllInteractables => interactableRepo;
 
         public List<Hero> GetAllHeroes
         {
@@ -59,7 +60,19 @@ namespace OpenGLTests.src
             }
         }
 
+        /// <summary>
+        /// Register an interactable so that it can be interacted with. This function will not register the interactable's ondraw function to be called automatically.
+        /// </summary>
+        /// <param name="i"></param>
+        public void RegisterInteractable(IInteractable i)
+        {
+            interactableRepo.Add(i);
+        }
 
+        /// <summary>
+        /// Adds a drawable to the drawable repo. All drawable's onDraw function will be called on each render automatically.
+        /// </summary>
+        /// <param name="d"></param>
         public void Add(Drawable d)
         {
             drawableRepo.Add(d);
