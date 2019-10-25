@@ -15,7 +15,6 @@ namespace OpenGLTests.src
         public Hero Hero { get; set; }
         public static Camera ActiveCamera { get; set; }
         public static DrawableRepository Drawables = new DrawableRepository();
-        public static List<IInteractable> Interactables = new List<IInteractable>();
         public static bool Combat { get; set; } = false;
 
         public GameState()

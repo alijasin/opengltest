@@ -23,3 +23,5 @@ Currently this is solved by just try/catching these errors and proceeding. This 
 I think we should have some kind of queue when we add stuff to drawables and add it before each draw. Although this might be quite the overhead. 
 In either way the current way will not be acceptable later on.
 Difficulty 2-8.
+
+Children of some things that are drawn are drawn from their parent instead of being added to the huge drawable repo. This means that we don't add them to the repo. But then they won't be registered for OnClick stuff.

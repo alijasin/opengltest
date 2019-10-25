@@ -119,7 +119,7 @@ namespace OpenGLTests.src
                     }
 
                     //todo move all interactables from drawables to interactables
-                    foreach (var i in GameState.Interactables)
+                    foreach (var i in GameState.Drawables.GetAllInteractables)
                     {
                         if (i.Contains(clicked))
                         {
