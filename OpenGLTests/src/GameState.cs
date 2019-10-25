@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using OpenGLTests.src.Drawables;
+using OpenGLTests.src.Drawables.Entities;
 using OpenGLTests.src.Entities;
 using OpenGLTests.src.Util;
 using OpenTK.Graphics.OpenGL;

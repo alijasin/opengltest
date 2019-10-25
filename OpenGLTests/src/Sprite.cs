@@ -117,6 +117,40 @@ namespace OpenGLTests.src
         }
     }
 
+    class SpriteSheet_BigDemonRun : SpriteSheet
+    {
+        public SpriteSheet_BigDemonRun() : base(new Dictionary<SpriteID, int>()
+        {
+            { SpriteID.big_demon_run_anim_f0, 12 },
+            { SpriteID.big_demon_run_anim_f1, 12 },
+            { SpriteID.big_demon_run_anim_f2, 12 },
+            { SpriteID.big_demon_run_anim_f3, 12 }
+        })
+        { }
+    }
+    class SpriteSheet_OgreRun : SpriteSheet
+    {
+        public SpriteSheet_OgreRun() : base(new Dictionary<SpriteID, int>()
+        {
+            { SpriteID.ogre_run_anim_f0, 12 },
+            { SpriteID.ogre_run_anim_f1, 12 },
+            { SpriteID.ogre_run_anim_f2, 12 },
+            { SpriteID.ogre_run_anim_f3, 12 }
+        })
+        { }
+    }
+
+    class SpriteSheet_BigZombieRun : SpriteSheet
+    {
+        public SpriteSheet_BigZombieRun() : base(new Dictionary<SpriteID, int>()
+        {
+            { SpriteID.big_zombie_run_anim_f0, 12 },
+            { SpriteID.big_zombie_run_anim_f1, 12 },
+            { SpriteID.big_zombie_run_anim_f2, 12 },
+            { SpriteID.big_zombie_run_anim_f3, 12 }
+        })
+        { }
+    }
     class SpriteSheet_ElfIdle : SpriteSheet
     {
         public SpriteSheet_ElfIdle() : base(new Dictionary<SpriteID, int>()
@@ -127,6 +161,7 @@ namespace OpenGLTests.src
         })
         { }
     }
+
 
     class SpriteSheet_Floor : SpriteSheet
     {
