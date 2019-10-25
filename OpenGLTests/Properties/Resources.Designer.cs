@@ -1283,6 +1283,16 @@ namespace OpenGLTests.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap icon_snap_to_grid {
+            get {
+                object obj = ResourceManager.GetObject("icon_snap_to_grid", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap imp_idle_anim_f0 {
             get {
                 object obj = ResourceManager.GetObject("imp_idle_anim_f0", resourceCulture);

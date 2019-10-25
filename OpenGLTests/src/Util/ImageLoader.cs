@@ -66,6 +66,7 @@ namespace OpenGLTests.src.Util
         item_flask_big_green,
         item_apple,
 
+        icon_snap_to_grid,
 
 
     }
@@ -128,6 +129,8 @@ namespace OpenGLTests.src.Util
             Images[SpriteID.item_flask_big_red] = new Bitmap(Properties.Resources.flask_big_red);
             Images[SpriteID.item_flask_big_green] = new Bitmap(Properties.Resources.flask_big_green);
             Images[SpriteID.item_apple] = new Bitmap(Properties.Resources.apple);
+
+            Images[SpriteID.icon_snap_to_grid] = new Bitmap(Properties.Resources.icon_snap_to_grid);
 
 
             Images[SpriteID.missing] = new Bitmap(Properties.Resources.empty);

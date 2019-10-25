@@ -225,7 +225,8 @@ namespace OpenGLTests.src
             { SpriteID.action_move, 5 },
             { SpriteID.action_attack, 5 },
             { SpriteID.action_charge, 5 },
-            { SpriteID.floor_1, 5 }
+            { SpriteID.floor_1, 5 },
+            { SpriteID.icon_snap_to_grid, 5}
 
         })
         { }

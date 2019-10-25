@@ -47,12 +47,26 @@ namespace OpenGLTests.src
         public GameConsole GameConsole;
         public static DrawableRepository Drawables = new DrawableRepository();
         public static Drawable CurrentlySelected { get; set; }
+        public static Button SnapToGridButton { get; set; }
+        List<Line> gridLines = new List<Line>();
+        private bool SnapToGrid = false;
+
         public EditorScreen()
         {
             GameConsole = new GameConsole();
             Drawables.Add(GameConsole.container);
             GameConsole.AddDrawableToBar(new Crate(new GameCoordinate(0,0)));
             GameConsole.AddDrawableToBar(new AngryDude(new GameCoordinate(0, 0)));
+
+            SnapToGridButton = new Button(new GLCoordinate(0.1f, 0.1f));
+            GameState.Drawables.RegisterInteractable(SnapToGridButton);
+            SnapToGridButton.Animation = new Animation(new SpriteSheet_Icons());
+            SnapToGridButton.Animation.IsStatic = true;
+            SnapToGridButton.Animation.SetSprite(SpriteID.icon_snap_to_grid);
+            SnapToGridButton.Location = new GLCoordinate(0, 0.95f);
+            SnapToGridButton.OnInteraction = () => { SnapToGrid = !SnapToGrid; };
+            Drawables.Add(SnapToGridButton);
+
         }
 
         public override void Draw(DrawAdapter drawer)
@@ -60,18 +74,12 @@ namespace OpenGLTests.src
             GL.PushMatrix();
             GL.Translate(-new GameCoordinate(0, 0).X, -new GameCoordinate(0, 0).Y, 0);
             ActiveCamera.Step();
-           // try
-            {
-                foreach (var ent in Drawables.GetAllDrawables)
-                {
-                    ent.DrawStep(drawer);
-                }
 
-            }
-            //catch (Exception e)
+            foreach (var ent in Drawables.GetAllDrawables)
             {
-            //    Console.WriteLine(e);
+                ent.DrawStep(drawer);
             }
+
             GL.PopMatrix();
         }
 
@@ -115,14 +123,13 @@ namespace OpenGLTests.src
 
                     GameCoordinate clicked = new GameCoordinate(input.MouseButtonArgs.X, input.MouseButtonArgs.Y);
                     var xd = CoordinateFuckery.ClickToGLRelativeToCamera(clicked, new GameCoordinate(0, 0));
-                    if (!GameConsole.container.Contains(clicked) && CurrentlySelected != null)
+
+                    if (!GameConsole.container.Contains(clicked) && !SnapToGridButton.Contains(clicked) && CurrentlySelected != null)
                     {
+                        if (SnapToGrid) xd = RNG.SnapCoordinate(xd, new GameCoordinate(0.1f, 0.1f));
                         CurrentlySelected.Location = xd;
                         Drawables.Add(CurrentlySelected);
                         CurrentlySelected = CurrentlySelected.Clone() as Drawable;
-                        //var xde = Cloner.CloneJson(CurrentlySelected);
-                        //xde.Location = xd;
-                        //Drawables.Add(xde);
                     }
          
 

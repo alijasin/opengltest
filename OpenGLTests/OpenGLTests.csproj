@@ -1117,6 +1117,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="known bugs.txt" />
+    <None Include="Resources\snap-to-grid-1-636500.png" />
     <None Include="Resources\burrowing_swamper_f12.png" />
     <None Include="Resources\burrowing_swamper_f11.png" />
     <None Include="Resources\burrowing_swamper_f10.png" />
