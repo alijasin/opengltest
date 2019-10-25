@@ -13,13 +13,13 @@ namespace OpenGLTests.src.Drawables
         Dashed
     }
 
-    public abstract class Line : Drawable
+    public class Line : Drawable
     {
         public virtual GameCoordinate Origin { get; set; }
         public virtual GameCoordinate Terminus { get; set; }
         public LineType LineType = LineType.Solid;
 
-        protected Line(GameCoordinate origin, GameCoordinate terminus, LineType LineType = LineType.Solid)
+        public Line(GameCoordinate origin, GameCoordinate terminus, LineType LineType = LineType.Solid)
         {
             this.Origin = origin;
             this.Terminus = terminus;

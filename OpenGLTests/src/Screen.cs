@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Reflection;
 using System.Text;
@@ -58,13 +59,30 @@ namespace OpenGLTests.src
             GameConsole.AddDrawableToBar(new Crate(new GameCoordinate(0,0)));
             GameConsole.AddDrawableToBar(new AngryDude(new GameCoordinate(0, 0)));
 
+            /*for (int x = -10; x < 20; x++)
+            {
+                for (int y = -10; y < 20; y++)
+                {
+                    var xline = new Line(new GameCoordinate(-1f, y * 0.1f), new GameCoordinate(1f, y * 0.1f));
+                    gridLines.Add(xline);
+                    Drawables.Add(xline);
+                }
+            }*/
+
             SnapToGridButton = new Button(new GLCoordinate(0.1f, 0.1f));
             GameState.Drawables.RegisterInteractable(SnapToGridButton);
             SnapToGridButton.Animation = new Animation(new SpriteSheet_Icons());
             SnapToGridButton.Animation.IsStatic = true;
             SnapToGridButton.Animation.SetSprite(SpriteID.icon_snap_to_grid);
             SnapToGridButton.Location = new GLCoordinate(0, 0.95f);
-            SnapToGridButton.OnInteraction = () => { SnapToGrid = !SnapToGrid; };
+            SnapToGridButton.OnInteraction = () =>
+            {
+                SnapToGrid = !SnapToGrid;
+                foreach (var gline in gridLines)
+                {
+                    gline.Visible = SnapToGrid;
+                }
+            };
             Drawables.Add(SnapToGridButton);
 
         }
@@ -80,6 +98,18 @@ namespace OpenGLTests.src
                 ent.DrawStep(drawer);
             }
 
+            if (SnapToGrid)
+            {
+                for (int x = -10; x < 20; x++)
+                {
+                    drawer.DrawLine(new GLCoordinate(x*0.1f, -1), new GLCoordinate(x*0.1f, 1), Color.Chocolate, LineType.Solid);
+                }
+                for (int y = -10; y < 20; y++)
+                {
+                    drawer.DrawLine(new GLCoordinate(-1f, y * 0.1f), new GLCoordinate(1f, y * 0.1f), Color.Chocolate, LineType.Solid);
+                }
+            }
+
             GL.PopMatrix();
         }
 
@@ -88,25 +118,25 @@ namespace OpenGLTests.src
             // Keyboard
             Bind(new Hotkey(
                 input => input.IsKeyboardInput && input.KeyboardArgs.Key == OpenTK.Input.Key.D,
-                _ => ActiveCamera.Speed.X = 0.01f,
+                _ => ActiveCamera.Speed.X = 0.05f,
                 _ => ActiveCamera.Speed.X = 0
             ));
 
             Bind(new Hotkey(
                 input => input.IsKeyboardInput && input.KeyboardArgs.Key == OpenTK.Input.Key.A,
-                _ => ActiveCamera.Speed.X = -0.01f,
+                _ => ActiveCamera.Speed.X = -0.05f,
                 _ => ActiveCamera.Speed.X = 0
             ));
 
             Bind(new Hotkey(
                 input => input.IsKeyboardInput && input.KeyboardArgs.Key == OpenTK.Input.Key.W,
-                _ => ActiveCamera.Speed.Y = -0.01f,
+                _ => ActiveCamera.Speed.Y = -0.05f,
                 _ => ActiveCamera.Speed.Y = 0
             ));
 
             Bind(new Hotkey(
                 input => input.IsKeyboardInput && input.KeyboardArgs.Key == OpenTK.Input.Key.S,
-                _ => ActiveCamera.Speed.Y = 0.01f,
+                _ => ActiveCamera.Speed.Y = 0.05f,
                 _ => ActiveCamera.Speed.Y = 0
             ));
             Bind(new Hotkey(

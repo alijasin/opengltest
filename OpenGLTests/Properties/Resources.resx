@@ -484,6 +484,9 @@
   <data name="ice_zombie_run_anim_f3" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\ice_zombie_run_anim_f3.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="icon_snap_to_grid" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\snap-to-grid-1-636500.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="imp_idle_anim_f0" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\imp_idle_anim_f0.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
