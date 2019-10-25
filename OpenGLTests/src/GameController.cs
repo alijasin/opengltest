@@ -43,4 +43,13 @@ namespace OpenGLTests.src
             Game.Step();
         }
     }
+
+    public class EditorController
+    {
+        public void Init()
+        {
+            var gscreen = new EditorScreen();
+            GraphicsController.ActiveScreen = gscreen;
+        }
+    }
 }

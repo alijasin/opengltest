@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,12 +11,24 @@ namespace OpenGLTests
 {
     class Program
     {
+        public static bool EDITOR = true;
         static void Main(string[] args)
         {
             GraphicsController.Init();
             //InputController.Init();
-            GameController gc = new GameController();
-            gc.StartGame();
+
+
+            if (EDITOR == false)
+            {
+                GameController gc = new GameController();
+                gc.StartGame();
+            }
+            else
+            {
+                EditorController ec = new EditorController();
+                ec.Init();
+            }
+
         }
     }
 }

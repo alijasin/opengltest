@@ -32,8 +32,8 @@ namespace OpenGLTests.src.Drawables
         {
             if (Visible)
             {
-                GLCoordinate GLo = Origin.ToGLCoordinate(GameState.ActiveCamera.Location);
-                GLCoordinate GLt = Terminus.ToGLCoordinate(GameState.ActiveCamera.Location);
+                GLCoordinate GLo = Origin.ToGLCoordinate();
+                GLCoordinate GLt = Terminus.ToGLCoordinate();
                 drawer.DrawLine(GLo, GLt, Color, LineType);
             }
         }

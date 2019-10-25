@@ -32,7 +32,7 @@ namespace OpenGLTests.src
             if (sprite == null) return;
             //todo: do this before entering draw
             GLCoordinate location;
-            if (drawable is Entity) location = drawable.Location.ToGLCoordinate(GameState.ActiveCamera.Location);
+            if (drawable is Entity) location = drawable.Location.ToGLCoordinate();
             else
             {
                 location = ((Element)drawable).Location;

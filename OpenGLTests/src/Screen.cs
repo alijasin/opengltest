@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using OpenGLTests.src.Drawables;
+using OpenGLTests.src.Entities;
 using OpenGLTests.src.Util;
 using OpenTK.Graphics.OpenGL;
 using OpenTK.Input;
@@ -14,10 +15,13 @@ namespace OpenGLTests.src
     {
         public abstract void Draw(DrawAdapter drawer);
         protected List<HotkeyMapping> Keybindings { get; } = new List<HotkeyMapping>();
-       
+        public static Camera ActiveCamera { get; set; }
+
         public Screen()
         {
             SetupInputBindings();
+            var staticCamera = new MovableCamera(new GameCoordinate(0, 0));
+            Screen.ActiveCamera = staticCamera;
         }
 
         public virtual void HandleInput(InputUnion input)
@@ -29,6 +33,79 @@ namespace OpenGLTests.src
         }
 
         protected abstract void SetupInputBindings();
+
+        protected void Bind(Hotkey hotkey)
+        {
+            Keybindings.Add(hotkey.Activate);
+            Keybindings.Add(hotkey.Deactivate);
+        }
+    }
+
+    class EditorScreen : Screen
+    {
+        List<Drawable> drawables = new List<Drawable>();
+        public override void Draw(DrawAdapter drawer)
+        {
+            GL.PushMatrix();
+            GL.Translate(-new GameCoordinate(0, 0).X, -new GameCoordinate(0, 0).Y, 0);
+            
+            try
+            {
+                foreach (var ent in drawables)
+                {
+                    ent.DrawStep(drawer);
+                }
+
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+            }
+            GL.PopMatrix();
+        }
+
+        protected override void SetupInputBindings()
+        {
+            // Keyboard
+            Bind(new Hotkey(
+                input => input.IsKeyboardInput && input.KeyboardArgs.Key == OpenTK.Input.Key.D,
+                _ => ActiveCamera.Speed.X = 0.01f,
+                _ => ActiveCamera.Speed.X = 0
+            ));
+
+            Bind(new Hotkey(
+                input => input.IsKeyboardInput && input.KeyboardArgs.Key == OpenTK.Input.Key.A,
+                _ => ActiveCamera.Speed.X = -0.01f,
+                _ => ActiveCamera.Speed.X = 0
+            ));
+
+            Bind(new Hotkey(
+                input => input.IsKeyboardInput && input.KeyboardArgs.Key == OpenTK.Input.Key.W,
+                _ => ActiveCamera.Speed.Y = -0.01f,
+                _ => ActiveCamera.Speed.Y = 0
+            ));
+
+            Bind(new Hotkey(
+                input => input.IsKeyboardInput && input.KeyboardArgs.Key == OpenTK.Input.Key.S,
+                _ => ActiveCamera.Speed.Y = 0.01f,
+                _ => ActiveCamera.Speed.Y = 0
+            ));
+
+            // Mouse
+            Bind(new Hotkey(
+                input => input.IsMouseInput && input.MouseButtonArgs.Button == MouseButton.Left,
+                input =>
+                {
+                    GameCoordinate clicked = new GameCoordinate(input.MouseButtonArgs.X, input.MouseButtonArgs.Y);
+
+                    drawables.Add(new AngryDude(clicked));
+                },
+                input =>
+                {
+
+                }
+            ));
+        }
     }
 
     class GameScreen : Screen
@@ -70,26 +147,26 @@ namespace OpenGLTests.src
             // Keyboard
             Bind(new Hotkey(
                 input => input.IsKeyboardInput && input.KeyboardArgs.Key == OpenTK.Input.Key.D,
-                _ => GameState.ActiveCamera.Speed.X = 0.01f,
-                _ => GameState.ActiveCamera.Speed.X = 0
+                _ => ActiveCamera.Speed.X = 0.01f,
+                _ => ActiveCamera.Speed.X = 0
             ));
 
             Bind(new Hotkey(
                 input => input.IsKeyboardInput && input.KeyboardArgs.Key == OpenTK.Input.Key.A,
-                _ => GameState.ActiveCamera.Speed.X = -0.01f,
-                _ => GameState.ActiveCamera.Speed.X = 0
+                _ => ActiveCamera.Speed.X = -0.01f,
+                _ => ActiveCamera.Speed.X = 0
             ));
 
             Bind(new Hotkey(
                 input => input.IsKeyboardInput && input.KeyboardArgs.Key == OpenTK.Input.Key.W,
-                _ => GameState.ActiveCamera.Speed.Y = -0.01f,
-                _ => GameState.ActiveCamera.Speed.Y = 0
+                _ => ActiveCamera.Speed.Y = -0.01f,
+                _ => ActiveCamera.Speed.Y = 0
             ));
 
             Bind(new Hotkey(
                 input => input.IsKeyboardInput && input.KeyboardArgs.Key == OpenTK.Input.Key.S,
-                _ => GameState.ActiveCamera.Speed.Y = 0.01f,
-                _ => GameState.ActiveCamera.Speed.Y = 0
+                _ => ActiveCamera.Speed.Y = 0.01f,
+                _ => ActiveCamera.Speed.Y = 0
             ));
 
             Bind(new Hotkey(
@@ -169,11 +246,7 @@ namespace OpenGLTests.src
 
         }
 
-        public void Bind(Hotkey hotkey)
-        {
-            Keybindings.Add(hotkey.Activate);
-            Keybindings.Add(hotkey.Deactivate);
-        }
+
 
     }
 

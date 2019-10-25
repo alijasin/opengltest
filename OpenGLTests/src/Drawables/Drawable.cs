@@ -54,7 +54,7 @@ namespace OpenGLTests.src.Drawables
 
         public override void DrawStep(DrawAdapter drawer)
         {
-            GLCoordinate location = Location.ToGLCoordinate(GameState.ActiveCamera.Location);
+            GLCoordinate location = Location.ToGLCoordinate();
             if (Visible)
             {
                 if (Animation == null)

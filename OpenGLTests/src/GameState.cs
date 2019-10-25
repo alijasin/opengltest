@@ -15,7 +15,6 @@ namespace OpenGLTests.src
     public class GameState
     {
         public Hero Hero { get; set; }
-        public static Camera ActiveCamera { get; set; }
         public static DrawableRepository Drawables = new DrawableRepository();
         public static bool Combat { get; set; } = false;
 
@@ -37,25 +36,27 @@ namespace OpenGLTests.src
             //var MouseParticleGenerator = new TestParticleGenerator(50);
             //Drawables.Add(MouseParticleGenerator);
 
+
+            //todo refactor this into screen
             var followCamera = new FollowCamera(Hero);
             var staticCamera = new MovableCamera(Hero.Location);
 
-            ActiveCamera = staticCamera;
+            Screen.ActiveCamera = staticCamera;
 
             Button testbutton = new Button();
             testbutton.Location = new GLCoordinate(-1, 1);
             testbutton.OnInteraction = () =>
             {
                 Console.WriteLine("Camera swap");
-                if (ActiveCamera is MovableCamera)
+                if (Screen.ActiveCamera is MovableCamera)
                 {
-                    ActiveCamera = followCamera;
+                    Screen.ActiveCamera = followCamera;
                 }
                 else
                 {
-                    ActiveCamera = staticCamera;
+                    Screen.ActiveCamera = staticCamera;
                 }
-                ActiveCamera.Location = Hero.Location;
+                Screen.ActiveCamera.Location = Hero.Location;
             };
             Drawables.Add(testbutton);
         }
@@ -115,7 +116,7 @@ namespace OpenGLTests.src
             }
 
 
-            ActiveCamera.Step();
+            Screen.ActiveCamera.Step();
         }
     }
 }

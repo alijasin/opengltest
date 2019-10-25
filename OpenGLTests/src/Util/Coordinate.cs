@@ -15,7 +15,7 @@ namespace OpenGLTests.src
             var x = Math.Abs(clicked.X - entityLocation.X);
             var y = Math.Abs(clicked.Y - entityLocation.Y);
             var gcc = new GLCoordinate(x * 2 / GibbWindow.WIDTH - 1, y * 2 / GibbWindow.HEIGHT - 1);
-            return new GameCoordinate(gcc.X + GameState.ActiveCamera.Location.X, gcc.Y + GameState.ActiveCamera.Location.Y);
+            return new GameCoordinate(gcc.X + Screen.ActiveCamera.Location.X, gcc.Y + Screen.ActiveCamera.Location.Y);
         }
 
 
@@ -37,10 +37,10 @@ namespace OpenGLTests.src
             return new GameCoordinate(X + x, Y + y);
         }
 
-        public GLCoordinate ToGLCoordinate(GameCoordinate cameraLocation)
+        public GLCoordinate ToGLCoordinate()
         {
-            var x = X - cameraLocation.X;
-            var y = -(Y - cameraLocation.Y);
+            var x = X - Screen.ActiveCamera.Location.X;
+            var y = -(Y - Screen.ActiveCamera.Location.Y);
 
             return new GLCoordinate(x, y);
         }
