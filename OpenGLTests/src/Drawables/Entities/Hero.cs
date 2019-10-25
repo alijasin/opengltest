@@ -25,10 +25,10 @@ namespace OpenGLTests.src.Drawables
         }
 
         public RangeShape AggroShape { get; set; }
-        private bool InCombat { get; set; }
+        public bool InCombat { get; set; }
 
 
-        bool ICombatable.InCombat
+        /*bool ICombatable.InCombat
         {
             get
             {
@@ -36,7 +36,7 @@ namespace OpenGLTests.src.Drawables
             }
             set
             {
-                if (this.InCombat == value) return; //already set in combat
+                //if (this.InCombat == value) return; //already set in combat
                 this.InCombat = value;
                 ActionHandler.Dispose();
 
@@ -62,7 +62,7 @@ namespace OpenGLTests.src.Drawables
 
                 SetDefaultAction();
             }
-        }
+        }*/
 
         private bool waitingForActionCommit = true;
 
@@ -101,7 +101,6 @@ namespace OpenGLTests.src.Drawables
 
         private void initGUI()
         {
-
             Button b = new Button();
             b.Location = new GLCoordinate(1, 1);
             b.OnInteraction += () =>
@@ -121,9 +120,6 @@ namespace OpenGLTests.src.Drawables
         private int actionIndex = 0;
         public void Step()
         {
-            if (AggroFrom.Count == 0) InCombat = false;
-            else InCombat = true;
-
             if (InCombat) CombatStep();
             else OutOfCombatStep();
         }
@@ -166,13 +162,36 @@ namespace OpenGLTests.src.Drawables
         {
             Console.WriteLine("hero deaggroed " + deAggroed);
             AggroFrom.Remove(deAggroed);
+            if (AggroFrom.Count == 0)
+            {
+                InCombat = false;
+
+                Console.WriteLine("left combat");
+                var defaultAction = ActionBar.GetDefaultButton().GameAction;
+                defaultAction.RangeShape.IsInfinite = true;
+                ActionHandler.Dispose();
+                ActionHandler = new OutOfCombatActionHandler(this);
+                SetDefaultAction();
+            }
+
         }
 
         public void OnAggro(ICombatable aggroed)
         {
             Console.WriteLine("hero aggroed " + aggroed);
             AggroFrom.Add(aggroed);
-        }
+            InCombat = true;
 
+            ActionHandler.Dispose();
+
+            actionIndex = 0;
+            Console.WriteLine("entered combat");
+            var defaultAction = ActionBar.GetDefaultButton().GameAction;
+            defaultAction.RangeShape.IsInfinite = false; //assumes that the default action sh ouldnt be infinite in combat. 
+            ActionHandler.Dispose();
+            ActionHandler = new CombatActionHandler(this);
+            waitingForActionCommit = true;
+            SetDefaultAction();
+        }
     }
 }

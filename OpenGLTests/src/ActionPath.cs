@@ -227,6 +227,7 @@ namespace OpenGLTests.src
             //  terminus: mouse click location
             //Rangeshape's location: last placed move location or hero's location if none placed.
             var lma = SubsequentlyPlacedActions.LastMoveAction();
+            
             IFollowable newFollow;
             if (lma != null)
             {
