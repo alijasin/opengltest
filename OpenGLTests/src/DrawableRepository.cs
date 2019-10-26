@@ -25,10 +25,10 @@ namespace OpenGLTests.src
 
         private List<Drawable> toRemove = new List<Drawable>();
 
+        //todo this is digusting and you should change it. Todo!!!
         private List<T> GetWhere<T>(Func<Drawable, bool> filter)
         {
-            object lockObj = 1;
-            lock (lockObj)
+            try
             {
                 foreach (var rem in toRemove.ToList())
                 {
@@ -40,6 +40,11 @@ namespace OpenGLTests.src
                 toAdd.Clear();
                 return drawableRepo.Where(filter).Cast<T>().ToList();
             }
+            catch (Exception e)
+            {
+                return GetWhere<T>(filter);
+            }
+
         }
 
         /// <summary>
@@ -66,6 +71,7 @@ namespace OpenGLTests.src
 
         public void Remove(Drawable d)
         {
+            object l = 1;
             toRemove.Add(d);
             //drawableRepo.Remove(d);
             //drawableRepo.TryTake(d);

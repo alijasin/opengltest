@@ -95,20 +95,25 @@ namespace OpenGLTests.src
                 return;
             }
 
-            foreach (ICombatable aggro in Drawables.GetAllCombatables.Where(c => c is ICombatable && !(c is Hero) && c.AggroShape != null && c.InCombat == false))
+            object l = 1;
+            lock (l)
             {
-                if (aggro.AggroShape.Contains(Hero.Location))
+                foreach (ICombatable aggro in Drawables.GetAllCombatables.Where(c => c is ICombatable && !(c is Hero) && c.AggroShape != null && c.InCombat == false).ToList())
                 {
-                    aggro.OnAggro(Hero);
-                    Hero.OnAggro(aggro);
+                    if (aggro.AggroShape.Contains(Hero.Location))
+                    {
+                        aggro.OnAggro(Hero);
+                        Hero.OnAggro(aggro);
+                    }
+                }
+
+                foreach (var combatable in Drawables.GetAllCombatables)
+                {
+                    combatable.Step();
+                    if (combatable.HitPoints <= 0) combatable.OnDeath();
                 }
             }
 
-            foreach (var combatable in Drawables.GetAllCombatables)
-            {
-                combatable.Step();
-                if(combatable.HitPoints <= 0) combatable.OnDeath();
-            }
 
 
             Screen.ActiveCamera.Step();

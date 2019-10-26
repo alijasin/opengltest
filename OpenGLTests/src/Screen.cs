@@ -277,26 +277,23 @@ namespace OpenGLTests.src
             //Cursor.Draw();
 
             //todo: i think theres a bug and with adding and removing entities while we are drawing. Fix this so we don't have to try catch and sometimes not render.
-            try
-            {
-                //var size = GameState.Drawables.GetAllDrawables.Count;
-                //List<Drawable> drawables = new List<Drawable>(size);
-                //drawables = GameState.Drawables.GetAllDrawables.GetRange(0, size);
-                var drawables = GameState.Drawables.GetAllDrawables.OrderBy(e=> e.Depth);
-                foreach (var ent in drawables)
+
+                object l = true;
+
+                lock (l)
                 {
-                    ent.DrawStep(drawer);
+                    var drawables = GameState.Drawables.GetAllDrawables.OrderBy(e => e.Depth);
+                    foreach (var ent in drawables)
+                    {
+                        ent.DrawStep(drawer);
+                    }
+
+                    foreach (var ele in GameState.Drawables.GetAllElements)
+                    {
+                        ele.DrawStep(drawer);
+                    }
                 }
 
-                foreach (var ele in GameState.Drawables.GetAllElements)
-                {
-                    ele.DrawStep(drawer);
-                }
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e);
-            }
 
             GL.PopMatrix();
         }

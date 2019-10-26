@@ -31,7 +31,6 @@ namespace OpenGLTests.src.Drawables
         public override void Dispose()
         {
             base.Dispose();
-            GameState.Drawables.Remove(this);
         }
     }
 
