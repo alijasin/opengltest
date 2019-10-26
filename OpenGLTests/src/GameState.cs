@@ -31,7 +31,7 @@ namespace OpenGLTests.src
             Drawables.Add(Hero);
             //LoadRoom();
             //LoadTestRoom();
-            RoomLoader.LoadRoom(RoomLoader.Room.TestSpace);
+            RoomLoader.LoadRoom(RoomLoader.Room.RandomGenerated);
             //var MouseParticleGenerator = new TestParticleGenerator(50);
             //Drawables.Add(MouseParticleGenerator);
 

@@ -36,7 +36,8 @@ namespace OpenGLTests.src
 
                 RoomGenerator.RecursiveBacktrackingMaze();
                 b.Color = Color.Green;
-                GameState.Drawables.Add(b);
+                GameState.Drawables.RegisterInteractable(b);
+                //GameState.Drawables.Add(b);
             }
             else EntitySerializer.LoadEntitiesFromFile(room.ToString());
         }
