@@ -31,9 +31,9 @@ namespace OpenGLTests.src
         {
             base.OnLoad(e);
             Console.WriteLine("Window loaded");
-            _program = Shader.CompileShaders();
+            /*_program = Shader.CompileShaders();
             GL.GenVertexArrays(1, out _vertexArray);
-            GL.BindVertexArray(_vertexArray);
+            GL.BindVertexArray(_vertexArray);*/
             Console.WriteLine("Shaders loaded");
             Closed += OnClosed;
         }
@@ -50,15 +50,13 @@ namespace OpenGLTests.src
             base.OnRenderFrame(e);
 
             GL.Clear(ClearBufferMask.ColorBufferBit);
-            GL.ClearColor(Color.Blue);
+            GL.ClearColor(Color.Black);
             GL.PushMatrix();
 
             var drawer = new DrawAdapter();
             RenderCallback(drawer);
             SwapBuffers();
             GL.PopMatrix();
-   
-
         }
 
         protected override void OnMouseMove(MouseMoveEventArgs e)

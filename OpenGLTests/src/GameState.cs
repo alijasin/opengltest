@@ -95,9 +95,7 @@ namespace OpenGLTests.src
                 return;
             }
 
-            var combatables = Drawables.GetAllCombatables;
-
-            foreach (ICombatable aggro in combatables.Where(c => c is ICombatable && !(c is Hero) && c.AggroShape != null && c.InCombat == false))
+            foreach (ICombatable aggro in Drawables.GetAllCombatables.Where(c => c is ICombatable && !(c is Hero) && c.AggroShape != null && c.InCombat == false))
             {
                 if (aggro.AggroShape.Contains(Hero.Location))
                 {
@@ -106,7 +104,7 @@ namespace OpenGLTests.src
                 }
             }
 
-            foreach (var combatable in combatables)
+            foreach (var combatable in Drawables.GetAllCombatables)
             {
                 combatable.Step();
                 if(combatable.HitPoints <= 0) combatable.OnDeath();

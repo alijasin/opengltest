@@ -279,10 +279,11 @@ namespace OpenGLTests.src
             //todo: i think theres a bug and with adding and removing entities while we are drawing. Fix this so we don't have to try catch and sometimes not render.
             try
             {
-                var size = GameState.Drawables.GetAllDrawables.Count;
-                List<Drawable> drawables = new List<Drawable>(size);
-                drawables = GameState.Drawables.GetAllDrawables.GetRange(0, size);
-                foreach (var ent in drawables)
+                GameState.Drawables.Update();
+                //var size = GameState.Drawables.GetAllDrawables.Count;
+                //List<Drawable> drawables = new List<Drawable>(size);
+                //drawables = GameState.Drawables.GetAllDrawables.GetRange(0, size);
+                foreach (var ent in GameState.Drawables.GetAllDrawables)
                 {
                     ent.DrawStep(drawer);
                 }
@@ -296,7 +297,6 @@ namespace OpenGLTests.src
             {
                 Console.WriteLine(e);
             }
-
 
             GL.PopMatrix();
         }
@@ -393,8 +393,8 @@ namespace OpenGLTests.src
                 {
 
                 }
-            ));
-            */
+            ));*/
+            
         }
 
 
