@@ -18,7 +18,7 @@ namespace OpenGLTests.src.Drawables
         public GLCoordinate Size { get; set; } = new GLCoordinate(0.1f, 0.1f);
         [JsonIgnore]
         public Animation Animation { get; set; }
-        public int Depth { get; set; } = 0;
+        public int Depth { get; set; } = 10;
 
         //todo: refactor this. We dont want drawable to  have game location. We want entity to have game location and element ot have gl location.
         private GameCoordinate location;

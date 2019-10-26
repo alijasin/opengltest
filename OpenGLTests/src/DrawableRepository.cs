@@ -16,12 +16,31 @@ namespace OpenGLTests.src
         private static List<IInteractable> interactableRepo { get; } = new List<IInteractable>();
         public List<IInteractable> GetAllInteractables => interactableRepo;
 
-        private static BlockingCollection<Drawable> drawableRepo { get; } = new BlockingCollection<Drawable>();
-        public List<Drawable> GetAllDrawables => drawableRepo.ToList();
-        public List<Entity> GetAllEntities => drawableRepo.Where(e => e is Entity).Cast<Entity>().ToList();
-        public List<Element> GetAllElements => drawableRepo.Where(e => e is Element).Cast<Element>().ToList();
+        private static List<Drawable> drawableRepo { get; } = new List<Drawable>();
+        public List<Drawable> GetAllDrawables => GetWhere<Drawable>(drawable => true);
+        public List<Entity> GetAllEntities => GetWhere<Entity>(drawable => drawable is Entity);
+        public List<Element> GetAllElements => GetWhere<Element>(drawable => drawable is Element);
+        public List<ICombatable> GetAllCombatables => GetWhere<ICombatable>(drawable => drawable is ICombatable);
         public List<Hero> GetAllHeroes => drawableRepo.Where(E => E is Hero).Cast<Hero>().ToList();
-        public List<ICombatable> GetAllCombatables => drawableRepo.Where(E => E is ICombatable).Cast<ICombatable>().ToList();
+
+        private List<Drawable> toRemove = new List<Drawable>();
+
+        private List<T> GetWhere<T>(Func<Drawable, bool> filter)
+        {
+            object lockObj = 1;
+            lock (lockObj)
+            {
+                foreach (var rem in toRemove.ToList())
+                {
+                    bool success = drawableRepo.Remove(rem);
+                    if (success) toRemove.Remove(rem);
+                }
+
+                drawableRepo.AddRange(toAdd);
+                toAdd.Clear();
+                return drawableRepo.Where(filter).Cast<T>().ToList();
+            }
+        }
 
         /// <summary>
         /// Register an interactable so that it can be interacted with. This function will not register the interactable's ondraw function to be called automatically.
@@ -38,28 +57,18 @@ namespace OpenGLTests.src
         }
 
         private List<Drawable> toAdd = new List<Drawable>();
+
         public void Add(Drawable d)
         {
-            drawableRepo.TryAdd(d, 1);
-            //toAdd.Add(d);
+            //drawableRepo.Add(d);
+            toAdd.Add(d);
         }
-        private List<Drawable> toRemove = new List<Drawable>();
+
         public void Remove(Drawable d)
         {
             toRemove.Add(d);
             //drawableRepo.Remove(d);
-        }
-
-        public void Update()
-        {
-            /*drawableRepo.AddRange(toAdd);
-            toAdd.Clear();*/
-
-            foreach (var tr in toRemove)
-            {
-                //Drawable res;
-                //drawableRepo.TryTake(out res);
-            }
+            //drawableRepo.TryTake(d);
         }
     }
 }

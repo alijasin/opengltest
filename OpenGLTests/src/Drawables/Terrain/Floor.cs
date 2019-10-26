@@ -17,6 +17,7 @@ namespace OpenGLTests.src.Drawables.Terrain
             Animation.IsStatic = true;
             Animation.SetSprite(sheet.GetRandom());
             Size = new GLCoordinate(0.1f, 0.1f);
+            Depth = 0;
         }
     }
 }

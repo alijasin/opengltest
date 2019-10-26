@@ -279,11 +279,11 @@ namespace OpenGLTests.src
             //todo: i think theres a bug and with adding and removing entities while we are drawing. Fix this so we don't have to try catch and sometimes not render.
             try
             {
-                GameState.Drawables.Update();
                 //var size = GameState.Drawables.GetAllDrawables.Count;
                 //List<Drawable> drawables = new List<Drawable>(size);
                 //drawables = GameState.Drawables.GetAllDrawables.GetRange(0, size);
-                foreach (var ent in GameState.Drawables.GetAllDrawables)
+                var drawables = GameState.Drawables.GetAllDrawables.OrderBy(e=> e.Depth);
+                foreach (var ent in drawables)
                 {
                     ent.DrawStep(drawer);
                 }
