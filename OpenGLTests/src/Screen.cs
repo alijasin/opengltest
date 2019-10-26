@@ -65,8 +65,8 @@ namespace OpenGLTests.src
             GameConsole.AddDrawableToBar(new ChasingPerson(new GameCoordinate(0, 0), null));
             GameConsole.AddDrawableToBar(new Swamper(new GameCoordinate(0, 0)));
             GameConsole.AddDrawableToBar(new PatrolGuy(new GameCoordinate(0, 0)));
-            
 
+            #region buttons
             SnapToGridButton = new Button(new GLCoordinate(0.1f, 0.1f));
             GameState.Drawables.RegisterInteractable(SnapToGridButton);
             SnapToGridButton.Animation = new Animation(new SpriteSheet_Icons());
@@ -129,6 +129,7 @@ namespace OpenGLTests.src
                 }
             };
             Drawables.Add(LoadButton);
+            #endregion
         }
 
         public override void Draw(DrawAdapter drawer)

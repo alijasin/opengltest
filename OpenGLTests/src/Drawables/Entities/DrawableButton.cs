@@ -18,6 +18,7 @@ namespace OpenGLTests.src.Drawables.Entities
                 Console.WriteLine(d + " clicked");
                 EditorScreen.CurrentlySelected = d.Clone() as Drawable;
             };
+            d.Dispose();
         }
     }
 }

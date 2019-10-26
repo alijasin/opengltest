@@ -348,7 +348,7 @@ namespace OpenGLTests.src
             this.point = point;
             this.Marker = new MoveMarker(point);
             this.ActionLine.LineType = LineType.Solid;
-            this.Marker.Visible = true;
+            this.Marker.Visible = false;
             this.Marker.Animation = new Animation(new SpriteSheet_Icons());
             this.Marker.Animation.SetSprite(SpriteID.action_move);
             this.Marker.Size = new GLCoordinate(0.05f, 0.05f);

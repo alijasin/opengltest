@@ -43,7 +43,8 @@ namespace OpenGLTests.src
         {
             foreach (var a in Actions)
             {
-                GameState.Drawables.Remove(a.Marker);
+                //GameState.Drawables.Remove(a.Marker);
+                a.Marker.Dispose();
                 GameState.Drawables.Remove(a.RangeShape);
             }
         }

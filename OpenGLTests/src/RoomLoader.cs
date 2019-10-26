@@ -20,7 +20,8 @@ namespace OpenGLTests.src
         {
             TestSpace,
             Overworld,
-            RandomGenerated
+            RandomGenerated,
+            TestEditorOutPut
             
         }
         public static void LoadRoom(Room room)
@@ -37,7 +38,7 @@ namespace OpenGLTests.src
                 RoomGenerator.RecursiveBacktrackingMaze();
                 b.Color = Color.Green;
                 GameState.Drawables.RegisterInteractable(b);
-                //GameState.Drawables.Add(b);
+                GameState.Drawables.Add(b);
             }
             else EntitySerializer.LoadEntitiesFromFile(room.ToString());
         }

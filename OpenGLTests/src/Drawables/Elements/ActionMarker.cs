@@ -76,7 +76,7 @@ namespace OpenGLTests.src.Drawables
     {
         public MoveMarker(GameCoordinate loc) : base(loc)
         {
-            //this.Color = Color.Aqua;
+
         }
     }
 }

@@ -49,9 +49,16 @@ namespace OpenGLTests.src.Util
             JArray entities = entitiesList["$values"] as JArray;
             foreach (var entity in entities)
             {
-                string sType = entity["$type"].ToString();
-                Type entityType = Type.GetType(sType);
-                dynamic xd = JsonConvert.DeserializeObject(entity.ToString(), entityType);
+                try
+                {
+                    string sType = entity["$type"].ToString();
+                    Type entityType = Type.GetType(sType);
+                    dynamic xd = JsonConvert.DeserializeObject(entity.ToString(), entityType);
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine("fucked up deserializing " + entity.GetType() + e);
+                }
             }
         }
 

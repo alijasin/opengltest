@@ -59,9 +59,9 @@
     <Compile Include="src\ActionPath.cs" />
     <Compile Include="src\ActionPattern.cs" />
     <Compile Include="src\Camera.cs" />
-    <Compile Include="src\Drawables\ActionBar.cs" />
-    <Compile Include="src\Drawables\ActionMarker.cs" />
-    <Compile Include="src\Drawables\Button.cs" />
+    <Compile Include="src\Drawables\Elements\ActionBar.cs" />
+    <Compile Include="src\Drawables\Elements\ActionMarker.cs" />
+    <Compile Include="src\Drawables\Elements\Button.cs" />
     <Compile Include="src\Drawables\Crate.cs" />
     <Compile Include="src\Drawables\Entities\Chaser.cs" />
     <Compile Include="src\Drawables\Entities\DrawableButton.cs" />
@@ -69,9 +69,9 @@
     <Compile Include="src\Drawables\Entities\Hostiles.cs" />
     <Compile Include="src\Drawables\Entities\PatrolGuy.cs" />
     <Compile Include="src\Drawables\Inventory.cs" />
-    <Compile Include="src\Drawables\Line.cs" />
-    <Compile Include="src\Drawables\Particle.cs" />
-    <Compile Include="src\Drawables\Rectangle.cs" />
+    <Compile Include="src\Drawables\Elements\Line.cs" />
+    <Compile Include="src\Drawables\Elements\Particle.cs" />
+    <Compile Include="src\Drawables\Elements\Rectangle.cs" />
     <Compile Include="src\Drawables\Entities\Swamper.cs" />
     <Compile Include="src\Drawables\Entities\Unicorn.cs" />
     <Compile Include="src\DrawableRepository.cs" />
@@ -88,7 +88,7 @@
     <Compile Include="src\Sprite.cs" />
     <Compile Include="src\Util\Coloring.cs" />
     <Compile Include="src\Util\Coordinate.cs" />
-    <Compile Include="src\Drawables\Circle.cs" />
+    <Compile Include="src\Drawables\Elements\Circle.cs" />
     <Compile Include="src\Drawables\Drawable.cs" />
     <Compile Include="src\DrawAdapter.cs" />
     <Compile Include="src\Drawables\Entities\Memer.cs" />

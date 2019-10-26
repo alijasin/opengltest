@@ -82,8 +82,8 @@ namespace OpenGLTests.src.Drawables
         public override void Dispose()
         {
             base.Dispose();
-            AggroShape.Dispose();
-            ActionPattern.Dispose();
+            if(AggroShape != null) AggroShape.Dispose();
+            if(ActionPattern != null) ActionPattern.Dispose();
         }
 
         protected void Add()
