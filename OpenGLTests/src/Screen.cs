@@ -59,10 +59,10 @@ namespace OpenGLTests.src
             Drawables.Add(GameConsole.container);
             GameConsole.AddDrawableToBar(new Crate(new GameCoordinate(0,0)));
             GameConsole.AddDrawableToBar(new AngryDude(new GameCoordinate(0, 0)));
-            /*GameConsole.AddDrawableToBar(new ChasingPerson(new GameCoordinate(0, 0), null));
+            GameConsole.AddDrawableToBar(new ChasingPerson(new GameCoordinate(0, 0), null));
             GameConsole.AddDrawableToBar(new Swamper(new GameCoordinate(0, 0)));
             GameConsole.AddDrawableToBar(new PatrolGuy(new GameCoordinate(0, 0)));
-            */
+            
 
             SnapToGridButton = new Button(new GLCoordinate(0.1f, 0.1f));
             GameState.Drawables.RegisterInteractable(SnapToGridButton);
