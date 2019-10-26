@@ -82,7 +82,7 @@ namespace OpenGLTests.src
                 if (elementSlot.ElementAt(filledSlots).Key != null)
                 {
                     //todo: this is a mess.
-                    elementSlot.ElementAt(filledSlots).Key.Dispose();
+                    //elementSlot.ElementAt(filledSlots).Key.Dispose();
                     EditorScreen.Drawables.Remove(elementSlot.ElementAt(filledSlots).Key);
                     elementSlot.Remove(elementSlot.ElementAt(filledSlots).Key);
                 }

@@ -15,7 +15,7 @@ namespace OpenGLTests.src.Drawables.Entities
             this.Animation.IsStatic = true;
             OnInteraction = () =>
             {
-                Console.WriteLine("db clicked");
+                Console.WriteLine(d + " clicked");
                 EditorScreen.CurrentlySelected = d.Clone() as Drawable;
             };
         }

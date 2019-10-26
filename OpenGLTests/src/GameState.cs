@@ -63,8 +63,6 @@ namespace OpenGLTests.src
         //todo: create class room and let room load entities from a file.
         private void LoadRoom()
         {
-
-
             var angerdude = new AngryDude(new GameCoordinate(0.2f, 0.8f));
             Drawables.Add(angerdude);
 

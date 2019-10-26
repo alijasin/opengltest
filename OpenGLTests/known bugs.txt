@@ -25,3 +25,6 @@ In either way the current way will not be acceptable later on.
 Difficulty 2-8.
 
 Children of some things that are drawn are drawn from their parent instead of being added to the huge drawable repo. This means that we don't add them to the repo. But then they won't be registered for OnClick stuff.
+
+Some mobs spawn at (0, 0) in editor view for some reason.
+Difficulty 3.

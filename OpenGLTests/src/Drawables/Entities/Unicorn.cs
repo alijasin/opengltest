@@ -21,8 +21,9 @@ namespace OpenGLTests.src.Drawables
 
         public override void DrawStep(DrawAdapter drawer)
         {
-            base.DrawStep(drawer);
-            pg.Draw(drawer);
+            if (!Visible) return;
+                base.DrawStep(drawer);
+             pg.Draw(drawer);
         }
     }
 }

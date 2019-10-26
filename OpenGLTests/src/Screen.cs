@@ -6,6 +6,7 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using OpenGLTests.src.Drawables;
+using OpenGLTests.src.Drawables.Entities;
 using OpenGLTests.src.Entities;
 using OpenGLTests.src.Util;
 using OpenTK.Graphics.OpenGL;
@@ -58,16 +59,10 @@ namespace OpenGLTests.src
             Drawables.Add(GameConsole.container);
             GameConsole.AddDrawableToBar(new Crate(new GameCoordinate(0,0)));
             GameConsole.AddDrawableToBar(new AngryDude(new GameCoordinate(0, 0)));
-
-            /*for (int x = -10; x < 20; x++)
-            {
-                for (int y = -10; y < 20; y++)
-                {
-                    var xline = new Line(new GameCoordinate(-1f, y * 0.1f), new GameCoordinate(1f, y * 0.1f));
-                    gridLines.Add(xline);
-                    Drawables.Add(xline);
-                }
-            }*/
+            /*GameConsole.AddDrawableToBar(new ChasingPerson(new GameCoordinate(0, 0), null));
+            GameConsole.AddDrawableToBar(new Swamper(new GameCoordinate(0, 0)));
+            GameConsole.AddDrawableToBar(new PatrolGuy(new GameCoordinate(0, 0)));
+            */
 
             SnapToGridButton = new Button(new GLCoordinate(0.1f, 0.1f));
             GameState.Drawables.RegisterInteractable(SnapToGridButton);
@@ -93,10 +88,17 @@ namespace OpenGLTests.src
             GL.Translate(-new GameCoordinate(0, 0).X, -new GameCoordinate(0, 0).Y, 0);
             ActiveCamera.Step();
 
-            foreach (var ent in Drawables.GetAllDrawables)
+            try
             {
-                ent.DrawStep(drawer);
+                foreach (var ent in Drawables.GetAllDrawables)
+                {
+                    ent.DrawStep(drawer);
+                }
             }
+            catch (Exception e)
+            {
+            }
+
 
             if (SnapToGrid)
             {
@@ -149,8 +151,6 @@ namespace OpenGLTests.src
                 input => input.IsMouseInput && input.MouseButtonArgs.Button == MouseButton.Left,
                 input =>
                 {
-                   
-
                     GameCoordinate clicked = new GameCoordinate(input.MouseButtonArgs.X, input.MouseButtonArgs.Y);
                     var xd = CoordinateFuckery.ClickToGLRelativeToCamera(clicked, new GameCoordinate(0, 0));
 
@@ -158,6 +158,7 @@ namespace OpenGLTests.src
                     {
                         if (SnapToGrid) xd = RNG.SnapCoordinate(xd, new GameCoordinate(0.1f, 0.1f));
                         CurrentlySelected.Location = xd;
+                        CurrentlySelected.Visible = true;
                         Drawables.Add(CurrentlySelected);
                         CurrentlySelected = CurrentlySelected.Clone() as Drawable;
                     }
@@ -174,6 +175,34 @@ namespace OpenGLTests.src
                 input =>
                 {
 
+                }
+            ));
+
+            Bind(new Hotkey(
+                input => input.IsMouseInput && input.MouseButtonArgs.Button == MouseButton.Right,
+                input =>
+                {
+
+                },
+                input =>
+                {
+                    GameCoordinate clicked = new GameCoordinate(input.MouseButtonArgs.X, input.MouseButtonArgs.Y);
+                    var xd = CoordinateFuckery.ClickToGLRelativeToCamera(clicked, new GameCoordinate(0, 0));
+                    
+                    List<Drawable> hackToRemove = new List<Drawable>();
+                    foreach (var d in Drawables.GetAllEntities)
+                    {
+                        if (xd.Distance(d.Location) < 0.1f)
+                        {
+                            hackToRemove.Add(d);
+                        }
+                    }
+                    foreach(var hack in hackToRemove)
+                    {
+                        hack.Visible = false;
+                        Drawables.Remove(hack);
+                    }
+                    
                 }
             ));
         }
