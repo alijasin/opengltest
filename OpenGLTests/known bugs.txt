@@ -28,3 +28,5 @@ Children of some things that are drawn are drawn from their parent instead of be
 
 Some mobs spawn at (0, 0) in editor view for some reason.
 Difficulty 3.
+
+Inventory items can be clicked when inventory is not visible. Think this should be fixed in IInteractable's contain. If(visible==false) return;

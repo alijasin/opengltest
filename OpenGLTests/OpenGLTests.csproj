@@ -59,6 +59,7 @@
     <Compile Include="src\ActionPath.cs" />
     <Compile Include="src\ActionPattern.cs" />
     <Compile Include="src\Camera.cs" />
+    <Compile Include="src\Drawables\Cursor.cs" />
     <Compile Include="src\Drawables\Elements\ActionBar.cs" />
     <Compile Include="src\Drawables\Elements\ActionMarker.cs" />
     <Compile Include="src\Drawables\Elements\Button.cs" />
@@ -80,6 +81,7 @@
     <Compile Include="src\GameConsole.cs" />
     <Compile Include="src\GameController.cs" />
     <Compile Include="src\IActionCapable.cs" />
+    <Compile Include="src\IBoomBox.cs" />
     <Compile Include="src\IInteractable.cs" />
     <Compile Include="src\Items.cs" />
     <Compile Include="src\Abilities.cs" />

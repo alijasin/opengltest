@@ -274,6 +274,8 @@ namespace OpenGLTests.src
             GL.PushMatrix();
             GL.Translate(-new GameCoordinate(0, 0).X, -new GameCoordinate(0, 0).Y , 0);
 
+            //Cursor.Draw();
+
             //todo: i think theres a bug and with adding and removing entities while we are drawing. Fix this so we don't have to try catch and sometimes not render.
             try
             {
@@ -337,7 +339,6 @@ namespace OpenGLTests.src
                 input =>
                 {
                     GameCoordinate clicked = new GameCoordinate(input.MouseButtonArgs.X, input.MouseButtonArgs.Y);
-
                     foreach (var i in GameState.Drawables.GetAllInteractables)
                     {
                         if (i.Contains(clicked))
@@ -375,26 +376,25 @@ namespace OpenGLTests.src
                     Game.Hero.ActionHandler.OnMouseUp(xd);
                 }
             ));
-
-            /*var x = 0;
-            var y = 0;
+            /*
             Bind(new Hotkey(
-                input => input.IsMouseMove ,
+                input => input.IsMouseMove && (input.MouseMoveArgs.XDelta != 0 && input.MouseMoveArgs.XDelta != 0),
                 input =>
                 {
-                    x += input.MouseMoveArgs.XDelta;
-                    y += input.MouseMoveArgs.YDelta;
-                    var gc = new GameCoordinate(x, y);
-                    var xd = CoordinateFuckery.ClickToGLRelativeToCamera(gc, new GameCoordinate(0, 0));
+                    var xx = input.MouseMoveArgs.X;
+                    var yy = input.MouseMoveArgs.Y;
+                    GameCoordinate xxdd = new GameCoordinate(xx, yy);
+                    var xd = CoordinateFuckery.ClickToGLRelativeToCamera(xxdd, new GameCoordinate(0, 0));
                     Console.WriteLine(xd);
+                    Cursor.Draw(xd);
                     //Console.WriteLine(gc);
                 },
                 input =>
                 {
 
                 }
-            ));*/
-
+            ));
+            */
         }
 
 

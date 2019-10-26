@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace OpenGLTests.src
-{
+{/*
     /// <summary>
     /// Interface for playing sounds. (Hopefully cross platform.)
     /// EnumSound is the name for each soundfile.
@@ -20,5 +20,5 @@ namespace OpenGLTests.src
 
         void PlaySound(EnumSound s);
         void SetBackgroundMusic(EnumSound s, bool loop = false);
-    }
+    }*/
 }

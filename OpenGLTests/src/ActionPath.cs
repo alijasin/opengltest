@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Resources;
 using System.Text;
@@ -9,7 +10,9 @@ using System.Xml.Linq;
 using OpenGLTests.src;
 using OpenGLTests.src.Drawables;
 using OpenGLTests.src.Util;
+using OpenTK;
 using OpenTK.Graphics.ES10;
+using OpenTK.Graphics.OpenGL;
 
 namespace OpenGLTests.src
 {
