@@ -14,6 +14,7 @@ namespace OpenGLTests.src.Drawables
     //todo: interface segragate
     public interface ICombatable : IFollowable
     {
+        [JsonIgnore]
         RangeShape AggroShape { get; set; }
         bool InCombat { get; set; }
         void Step();

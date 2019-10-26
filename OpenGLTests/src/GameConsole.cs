@@ -25,7 +25,7 @@ namespace OpenGLTests.src
 
             for (int i = 0; i < 18 * 2; i++)
             {
-                AddDrawableToBar(new Button());
+                AddDrawableToBar(new Rectangle());
             }
         }
 

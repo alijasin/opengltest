@@ -27,7 +27,7 @@ namespace OpenGLTests.src.Drawables
             this.Animation.IsStatic = true;
             OnClick = coordinate => this.Color = Color.White;
         }
-
+        
         public Action<GameCoordinate> OnClick { get; set; }
 
         public bool Contains(GameCoordinate point)

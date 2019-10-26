@@ -16,6 +16,7 @@ namespace OpenGLTests.src.Drawables
         public virtual bool Visible { get; set; }
         public Color Color { get; set; } = Color.White;
         public GLCoordinate Size { get; set; } = new GLCoordinate(0.1f, 0.1f);
+        [JsonIgnore]
         public Animation Animation { get; set; }
         public int Depth { get; set; } = 0;
 

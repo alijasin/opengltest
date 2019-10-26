@@ -5,6 +5,8 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using OpenGLTests.src.Drawables;
 using OpenGLTests.src.Drawables.Entities;
 using OpenGLTests.src.Entities;
@@ -52,6 +54,7 @@ namespace OpenGLTests.src
         public static Button SnapToGridButton { get; set; }
         List<Line> gridLines = new List<Line>();
         private bool SnapToGrid = false;
+        private List<Drawable> toWriteToJson = new List<Drawable>();
 
         public EditorScreen()
         {
@@ -80,6 +83,52 @@ namespace OpenGLTests.src
             };
             Drawables.Add(SnapToGridButton);
 
+
+            var SaveButton = new Button(new GLCoordinate(0.1f, 0.1f));
+            GameState.Drawables.RegisterInteractable(SaveButton);
+            SaveButton.Animation = new Animation(new SpriteSheet_Icons());
+            SaveButton.Animation.IsStatic = true;
+            SaveButton.Animation.SetSprite(SpriteID.floor_1);
+            SaveButton.Location = new GLCoordinate(0.1f, 0.95f);
+
+            SaveButton.OnInteraction = () =>
+            {
+                Console.WriteLine("Saved to TestEditorOutPut.json");
+                EntitySerializer.WriteToJsonFile("TestEditorOutPut.json", toWriteToJson);
+            };
+            Drawables.Add(SaveButton);
+
+
+
+            var LoadButton = new Button(new GLCoordinate(0.1f, 0.1f));
+            GameState.Drawables.RegisterInteractable(LoadButton);
+            LoadButton.Animation = new Animation(new SpriteSheet_Icons());
+            LoadButton.Animation.IsStatic = true;
+            LoadButton.Animation.SetSprite(SpriteID.floor_1);
+            LoadButton.Location = new GLCoordinate(0.2f, 0.95f);
+            LoadButton.OnInteraction = () =>
+            {
+                JObject entitiesList = EntitySerializer.ReadFromJsonFile<JObject>("TestEditorOutPut.json");
+                JArray entities = entitiesList["$values"] as JArray;
+                foreach (var entity in entities)
+                {
+                    try
+                    {
+                        string sType = entity["$type"].ToString();
+                        Type entityType = Type.GetType(sType);
+                        Console.WriteLine("deserializing " + entityType);
+                        dynamic xd = (JsonConvert.DeserializeObject(entity.ToString(), entityType) as Drawable);
+                        Console.WriteLine(xd);
+                        Drawables.Add(xd);
+                    }
+                    catch (Exception e)
+                    {
+                        Console.WriteLine("fucked up deserializing " + entity.GetType()  + e);
+                    }
+
+                }
+            };
+            Drawables.Add(LoadButton);
         }
 
         public override void Draw(DrawAdapter drawer)
@@ -161,6 +210,7 @@ namespace OpenGLTests.src
                         CurrentlySelected.Visible = true;
                         Drawables.Add(CurrentlySelected);
                         CurrentlySelected = CurrentlySelected.Clone() as Drawable;
+                        toWriteToJson.Add(CurrentlySelected);
                     }
          
 
@@ -201,6 +251,7 @@ namespace OpenGLTests.src
                     {
                         hack.Visible = false;
                         Drawables.Remove(hack);
+                        toWriteToJson.Add(hack);
                     }
                     
                 }

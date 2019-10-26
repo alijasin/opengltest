@@ -1,0 +1,65 @@
+{
+  "$type": "System.Collections.Generic.List`1[[OpenGLTests.src.Drawables.Entity, OpenGLTests]], mscorlib",
+  "$values": [
+    {
+      "$type": "OpenGLTests.src.Drawables.Entities.ChasingPerson, OpenGLTests",
+      "InCombat": false,
+      "HitPoints": 1,
+      "Speed": {
+        "X": 0.001,
+        "Y": 0.001
+      },
+      "Visible": false,
+      "Color": "White",
+      "Size": {
+        "X": 0.1,
+        "Y": 0.1
+      },
+      "Depth": 0,
+      "Location": {
+        "X": 0.0,
+        "Y": 0.0
+      }
+    },
+    {
+      "$type": "OpenGLTests.src.Drawables.Swamper, OpenGLTests",
+      "InCombat": false,
+      "HitPoints": 1,
+      "Speed": {
+        "X": 0.0,
+        "Y": 0.0
+      },
+      "Visible": false,
+      "Color": "PaleGreen",
+      "Size": {
+        "X": 0.1,
+        "Y": 0.1
+      },
+      "Depth": 0,
+      "Location": {
+        "X": 0.0,
+        "Y": 0.0
+      }
+    },
+    {
+      "$type": "OpenGLTests.src.Drawables.Entities.PatrolGuy, OpenGLTests",
+      "InCombat": false,
+      "HitPoints": 1,
+      "Speed": {
+        "X": 0.01,
+        "Y": 0.005
+      },
+      "Visible": false,
+      "Color": "White",
+      "Size": {
+        "X": 0.1,
+        "Y": 0.1
+      },
+      "Depth": 0,
+      "Location": {
+        "X": 0.0,
+        "Y": 0.0
+      }
+    }
+  ]
+}

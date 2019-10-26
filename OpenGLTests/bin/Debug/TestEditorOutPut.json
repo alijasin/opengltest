@@ -1,0 +1,673 @@
+{
+  "$type": "System.Collections.Generic.List`1[[OpenGLTests.src.Drawables.Drawable, OpenGLTests]], mscorlib",
+  "$values": [
+    {
+      "$type": "OpenGLTests.src.Drawables.AngryDude, OpenGLTests",
+      "InCombat": false,
+      "HitPoints": 1,
+      "Speed": {
+        "X": 0.01,
+        "Y": 0.01
+      },
+      "Visible": false,
+      "Color": "White",
+      "Size": {
+        "X": 0.1,
+        "Y": 0.1
+      },
+      "Depth": 0,
+      "Location": {
+        "X": 0.0,
+        "Y": 0.0
+      }
+    },
+    {
+      "$type": "OpenGLTests.src.Drawables.RangeShape, OpenGLTests",
+      "Shape": {
+        "$type": "OpenGLTests.src.Drawables.Circle, OpenGLTests",
+        "Radius": {
+          "X": 0.2,
+          "Y": 0.2
+        }
+      },
+      "IsInfinite": false,
+      "Following": {
+        "$type": "OpenGLTests.src.Drawables.AngryDude, OpenGLTests",
+        "InCombat": false,
+        "HitPoints": 1,
+        "Speed": {
+          "X": 0.01,
+          "Y": 0.01
+        },
+        "Visible": false,
+        "Color": "White",
+        "Size": {
+          "X": 0.1,
+          "Y": 0.1
+        },
+        "Depth": 0,
+        "Location": {
+          "X": 0.0,
+          "Y": 0.0
+        }
+      },
+      "Location": {
+        "X": 0.0,
+        "Y": 0.0
+      },
+      "Speed": {
+        "X": 0.0,
+        "Y": 0.0
+      },
+      "Visible": false,
+      "Color": "White",
+      "Size": {
+        "X": 0.1,
+        "Y": 0.1
+      },
+      "Depth": 0
+    },
+    {
+      "$type": "OpenGLTests.src.Drawables.ActionMarker, OpenGLTests",
+      "Speed": {
+        "X": 0.0,
+        "Y": 0.0
+      },
+      "Visible": false,
+      "Color": "White",
+      "Size": {
+        "X": 0.07,
+        "Y": 0.07
+      },
+      "Depth": 0,
+      "Location": {
+        "X": 0.0,
+        "Y": 0.0
+      }
+    },
+    {
+      "$type": "OpenGLTests.src.Drawables.RangeShape, OpenGLTests",
+      "Shape": {
+        "$type": "OpenGLTests.src.Drawables.Circle, OpenGLTests",
+        "Radius": {
+          "X": 0.0,
+          "Y": 0.0
+        }
+      },
+      "IsInfinite": true,
+      "Following": {
+        "$type": "OpenGLTests.src.Drawables.ActionMarker, OpenGLTests",
+        "Speed": {
+          "X": 0.0,
+          "Y": 0.0
+        },
+        "Visible": false,
+        "Color": "White",
+        "Size": {
+          "X": 0.07,
+          "Y": 0.07
+        },
+        "Depth": 0,
+        "Location": {
+          "X": 0.0,
+          "Y": 0.0
+        }
+      },
+      "Location": {
+        "X": 0.0,
+        "Y": 0.0
+      },
+      "Speed": {
+        "X": 0.0,
+        "Y": 0.0
+      },
+      "Visible": false,
+      "Color": "White",
+      "Size": {
+        "X": 0.1,
+        "Y": 0.1
+      },
+      "Depth": 0
+    },
+    {
+      "$type": "OpenGLTests.src.Drawables.ActionMarker, OpenGLTests",
+      "Speed": {
+        "X": 0.0,
+        "Y": 0.0
+      },
+      "Visible": false,
+      "Color": "White",
+      "Size": {
+        "X": 0.07,
+        "Y": 0.07
+      },
+      "Depth": 0,
+      "Location": {
+        "X": 0.0,
+        "Y": 0.0
+      }
+    },
+    {
+      "$type": "OpenGLTests.src.Drawables.Entities.ChasingPerson, OpenGLTests",
+      "InCombat": false,
+      "HitPoints": 1,
+      "Speed": {
+        "X": 0.001,
+        "Y": 0.001
+      },
+      "Visible": false,
+      "Color": "White",
+      "Size": {
+        "X": 0.1,
+        "Y": 0.1
+      },
+      "Depth": 0,
+      "Location": {
+        "X": 0.0,
+        "Y": 0.0
+      }
+    },
+    {
+      "$type": "OpenGLTests.src.Drawables.ActionMarker, OpenGLTests",
+      "Speed": {
+        "X": 0.0,
+        "Y": 0.0
+      },
+      "Visible": false,
+      "Color": "White",
+      "Size": {
+        "X": 0.07,
+        "Y": 0.07
+      },
+      "Depth": 0,
+      "Location": {
+        "X": 0.0,
+        "Y": 0.0
+      }
+    },
+    {
+      "$type": "OpenGLTests.src.Drawables.RangeShape, OpenGLTests",
+      "Shape": {
+        "$type": "OpenGLTests.src.Drawables.Circle, OpenGLTests",
+        "Radius": {
+          "X": 0.0,
+          "Y": 0.0
+        }
+      },
+      "IsInfinite": false,
+      "Following": {
+        "$type": "OpenGLTests.src.Drawables.ActionMarker, OpenGLTests",
+        "Speed": {
+          "X": 0.0,
+          "Y": 0.0
+        },
+        "Visible": false,
+        "Color": "White",
+        "Size": {
+          "X": 0.07,
+          "Y": 0.07
+        },
+        "Depth": 0,
+        "Location": {
+          "X": 0.0,
+          "Y": 0.0
+        }
+      },
+      "Location": {
+        "X": 0.0,
+        "Y": 0.0
+      },
+      "Speed": {
+        "X": 0.0,
+        "Y": 0.0
+      },
+      "Visible": false,
+      "Color": "White",
+      "Size": {
+        "X": 0.1,
+        "Y": 0.1
+      },
+      "Depth": 0
+    },
+    {
+      "$type": "OpenGLTests.src.Drawables.Swamper, OpenGLTests",
+      "InCombat": false,
+      "HitPoints": 1,
+      "Speed": {
+        "X": 0.0,
+        "Y": 0.0
+      },
+      "Visible": false,
+      "Color": "PaleGreen",
+      "Size": {
+        "X": 0.1,
+        "Y": 0.1
+      },
+      "Depth": 0,
+      "Location": {
+        "X": 0.0,
+        "Y": 0.0
+      }
+    },
+    {
+      "$type": "OpenGLTests.src.Drawables.ActionMarker, OpenGLTests",
+      "Speed": {
+        "X": 0.0,
+        "Y": 0.0
+      },
+      "Visible": false,
+      "Color": "White",
+      "Size": {
+        "X": 0.07,
+        "Y": 0.07
+      },
+      "Depth": 0,
+      "Location": {
+        "X": 0.0,
+        "Y": 0.0
+      }
+    },
+    {
+      "$type": "OpenGLTests.src.Drawables.RangeShape, OpenGLTests",
+      "Shape": {
+        "$type": "OpenGLTests.src.Drawables.Circle, OpenGLTests",
+        "Radius": {
+          "X": 0.0,
+          "Y": 0.0
+        }
+      },
+      "IsInfinite": false,
+      "Following": {
+        "$type": "OpenGLTests.src.Drawables.ActionMarker, OpenGLTests",
+        "Speed": {
+          "X": 0.0,
+          "Y": 0.0
+        },
+        "Visible": false,
+        "Color": "White",
+        "Size": {
+          "X": 0.07,
+          "Y": 0.07
+        },
+        "Depth": 0,
+        "Location": {
+          "X": 0.0,
+          "Y": 0.0
+        }
+      },
+      "Location": {
+        "X": 0.0,
+        "Y": 0.0
+      },
+      "Speed": {
+        "X": 0.0,
+        "Y": 0.0
+      },
+      "Visible": false,
+      "Color": "White",
+      "Size": {
+        "X": 0.1,
+        "Y": 0.1
+      },
+      "Depth": 0
+    },
+    {
+      "$type": "OpenGLTests.src.Drawables.Entities.PatrolGuy, OpenGLTests",
+      "InCombat": false,
+      "HitPoints": 1,
+      "Speed": {
+        "X": 0.01,
+        "Y": 0.005
+      },
+      "Visible": false,
+      "Color": "White",
+      "Size": {
+        "X": 0.1,
+        "Y": 0.1
+      },
+      "Depth": 0,
+      "Location": {
+        "X": 0.0,
+        "Y": 0.0
+      }
+    },
+    {
+      "$type": "OpenGLTests.src.Drawables.ActionMarker, OpenGLTests",
+      "Speed": {
+        "X": 0.0,
+        "Y": 0.0
+      },
+      "Visible": false,
+      "Color": "White",
+      "Size": {
+        "X": 0.07,
+        "Y": 0.07
+      },
+      "Depth": 0,
+      "Location": {
+        "X": 0.0,
+        "Y": 0.0
+      }
+    },
+    {
+      "$type": "OpenGLTests.src.Drawables.RangeShape, OpenGLTests",
+      "Shape": {
+        "$type": "OpenGLTests.src.Drawables.Circle, OpenGLTests",
+        "Radius": {
+          "X": 0.0,
+          "Y": 0.0
+        }
+      },
+      "IsInfinite": false,
+      "Following": {
+        "$type": "OpenGLTests.src.Drawables.ActionMarker, OpenGLTests",
+        "Speed": {
+          "X": 0.0,
+          "Y": 0.0
+        },
+        "Visible": false,
+        "Color": "White",
+        "Size": {
+          "X": 0.07,
+          "Y": 0.07
+        },
+        "Depth": 0,
+        "Location": {
+          "X": 0.0,
+          "Y": 0.0
+        }
+      },
+      "Location": {
+        "X": 0.0,
+        "Y": 0.0
+      },
+      "Speed": {
+        "X": 0.0,
+        "Y": 0.0
+      },
+      "Visible": false,
+      "Color": "White",
+      "Size": {
+        "X": 0.1,
+        "Y": 0.1
+      },
+      "Depth": 0
+    },
+    {
+      "$type": "OpenGLTests.src.Drawables.ActionMarker, OpenGLTests",
+      "Speed": {
+        "X": 0.0,
+        "Y": 0.0
+      },
+      "Visible": false,
+      "Color": "White",
+      "Size": {
+        "X": 0.07,
+        "Y": 0.07
+      },
+      "Depth": 0,
+      "Location": {
+        "X": 0.0,
+        "Y": 0.0
+      }
+    },
+    {
+      "$type": "OpenGLTests.src.Drawables.RangeShape, OpenGLTests",
+      "Shape": {
+        "$type": "OpenGLTests.src.Drawables.Circle, OpenGLTests",
+        "Radius": {
+          "X": 0.0,
+          "Y": 0.0
+        }
+      },
+      "IsInfinite": true,
+      "Following": {
+        "$type": "OpenGLTests.src.Drawables.ActionMarker, OpenGLTests",
+        "Speed": {
+          "X": 0.0,
+          "Y": 0.0
+        },
+        "Visible": false,
+        "Color": "White",
+        "Size": {
+          "X": 0.07,
+          "Y": 0.07
+        },
+        "Depth": 0,
+        "Location": {
+          "X": 0.0,
+          "Y": 0.0
+        }
+      },
+      "Location": {
+        "X": 0.0,
+        "Y": 0.0
+      },
+      "Speed": {
+        "X": 0.0,
+        "Y": 0.0
+      },
+      "Visible": false,
+      "Color": "White",
+      "Size": {
+        "X": 0.1,
+        "Y": 0.1
+      },
+      "Depth": 0
+    },
+    {
+      "$type": "OpenGLTests.src.Drawables.ActionMarker, OpenGLTests",
+      "Speed": {
+        "X": 0.0,
+        "Y": 0.0
+      },
+      "Visible": false,
+      "Color": "White",
+      "Size": {
+        "X": 0.07,
+        "Y": 0.07
+      },
+      "Depth": 0,
+      "Location": {
+        "X": 0.0,
+        "Y": 0.0
+      }
+    },
+    {
+      "$type": "OpenGLTests.src.Drawables.RangeShape, OpenGLTests",
+      "Shape": {
+        "$type": "OpenGLTests.src.Drawables.Circle, OpenGLTests",
+        "Radius": {
+          "X": 0.0,
+          "Y": 0.0
+        }
+      },
+      "IsInfinite": true,
+      "Following": {
+        "$type": "OpenGLTests.src.Drawables.ActionMarker, OpenGLTests",
+        "Speed": {
+          "X": 0.0,
+          "Y": 0.0
+        },
+        "Visible": false,
+        "Color": "White",
+        "Size": {
+          "X": 0.07,
+          "Y": 0.07
+        },
+        "Depth": 0,
+        "Location": {
+          "X": 0.0,
+          "Y": 0.0
+        }
+      },
+      "Location": {
+        "X": 0.0,
+        "Y": 0.0
+      },
+      "Speed": {
+        "X": 0.0,
+        "Y": 0.0
+      },
+      "Visible": false,
+      "Color": "White",
+      "Size": {
+        "X": 0.1,
+        "Y": 0.1
+      },
+      "Depth": 0
+    },
+    {
+      "$type": "OpenGLTests.src.Drawables.ActionMarker, OpenGLTests",
+      "Speed": {
+        "X": 0.0,
+        "Y": 0.0
+      },
+      "Visible": false,
+      "Color": "White",
+      "Size": {
+        "X": 0.07,
+        "Y": 0.07
+      },
+      "Depth": 0,
+      "Location": {
+        "X": 0.0,
+        "Y": 0.0
+      }
+    },
+    {
+      "$type": "OpenGLTests.src.Drawables.MoveMarker, OpenGLTests",
+      "Speed": {
+        "X": 0.0,
+        "Y": 0.0
+      },
+      "Visible": false,
+      "Color": "White",
+      "Size": {
+        "X": 0.05,
+        "Y": 0.05
+      },
+      "Depth": 0,
+      "Location": {
+        "X": 0.2,
+        "Y": 0.0
+      }
+    },
+    {
+      "$type": "OpenGLTests.src.Drawables.MoveMarker, OpenGLTests",
+      "Speed": {
+        "X": 0.0,
+        "Y": 0.0
+      },
+      "Visible": false,
+      "Color": "White",
+      "Size": {
+        "X": 0.05,
+        "Y": 0.05
+      },
+      "Depth": 0,
+      "Location": {
+        "X": -0.2613458,
+        "Y": -0.238624692
+      }
+    },
+    {
+      "$type": "OpenGLTests.src.Drawables.MoveMarker, OpenGLTests",
+      "Speed": {
+        "X": 0.0,
+        "Y": 0.0
+      },
+      "Visible": false,
+      "Color": "White",
+      "Size": {
+        "X": 0.05,
+        "Y": 0.05
+      },
+      "Depth": 0,
+      "Location": {
+        "X": -0.4,
+        "Y": 0.0
+      }
+    },
+    {
+      "$type": "OpenGLTests.src.Drawables.Entities.ChasingPerson, OpenGLTests",
+      "InCombat": false,
+      "HitPoints": 1,
+      "Speed": {
+        "X": 0.001,
+        "Y": 0.001
+      },
+      "Visible": true,
+      "Color": "White",
+      "Size": {
+        "X": 0.1,
+        "Y": 0.1
+      },
+      "Depth": 0,
+      "Location": {
+        "X": -0.291666657,
+        "Y": 0.530555546
+      }
+    },
+    {
+      "$type": "OpenGLTests.src.Drawables.Entities.ChasingPerson, OpenGLTests",
+      "InCombat": false,
+      "HitPoints": 1,
+      "Speed": {
+        "X": 0.001,
+        "Y": 0.001
+      },
+      "Visible": true,
+      "Color": "White",
+      "Size": {
+        "X": 0.1,
+        "Y": 0.1
+      },
+      "Depth": 0,
+      "Location": {
+        "X": 0.116666667,
+        "Y": 0.552777767
+      }
+    },
+    {
+      "$type": "OpenGLTests.src.Drawables.Entities.ChasingPerson, OpenGLTests",
+      "InCombat": false,
+      "HitPoints": 1,
+      "Speed": {
+        "X": 0.001,
+        "Y": 0.001
+      },
+      "Visible": true,
+      "Color": "White",
+      "Size": {
+        "X": 0.1,
+        "Y": 0.1
+      },
+      "Depth": 0,
+      "Location": {
+        "X": 0.108333334,
+        "Y": -0.947222233
+      }
+    },
+    {
+      "$type": "OpenGLTests.src.Drawables.Entities.ChasingPerson, OpenGLTests",
+      "InCombat": false,
+      "HitPoints": 1,
+      "Speed": {
+        "X": 0.001,
+        "Y": 0.001
+      },
+      "Visible": true,
+      "Color": "White",
+      "Size": {
+        "X": 0.1,
+        "Y": 0.1
+      },
+      "Depth": 0,
+      "Location": {
+        "X": 0.108333334,
+        "Y": -0.947222233
+      }
+    }
+  ]
+}
