@@ -17,7 +17,6 @@ namespace OpenGLTests
             GraphicsController.Init();
             //InputController.Init();
 
-
             if (EDITOR == false)
             {
                 GameController gc = new GameController();

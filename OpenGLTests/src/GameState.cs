@@ -17,7 +17,7 @@ namespace OpenGLTests.src
         public Hero Hero { get; set; }
         public static DrawableRepository Drawables = new DrawableRepository();
         public static bool Combat { get; set; } = false;
-        public static RainGenerator RainGenerator = new RainGenerator(RainGenerator.RainType.Clear); //todo: move to drawable
+        public static RainGenerator RainGenerator = new RainGenerator(RainGenerator.RainType.Light); //todo: move to drawable
         public GameState()
         {
             for (int x = -10; x < 20; x++)
@@ -91,6 +91,7 @@ namespace OpenGLTests.src
         private int initStepsCount = 0;
         public void Step()
         {
+            Screen.ActiveCamera.Step();
             if (initStepsCount < initSteps)
             {
                 initStepsCount++;
@@ -115,10 +116,6 @@ namespace OpenGLTests.src
                     if (combatable.HitPoints <= 0) combatable.OnDeath();
                 }
             }
-
-
-
-            Screen.ActiveCamera.Step();
         }
     }
 }

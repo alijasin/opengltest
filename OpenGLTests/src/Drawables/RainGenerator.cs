@@ -52,6 +52,7 @@ namespace OpenGLTests.src.Drawables
 
     class RainParticle : Entity
     {
+
         private int TTL = 0;
         public RainParticle()
         {
@@ -59,7 +60,7 @@ namespace OpenGLTests.src.Drawables
             this.Color = Color.CornflowerBlue;
             this.Size = new GLCoordinate(0.01f, 0.05f);
             this.Speed = new GameCoordinate(0, 0.005f + 0.01f * RNG.BetweenZeroAndOne());
-            TTL = RNG.IntegerBetween(20, 60);
+            TTL = RNG.IntegerBetween(40, 90);
         }
 
         public override void DrawStep(DrawAdapter drawer)
@@ -68,20 +69,24 @@ namespace OpenGLTests.src.Drawables
             TTL--;
             this.Location += Speed;
             //this.Size.Y -= this.Size.Y/TTL;
+
+            if (TTL < 20)
+            {
+                this.Size.Y -= 0.005f;
+            }
             if (TTL == 1)
             {
                 Splash splash = new Splash(new GameCoordinate(Location.X, Location.Y + Size.Y));
                 this.Location.Y = RNG.NegativeOrPositiveOne() * RNG.BetweenZeroAndOne()-0.2f;
                 this.Size.Y = 0.05f;
-                TTL = RNG.IntegerBetween(20, 60);
+                TTL = RNG.IntegerBetween(40, 90);
             }
         }
     }
 
-    public class RainGenerator
+    public class RainGenerator 
     {
         List<RainParticle> rainParticles = new List<RainParticle>();
-
         public enum RainType
         {
             Heavy,
@@ -89,7 +94,6 @@ namespace OpenGLTests.src.Drawables
             Clear,
 
         }
-
         public RainGenerator(RainType RainType)
         {
             int rainDrops = 0;

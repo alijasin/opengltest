@@ -19,6 +19,7 @@ namespace OpenGLTests.src.Drawables
     }
     interface IClickable
     {
+        [JsonIgnore]
         Action<GameCoordinate> OnClick { get; set; }
         bool Contains(GameCoordinate point);
     }

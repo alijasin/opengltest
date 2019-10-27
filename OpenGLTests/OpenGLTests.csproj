@@ -78,6 +78,7 @@
     <Compile Include="src\DrawableRepository.cs" />
     <Compile Include="src\Drawables\RainGenerator.cs" />
     <Compile Include="src\Drawables\Terrain\Floor.cs" />
+    <Compile Include="src\Drawables\WeatherGenerator.cs" />
     <Compile Include="src\GameAction.cs" />
     <Compile Include="src\GameConsole.cs" />
     <Compile Include="src\GameController.cs" />

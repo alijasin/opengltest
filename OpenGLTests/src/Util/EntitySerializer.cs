@@ -54,6 +54,7 @@ namespace OpenGLTests.src.Util
                     string sType = entity["$type"].ToString();
                     Type entityType = Type.GetType(sType);
                     dynamic xd = JsonConvert.DeserializeObject(entity.ToString(), entityType);
+                    Console.WriteLine(xd);
                 }
                 catch (Exception e)
                 {
