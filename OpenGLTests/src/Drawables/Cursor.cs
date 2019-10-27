@@ -31,7 +31,7 @@ namespace OpenGLTests.src.Drawables
             DrawAdapter d = new DrawAdapter();
             Entity e = new Floor(loc);
             GameState.Drawables.Add(e);
-            d.DrawSprite(e, DrawAdapter.DrawMode.Centered);
+            d.DrawSprite(e);
         }
     }
 }

@@ -93,6 +93,7 @@ namespace OpenGLTests.src.Drawables
 
         private void CombatStep()
         {
+            
             if (waitingForActionCommit) return;
 
             var status = ActionHandler.CommitActions(actionIndex);

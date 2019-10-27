@@ -30,7 +30,7 @@ namespace OpenGLTests.src.Drawables
             {
                 InventorySlot islot = new InventorySlot(i, this);
                 islot.Visible = false;
-                islot.Location = new GLCoordinate(this.Location.X - this.Size.X/2 + islot.Size.X/2, this.Location.Y + this.Size.Y/2 - islot.Size.Y/2);
+                islot.Location = new GLCoordinate(this.Location.X - this.Size.X/2 , this.Location.Y + this.Size.Y/2 );
                 int col = (filledSlots % columns);
                 int row = (filledSlots / rows);
                 islot.Location.X += col * islot.Size.X + fodder*(1+col);

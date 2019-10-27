@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using OpenGLTests.src.Drawables;
+using OpenGLTests.src.Drawables.Terrain;
 using OpenTK.Graphics.OpenGL;
 using PixelFormat = OpenTK.Graphics.OpenGL.PixelFormat;
 
@@ -14,19 +15,13 @@ namespace OpenGLTests.src
 {
     public class DrawAdapter
     {
-        public enum DrawMode
-        {
-            Centered,
-            TopLeft,
-        }
-
         /// <summary>
         /// Draws an image on the on the current Scene.
         /// </summary>
         /// <param name="image">The image to be drawn</param>
         /// <param name="location">The location to draw the image</param>
         /// <param name="rotation">The rotation of the image in degrees</param>
-        public void DrawSprite(Drawable drawable, DrawMode drawMode = DrawMode.Centered)
+        public void DrawSprite(Drawable drawable)
         {
             Sprite sprite = drawable.Animation.GetSprite();
             if (sprite == null) return;
@@ -39,29 +34,25 @@ namespace OpenGLTests.src
             }
 
             float left, right, top, bottom;
-            switch (drawMode)
-            {
-                case DrawMode.Centered:
-                    {
-                        left = location.X - drawable.Size.X/2;
-                        right = location.X + drawable.Size.X/2;
-                        bottom = (location.Y - drawable.Size.Y/2);
-                        top = (location.Y + drawable.Size.Y/2) ;
-                    }
-                    break;
 
-                case DrawMode.TopLeft:
-                    {
-                        left = 0;
-                        right = .2f;//image.Size.Width;
-                        top = 0;
-                        bottom = .2f; //image.Size.Height;
-                    }
-                    break;
-                default: throw new Exception("dab");
+            
+            if (drawable.Direction == Drawables.Direction.Right)
+            {
+                right = location.X + drawable.Size.X;
+                left = location.X;
             }
+            else
+            {
+                left = location.X + drawable.Size.X;
+                right = location.X ;
+            }
+            bottom = location.Y;
+            top = (location.Y + drawable.Size.Y);
+            if(drawable is Hero || drawable is Hostile) TraceRectangle(Color.Red, location.X, -location.Y, drawable.Size.X, -drawable.Size.Y);
 
             GL.PushMatrix();
+
+
             GL.Enable(EnableCap.Texture2D);
             GL.Enable(EnableCap.Blend);
 
@@ -69,8 +60,11 @@ namespace OpenGLTests.src
 
             GL.BindTexture(TextureTarget.Texture2D, sprite.GLID);
             GL.Begin(BeginMode.Quads);
+            if (drawable.Direction == Drawables.Direction.Left)
+            {
 
-
+            }
+            
             GL.TexCoord2(0, 0);
             GL.Vertex2(left, top);
 
@@ -92,7 +86,7 @@ namespace OpenGLTests.src
         }
 
 
-        /*public void TraceRectangle(Color color, float x, float y, float width, float height)
+        public void TraceRectangle(Color color, float x, float y, float width, float height)
         {
             GL.Color4(color);
             GL.Begin(PrimitiveType.LineLoop);
@@ -103,7 +97,7 @@ namespace OpenGLTests.src
             GL.Vertex2(x, -(y + height));
 
             GL.End();
-        }*/
+        }
 
         public void FillRectangle(Color c, float x, float y, float width, float height)
         {

@@ -24,7 +24,7 @@ namespace OpenGLTests.src.Drawables
             base.DrawStep(drawer);
             if (Visible)
             {
-                drawer.DrawSprite(this, DrawAdapter.DrawMode.Centered);
+                drawer.DrawSprite(this);
             }
         }
 

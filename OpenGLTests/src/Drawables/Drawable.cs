@@ -10,7 +10,10 @@ using Newtonsoft.Json.Serialization;
 
 namespace OpenGLTests.src.Drawables
 {
-
+    public enum Direction
+    {
+        Left, Right,
+    }
     public abstract class Drawable : ICloneable
     {
         public virtual bool Visible { get; set; }
@@ -19,6 +22,7 @@ namespace OpenGLTests.src.Drawables
         [JsonIgnore]
         public Animation Animation { get; set; }
         public int Depth { get; set; } = 10;
+        public Direction Direction { get; set; } = Direction.Right;
 
         //todo: refactor this. We dont want drawable to  have game location. We want entity to have game location and element ot have gl location.
         private GameCoordinate location;
