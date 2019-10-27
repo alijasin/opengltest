@@ -20,9 +20,10 @@ Difficulty 4
 
 While we render and remove/add stuff which are to be rendered we are manipulating the drawable repo. This means that while we iterate through the drawables there might be an exception.
 Currently this is solved by just try/catching these errors and proceeding. This means that on some renders nothing new will be rendered, or just a subset.
-I think we should have some kind of queue when we add stuff to drawables and add it before each draw. Although this might be quite the overhead. 
-In either way the current way will not be acceptable later on.
-Difficulty 2-8.
+https://stackoverflow.com/questions/604831/collection-was-modified-enumeration-operation-may-not-execute they discuss this problem. Tried their solutions but they are not really solutions.
+Their solution will not work for cases with many entities. 
+I also tried having a concurrentbag, but elements are not ordered there. Raising difficulty from 5 to 8 but the importance is quite low since it works with the current hotfix in DrawableRepository.
+Difficulty 8
 
 Children of some things that are drawn are drawn from their parent instead of being added to the huge drawable repo. This means that we don't add them to the repo. But then they won't be registered for OnClick stuff.
 

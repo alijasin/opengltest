@@ -71,7 +71,6 @@ namespace OpenGLTests.src
 
         public void Remove(Drawable d)
         {
-            object l = 1;
             toRemove.Add(d);
             //drawableRepo.Remove(d);
             //drawableRepo.TryTake(d);

@@ -292,6 +292,8 @@ namespace OpenGLTests.src
                     {
                         ele.DrawStep(drawer);
                     }
+
+                    GameState.RainGenerator.Draw(drawer);
                 }
 
 
