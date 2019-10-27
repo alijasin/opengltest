@@ -66,7 +66,9 @@ namespace OpenGLTests.src
             GameConsole.AddDrawableToBar(new ChasingPerson(new GameCoordinate(0, 0), null));
             GameConsole.AddDrawableToBar(new Swamper(new GameCoordinate(0, 0)));
             GameConsole.AddDrawableToBar(new PatrolGuy(new GameCoordinate(0, 0)));
-            GameConsole.AddDrawableToBar(new BrickStructure(new GameCoordinate(0, 0)));
+            GameConsole.AddDrawableToBar(new BrickGate(new GameCoordinate(0, 0)));
+            GameConsole.AddDrawableToBar(new BrickWall(new GameCoordinate(0, 0)));
+
 
             #region buttons
             SnapToGridButton = new Button(new GLCoordinate(0.1f, 0.1f));
@@ -285,8 +287,7 @@ namespace OpenGLTests.src
 
                 lock (l)
                 {
-                    var drawables = GameState.Drawables.GetAllDrawables.OrderBy(e => e.Depth);
-                    foreach (var ent in drawables)
+                    foreach (var ent in GameState.Drawables.GetAllDrawables)
                     {
                         ent.DrawStep(drawer);
                     }

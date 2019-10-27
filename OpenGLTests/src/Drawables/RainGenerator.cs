@@ -18,9 +18,8 @@ namespace OpenGLTests.src.Drawables
         public Splash(GameCoordinate location)
         {
             this.Location = location;
-            this.Color = Color.CornflowerBlue;
+            this.Color = Color.FromArgb(120, Color.CornflowerBlue);
             this.rad = MinRad;
-            GameState.Drawables.Add(this);
         }
         public override void DrawStep(DrawAdapter drawer)
         {
@@ -41,7 +40,6 @@ namespace OpenGLTests.src.Drawables
             }
             else if (rad.X <= 0.00000000001f)
             {
-                GameState.Drawables.Remove(this);
                 return;
             }
 
@@ -52,12 +50,12 @@ namespace OpenGLTests.src.Drawables
 
     class RainParticle : Entity
     {
-
+        private Splash splash;
         private int TTL = 0;
         public RainParticle()
         {
             this.Location = new GameCoordinate(RNG.NegativeOrPositiveOne() * RNG.BetweenZeroAndOne(), RNG.NegativeOrPositiveOne() * RNG.BetweenZeroAndOne()-0.2f);
-            this.Color = Color.CornflowerBlue;
+            this.Color = Color.FromArgb(120, Color.CornflowerBlue);
             this.Size = new GLCoordinate(0.01f, 0.05f);
             this.Speed = new GameCoordinate(0, 0.005f + 0.01f * RNG.BetweenZeroAndOne());
             TTL = RNG.IntegerBetween(40, 90);
@@ -66,6 +64,7 @@ namespace OpenGLTests.src.Drawables
         public override void DrawStep(DrawAdapter drawer)
         {
             base.DrawStep(drawer);
+            if(splash != null) splash.DrawStep(drawer);
             TTL--;
             this.Location += Speed;
             //this.Size.Y -= this.Size.Y/TTL;
@@ -76,7 +75,7 @@ namespace OpenGLTests.src.Drawables
             }
             if (TTL == 1)
             {
-                Splash splash = new Splash(new GameCoordinate(Location.X, Location.Y + Size.Y));
+                splash = new Splash(new GameCoordinate(Location.X, Location.Y + Size.Y));
                 this.Location.Y = RNG.NegativeOrPositiveOne() * RNG.BetweenZeroAndOne()-0.2f;
                 this.Size.Y = 0.05f;
                 TTL = RNG.IntegerBetween(40, 90);

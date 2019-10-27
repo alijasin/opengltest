@@ -7,16 +7,30 @@ using OpenGLTests.src.Util;
 
 namespace OpenGLTests.src.Drawables.Terrain
 {
-    class BrickStructure : Entity, IClickable
+    class BrickWall : Entity
     {
-        private bool open = false;
-        public BrickStructure(GameCoordinate location)
+        public BrickWall(GameCoordinate location)
         {
             this.Location = location;
-            Animation = new Animation(new SpriteSheet_BrickStructure());
+            Animation = new Animation(new SpriteSheet_BrickWall());
+            Animation.IsStatic = true;
+            Animation.SetSprite(SpriteID.brick_wall);
+            Size = new GLCoordinate(0.30f, 0.30f);
+            Depth = 1;
+            GameState.Drawables.Add(this);
+        }
+    }
+
+    class BrickGate : Entity, IClickable
+    {
+        private bool open = false;
+        public BrickGate(GameCoordinate location)
+        {
+            this.Location = location;
+            Animation = new Animation(new SpriteSheet_BrickGate());
             Animation.IsStatic = true;
             Animation.SetSprite(SpriteID.brick_gate_closed);
-            Size = new GLCoordinate(0.1f, 0.1f);
+            Size = new GLCoordinate(0.30f, 0.30f);
             Depth = 1;
             GameState.Drawables.Add(this);
 

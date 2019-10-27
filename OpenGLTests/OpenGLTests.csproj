@@ -77,7 +77,7 @@
     <Compile Include="src\Drawables\Entities\Unicorn.cs" />
     <Compile Include="src\DrawableRepository.cs" />
     <Compile Include="src\Drawables\RainGenerator.cs" />
-    <Compile Include="src\Drawables\Terrain\BrickStructure.cs" />
+    <Compile Include="src\Drawables\Terrain\BrickGate.cs" />
     <Compile Include="src\Drawables\Terrain\Floor.cs" />
     <Compile Include="src\Drawables\WeatherGenerator.cs" />
     <Compile Include="src\GameAction.cs" />
@@ -1123,6 +1123,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="known bugs.txt" />
+    <None Include="Resources\brick_wall.png" />
+    <None Include="Resources\brick_gate_open.png" />
     <None Include="Resources\snap-to-grid-1-636500.png" />
     <None Include="Resources\burrowing_swamper_f12.png" />
     <None Include="Resources\burrowing_swamper_f11.png" />

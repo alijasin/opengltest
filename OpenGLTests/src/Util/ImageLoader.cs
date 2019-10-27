@@ -58,6 +58,7 @@ namespace OpenGLTests.src.Util
 
         brick_gate_open,
         brick_gate_closed,
+        brick_wall,
 
         crate,
 
@@ -125,6 +126,7 @@ namespace OpenGLTests.src.Util
 
             Images[SpriteID.brick_gate_open] = new Bitmap(Properties.Resources.brick_gate_open);
             Images[SpriteID.brick_gate_closed] = new Bitmap(Properties.Resources.brick_gate_closed);
+            Images[SpriteID.brick_wall] = new Bitmap(Properties.Resources.brick_wall);
 
             Images[SpriteID.crate] = new Bitmap(Properties.Resources.crate);
 

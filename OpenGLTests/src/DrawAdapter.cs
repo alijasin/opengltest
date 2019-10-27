@@ -110,7 +110,7 @@ namespace OpenGLTests.src
             y = -y;
             x = x - width / 2;
             y = y - height / 2;
-
+            GL.Enable(EnableCap.Blend);
             GL.Color4(c);
             
             GL.Begin(PrimitiveType.Quads);
@@ -129,6 +129,7 @@ namespace OpenGLTests.src
         public void DrawCircle(float x, float y, GLCoordinate radius, Color color, float width = 1)
         {
             GL.LineWidth(width);
+            GL.Enable(EnableCap.Blend);
             GL.Begin(PrimitiveType.LineLoop);
 
             GL.Color4(color);

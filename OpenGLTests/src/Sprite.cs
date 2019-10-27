@@ -129,15 +129,25 @@ namespace OpenGLTests.src
         { }
     }
 
-    class SpriteSheet_BrickStructure : SpriteSheet
+    class SpriteSheet_BrickGate : SpriteSheet
     {
-        public SpriteSheet_BrickStructure() : base(new Dictionary<SpriteID, int>()
+        public SpriteSheet_BrickGate() : base(new Dictionary<SpriteID, int>()
         {
             { SpriteID.brick_gate_open, 12 },
             { SpriteID.brick_gate_closed, 12 },
         })
         { }
     }
+
+    class SpriteSheet_BrickWall : SpriteSheet
+    {
+        public SpriteSheet_BrickWall() : base(new Dictionary<SpriteID, int>()
+        {
+            { SpriteID.brick_wall, 12 },
+        })
+        { }
+    }
+
 
     class SpriteSheet_OgreRun : SpriteSheet
     {

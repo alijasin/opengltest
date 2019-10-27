@@ -25,7 +25,7 @@ namespace OpenGLTests.src
 
         private List<Drawable> toRemove = new List<Drawable>();
 
-        //todo this is digusting and you should change it. Todo!!!
+        //todo this is digusting and you should change it. Todo!!! High importance low urgency
         private List<T> GetWhere<T>(Func<Drawable, bool> filter)
         {
             try
@@ -38,7 +38,7 @@ namespace OpenGLTests.src
 
                 drawableRepo.AddRange(toAdd);
                 toAdd.Clear();
-                return drawableRepo.Where(filter).Cast<T>().ToList();
+                return drawableRepo.Where(filter).OrderBy(E => E.Depth).Cast<T>().ToList();
             }
             catch (Exception e)
             {
