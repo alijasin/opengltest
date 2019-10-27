@@ -20,7 +20,7 @@ namespace OpenGLTests.src.Drawables
         private void ResetDefaultActionToMove()
         {
             ActionBar.GetDefaultButton().OnInteraction.Invoke();
-            ActionHandler.SelectedAction.RangeShape.IsInfinite = true;//set it to infinite range
+            if(!InCombat)ActionHandler.SelectedAction.RangeShape.IsInfinite = true;//set it to infinite range
         } 
 
 

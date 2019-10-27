@@ -10,13 +10,15 @@ namespace OpenGLTests.src.Drawables
 {
     class Swamper : Hostile
     {
-        public Swamper(GameCoordinate location)
+        public Swamper(GameCoordinate location) : base()
         {
             this.Location = location;
             this.Animation = new Animation(new SpriteSheet_Swamper());
             this.Color = Color.PaleGreen;
             this.ActionPattern = new TeleportPattern(this, new GLCoordinate(0.3f, 0.3f));
             this.ActionPattern.Loop = true;
+            this.Size = new GLCoordinate(0.1f, 0.1f);
+            this.HitPoints = 1;
         }
 
         private bool teleported = false;
