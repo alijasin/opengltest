@@ -12,12 +12,6 @@ Difficulty 4
 Additionally, the hacks to get the burrower to do stuff is severe. Maybe need to find a more flexible way of doing stuff depending on animation frame.
 Difficulty 6
 
-Rangeshapes and lines are not visible anymore. 
-Difficulty 3
-
-Casting a spell/making a move does not reset to default move action.
-Difficulty 4
-
 While we render and remove/add stuff which are to be rendered we are manipulating the drawable repo. This means that while we iterate through the drawables there might be an exception.
 Currently this is solved by just try/catching these errors and proceeding. This means that on some renders nothing new will be rendered, or just a subset.
 https://stackoverflow.com/questions/604831/collection-was-modified-enumeration-operation-may-not-execute they discuss this problem. Tried their solutions but they are not really solutions.
@@ -25,9 +19,5 @@ Their solution will not work for cases with many entities.
 I also tried having a concurrentbag, but elements are not ordered there. Raising difficulty from 5 to 8 but the importance is quite low since it works with the current hotfix in DrawableRepository.
 Difficulty 8
 
-Children of some things that are drawn are drawn from their parent instead of being added to the huge drawable repo. This means that we don't add them to the repo. But then they won't be registered for OnClick stuff.
-
 Some mobs spawn at (0, 0) in editor view for some reason.
 Difficulty 3.
-
-Inventory items can be clicked when inventory is not visible. Think this should be fixed in IInteractable's contain. If(visible==false) return;

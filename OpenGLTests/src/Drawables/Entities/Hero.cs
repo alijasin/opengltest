@@ -17,7 +17,12 @@ namespace OpenGLTests.src.Drawables
         public int HitPoints { get; set; } = 1;
         private HashSet<ICombatable> AggroFrom = new HashSet<ICombatable>();
 
-        private void SetDefaultAction() => ActionBar.GetDefaultButton().OnInteraction.Invoke();
+        private void ResetDefaultActionToMove()
+        {
+            ActionBar.GetDefaultButton().OnInteraction.Invoke();
+            ActionHandler.SelectedAction.RangeShape.IsInfinite = true;//set it to infinite range
+        } 
+
 
         public void OnDeath()
         {
@@ -41,10 +46,10 @@ namespace OpenGLTests.src.Drawables
             ActionHandler = new OutOfCombatActionHandler(this);
             InCombat = false;
             
-            ActionBar.GetDefaultButton().OnInteraction.Invoke();//set default action to first action button in the action bar
-            ActionHandler.SelectedAction.RangeShape.IsInfinite = true;//set it to infinite range
+            ResetDefaultActionToMove();
             initGUI();
         }
+
 
         private void initActionBar()
         {
@@ -115,6 +120,7 @@ namespace OpenGLTests.src.Drawables
             if (status == ActionReturns.Finished || status == ActionReturns.AllFinished)
             {
                 actionIndex = 0;
+                ResetDefaultActionToMove();
                 return;
             }
             else actionIndex++;
@@ -133,7 +139,7 @@ namespace OpenGLTests.src.Drawables
                 defaultAction.RangeShape.IsInfinite = true;
                 ActionHandler.Dispose();
                 ActionHandler = new OutOfCombatActionHandler(this);
-                SetDefaultAction();
+                ResetDefaultActionToMove();
             }
         }
 
@@ -152,7 +158,7 @@ namespace OpenGLTests.src.Drawables
             ActionHandler.Dispose();
             ActionHandler = new CombatActionHandler(this);
             waitingForActionCommit = true;
-            SetDefaultAction();
+            ResetDefaultActionToMove();
         }
     }
 }

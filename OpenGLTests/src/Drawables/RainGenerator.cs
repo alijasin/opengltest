@@ -52,11 +52,12 @@ namespace OpenGLTests.src.Drawables
     {
         private Splash splash;
         private int TTL = 0;
+        private float initY = 0.05f;
         public RainParticle()
         {
             this.Location = new GameCoordinate(RNG.NegativeOrPositiveOne() * RNG.BetweenZeroAndOne(), RNG.NegativeOrPositiveOne() * RNG.BetweenZeroAndOne()-0.2f);
-            this.Color = Color.FromArgb(120, Color.CornflowerBlue);
-            this.Size = new GLCoordinate(0.01f, 0.05f);
+            this.Color = Color.FromArgb(40, Color.CornflowerBlue);
+            this.Size = new GLCoordinate(0.01f, initY);
             this.Speed = new GameCoordinate(0, 0.005f + 0.01f * RNG.BetweenZeroAndOne());
             TTL = RNG.IntegerBetween(40, 90);
         }
@@ -71,13 +72,13 @@ namespace OpenGLTests.src.Drawables
 
             if (TTL < 20)
             {
-                this.Size.Y -= 0.005f;
+                this.Size.Y -= initY/ (TTL+1);
             }
             if (TTL == 1)
             {
                 splash = new Splash(new GameCoordinate(Location.X, Location.Y + Size.Y));
                 this.Location.Y = RNG.NegativeOrPositiveOne() * RNG.BetweenZeroAndOne()-0.2f;
-                this.Size.Y = 0.05f;
+                this.Size.Y = initY;
                 TTL = RNG.IntegerBetween(40, 90);
             }
         }

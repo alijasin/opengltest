@@ -346,13 +346,13 @@ namespace OpenGLTests.src
 
                     foreach (var i in GameState.Drawables.GetAllInteractables)
                     {
-                        if (i.Contains(clicked))
+                        if (i.Contains(clicked) && i.Visible)
                         {
                             i.OnInteraction.Invoke();
                         }
                     }
 
-                    foreach(IClickable i in GameState.Drawables.GetAllDrawables.Where(d => d is IClickable))
+                    foreach(IClickable i in GameState.Drawables.GetAllDrawables.Where(d => d is IClickable && d.Visible))
                     {
                         Console.WriteLine(xd);
                         if (i.Contains(xd))
