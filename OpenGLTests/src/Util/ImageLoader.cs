@@ -56,6 +56,9 @@ namespace OpenGLTests.src.Util
         floor_7,
         floor_8,
 
+        brick_gate_open,
+        brick_gate_closed,
+
         crate,
 
         action_move,
@@ -119,6 +122,9 @@ namespace OpenGLTests.src.Util
             Images[SpriteID.floor_6] = new Bitmap(Properties.Resources.floor_6);
             Images[SpriteID.floor_7] = new Bitmap(Properties.Resources.floor_7);
             Images[SpriteID.floor_8] = new Bitmap(Properties.Resources.floor_8);
+
+            Images[SpriteID.brick_gate_open] = new Bitmap(Properties.Resources.brick_gate_open);
+            Images[SpriteID.brick_gate_closed] = new Bitmap(Properties.Resources.brick_gate_closed);
 
             Images[SpriteID.crate] = new Bitmap(Properties.Resources.crate);
 

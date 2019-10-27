@@ -77,6 +77,7 @@
     <Compile Include="src\Drawables\Entities\Unicorn.cs" />
     <Compile Include="src\DrawableRepository.cs" />
     <Compile Include="src\Drawables\RainGenerator.cs" />
+    <Compile Include="src\Drawables\Terrain\BrickStructure.cs" />
     <Compile Include="src\Drawables\Terrain\Floor.cs" />
     <Compile Include="src\Drawables\WeatherGenerator.cs" />
     <Compile Include="src\GameAction.cs" />
@@ -91,6 +92,7 @@
     <Compile Include="src\RoomLoader.cs" />
     <Compile Include="src\Sprite.cs" />
     <Compile Include="src\Util\Coloring.cs" />
+    <Compile Include="src\Util\ContainsLambdas.cs" />
     <Compile Include="src\Util\Coordinate.cs" />
     <Compile Include="src\Drawables\Elements\Circle.cs" />
     <Compile Include="src\Drawables\Drawable.cs" />

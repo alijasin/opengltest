@@ -178,6 +178,18 @@
   <data name="big_zombie_run_anim_f3" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\big_zombie_run_anim_f3.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="brick_gate_closed" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\doors_all.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="brick_gate_left" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\doors_frame_left.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="brick_gate_open" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\doors_leaf_open.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="brick_gate_right" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\doors_frame_righ.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="burrowing_swamper_f00" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\burrowing_swamper_f00.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -292,23 +304,11 @@
   <data name="crate" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\crate.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="doors_all" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\doors_all.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="doors_frame_left" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\doors_frame_left.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="doors_frame_righ" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\doors_frame_righ.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="doors_frame_top" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\doors_frame_top.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="doors_leaf_closed" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\doors_leaf_closed.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="doors_leaf_open" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\doors_leaf_open.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="edge" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\edge.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>

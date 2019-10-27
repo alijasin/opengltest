@@ -9,6 +9,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using OpenGLTests.src.Drawables;
 using OpenGLTests.src.Drawables.Entities;
+using OpenGLTests.src.Drawables.Terrain;
 using OpenGLTests.src.Entities;
 using OpenGLTests.src.Util;
 using OpenTK.Graphics.OpenGL;
@@ -65,6 +66,7 @@ namespace OpenGLTests.src
             GameConsole.AddDrawableToBar(new ChasingPerson(new GameCoordinate(0, 0), null));
             GameConsole.AddDrawableToBar(new Swamper(new GameCoordinate(0, 0)));
             GameConsole.AddDrawableToBar(new PatrolGuy(new GameCoordinate(0, 0)));
+            GameConsole.AddDrawableToBar(new BrickStructure(new GameCoordinate(0, 0)));
 
             #region buttons
             SnapToGridButton = new Button(new GLCoordinate(0.1f, 0.1f));
@@ -204,6 +206,7 @@ namespace OpenGLTests.src
                     GameCoordinate clicked = new GameCoordinate(input.MouseButtonArgs.X, input.MouseButtonArgs.Y);
                     var xd = CoordinateFuckery.ClickToGLRelativeToCamera(clicked, new GameCoordinate(0, 0));
 
+                    //should be xd?
                     if (!GameConsole.container.Contains(clicked) && !SnapToGridButton.Contains(clicked) && CurrentlySelected != null)
                     {
                         if (SnapToGrid) xd = RNG.SnapCoordinate(xd, new GameCoordinate(0.1f, 0.1f));
@@ -219,7 +222,7 @@ namespace OpenGLTests.src
                     {
                         if(inter.Contains(clicked))
                         {
-                            inter.OnInteraction.Invoke(); //updates the currently selected drawable
+                            inter.OnInteraction.Invoke(); 
                         }
                     }
                 },
@@ -338,6 +341,8 @@ namespace OpenGLTests.src
                 input =>
                 {
                     GameCoordinate clicked = new GameCoordinate(input.MouseButtonArgs.X, input.MouseButtonArgs.Y);
+                    var xd = CoordinateFuckery.ClickToGLRelativeToCamera(clicked, new GameCoordinate(0, 0));
+
                     foreach (var i in GameState.Drawables.GetAllInteractables)
                     {
                         if (i.Contains(clicked))
@@ -348,7 +353,8 @@ namespace OpenGLTests.src
 
                     foreach(IClickable i in GameState.Drawables.GetAllDrawables.Where(d => d is IClickable))
                     {
-                        if (i.Contains(clicked))
+                        Console.WriteLine(xd);
+                        if (i.Contains(xd))
                         {
                             i.OnClick(clicked);
                         }

@@ -263,6 +263,46 @@ namespace OpenGLTests.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap brick_gate_closed {
+            get {
+                object obj = ResourceManager.GetObject("brick_gate_closed", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap brick_gate_left {
+            get {
+                object obj = ResourceManager.GetObject("brick_gate_left", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap brick_gate_open {
+            get {
+                object obj = ResourceManager.GetObject("brick_gate_open", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap brick_gate_right {
+            get {
+                object obj = ResourceManager.GetObject("brick_gate_right", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap burrowing_swamper_f00 {
             get {
                 object obj = ResourceManager.GetObject("burrowing_swamper_f00", resourceCulture);
@@ -643,36 +683,6 @@ namespace OpenGLTests.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap doors_all {
-            get {
-                object obj = ResourceManager.GetObject("doors_all", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap doors_frame_left {
-            get {
-                object obj = ResourceManager.GetObject("doors_frame_left", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap doors_frame_righ {
-            get {
-                object obj = ResourceManager.GetObject("doors_frame_righ", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
         internal static System.Drawing.Bitmap doors_frame_top {
             get {
                 object obj = ResourceManager.GetObject("doors_frame_top", resourceCulture);
@@ -686,16 +696,6 @@ namespace OpenGLTests.Properties {
         internal static System.Drawing.Bitmap doors_leaf_closed {
             get {
                 object obj = ResourceManager.GetObject("doors_leaf_closed", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap doors_leaf_open {
-            get {
-                object obj = ResourceManager.GetObject("doors_leaf_open", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

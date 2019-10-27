@@ -31,14 +31,11 @@ namespace OpenGLTests.src.Drawables
         
         public Action<GameCoordinate> OnClick { get; set; }
 
-        public bool Contains(GameCoordinate point)
+        public bool Contains(GameCoordinate clicked)
         {
-            var x = Math.Abs(point.X - Location.X);
-            var y = Math.Abs(point.Y - Location.Y);
-            //todo move this to somewhere else and fuck yourself.
-            GLCoordinate clicked = new GLCoordinate(x * 2 / GibbWindow.WIDTH - 1, (y * 2 / GibbWindow.HEIGHT - 1));
-            return this.Location.X - this.Size.X / 2 < clicked.X && this.Location.X + this.Size.X / 2 > clicked.X &&
-                   this.Location.Y - this.Size.Y / 2 < clicked.Y && this.Location.Y + this.Size.Y / 2 > clicked.Y;
+            return Location.X - Size.X / 2 < clicked.X && Location.X + Size.X / 2 > clicked.X &&
+                Location.Y - Size.Y / 2 < clicked.Y && Location.Y + Size.Y / 2 > clicked.Y;
+
         }
     }
 }
