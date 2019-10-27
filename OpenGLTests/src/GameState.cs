@@ -17,7 +17,7 @@ namespace OpenGLTests.src
         public Hero Hero { get; set; }
         public static DrawableRepository Drawables = new DrawableRepository();
         public static bool Combat { get; set; } = false;
-        public static RainGenerator RainGenerator = new RainGenerator(RainGenerator.RainType.Heavy); //todo: move to drawable
+        public static RainGenerator RainGenerator = new RainGenerator(RainGenerator.RainType.Clear); //todo: move to drawable
         public GameState()
         {
             for (int x = -10; x < 20; x++)
@@ -30,6 +30,7 @@ namespace OpenGLTests.src
             Hero = new Hero();
             Drawables.Add(Hero);
             
+
             //LoadRoom();
             //LoadTestRoom();
             RoomLoader.LoadRoom(RoomLoader.Room.TestEditorOutPut);

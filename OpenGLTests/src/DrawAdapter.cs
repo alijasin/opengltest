@@ -126,7 +126,7 @@ namespace OpenGLTests.src
 
 
         private const int CIRCLE_VERTICES = 32;
-        public void FillCircle(float x, float y, GLCoordinate radius, Color color, float width = 1)
+        public void DrawCircle(float x, float y, GLCoordinate radius, Color color, float width = 1)
         {
             GL.LineWidth(width);
             GL.Begin(PrimitiveType.LineLoop);
@@ -145,6 +145,27 @@ namespace OpenGLTests.src
 
             GL.End();
         }
+
+        public void FillCircle(float x, float y, GLCoordinate radius, Color color, float width = 1)
+        {
+            GL.LineWidth(width);
+            GL.Begin(PrimitiveType.TriangleFan);
+
+            GL.Color4(color);
+            for (int i = 0; i < CIRCLE_VERTICES; i++)
+            {
+                float theta = 2.0f * 3.1415926f * i / CIRCLE_VERTICES;//get the current angle
+
+                float xx = radius.X * (float)Math.Cos(theta);//calculate the x component
+                float yy = radius.Y * (float)Math.Sin(theta);//calculate the y component
+
+                // GL.Vertex2(x + cx, y + cy);//output vertex
+                GL.Vertex2(x + xx, y + yy);
+            }
+
+            GL.End();
+        }
+
 
 
         public void DrawLine(GLCoordinate origin, GLCoordinate terminus, Color color, LineType type, float width = 3)
