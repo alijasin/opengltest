@@ -24,27 +24,28 @@ namespace OpenGLTests.src
         public List<Hero> GetAllHeroes => drawableRepo.Where(E => E is Hero).Cast<Hero>().ToList();
 
         private List<Drawable> toRemove = new List<Drawable>();
-
+        private List<Drawable> toAdd = new List<Drawable>();
         //todo this is digusting and you should change it. Todo!!! High importance low urgency
         private List<T> GetWhere<T>(Func<Drawable, bool> filter)
         {
-            try
+            foreach (var rem in toRemove.ToList())
             {
-                foreach (var rem in toRemove.ToList())
-                {
-                    bool success = drawableRepo.Remove(rem);
-                    if (success) toRemove.Remove(rem);
-                }
-
-                drawableRepo.AddRange(toAdd);
-                toAdd.Clear();
-                return drawableRepo.Where(filter).OrderBy(E => E.Depth).Cast<T>().ToList();
-            }
-            catch (Exception e)
-            {
-                return GetWhere<T>(filter);
+                bool success = drawableRepo.Remove(rem);
+                if (success) toRemove.Remove(rem);
             }
 
+            drawableRepo.AddRange(toAdd);
+            toAdd.Clear();
+
+            List<Drawable> temp = new List<Drawable>();
+
+            for (int i = 0; i < drawableRepo.Count; i++)
+            {
+                var xd = drawableRepo.ElementAt(i);
+                if (filter(xd)) temp.Add(xd);
+            }
+            
+            return temp.OrderBy(E => E.Depth).Cast<T>().ToList();
         }
 
         /// <summary>
@@ -61,19 +62,14 @@ namespace OpenGLTests.src
             interactableRepo.Remove(i);
         }
 
-        private List<Drawable> toAdd = new List<Drawable>();
-
         public void Add(Drawable d)
         {
-            //drawableRepo.Add(d);
             toAdd.Add(d);
         }
 
         public void Remove(Drawable d)
         {
             toRemove.Add(d);
-            //drawableRepo.Remove(d);
-            //drawableRepo.TryTake(d);
         }
     }
 }
