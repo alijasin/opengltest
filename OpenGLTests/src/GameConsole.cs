@@ -46,7 +46,7 @@ namespace OpenGLTests.src
     {
         private int filledSlots = 0;
         private int maxFilledSlot = 0;
-        private Dictionary<Element, int> elementSlot = new Dictionary<Element, int>();
+        public Dictionary<Element, int> elementSlot = new Dictionary<Element, int>();
         private static GLCoordinate slotSize = new GLCoordinate(0.1f, 0.1f);
 
         private List<GLCoordinate> slotPosition = new List<GLCoordinate>();
@@ -66,7 +66,6 @@ namespace OpenGLTests.src
                     slotPosition.Add(new GLCoordinate(c*slotSize.X, r*slotSize.Y));
                 }
             }
-            GameState.Drawables.RegisterInteractable(this);
         }
 
         public void AddElement(Drawable d)
@@ -82,7 +81,6 @@ namespace OpenGLTests.src
             {
                 if (elementSlot.ElementAt(filledSlots).Key != null)
                 {
-                    EditorScreen.Drawables.Remove(elementSlot.ElementAt(filledSlots).Key);
                     elementSlot.Remove(elementSlot.ElementAt(filledSlots).Key);
                 }
             }

@@ -18,17 +18,18 @@ namespace OpenGLTests.src.Screens
     class EditorScreen : Screen
     {
         public GameConsole GameConsole;
-        public static DrawableRepository Drawables = new DrawableRepository();
         public static Drawable CurrentlySelected { get; set; }
         public static Button SnapToGridButton { get; set; }
+        public static Button SaveButton;
+        public static Button LoadButton;
         List<Line> gridLines = new List<Line>();
         private bool SnapToGrid = false;
         private List<Drawable> toWriteToJson = new List<Drawable>();
+        List<IInteractable> Buttons = new List<IInteractable>();
 
         public EditorScreen()
         {
             GameConsole = new GameConsole();
-            Drawables.Add(GameConsole.container);
             GameConsole.AddDrawableToBar(new Crate(new GameCoordinate(0, 0)));
             GameConsole.AddDrawableToBar(new AngryDude(new GameCoordinate(0, 0)));
             GameConsole.AddDrawableToBar(new ChasingPerson(new GameCoordinate(0, 0)));
@@ -37,6 +38,13 @@ namespace OpenGLTests.src.Screens
             GameConsole.AddDrawableToBar(new BrickGate(new GameCoordinate(0, 0)));
             GameConsole.AddDrawableToBar(new BrickWall(new GameCoordinate(0, 0)));
             GameConsole.AddDrawableToBar(new FleeingPerson(new GameCoordinate(0, 0), null));
+
+
+
+            foreach (var b in GameConsole.container.elementSlot)
+            {
+                Buttons.Add(b.Key as IInteractable);
+            }
 
             #region buttons
             SnapToGridButton = new Button(new GLCoordinate(0.1f, 0.1f));
@@ -53,10 +61,9 @@ namespace OpenGLTests.src.Screens
                     gline.Visible = SnapToGrid;
                 }
             };
-            Drawables.Add(SnapToGridButton);
+            Buttons.Add(SnapToGridButton);
 
-
-            var SaveButton = new Button(new GLCoordinate(0.1f, 0.1f));
+            SaveButton = new Button(new GLCoordinate(0.1f, 0.1f));
             GameState.Drawables.RegisterInteractable(SaveButton);
             SaveButton.Animation = new Animation(new SpriteSheet_Icons());
             SaveButton.Animation.IsStatic = true;
@@ -66,13 +73,13 @@ namespace OpenGLTests.src.Screens
             SaveButton.OnInteraction = () =>
             {
                 Console.WriteLine("Saved to TestEditorOutPut.json");
+                foreach(var e in toWriteToJson) Console.WriteLine(e);
                 EntitySerializer.WriteToJsonFile("TestEditorOutPut.json", toWriteToJson);
             };
-            Drawables.Add(SaveButton);
+            Buttons.Add(SaveButton);
 
 
-
-            var LoadButton = new Button(new GLCoordinate(0.1f, 0.1f));
+            LoadButton = new Button(new GLCoordinate(0.1f, 0.1f));
             GameState.Drawables.RegisterInteractable(LoadButton);
             LoadButton.Animation = new Animation(new SpriteSheet_Icons());
             LoadButton.Animation.IsStatic = true;
@@ -90,8 +97,7 @@ namespace OpenGLTests.src.Screens
                         Type entityType = Type.GetType(sType);
                         Console.WriteLine("deserializing " + entityType);
                         dynamic xd = (JsonConvert.DeserializeObject(entity.ToString(), entityType) as Drawable);
-                        Console.WriteLine(xd);
-                        Drawables.Add(xd);
+
                     }
                     catch (Exception e)
                     {
@@ -100,7 +106,7 @@ namespace OpenGLTests.src.Screens
 
                 }
             };
-            Drawables.Add(LoadButton);
+            Buttons.Add(LoadButton);
             #endregion
         }
         public override void Draw(DrawAdapter drawer)
@@ -111,10 +117,16 @@ namespace OpenGLTests.src.Screens
 
             try
             {
-                foreach (var ent in Drawables.GetAllDrawables)
+                foreach (var ent in toWriteToJson)
                 {
                     ent.DrawStep(drawer);
                 }
+
+                LoadButton.DrawStep(drawer);
+                SaveButton.DrawStep(drawer);
+                SnapToGridButton.DrawStep(drawer);
+
+                GameConsole.container.DrawStep(drawer);
             }
             catch (Exception e)
             {
@@ -176,18 +188,18 @@ namespace OpenGLTests.src.Screens
                     var xd = CoordinateFuckery.ClickToGLRelativeToCamera(clicked, new GameCoordinate(0, 0));
 
                     //should be xd?
-                    if (!GameConsole.container.Contains(clicked) && !SnapToGridButton.Contains(clicked) && CurrentlySelected != null)
+                    if (!GameConsole.container.Contains(clicked) && !SnapToGridButton.Contains(clicked) && CurrentlySelected != null
+                        && !SaveButton.Contains(clicked) && !LoadButton.Contains(clicked))
                     {
                         if (SnapToGrid) xd = RNG.SnapCoordinate(xd, new GameCoordinate(0.1f, 0.1f));
                         CurrentlySelected.Location = xd;
-                        CurrentlySelected.Visible = true;
-                        Drawables.Add(CurrentlySelected);
                         CurrentlySelected = CurrentlySelected.Clone() as Drawable;
                         toWriteToJson.Add(CurrentlySelected);
+                        CurrentlySelected = CurrentlySelected.Clone() as Drawable;
                     }
 
 
-                    foreach (var inter in Drawables.GetAllInteractables)
+                    foreach (IInteractable inter in Buttons)
                     {
                         if (inter.Contains(clicked))
                         {
@@ -212,21 +224,15 @@ namespace OpenGLTests.src.Screens
                     GameCoordinate clicked = new GameCoordinate(input.MouseButtonArgs.X, input.MouseButtonArgs.Y);
                     var xd = CoordinateFuckery.ClickToGLRelativeToCamera(clicked, new GameCoordinate(0, 0));
 
-                    List<Drawable> hackToRemove = new List<Drawable>();
-                    foreach (var d in Drawables.GetAllEntities)
+                    foreach (var d in toWriteToJson)
                     {
                         if (xd.Distance(d.Location) < 0.1f)
                         {
-                            hackToRemove.Add(d);
+                            toWriteToJson.Remove(d);
+                            d.Dispose();
+                            break;
                         }
                     }
-                    foreach (var hack in hackToRemove)
-                    {
-                        hack.Visible = false;
-                        Drawables.Remove(hack);
-                        toWriteToJson.Add(hack);
-                    }
-
                 }
             ));
         }

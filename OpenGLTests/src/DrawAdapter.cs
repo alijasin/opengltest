@@ -46,9 +46,9 @@ namespace OpenGLTests.src
                 left = location.X + drawable.Size.X/2;
                 right = location.X - drawable.Size.X/2;
             }
-            bottom = location.Y;
-            top = (location.Y + drawable.Size.Y);
-            if(drawable is Hero || drawable is Hostile) TraceRectangle(Color.Red, location.X - drawable.Size.X/2, -location.Y, drawable.Size.X, -drawable.Size.Y);
+            bottom = location.Y - drawable.Size.Y/2;
+            top = (location.Y + drawable.Size.Y/2);
+            if(drawable is Hero || drawable is Hostile) TraceRectangle(Color.Red, location.X - drawable.Size.X/2, -location.Y + drawable.Size.Y/2, drawable.Size.X, -drawable.Size.Y);
 
             GL.PushMatrix();
 
