@@ -21,7 +21,18 @@ namespace OpenGLTests.src.Util
 
             return null;
         }
+        public static ICombatable FindHeroLambda(RangeShape lookingShape)
+        {
+            foreach (var others in GameState.Drawables.GetAllHeroes)
+            {
+                if (lookingShape.Contains(others.Location))
+                {
+                    return others;
+                }
+            }
 
+            return null;
+        }
         public static bool MoveTowardsPoint(ICombatable source, GameCoordinate point)
         {
             if (source.Location.Distance(point) < source.Speed.X || source.Location.Distance(point) < source.Speed.Y)

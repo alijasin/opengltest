@@ -37,7 +37,7 @@ namespace OpenGLTests.src.Screens
             GameConsole.AddDrawableToBar(new PatrolGuy(new GameCoordinate(0, 0)));
             GameConsole.AddDrawableToBar(new BrickGate(new GameCoordinate(0, 0)));
             GameConsole.AddDrawableToBar(new BrickWall(new GameCoordinate(0, 0)));
-            GameConsole.AddDrawableToBar(new FleeingPerson(new GameCoordinate(0, 0), null));
+            GameConsole.AddDrawableToBar(new FleeingPerson(new GameCoordinate(0, 0)));
 
 
 

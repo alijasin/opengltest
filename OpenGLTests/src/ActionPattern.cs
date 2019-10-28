@@ -75,18 +75,10 @@ namespace OpenGLTests.src
     {
         private ICombatable chasing;
         private ICombatable source;
-        private object argument;
 
         public FindAndChaseEntity(ICombatable source)
         {
             this.source = source;
-
-            argument = (Func<GameCoordinate>)(() =>
-            {
-                if (chasing != null) return chasing.Location;
-                else return source.Location;
-            });
-
             InitPattern();
         }
 
@@ -98,7 +90,25 @@ namespace OpenGLTests.src
             };
         }
     }
+    class FindAndFleeEntity : ActionPattern
+    {
+        private ICombatable fleeing;
+        private ICombatable source;
 
+        public FindAndFleeEntity(ICombatable source)
+        {
+            this.source = source;
+            InitPattern();
+        }
+
+        public override void InitPattern()
+        {
+            Actions = new List<GameAction>()
+            {
+                new FindAndFlee(new RangeShape(new Circle(new GLCoordinate(0.2f, 0.2f)), source), source),
+            };
+        }
+    }
     class MoveAroundAndChill : ActionPattern
     {
         private ICombatable source;

@@ -13,14 +13,9 @@ Additionally, the hacks to get the burrower to do stuff is severe. Maybe need to
 Difficulty 6
 
 While we render and remove/add stuff which are to be rendered we are manipulating the drawable repo. This means that while we iterate through the drawables there might be an exception.
-Currently this is solved by just try/catching these errors and proceeding. This means that on some renders nothing new will be rendered, or just a subset.
-https://stackoverflow.com/questions/604831/collection-was-modified-enumeration-operation-may-not-execute they discuss this problem. Tried their solutions but they are not really solutions.
-Their solution will not work for cases with many entities. 
-I also tried having a concurrentbag, but elements are not ordered there. Raising difficulty from 5 to 8 but the importance is quite low since it works with the current hotfix in DrawableRepository.
+https://stackoverflow.com/questions/604831/collection-was-modified-enumeration-operation-may-not-execute 
+The current solution seems to work but it's probably causing a severe overhead. In effect, this means that this issue is important, but not urgent.
 Difficulty 8
-
-Some mobs spawn at (0, 0) in editor view for some reason.
-Difficulty 3.
 
 I believe game starts to lag after a while, but im not sure. Will need to investigate
 Difficulty 2-10

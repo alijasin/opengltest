@@ -316,12 +316,46 @@ namespace OpenGLTests.src
             {
                 if (looking)
                 {
-                    chasing = GameActionLambdas.FindCombatableLambda(findRad, Source);
+                    chasing = GameActionLambdas.FindHeroLambda(findRad);
                     if (chasing != null) looking = false;
                 }
                 else
                 {
                     Source.Color = Color.Red;
+                    var res = GameActionLambdas.MoveTowardsPoint(Source, chasing.Location);
+                    if (res) Source.Color = Color.White;
+                    return res;
+                }
+                return false;
+            };
+        }
+    }
+
+    class FindAndFlee : GameAction
+    {
+        private RangeShape findRad;
+        public FindAndFlee(RangeShape findShape, ICombatable source) : base(source)
+        {
+            findRad = findShape;
+            findRad.Visible = true;
+            //findRad.Color = Color.BlueViolet;
+            GameState.Drawables.Add(findRad);
+        }
+
+        private bool looking = true;
+        private ICombatable chasing;
+        public override Func<object, bool> GetAction()
+        {
+            return (o) =>
+            {
+                if (looking)
+                {
+                    chasing = GameActionLambdas.FindHeroLambda(findRad);
+                    if (chasing != null) looking = false;
+                }
+                else
+                {
+                    Source.Color = Color.Green;
                     var res = GameActionLambdas.MoveAwayFromPoint(Source, chasing.Location);
                     if (res) Source.Color = Color.White;
                     return res;
@@ -331,42 +365,6 @@ namespace OpenGLTests.src
         }
     }
 
-    class MoveTowardsEntityAction : GameAction
-    {
-        public MoveTowardsEntityAction(ICombatable source) : base(source)
-        {
-            this.ActionLine.LineType = LineType.Solid;
-        }
-        
-        public override Func<object, bool> GetAction()
-        {
-            return (o) =>
-            {
-                Func<GameCoordinate> currentLocationMethod = (Func<GameCoordinate>) o;
-                GameCoordinate point = currentLocationMethod.Invoke();
-
-                //todo refactor this to outside helper function
-                if (Source.Location.Distance(point) < Source.Speed.X || Source.Location.Distance(point) < Source.Speed.Y)
-                {
-                    //we are close enough
-                    return true;
-                }
-                else
-                {
-                    var dx = point.X - Source.Location.X;
-                    var dy = point.Y - Source.Location.Y;
-                    var dist = Math.Sqrt(dx * dx + dy * dy);
-
-                    var velX = (dx / dist) * Source.Speed.X;
-                    var velY = (dy / dist) * Source.Speed.Y;
-
-                    Source.Location.X += (float)velX;
-                    Source.Location.Y += (float)velY;
-                    return false;
-                }
-            };
-        }
-    }
 
     class MoveAwayFromEntityAction : GameAction
     {
@@ -406,6 +404,43 @@ namespace OpenGLTests.src
             };
         }
     }
+    class MoveTowardsEntityAction : GameAction
+    {
+        public MoveTowardsEntityAction(ICombatable source) : base(source)
+        {
+            this.ActionLine.LineType = LineType.Solid;
+        }
+        
+        public override Func<object, bool> GetAction()
+        {
+            return (o) =>
+            {
+                Func<GameCoordinate> currentLocationMethod = (Func<GameCoordinate>) o;
+                GameCoordinate point = currentLocationMethod.Invoke();
+
+                //todo refactor this to outside helper function
+                if (Source.Location.Distance(point) < Source.Speed.X || Source.Location.Distance(point) < Source.Speed.Y)
+                {
+                    //we are close enough
+                    return true;
+                }
+                else
+                {
+                    var dx = point.X - Source.Location.X;
+                    var dy = point.Y - Source.Location.Y;
+                    var dist = Math.Sqrt(dx * dx + dy * dy);
+
+                    var velX = (dx / dist) * Source.Speed.X;
+                    var velY = (dy / dist) * Source.Speed.Y;
+
+                    Source.Location.X += (float)velX;
+                    Source.Location.Y += (float)velY;
+                    return false;
+                }
+            };
+        }
+    }
+
 
     class MoveAction : GameAction
     {
