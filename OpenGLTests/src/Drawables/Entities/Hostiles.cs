@@ -23,6 +23,7 @@ namespace OpenGLTests.src.Drawables
         GLCoordinate Size { get; set; }
         Color Color { get; set; }
         int HitPoints { get; set; }
+        void Damage(int dmg);
         void OnDeath();
         void OnAggro(ICombatable aggroed);
     }
@@ -38,11 +39,16 @@ namespace OpenGLTests.src.Drawables
         public bool InCombat { get; set; }
         public int HitPoints { get; set; }
 
-        public Hostile()
+        protected Hostile()
         {
             this.HitPoints = 1;
             Add();
-            
+        }
+
+        public void Damage(int dmg)
+        {
+            HitPoints -= dmg;
+            if(HitPoints <= 0) OnDeath();
         }
 
         public void OnDeath()
@@ -95,23 +101,4 @@ namespace OpenGLTests.src.Drawables
 
     }
 
-    class AngryDude : Hostile
-    {
-        public AngryDude(GameCoordinate Location)
-        {
-            this.Location = Location;
-            this.AggroShape = new RangeShape(new Circle(new GLCoordinate(0.2f, 0.2f)), this);
-            this.AggroShape.Visible = true;
-            this.Speed = new GameCoordinate(0.01f, 0.01f);
-            ActionPattern = new MoveAroundAndChill(this);
-            ActionPattern.Loop = true;
-            Animation = new Animation(new SpriteSheet_BigZombieRun());
-        }
-
-        public override void DrawStep(DrawAdapter drawer)
-        {
-            base.DrawStep(drawer);
-            if(AggroShape != null) AggroShape.DrawStep(drawer);
-        }
-    }
 }
