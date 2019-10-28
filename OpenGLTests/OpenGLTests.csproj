@@ -91,6 +91,8 @@
     <Compile Include="src\Abilities.cs" />
     <Compile Include="src\RoomGenerator.cs" />
     <Compile Include="src\RoomLoader.cs" />
+    <Compile Include="src\Screens\EditorScreen.cs" />
+    <Compile Include="src\Screens\GameScreen.cs" />
     <Compile Include="src\Sprite.cs" />
     <Compile Include="src\Util\Coloring.cs" />
     <Compile Include="src\Util\ContainsLambdas.cs" />
@@ -103,7 +105,7 @@
     <Compile Include="src\GraphicsController.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="src\Screen.cs" />
+    <Compile Include="src\Screens\Screen.cs" />
     <Compile Include="src\Util\GameActionLambdas.cs" />
     <Compile Include="src\Util\ImageLoader.cs" />
     <Compile Include="src\Util\InputUnion.cs" />
@@ -1141,5 +1143,6 @@
     <None Include="Resources\burrowing_swamper_f01.png" />
     <None Include="Resources\burrowing_swamper_f00.png" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

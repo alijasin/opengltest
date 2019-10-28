@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using OpenGLTests.src.Drawables;
 using OpenGLTests.src.Drawables.Entities;
+using OpenGLTests.src.Screens;
 using OpenGLTests.src.Util;
 using Rectangle = OpenGLTests.src.Drawables.Rectangle;
 
@@ -81,8 +82,6 @@ namespace OpenGLTests.src
             {
                 if (elementSlot.ElementAt(filledSlots).Key != null)
                 {
-                    //todo: this is a mess.
-                    //elementSlot.ElementAt(filledSlots).Key.Dispose();
                     EditorScreen.Drawables.Remove(elementSlot.ElementAt(filledSlots).Key);
                     elementSlot.Remove(elementSlot.ElementAt(filledSlots).Key);
                 }

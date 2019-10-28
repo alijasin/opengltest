@@ -28,7 +28,7 @@ namespace OpenGLTests.src.Drawables.Entities
             this.Speed = new GameCoordinate(0.001f, 0.001f);
 
             //ActionPattern = new FleeEntity(this, fleeing);
-            ActionPattern.Loop = true;
+            //ActionPattern.Loop = true;
 
             Animation = new Animation(new SpriteSheet_LizardRun());
         }

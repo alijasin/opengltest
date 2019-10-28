@@ -25,6 +25,7 @@ namespace OpenGLTests.src
 
         private List<Drawable> toRemove = new List<Drawable>();
         private List<Drawable> toAdd = new List<Drawable>();
+
         //todo this is digusting and you should change it. Todo!!! High importance low urgency
         private List<T> GetWhere<T>(Func<Drawable, bool> filter)
         {

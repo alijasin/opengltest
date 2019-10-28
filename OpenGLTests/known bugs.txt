@@ -21,3 +21,6 @@ Difficulty 8
 
 Some mobs spawn at (0, 0) in editor view for some reason.
 Difficulty 3.
+
+I believe game starts to lag after a while, but im not sure. Will need to investigate
+Difficulty 2-10
