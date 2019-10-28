@@ -8,7 +8,6 @@ using System.Threading.Tasks;
 using Newtonsoft.Json;
 using OpenGLTests.src;
 using OpenGLTests.src.Drawables;
-using OpenGLTests.src.Entities;
 
 namespace OpenGLTests.src.Drawables
 {

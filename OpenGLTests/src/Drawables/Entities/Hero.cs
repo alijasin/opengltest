@@ -21,8 +21,13 @@ namespace OpenGLTests.src.Drawables
         {
             ActionBar.GetDefaultButton().OnInteraction.Invoke();
             if(!InCombat)ActionHandler.SelectedAction.RangeShape.IsInfinite = true;//set it to infinite range
-        } 
+        }
 
+
+        public void Damage(int dmg)
+        {
+            
+        }
 
         public void OnDeath()
         {

@@ -10,7 +10,7 @@ using Newtonsoft.Json.Linq;
 using OpenGLTests.src.Drawables;
 using OpenGLTests.src.Drawables.Entities;
 using OpenGLTests.src.Drawables.Terrain;
-using OpenGLTests.src.Entities;
+
 using OpenGLTests.src.Util;
 using OpenTK.Graphics.OpenGL;
 using OpenTK.Input;

@@ -128,7 +128,7 @@ namespace OpenGLTests.src
                     {
                         if (aoeShape.Contains(others.Location))
                         {
-                            others.HitPoints--;
+                            others.Damage(1);
                         }
                     }
 

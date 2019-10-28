@@ -102,6 +102,38 @@ namespace OpenGLTests.src
         }
     }
 
+    class FleeEntity : ActionPattern
+    {
+        private ICombatable source;
+        private object argument;
+
+        public FleeEntity(ICombatable source, ICombatable fleeing)
+        {
+            this.source = source;
+
+            argument = (Func<GameCoordinate>)(() =>
+            {
+                return fleeing.Location;
+            });
+
+            InitPattern();
+        }
+
+        public override void InitPattern()
+        {
+            Actions = new List<GameAction>()
+            {
+                new MoveTowardsEntityAction(source)
+
+            };
+        }
+
+        public override ActionReturns DoAction(object arg)
+        {
+            return base.DoAction(argument);
+        }
+    }
+
     class MoveAroundAndChill : ActionPattern
     {
         private ICombatable source;

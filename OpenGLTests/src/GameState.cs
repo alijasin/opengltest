@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using OpenGLTests.src.Drawables;
 using OpenGLTests.src.Drawables.Entities;
 using OpenGLTests.src.Drawables.Terrain;
-using OpenGLTests.src.Entities;
+
 using OpenGLTests.src.Util;
 using OpenTK.Graphics.OpenGL;
 
@@ -110,24 +110,21 @@ namespace OpenGLTests.src
                 return;
             }
 
-            object l = 1;
-            lock (l)
+            foreach (var combatable in Drawables.GetAllCombatables)
             {
-                foreach (ICombatable aggro in Drawables.GetAllCombatables.Where(c => c is ICombatable && !(c is Hero) && c.AggroShape != null && c.InCombat == false).ToList())
+                combatable.Step();
+            }
+            foreach (ICombatable aggro in Drawables.GetAllCombatables.Where(c => c is ICombatable && !(c is Hero) && c.AggroShape != null && c.InCombat == false).ToList())
+            {
+                if (aggro.AggroShape.Contains(Hero.Location))
                 {
-                    if (aggro.AggroShape.Contains(Hero.Location))
-                    {
-                        aggro.OnAggro(Hero);
-                        Hero.OnAggro(aggro);
-                    }
-                }
-
-                foreach (var combatable in Drawables.GetAllCombatables)
-                {
-                    combatable.Step();
-                    if (combatable.HitPoints <= 0) combatable.OnDeath();
+                    aggro.OnAggro(Hero);
+                    Hero.OnAggro(aggro);
                 }
             }
+
+
+
         }
     }
 }

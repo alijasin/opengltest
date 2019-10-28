@@ -6,7 +6,7 @@ using System.Security.Policy;
 using System.Text;
 using System.Threading.Tasks;
 using OpenGLTests.src.Drawables;
-using OpenGLTests.src.Entities;
+
 
 namespace OpenGLTests.src
 {
