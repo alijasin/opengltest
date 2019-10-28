@@ -69,6 +69,8 @@ namespace OpenGLTests.src.Drawables
     {
         public GLCoordinate Radius { get; set; }
 
+        //should probably be float and turned into GLCoordinate,
+        //or rename to elipsis
         public Circle(GLCoordinate radius)
         {
             this.Radius = radius;
@@ -85,7 +87,7 @@ namespace OpenGLTests.src.Drawables
         public void DrawStep(DrawAdapter drawer, GameCoordinate location)
         {
             GLCoordinate locationx = location.ToGLCoordinate();
-            drawer.DrawCircle(locationx.X, locationx.Y, Radius, Color.Red);
+            drawer.DrawCircle(locationx.X, locationx.Y, Radius, Color.Green);
         }
     }
 }

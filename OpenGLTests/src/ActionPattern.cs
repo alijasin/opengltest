@@ -14,6 +14,7 @@ namespace OpenGLTests.src
     /// </summary>
     public abstract class ActionPattern
     {
+        public GameAction CurrentAction => Actions.First();
         public abstract void InitPattern();
         public List<GameAction> Actions;
         public bool Loop = false;
@@ -70,18 +71,20 @@ namespace OpenGLTests.src
         }
     }
 
-    class ChaseEntity : ActionPattern
+    class FindAndChaseEntity : ActionPattern
     {
+        private ICombatable chasing;
         private ICombatable source;
         private object argument;
 
-        public ChaseEntity(ICombatable source, ICombatable chasing)
+        public FindAndChaseEntity(ICombatable source)
         {
             this.source = source;
 
             argument = (Func<GameCoordinate>)(() =>
             {
-                return chasing.Location;
+                if (chasing != null) return chasing.Location;
+                else return source.Location;
             });
 
             InitPattern();
@@ -91,46 +94,8 @@ namespace OpenGLTests.src
         {
             Actions = new List<GameAction>()
             {
-                new MoveTowardsEntityAction(source)
-
+                new FindAndChase(new RangeShape(new Circle(new GLCoordinate(0.2f, 0.2f)), source), source),
             };
-        }
-
-        public override ActionReturns DoAction(object arg)
-        {
-            return base.DoAction(argument);
-        }
-    }
-
-    class FleeEntity : ActionPattern
-    {
-        private ICombatable source;
-        private object argument;
-
-        public FleeEntity(ICombatable source, ICombatable fleeing)
-        {
-            this.source = source;
-
-            argument = (Func<GameCoordinate>)(() =>
-            {
-                return fleeing.Location;
-            });
-
-            InitPattern();
-        }
-
-        public override void InitPattern()
-        {
-            Actions = new List<GameAction>()
-            {
-                new MoveTowardsEntityAction(source)
-
-            };
-        }
-
-        public override ActionReturns DoAction(object arg)
-        {
-            return base.DoAction(argument);
         }
     }
 

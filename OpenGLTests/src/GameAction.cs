@@ -26,7 +26,7 @@ namespace OpenGLTests.src
         NoAction
     }
 
-    //todo split GameAction into Placed Action and Game Action
+    //todo split GameAction into Placed Action and Game Action and target action and so on.
     public abstract class GameAction
     {
         public RangeShape RangeShape { get; set; }
@@ -37,7 +37,6 @@ namespace OpenGLTests.src
         public bool IsPlaced { get; set; } = false;
         public bool IsInstant { get; set; } = false;
         protected ICombatable Source { get; set; }
-
         public GameAction() : this(null)
         {
 
@@ -86,10 +85,6 @@ namespace OpenGLTests.src
         {
             this.RangeShape = r;
         }
-
-        /*
-        public abstract bool PayPreConditions();
-        */
     }
 
     abstract class CombatAction : GameAction
@@ -302,6 +297,40 @@ namespace OpenGLTests.src
         }
     }
 
+    class FindAndChase : GameAction
+    {
+        private RangeShape findRad;
+        public FindAndChase(RangeShape findShape, ICombatable source) : base(source)
+        {
+            findRad = findShape;
+            findRad.Visible = true;
+            //findRad.Color = Color.BlueViolet;
+            GameState.Drawables.Add(findRad);
+        }
+
+        private bool looking = true;
+        private ICombatable chasing;
+        public override Func<object, bool> GetAction()
+        {
+            return (o) =>
+            {
+                if (looking)
+                {
+                    chasing = GameActionLambdas.FindCombatableLambda(findRad, Source);
+                    if (chasing != null) looking = false;
+                }
+                else
+                {
+                    Source.Color = Color.Red;
+                    var res = GameActionLambdas.MoveAwayFromPoint(Source, chasing.Location);
+                    if (res) Source.Color = Color.White;
+                    return res;
+                }
+                return false;
+            };
+        }
+    }
+
     class MoveTowardsEntityAction : GameAction
     {
         public MoveTowardsEntityAction(ICombatable source) : base(source)
@@ -333,6 +362,45 @@ namespace OpenGLTests.src
 
                     Source.Location.X += (float)velX;
                     Source.Location.Y += (float)velY;
+                    return false;
+                }
+            };
+        }
+    }
+
+    class MoveAwayFromEntityAction : GameAction
+    {
+        public MoveAwayFromEntityAction(ICombatable source) : base(source)
+        {
+            this.ActionLine.LineType = LineType.Solid;
+        }
+
+        public override Func<object, bool> GetAction()
+        {
+            return (o) =>
+            {
+                Func<GameCoordinate> currentLocationMethod = (Func<GameCoordinate>)o;
+                GameCoordinate point = currentLocationMethod.Invoke();
+
+                //todo refactor this to outside helper function
+                if (Source.Location.Distance(point) < Source.Speed.X || Source.Location.Distance(point) < Source.Speed.Y)
+                {
+                    //will never return true if unit is free to move. 
+                    //should return true on outside of range.
+                    //todo.
+                    return true;
+                }
+                else
+                {
+                    var dx = point.X - Source.Location.X;
+                    var dy = point.Y - Source.Location.Y;
+                    var dist = Math.Sqrt(dx * dx + dy * dy);
+
+                    var velX = (dx / dist) * Source.Speed.X;
+                    var velY = (dy / dist) * Source.Speed.Y;
+
+                    Source.Location.X -= (float)velX;
+                    Source.Location.Y -= (float)velY;
                     return false;
                 }
             };
@@ -484,17 +552,5 @@ namespace OpenGLTests.src
 
             return false;
         }
-
-        /*public override bool PayPreConditions()
-        {
-            if (isOnCooldown == false)
-            {
-                isOnCooldown = true;
-                return true;
-            }
-
-            return false;
-        }*/
-
     }
 }

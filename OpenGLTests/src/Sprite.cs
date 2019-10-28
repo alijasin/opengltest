@@ -161,6 +161,18 @@ namespace OpenGLTests.src
         { }
     }
 
+    class SpriteSheet_LizardRun : SpriteSheet
+    {
+        public SpriteSheet_LizardRun() : base(new Dictionary<SpriteID, int>()
+        {
+            { SpriteID.lizard_f_run_anim_f0, 12 },
+            { SpriteID.lizard_f_run_anim_f1, 12 },
+            { SpriteID.lizard_f_run_anim_f2, 12 },
+            { SpriteID.lizard_f_run_anim_f3, 12 }
+        })
+        { }
+    }
+    
     class SpriteSheet_BigZombieRun : SpriteSheet
     {
         public SpriteSheet_BigZombieRun() : base(new Dictionary<SpriteID, int>()

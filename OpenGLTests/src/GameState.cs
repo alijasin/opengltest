@@ -17,7 +17,7 @@ namespace OpenGLTests.src
         public Hero Hero { get; set; }
         public static DrawableRepository Drawables = new DrawableRepository();
         public static bool Combat { get; set; } = false;
-        public static RainGenerator RainGenerator = new RainGenerator(RainGenerator.RainType.Heavy); //todo: move to drawable
+        public static RainGenerator RainGenerator = new RainGenerator(RainGenerator.RainType.Clear); //todo: move to drawable
         public GameState()
         {
             for (int x = -10; x < 20; x++)
@@ -83,7 +83,7 @@ namespace OpenGLTests.src
             var patroldude = new PatrolGuy(new GameCoordinate(-0.6f, -0.4f));
             Drawables.Add(patroldude);
 
-            var chasingdude = new ChasingPerson(new GameCoordinate(0.5f, 0), Hero);
+            var chasingdude = new ChasingPerson(new GameCoordinate(0.5f, 0));
             Drawables.Add(chasingdude);
 
             var swamper = new Swamper(new GameCoordinate(0.5f, -0.5f));

@@ -74,7 +74,7 @@ namespace OpenGLTests.src.Drawables
 
         public void EnteredCombat(ICombatable triggeringEntity)
         {
-            //ActionPattern = new ChaseEntity(this, triggeringEntity);
+            //ActionPattern = new FindAndChaseEntity(this, triggeringEntity);
         }
 
         public virtual void OutOfCombatStep()

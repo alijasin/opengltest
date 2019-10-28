@@ -47,6 +47,11 @@ namespace OpenGLTests.src.Util
         big_zombie_run_anim_f2,
         big_zombie_run_anim_f3,
 
+        lizard_f_run_anim_f0,
+        lizard_f_run_anim_f1,
+        lizard_f_run_anim_f2,
+        lizard_f_run_anim_f3,
+
         floor_1,
         floor_2,
         floor_3,
@@ -110,6 +115,11 @@ namespace OpenGLTests.src.Util
             Images[SpriteID.ogre_run_anim_f2] = new Bitmap(Properties.Resources.ogre_run_anim_f2);
             Images[SpriteID.ogre_run_anim_f3] = new Bitmap(Properties.Resources.ogre_run_anim_f3);
 
+            Images[SpriteID.lizard_f_run_anim_f0] = new Bitmap(Properties.Resources.lizard_f_run_anim_f0);
+            Images[SpriteID.lizard_f_run_anim_f1] = new Bitmap(Properties.Resources.lizard_f_run_anim_f1);
+            Images[SpriteID.lizard_f_run_anim_f2] = new Bitmap(Properties.Resources.lizard_f_run_anim_f2);
+            Images[SpriteID.lizard_f_run_anim_f3] = new Bitmap(Properties.Resources.lizard_f_run_anim_f3);
+            
             Images[SpriteID.big_zombie_run_anim_f0] = new Bitmap(Properties.Resources.big_zombie_run_anim_f0);
             Images[SpriteID.big_zombie_run_anim_f1] = new Bitmap(Properties.Resources.big_zombie_run_anim_f1);
             Images[SpriteID.big_zombie_run_anim_f2] = new Bitmap(Properties.Resources.big_zombie_run_anim_f2);
