@@ -11,7 +11,7 @@ namespace OpenGLTests
 {
     class Program
     {
-        public static bool EDITOR = false;
+        public static bool EDITOR = true;
         static void Main(string[] args)
         {
             GraphicsController.Init();

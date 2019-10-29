@@ -20,6 +20,7 @@ namespace OpenGLTests.src.Screens
     {
         public GameConsole GameConsole;
         public static Drawable CurrentlySelected { get; set; }
+        public static Drawable LastPlaced { get; set; }
         public static Button SnapToGridButton { get; set; }
         public static Button SaveButton;
         public static Button LoadButton;
@@ -85,7 +86,9 @@ namespace OpenGLTests.src.Screens
             FacingButton.Location = new GLCoordinate(0.2f, 0.95f);
             FacingButton.OnInteraction = () =>
             {
-                CurrentlySelected.NextFacing();
+                toWriteToJson.Remove(LastPlaced);
+                LastPlaced.NextFacing();
+                toWriteToJson.Add(LastPlaced);
             };
             Buttons.Add(FacingButton);
 
@@ -96,7 +99,9 @@ namespace OpenGLTests.src.Screens
             RotationButton.Location = new GLCoordinate(0.3f, 0.95f);
             RotationButton.OnInteraction = () =>
             {
-                CurrentlySelected.Flip();
+                toWriteToJson.Remove(LastPlaced);
+                LastPlaced.Flip();
+                toWriteToJson.Add(LastPlaced);
             };
             Buttons.Add(RotationButton);
 
@@ -190,6 +195,7 @@ namespace OpenGLTests.src.Screens
                         CurrentlySelected.Location = xd;
                         CurrentlySelected = CurrentlySelected.Clone() as Drawable;
                         toWriteToJson.Add(CurrentlySelected);
+                        LastPlaced = CurrentlySelected;
                         CurrentlySelected = CurrentlySelected.Clone() as Drawable;
                     }
 
