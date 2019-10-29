@@ -35,20 +35,61 @@ namespace OpenGLTests.src
 
             float left, right, top, bottom;
 
-            
-            if (drawable.Direction == Drawables.Direction.Right)
+            #region bad way
+
+            /*
+
+                        if (drawable.XDirection == XDirection.Right)
+                        {
+                            right = location.X + drawable.Size.X/2;
+                            left = location.X - drawable.Size.X/2;
+                        }
+                        else
+                        {
+                            left = location.X + drawable.Size.X/2;
+                            right = location.X - drawable.Size.X/2;
+                        }
+
+                        if (drawable.YDirection == YDirection.UpsideDownRight)
+                        {
+                            bottom = location.Y - drawable.Size.Y / 2;
+                            top = (location.Y + drawable.Size.Y / 2);
+                        }
+                        else
+                        {
+                            bottom = (location.Y + drawable.Size.Y / 2);
+                            top = location.Y - drawable.Size.Y/2 ;
+                        }
+                       */
+
+            #endregion
+
+
+           /* if (drawable.Facing == Facing.Right)
             {
-                right = location.X + drawable.Size.X/2;
-                left = location.X - drawable.Size.X/2;
+                if (drawable.Size.X < 0) drawable.Size.X *= -1;
             }
             else
             {
-                left = location.X + drawable.Size.X/2;
-                right = location.X - drawable.Size.X/2;
+                if (drawable.Size.X > 0) drawable.Size.X *= -1;
+            }*/
+            /*
+            if (drawable.YDirection == YDirection.UpsideDownRight)
+            {
+                if (drawable.Size.Y < 0) drawable.Size.Y *= -1; 
             }
-            bottom = location.Y - drawable.Size.Y/2;
-            top = (location.Y + drawable.Size.Y/2);
-            if(drawable is Hero || drawable is Hostile) TraceRectangle(Color.Red, location.X - drawable.Size.X/2, -location.Y + drawable.Size.Y/2, drawable.Size.X, -drawable.Size.Y);
+            else
+            {
+                if (drawable.Size.Y > 0) drawable.Size.Y *= -1;
+            }*/
+            
+            bottom = location.Y - drawable.Size.Y / 2;
+            top = location.Y + drawable.Size.Y / 2;
+            right = location.X + drawable.Size.X / 2;
+            left = location.X - drawable.Size.X / 2;
+
+
+            if (drawable is Hero || drawable is Hostile) TraceRectangle(Color.Red, location.X - drawable.Size.X/2, -location.Y + drawable.Size.Y/2, drawable.Size.X, -drawable.Size.Y);
 
             GL.PushMatrix();
 
@@ -60,23 +101,13 @@ namespace OpenGLTests.src
 
             GL.BindTexture(TextureTarget.Texture2D, sprite.GLID);
             GL.Begin(BeginMode.Quads);
-            if (drawable.Direction == Drawables.Direction.Left)
-            {
 
-            }
             
-            GL.TexCoord2(0, 0);
-            GL.Vertex2(left, top);
+            if     (drawable.Facing == Facing.Right) fillSprite(left, right, top, bottom, drawable); 
+            else if(drawable.Facing == Facing.UpsideDownLeft)    fillSprite(right, left, bottom, top, drawable); 
+            else if(drawable.Facing == Facing.Left)  fillSprite(right, left, top, bottom, drawable); 
+            else if(drawable.Facing == Facing.UpsideDownRight)  fillSprite(left, right, bottom, top, drawable); 
 
-            GL.TexCoord2(0, 1);
-            GL.Vertex2(left, bottom);
-
-            GL.TexCoord2(1, 1);
-            GL.Vertex2(right, bottom);
-
-            GL.TexCoord2(1, 0);
-            GL.Vertex2(right, top);
-  
 
             GL.End();
             GL.Disable(EnableCap.Texture2D);
@@ -85,6 +116,23 @@ namespace OpenGLTests.src
             GL.PopMatrix();
         }
 
+
+        private void fillSprite(float left, float right, float top, float bottom, Drawable d)
+        {
+            GL.TexCoord2(0, 0);
+            if(!d.Flipped) GL.Vertex2(left, top);
+            else GL.Vertex2(right, bottom);
+
+            GL.TexCoord2(0, 1);
+            GL.Vertex2(left, bottom);
+
+            GL.TexCoord2(1, 1);
+            if(!d.Flipped) GL.Vertex2(right, bottom);
+            else GL.Vertex2(left, top);
+
+            GL.TexCoord2(1, 0);
+            GL.Vertex2(right, top);
+        }
 
         public void TraceRectangle(Color color, float x, float y, float width, float height)
         {

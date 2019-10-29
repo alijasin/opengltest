@@ -34,19 +34,14 @@ namespace OpenGLTests.src.Drawables
         public IShape Shape { get; set; }
         public bool IsInfinite { get; set; } = false;
         public IFollowable Following { get; set; }
-        public GameCoordinate offset;
 
-        public RangeShape(IShape shape, IFollowable following, GameCoordinate offset) : this(shape, following)
-        {
-            this.offset = offset;
-        }
 
         public RangeShape(IShape shape, IFollowable following)
         {
             this.Visible = false;
             this.Shape = shape;
             this.Following = following;
-            offset = new GameCoordinate(0, 0);
+
             GameState.Drawables.Add(this);
         }
 
@@ -55,7 +50,7 @@ namespace OpenGLTests.src.Drawables
             get
             {
                 if (this.Following?.Location == null) return new GameCoordinate(0, 0);
-                return this.Following.Location + offset;
+                return this.Following.Location;
             }
         }
 

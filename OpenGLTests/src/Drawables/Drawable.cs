@@ -7,23 +7,28 @@ using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
+using OpenGLTests.src.Drawables.Terrain;
 
 namespace OpenGLTests.src.Drawables
 {
-    public enum Direction
+    public enum Facing
     {
-        Left, Right,
+        Right,
+        UpsideDownRight,
+        Left,
+        UpsideDownLeft, 
     }
 
     public abstract class Drawable : ICloneable
     {
+        public bool Flipped = false;
+        public Facing Facing = Facing.Right;
         public virtual bool Visible { get; set; }
         public Color Color { get; set; } = Color.White;
         public GLCoordinate Size { get; set; } = new GLCoordinate(0.1f, 0.1f);
         [JsonIgnore]
         public Animation Animation { get; set; }
         public int Depth { get; set; } = 10;
-        public Direction Direction { get; set; } = Direction.Right;
 
         //todo: refactor this. We dont want drawable to  have game location. We want entity to have game location and element ot have gl location.
         private GameCoordinate location;
@@ -37,9 +42,57 @@ namespace OpenGLTests.src.Drawables
             }
             set { location = value; }
         }
+
+        public void SetFacing(Facing f)
+        {
+            Facing = f;
+        }
+
+        public void NextFacing()
+        {
+            switch (Facing)
+            {
+                case Facing.UpsideDownRight:
+                    Facing = Facing.UpsideDownLeft;
+                    break;
+                case Facing.UpsideDownLeft:
+                    Facing = Facing.Right;
+                    break;
+                case Facing.Left:
+                    Facing = Facing.UpsideDownRight;
+                    break;
+                case Facing.Right:
+                    Facing = Facing.Left;
+                    break;
+            }
+            Console.WriteLine("current facing: " +Facing);
+        }
+
+        public void SetFlip(bool tf)
+        {
+            this.Flipped = tf;
+        }
+
+        public void NextFlip()
+        {
+            //invert x and y
+            this.Size = new GLCoordinate(this.Size.Y, this.Size.X);
+
+            //update bounding box
+            //todo: only works for rectangles, but maybe this is fine.
+            if (this is ICollidable c)
+            {
+                c.BoundingBox.Dispose();
+                c.BoundingBox = new RangeShape(new Rectangle(Size), c);
+                c.BoundingBox.Visible = true;
+            }
+
+            this.Flipped = !this.Flipped;
+        }
+
         public virtual void DrawStep(DrawAdapter drawer)
         {
-
+            
         }
 
         public virtual void Dispose()

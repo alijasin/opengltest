@@ -26,7 +26,6 @@ namespace OpenGLTests.src.Drawables
         void Damage(int dmg);
         void OnDeath();
         void OnAggro(ICombatable aggroed);
-        Direction Direction { get; set; }
     }
 
 

@@ -29,18 +29,6 @@ namespace OpenGLTests.src
             }
             Hero = new Hero();
             Drawables.Add(Hero);
-            
-            Button FlipButton = new Button();
-            FlipButton.OnInteraction = () =>
-            {
-                Console.WriteLine("flip");
-                if (Hero.Direction == src.Drawables.Direction.Left) Hero.Direction = src.Drawables.Direction.Right;
-                else Hero.Direction = src.Drawables.Direction.Left;
-
-                Console.WriteLine("Current dir: " + Hero.Direction);
-            };
-            FlipButton.Location = new GLCoordinate(-0.95f, 0);
-            Drawables.Add(FlipButton);
 
 
             //LoadRoom();

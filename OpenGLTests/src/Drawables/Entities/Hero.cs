@@ -47,7 +47,6 @@ namespace OpenGLTests.src.Drawables
             this.Animation = new Animation(new SpriteSheet_ElfIdle());
             //this.AggroShape = new RangeCircle(new GLCoordinate(0, 0), this);
             initActionBar();
-
             ActionHandler = new OutOfCombatActionHandler(this);
             InCombat = false;
             

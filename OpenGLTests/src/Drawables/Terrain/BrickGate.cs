@@ -3,12 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
 using OpenGLTests.src.Util;
 
 namespace OpenGLTests.src.Drawables.Terrain
 {
     public interface ICollidable : IFollowable
     {
+        [JsonIgnore]
         RangeShape BoundingBox { get; set; }
     }
     class BrickWall : Entity, ICollidable
@@ -19,11 +21,10 @@ namespace OpenGLTests.src.Drawables.Terrain
             Animation = new Animation(new SpriteSheet_BrickWall());
             Animation.IsStatic = true;
             Animation.SetSprite(SpriteID.brick_wall);
-            Size = new GLCoordinate(0.30f, 0.17f);
             Depth = 1;
-            this.BoundingBox = new RangeShape(new Rectangle(Size), this, new GameCoordinate(0, 0.07f));
+            this.Size = new GLCoordinate(0.30f, 0.17f);
+            this.BoundingBox = new RangeShape(new Rectangle(Size), this);
             this.BoundingBox.Visible = true;
-            
             GameState.Drawables.Add(this);
         }
 

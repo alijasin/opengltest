@@ -565,11 +565,11 @@ namespace OpenGLTests.src
 
                 if (Source.Location.X < Marker.Location.X)
                 {
-                    Source.Direction = Drawables.Direction.Right;
+                    //Source.XDirection = Drawables.XDirection.Right;
                 }
                 else
                 {
-                    Source.Direction = Drawables.Direction.Left;
+                    //Source.XDirection = Drawables.XDirection.Left;
                 }
 
 
