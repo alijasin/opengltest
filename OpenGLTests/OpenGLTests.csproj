@@ -1127,6 +1127,10 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="known bugs.txt" />
+    <None Include="Resources\ui_load_button.png" />
+    <None Include="Resources\ui_save_button.png" />
+    <None Include="Resources\ui_facing_button.png" />
+    <None Include="Resources\ui_rotate_button.png" />
     <None Include="Resources\brick_wall.png" />
     <None Include="Resources\brick_gate_open.png" />
     <None Include="Resources\snap-to-grid-1-636500.png" />

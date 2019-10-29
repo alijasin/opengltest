@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
@@ -22,6 +23,8 @@ namespace OpenGLTests.src.Screens
         public static Button SnapToGridButton { get; set; }
         public static Button SaveButton;
         public static Button LoadButton;
+        public static Button FacingButton;
+        public static Button RotationButton;
         List<Line> gridLines = new List<Line>();
         private bool SnapToGrid = false;
         private List<Drawable> toWriteToJson = new List<Drawable>();
@@ -48,10 +51,9 @@ namespace OpenGLTests.src.Screens
 
             #region buttons
             SnapToGridButton = new Button(new GLCoordinate(0.1f, 0.1f));
-            GameState.Drawables.RegisterInteractable(SnapToGridButton);
-            SnapToGridButton.Animation = new Animation(new SpriteSheet_Icons());
+            SnapToGridButton.Animation = new Animation(new SpriteSheet_EditorUI());
             SnapToGridButton.Animation.IsStatic = true;
-            SnapToGridButton.Animation.SetSprite(SpriteID.icon_snap_to_grid);
+            SnapToGridButton.Animation.SetSprite(SpriteID.ui_snap_to_grid_button);
             SnapToGridButton.Location = new GLCoordinate(0, 0.95f);
             SnapToGridButton.OnInteraction = () =>
             {
@@ -64,12 +66,10 @@ namespace OpenGLTests.src.Screens
             Buttons.Add(SnapToGridButton);
 
             SaveButton = new Button(new GLCoordinate(0.1f, 0.1f));
-            GameState.Drawables.RegisterInteractable(SaveButton);
-            SaveButton.Animation = new Animation(new SpriteSheet_Icons());
+            SaveButton.Animation = new Animation(new SpriteSheet_EditorUI());
             SaveButton.Animation.IsStatic = true;
-            SaveButton.Animation.SetSprite(SpriteID.floor_1);
+            SaveButton.Animation.SetSprite(SpriteID.ui_save_button);
             SaveButton.Location = new GLCoordinate(0.1f, 0.95f);
-
             SaveButton.OnInteraction = () =>
             {
                 Console.WriteLine("Saved to TestEditorOutPut.json");
@@ -78,35 +78,29 @@ namespace OpenGLTests.src.Screens
             };
             Buttons.Add(SaveButton);
 
-
-            LoadButton = new Button(new GLCoordinate(0.1f, 0.1f));
-            GameState.Drawables.RegisterInteractable(LoadButton);
-            LoadButton.Animation = new Animation(new SpriteSheet_Icons());
-            LoadButton.Animation.IsStatic = true;
-            LoadButton.Animation.SetSprite(SpriteID.floor_1);
-            LoadButton.Location = new GLCoordinate(0.2f, 0.95f);
-            LoadButton.OnInteraction = () =>
+            FacingButton = new Button(new GLCoordinate(0.1f, 0.1f));
+            FacingButton.Animation = new Animation(new SpriteSheet_EditorUI());
+            FacingButton.Animation.IsStatic = true;
+            FacingButton.Animation.SetSprite(SpriteID.ui_facing_button);
+            FacingButton.Location = new GLCoordinate(0.2f, 0.95f);
+            FacingButton.OnInteraction = () =>
             {
-                JObject entitiesList = EntitySerializer.ReadFromJsonFile<JObject>("TestEditorOutPut.json");
-                JArray entities = entitiesList["$values"] as JArray;
-                foreach (var entity in entities)
-                {
-                    try
-                    {
-                        string sType = entity["$type"].ToString();
-                        Type entityType = Type.GetType(sType);
-                        Console.WriteLine("deserializing " + entityType);
-                        dynamic xd = (JsonConvert.DeserializeObject(entity.ToString(), entityType) as Drawable);
-
-                    }
-                    catch (Exception e)
-                    {
-                        Console.WriteLine("fucked up deserializing " + entity.GetType() + e);
-                    }
-
-                }
+                CurrentlySelected.NextFacing();
             };
-            Buttons.Add(LoadButton);
+            Buttons.Add(FacingButton);
+
+            RotationButton = new Button(new GLCoordinate(0.1f, 0.1f));
+            RotationButton.Animation = new Animation(new SpriteSheet_EditorUI());
+            RotationButton.Animation.IsStatic = true;
+            RotationButton.Animation.SetSprite(SpriteID.ui_rotate_button);
+            RotationButton.Location = new GLCoordinate(0.3f, 0.95f);
+            RotationButton.OnInteraction = () =>
+            {
+                CurrentlySelected.Flip();
+            };
+            Buttons.Add(RotationButton);
+
+
             #endregion
         }
         public override void Draw(DrawAdapter drawer)
@@ -122,9 +116,10 @@ namespace OpenGLTests.src.Screens
                     ent.DrawStep(drawer);
                 }
 
-                LoadButton.DrawStep(drawer);
-                SaveButton.DrawStep(drawer);
-                SnapToGridButton.DrawStep(drawer);
+                foreach (Drawable b in Buttons)
+                {
+                    b.DrawStep(drawer);
+                }
 
                 GameConsole.container.DrawStep(drawer);
             }
@@ -188,8 +183,8 @@ namespace OpenGLTests.src.Screens
                     var xd = CoordinateFuckery.ClickToGLRelativeToCamera(clicked, new GameCoordinate(0, 0));
 
                     //should be xd?
-                    if (!GameConsole.container.Contains(clicked) && !SnapToGridButton.Contains(clicked) && CurrentlySelected != null
-                        && !SaveButton.Contains(clicked) && !LoadButton.Contains(clicked))
+                    if (!GameConsole.container.Contains(clicked) && CurrentlySelected != null && !SaveButton.Contains(clicked) && 
+                        !FacingButton.Contains(clicked) && !RotationButton.Contains(clicked))
                     {
                         if (SnapToGrid) xd = xd.SnapCoordinate(new GameCoordinate(0.1f, 0.1f));
                         CurrentlySelected.Location = xd;

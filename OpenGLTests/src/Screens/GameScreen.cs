@@ -113,7 +113,7 @@ namespace OpenGLTests.src.Screens
                             //else d.YDirection = Drawables.YDirection.UpsideDownRight;
 
                             //d.NextFacing();
-                            d.NextFlip();
+                            //d.Flip();
 
                             Console.WriteLine("Collidable clicked");
                         }

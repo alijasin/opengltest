@@ -841,6 +841,9 @@
   <data name="tiny_zombie_run_anim_f3" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\tiny_zombie_run_anim_f3.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="ui_facing_button" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ui_facing_button.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="ui_heart_empty" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\ui_heart_empty.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -849,6 +852,15 @@
   </data>
   <data name="ui_heart_half" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\ui_heart_half.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ui_load_button" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ui_load_button.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ui_rotate_button" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ui_rotate_button.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ui_save_button" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ui_save_button.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="wall_banner_blue" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\wall_banner_blue.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>

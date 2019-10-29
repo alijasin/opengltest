@@ -2473,6 +2473,16 @@ namespace OpenGLTests.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap ui_facing_button {
+            get {
+                object obj = ResourceManager.GetObject("ui_facing_button", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap ui_heart_empty {
             get {
                 object obj = ResourceManager.GetObject("ui_heart_empty", resourceCulture);
@@ -2496,6 +2506,36 @@ namespace OpenGLTests.Properties {
         internal static System.Drawing.Bitmap ui_heart_half {
             get {
                 object obj = ResourceManager.GetObject("ui_heart_half", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap ui_load_button {
+            get {
+                object obj = ResourceManager.GetObject("ui_load_button", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap ui_rotate_button {
+            get {
+                object obj = ResourceManager.GetObject("ui_rotate_button", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap ui_save_button {
+            get {
+                object obj = ResourceManager.GetObject("ui_save_button", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

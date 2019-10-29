@@ -4,6 +4,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using OpenGLTests.src;
 using OpenGLTests.src.Util;
 
 namespace OpenGLTests.src
@@ -259,8 +260,21 @@ namespace OpenGLTests.src
             { SpriteID.action_attack, 5 },
             { SpriteID.action_charge, 5 },
             { SpriteID.floor_1, 5 },
-            { SpriteID.icon_snap_to_grid, 5}
 
+
+        })
+        { }
+    }
+    
+
+    class SpriteSheet_EditorUI : SpriteSheet
+    {
+        public SpriteSheet_EditorUI() : base(new Dictionary<SpriteID, int>()
+        {   { SpriteID.ui_rotate_button, 5 },
+            { SpriteID.ui_facing_button, 5 },
+            { SpriteID.ui_save_button, 5 },
+            { SpriteID.ui_snap_to_grid_button, 5},
+            { SpriteID.ui_load_button, 5 }
         })
         { }
     }

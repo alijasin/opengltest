@@ -563,13 +563,16 @@ namespace OpenGLTests.src
                     return true;
                 }
 
+                //todo heromove action should take hero and not icombatable
+                var h = Source as Hero;
+
                 if (Source.Location.X < Marker.Location.X)
                 {
-                    //Source.XDirection = Drawables.XDirection.Right;
+                    h.Facing = Facing.Right;
                 }
                 else
                 {
-                    //Source.XDirection = Drawables.XDirection.Left;
+                    h.Facing = Facing.Left;
                 }
 
 

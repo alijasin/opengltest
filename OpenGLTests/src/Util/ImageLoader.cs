@@ -75,9 +75,12 @@ namespace OpenGLTests.src.Util
         item_flask_big_green,
         item_apple,
 
-        icon_snap_to_grid,
 
-
+        ui_snap_to_grid_button,
+        ui_facing_button,
+        ui_load_button,
+        ui_rotate_button,
+        ui_save_button,
     }
     static class ImageLoader
     {
@@ -148,8 +151,11 @@ namespace OpenGLTests.src.Util
             Images[SpriteID.item_flask_big_green] = new Bitmap(Properties.Resources.flask_big_green);
             Images[SpriteID.item_apple] = new Bitmap(Properties.Resources.apple);
 
-            Images[SpriteID.icon_snap_to_grid] = new Bitmap(Properties.Resources.icon_snap_to_grid);
-
+            Images[SpriteID.ui_load_button] = new Bitmap(Properties.Resources.ui_load_button);
+            Images[SpriteID.ui_snap_to_grid_button] = new Bitmap(Properties.Resources.icon_snap_to_grid);
+            Images[SpriteID.ui_facing_button] = new Bitmap(Properties.Resources.ui_facing_button);
+            Images[SpriteID.ui_rotate_button] = new Bitmap(Properties.Resources.ui_rotate_button);
+            Images[SpriteID.ui_save_button] = new Bitmap(Properties.Resources.ui_save_button);
 
             Images[SpriteID.missing] = new Bitmap(Properties.Resources.empty);
             //foreach (var image in Enum.GetValues(typeof(SpriteID)).Cast<SpriteID>())

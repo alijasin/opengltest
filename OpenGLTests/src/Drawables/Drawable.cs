@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
@@ -18,6 +19,7 @@ namespace OpenGLTests.src.Drawables
         Left,
         UpsideDownLeft, 
     }
+
 
     public abstract class Drawable : ICloneable
     {
@@ -68,12 +70,7 @@ namespace OpenGLTests.src.Drawables
             Console.WriteLine("current facing: " +Facing);
         }
 
-        public void SetFlip(bool tf)
-        {
-            this.Flipped = tf;
-        }
-
-        public void NextFlip()
+        public void Flip()
         {
             //invert x and y
             this.Size = new GLCoordinate(this.Size.Y, this.Size.X);
@@ -88,6 +85,20 @@ namespace OpenGLTests.src.Drawables
             }
 
             this.Flipped = !this.Flipped;
+        }
+
+        //hack? for serialization
+        [OnDeserialized]
+        private void Flip(System.Runtime.Serialization.StreamingContext xd)
+        {
+            //update bounding box
+            //todo: only works for rectangles, but maybe this is fine.
+            if (this is ICollidable c)
+            {
+                c.BoundingBox.Dispose();
+                c.BoundingBox = new RangeShape(new Rectangle(Size), c);
+                c.BoundingBox.Visible = true;
+            }
         }
 
         public virtual void DrawStep(DrawAdapter drawer)
