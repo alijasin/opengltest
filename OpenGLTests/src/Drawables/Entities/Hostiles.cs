@@ -10,8 +10,8 @@ using OpenGLTests.src.Util;
 
 namespace OpenGLTests.src.Drawables
 {
-    //todo: dont chain interfaces. its jobbigt
     //todo: interface segragate
+    //todo: just remove this interface and use entities instead
     public interface ICombatable : IFollowable
     {
         [JsonIgnore]
@@ -26,6 +26,7 @@ namespace OpenGLTests.src.Drawables
         void Damage(int dmg);
         void OnDeath();
         void OnAggro(ICombatable aggroed);
+        Direction Direction { get; set; }
     }
 
 

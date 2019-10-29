@@ -563,6 +563,15 @@ namespace OpenGLTests.src
                     return true;
                 }
 
+                if (Source.Location.X < Marker.Location.X)
+                {
+                    Source.Direction = Drawables.Direction.Right;
+                }
+                else
+                {
+                    Source.Direction = Drawables.Direction.Left;
+                }
+
 
                 var dx = Marker.Location.X - Source.Location.X;
                 var dy = Marker.Location.Y - Source.Location.Y;
