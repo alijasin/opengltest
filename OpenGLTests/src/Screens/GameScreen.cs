@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using OpenGLTests.src.Drawables;
+using OpenGLTests.src.Drawables.Terrain;
 using OpenGLTests.src.Util;
 using OpenTK.Input;
 using OpenTK.Graphics.OpenGL;
@@ -100,6 +101,11 @@ namespace OpenGLTests.src.Screens
                             i.OnClick(clicked);
                         }
                     }
+
+                    foreach (ICollidable c in GameState.Drawables.GetAllCollidables)
+                    {
+                        if(c.BoundingBox.Contains(xd)) Console.WriteLine("Collidable clicked");
+                    }
                 },
                 input =>
                 {
@@ -113,12 +119,14 @@ namespace OpenGLTests.src.Screens
                 {
                     GameCoordinate placed = new GameCoordinate(input.MouseButtonArgs.X, input.MouseButtonArgs.Y);
                     var xd = CoordinateFuckery.ClickToGLRelativeToCamera(placed, new GameCoordinate(0, 0));
+                    xd = xd.SnapCoordinate();
                     Game.Hero.ActionHandler.OnMouseDown(xd);
                 },
                 input =>
                 {
                     GameCoordinate placed = new GameCoordinate(input.MouseButtonArgs.X, input.MouseButtonArgs.Y);
                     var xd = CoordinateFuckery.ClickToGLRelativeToCamera(placed, new GameCoordinate(0, 0));
+                    xd = xd.SnapCoordinate();
                     Game.Hero.ActionHandler.OnMouseUp(xd);
                 }
             ));

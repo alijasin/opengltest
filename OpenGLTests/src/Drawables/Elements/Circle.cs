@@ -34,12 +34,19 @@ namespace OpenGLTests.src.Drawables
         public IShape Shape { get; set; }
         public bool IsInfinite { get; set; } = false;
         public IFollowable Following { get; set; }
+        public GameCoordinate offset;
+
+        public RangeShape(IShape shape, IFollowable following, GameCoordinate offset) : this(shape, following)
+        {
+            this.offset = offset;
+        }
 
         public RangeShape(IShape shape, IFollowable following)
         {
             this.Visible = false;
             this.Shape = shape;
             this.Following = following;
+            offset = new GameCoordinate(0, 0);
             GameState.Drawables.Add(this);
         }
 
@@ -48,7 +55,7 @@ namespace OpenGLTests.src.Drawables
             get
             {
                 if (this.Following?.Location == null) return new GameCoordinate(0, 0);
-                return this.Following.Location;
+                return this.Following.Location + offset;
             }
         }
 
@@ -88,6 +95,28 @@ namespace OpenGLTests.src.Drawables
         {
             GLCoordinate locationx = location.ToGLCoordinate();
             drawer.DrawCircle(locationx.X, locationx.Y, Radius, Color.Green);
+        }
+    }
+
+    public class Rectangle : IShape
+    {
+        public GLCoordinate Dimensions { get; set; }
+
+        public Rectangle(GLCoordinate dimensions)
+        {
+            this.Dimensions = dimensions;
+        }
+
+        public bool Contains(GameCoordinate point, GameCoordinate location)
+        {
+            return (point.X < location.X + Dimensions.X / 2 && point.X > location.X - Dimensions.X / 2 &&
+                    point.Y < location.Y + Dimensions.Y / 2 && point.Y > location.Y - Dimensions.Y / 2);
+        }
+
+        public void DrawStep(DrawAdapter drawer, GameCoordinate location)
+        {
+            GLCoordinate locationx = location.ToGLCoordinate();
+            drawer.TraceRectangle(Color.Gold, locationx.X - this.Dimensions.X / 2, -locationx.Y + this.Dimensions.Y / 2, this.Dimensions.X, -this.Dimensions.Y);
         }
     }
 }

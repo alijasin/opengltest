@@ -67,13 +67,14 @@
     <Compile Include="src\Drawables\Entities\AngryDude.cs" />
     <Compile Include="src\Drawables\Entities\Chaser.cs" />
     <Compile Include="src\Drawables\Entities\DrawableButton.cs" />
+    <Compile Include="src\Drawables\Entities\FleeingPerson.cs" />
     <Compile Include="src\Drawables\Entities\Hero.cs" />
     <Compile Include="src\Drawables\Entities\Hostiles.cs" />
     <Compile Include="src\Drawables\Entities\PatrolGuy.cs" />
     <Compile Include="src\Drawables\Inventory.cs" />
     <Compile Include="src\Drawables\Elements\Line.cs" />
     <Compile Include="src\Drawables\Elements\Particle.cs" />
-    <Compile Include="src\Drawables\Elements\Rectangle.cs" />
+    <Compile Include="src\Drawables\Elements\RectangleElement.cs" />
     <Compile Include="src\Drawables\Entities\Swamper.cs" />
     <Compile Include="src\Drawables\Entities\Unicorn.cs" />
     <Compile Include="src\DrawableRepository.cs" />

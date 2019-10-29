@@ -8,7 +8,7 @@ using OpenGLTests.src.Util;
 
 namespace OpenGLTests.src.Drawables
 {
-    public class Button : Rectangle, IInteractable
+    public class Button : RectangleElement, IInteractable
     {
         private Color initialColor;
         private Color toggleColor;

@@ -27,7 +27,7 @@ namespace OpenGLTests.src
             {
                 for (int x = -10; x < 10; x++)
                 {
-                    var snappedPoint = RNG.SnapCoordinate(new GameCoordinate(x * material.Size.X, y * material.Size.Y), new GameCoordinate(material.Size.X, material.Size.Y));
+                    var snappedPoint = new GameCoordinate(x * material.Size.X, y * material.Size.Y).SnapCoordinate(new GameCoordinate(material.Size.X, material.Size.Y));
                     Wall wall = new Wall(new GameCoordinate(snappedPoint.X + material.Size.X/2, snappedPoint.Y + material.Size.Y/2));
                     walls.AddWall(wall);
                 }
@@ -35,11 +35,6 @@ namespace OpenGLTests.src
 
             walls.BreakRandom();
             walls.DamageAroundCurrent();
-
-            //walls.SelectRandomFromDamaged();
-            //walls.DamageAroundCurrent();
-            //walls.SelectRandomFromDamaged();
-            //walls.DamageAroundCurrent();
         }
 
         public static void Step()

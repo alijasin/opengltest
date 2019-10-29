@@ -7,7 +7,11 @@ using OpenGLTests.src.Util;
 
 namespace OpenGLTests.src.Drawables.Terrain
 {
-    class BrickWall : Entity
+    public interface ICollidable : IFollowable
+    {
+        RangeShape BoundingBox { get; set; }
+    }
+    class BrickWall : Entity, ICollidable
     {
         public BrickWall(GameCoordinate location)
         {
@@ -15,10 +19,15 @@ namespace OpenGLTests.src.Drawables.Terrain
             Animation = new Animation(new SpriteSheet_BrickWall());
             Animation.IsStatic = true;
             Animation.SetSprite(SpriteID.brick_wall);
-            Size = new GLCoordinate(0.30f, 0.30f);
+            Size = new GLCoordinate(0.30f, 0.17f);
             Depth = 1;
+            this.BoundingBox = new RangeShape(new Rectangle(Size), this, new GameCoordinate(0, 0.07f));
+            this.BoundingBox.Visible = true;
+            
             GameState.Drawables.Add(this);
         }
+
+        public RangeShape BoundingBox { get; set; }
     }
 
     class BrickGate : Entity, IClickable

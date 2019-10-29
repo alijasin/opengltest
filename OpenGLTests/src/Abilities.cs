@@ -43,7 +43,7 @@ namespace OpenGLTests.src
     {
         public Move(ICombatable owner)
         {
-            this.Action = new CombatMoveAction(new GLCoordinate(0.3f, 0.3f), owner);
+            this.Action = new HeroMoveAction(new GLCoordinate(0.3f, 0.3f), owner);
             this.Icon = SpriteID.action_move;
         }
     }

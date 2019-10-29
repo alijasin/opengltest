@@ -9,24 +9,23 @@ using OpenGLTests.src.Drawables;
 using OpenGLTests.src.Drawables.Entities;
 using OpenGLTests.src.Screens;
 using OpenGLTests.src.Util;
-using Rectangle = OpenGLTests.src.Drawables.Rectangle;
 
 namespace OpenGLTests.src
 {
     public class GameConsole
     {
-        public ElementRectangle container;
+        public ElementRectangleElement container;
 
         public GameConsole()
         {
-            container = new ElementRectangle(18, 2);
+            container = new ElementRectangleElement(18, 2);
             container.Location = new GLCoordinate(0, -1 + container.Size.Y/2);
             container.Color = Color.Red;
             container.Visible = true;
 
             for (int i = 0; i < 18 * 2; i++)
             {
-                AddDrawableToBar(new Rectangle());
+                AddDrawableToBar(new RectangleElement());
             }
         }
 
@@ -42,7 +41,7 @@ namespace OpenGLTests.src
     }
 
 
-    public class ElementRectangle : Rectangle, IInteractable
+    public class ElementRectangleElement : RectangleElement, IInteractable
     {
         private int filledSlots = 0;
         private int maxFilledSlot = 0;
@@ -51,7 +50,7 @@ namespace OpenGLTests.src
 
         private List<GLCoordinate> slotPosition = new List<GLCoordinate>();
 
-        public ElementRectangle(int columns, int rows)
+        public ElementRectangleElement(int columns, int rows)
         {
             maxFilledSlot = columns * rows;
             this.Size = new GLCoordinate(slotSize.X*columns, slotSize.Y*rows);

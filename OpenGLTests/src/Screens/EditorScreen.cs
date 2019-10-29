@@ -191,7 +191,7 @@ namespace OpenGLTests.src.Screens
                     if (!GameConsole.container.Contains(clicked) && !SnapToGridButton.Contains(clicked) && CurrentlySelected != null
                         && !SaveButton.Contains(clicked) && !LoadButton.Contains(clicked))
                     {
-                        if (SnapToGrid) xd = RNG.SnapCoordinate(xd, new GameCoordinate(0.1f, 0.1f));
+                        if (SnapToGrid) xd = xd.SnapCoordinate(new GameCoordinate(0.1f, 0.1f));
                         CurrentlySelected.Location = xd;
                         CurrentlySelected = CurrentlySelected.Clone() as Drawable;
                         toWriteToJson.Add(CurrentlySelected);

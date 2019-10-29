@@ -303,9 +303,6 @@ namespace OpenGLTests.src
         public FindAndChase(RangeShape findShape, ICombatable source) : base(source)
         {
             findRad = findShape;
-            findRad.Visible = true;
-            //findRad.Color = Color.BlueViolet;
-            GameState.Drawables.Add(findRad);
         }
 
         private bool looking = true;
@@ -337,9 +334,6 @@ namespace OpenGLTests.src
         public FindAndFlee(RangeShape findShape, ICombatable source) : base(source)
         {
             findRad = findShape;
-            findRad.Visible = true;
-            //findRad.Color = Color.BlueViolet;
-            GameState.Drawables.Add(findRad);
         }
 
         private bool looking = true;
@@ -541,11 +535,11 @@ namespace OpenGLTests.src
         }
     }
 
-    class CombatMoveAction : CombatAction
+    class HeroMoveAction : CombatAction
     {
         private bool isOnCooldown = false;
 
-        public CombatMoveAction(GLCoordinate radius, ICombatable source) : base(source)
+        public HeroMoveAction(GLCoordinate radius, ICombatable source) : base(source)
         {
             RangeShape = new RangeShape(new Circle(radius), source);
             this.Marker = new MoveMarker(RangeShape.Location);
@@ -554,18 +548,13 @@ namespace OpenGLTests.src
 
         public override Func<object, bool> GetAction()
         {
-            return (o) =>
-            {
-                //not worth doing here but it is possible to do in other places.
-                if (Source.InCombat) return combatAction(o);
-                else return combatAction(o);
-            };
+            return (o) => { return combatAction(o); };
         }
 
         private bool combatAction(object arg)
         {
             int index = (int)arg;
-            if (index > 1000) return true; //dont get stuck
+            if (index > 200) return true; //dont get stuck
             if (Marker != null)
             {
                 if (Source.Location.Distance(Marker.Location) < Source.Speed.X || Source.Location.Distance(Marker.Location) < Source.Speed.Y)
@@ -573,15 +562,39 @@ namespace OpenGLTests.src
                     //we are close enough
                     return true;
                 }
+
+
                 var dx = Marker.Location.X - Source.Location.X;
                 var dy = Marker.Location.Y - Source.Location.Y;
                 var dist = Math.Sqrt(dx * dx + dy * dy);
 
-                var velX = (dx / dist) * Source.Speed.X;
-                var velY = (dy / dist) * Source.Speed.Y;
+                var velX = (float)(dx / dist) * Source.Speed.X;
+                var velY = (float)(dy / dist) * Source.Speed.Y;
 
-                Source.Location.X += (float)velX;
-                Source.Location.Y += (float)velY;
+
+                bool blockedX = false;
+                bool blockedY = false;
+
+                //:: Optimizable Area
+                //1. filter these collidables some more so we dont iterate all of them.
+                //2. store some things in variables
+                foreach (var collidable in GameState.Drawables.GetAllCollidables)
+                {
+                    if (collidable.BoundingBox.Contains(new GameCoordinate(collidable.BoundingBox.Location.X,Source.Location.Y + velY*2))
+                         && collidable.BoundingBox.Contains(new GameCoordinate(Source.Location.X + velX/2, collidable.BoundingBox.Location.Y)))
+                    {
+                        blockedY = true;
+                    }
+                    if (collidable.BoundingBox.Contains(new GameCoordinate(Source.Location.X + velX * 2, collidable.BoundingBox.Location.Y))
+                        && collidable.BoundingBox.Contains(new GameCoordinate(collidable.BoundingBox.Location.X, Source.Location.Y + velY/2)))
+                    {
+                        blockedX = true;
+                    }
+                }
+
+                if (!blockedY) Source.Location.Y += velY;
+                if (!blockedX) Source.Location.X += velX;
+
             }
 
 

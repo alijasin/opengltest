@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace OpenGLTests.src.Drawables
 {
-    public class Inventory : Rectangle, IClickable
+    public class Inventory : RectangleElement, IClickable
     {
         private List<InventorySlot> InventorySlots = new List<InventorySlot>();
         private int rows = 4;

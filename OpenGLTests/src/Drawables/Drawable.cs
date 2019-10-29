@@ -14,6 +14,7 @@ namespace OpenGLTests.src.Drawables
     {
         Left, Right,
     }
+
     public abstract class Drawable : ICloneable
     {
         public virtual bool Visible { get; set; }

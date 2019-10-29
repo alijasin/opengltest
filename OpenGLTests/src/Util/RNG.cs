@@ -95,14 +95,6 @@ namespace OpenGLTests.src.Util
             return rngLoc;
         }
 
-        //todo: move this from RNG to Coords or something
-        public static GameCoordinate SnapCoordinate(GameCoordinate coord, GameCoordinate snapSize)
-        {
-            var x = Math.Round(coord.X / snapSize.X);
-            var y = Math.Round(coord.Y / snapSize.Y);
-            return new GameCoordinate((float)x*snapSize.X, (float)y*snapSize.Y);
-        }
-
         public static T RandomElement<T>(List<T> list)
         {
             return list.ElementAt(RNG.IntegerBetween(0, list.Count()));

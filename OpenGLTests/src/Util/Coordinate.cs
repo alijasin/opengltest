@@ -17,8 +17,6 @@ namespace OpenGLTests.src
             var gcc = new GLCoordinate(x * 2 / GibbWindow.WIDTH - 1, y * 2 / GibbWindow.HEIGHT - 1);
             return new GameCoordinate(gcc.X + Screen.ActiveCamera.Location.X, gcc.Y + Screen.ActiveCamera.Location.Y);
         }
-
-
     }
 
     public class GameCoordinate : IEquatable<GameCoordinate>
@@ -71,6 +69,18 @@ namespace OpenGLTests.src
         public static GameCoordinate operator -(GameCoordinate a, GameCoordinate b)
         {
             return a + -b;
+        }
+
+        public GameCoordinate SnapCoordinate()
+        {
+            return SnapCoordinate(new GameCoordinate(0.1f, 0.1f));
+        }
+
+        public GameCoordinate SnapCoordinate(GameCoordinate snapSize)
+        {
+            var x = Math.Round(this.X / snapSize.X);
+            var y = Math.Round(this.Y / snapSize.Y);
+            return new GameCoordinate((float)x * snapSize.X, (float)y * snapSize.Y);
         }
 
         public override string ToString()

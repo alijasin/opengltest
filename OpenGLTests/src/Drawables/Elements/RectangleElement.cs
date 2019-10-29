@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace OpenGLTests.src.Drawables
 {
-    public class Rectangle : Element
+    public class RectangleElement : Element
     {
         public bool Contains(GameCoordinate point)
         {

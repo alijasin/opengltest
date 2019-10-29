@@ -6,6 +6,7 @@ using System.Security.Policy;
 using System.Text;
 using System.Threading.Tasks;
 using OpenGLTests.src.Drawables;
+using OpenGLTests.src.Drawables.Terrain;
 
 
 namespace OpenGLTests.src
@@ -22,6 +23,7 @@ namespace OpenGLTests.src
         public List<Element> GetAllElements => GetWhere<Element>(drawable => drawable is Element);
         public List<ICombatable> GetAllCombatables => GetWhere<ICombatable>(drawable => drawable is ICombatable);
         public List<Hero> GetAllHeroes => drawableRepo.Where(E => E is Hero).Cast<Hero>().ToList();
+        public List<ICollidable> GetAllCollidables => GetWhere<ICollidable>(E => E is ICollidable);
 
         private List<Drawable> toRemove = new List<Drawable>();
         private List<Drawable> toAdd = new List<Drawable>();
