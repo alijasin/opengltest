@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using OpenGLTests.src.Drawables.Terrain;
+using OpenGLTests.src.Util;
 
 namespace OpenGLTests.src.Drawables
 {
@@ -20,7 +21,6 @@ namespace OpenGLTests.src.Drawables
         UpsideDownLeft, 
     }
 
-
     public abstract class Drawable : ICloneable
     {
         public bool Flipped = false;
@@ -31,19 +31,6 @@ namespace OpenGLTests.src.Drawables
         [JsonIgnore]
         public Animation Animation { get; set; }
         public int Depth { get; set; } = 10;
-
-        //todo: refactor this. We dont want drawable to  have game location. We want entity to have game location and element ot have gl location.
-        private GameCoordinate location;
-        [JsonProperty]
-        public virtual GameCoordinate Location
-        {
-            get
-            {
-                if (this.location == null) return new GameCoordinate(0, 0);
-                return this.location;
-            }
-            set { location = value; }
-        }
 
         public void SetFacing(Facing f)
         {
@@ -80,7 +67,7 @@ namespace OpenGLTests.src.Drawables
             if (this is ICollidable c)
             {
                 c.BoundingBox.Dispose();
-                c.BoundingBox = new RangeShape(new Rectangle(Size), c);
+                c.BoundingBox = new RangeShape(new Rectangle(Size), c as Entity);
                 c.BoundingBox.Visible = true;
             }
 
@@ -96,7 +83,7 @@ namespace OpenGLTests.src.Drawables
             if (this is ICollidable c)
             {
                 c.BoundingBox.Dispose();
-                c.BoundingBox = new RangeShape(new Rectangle(Size), c);
+                c.BoundingBox = new RangeShape(new Rectangle(Size), c as Entity);
                 c.BoundingBox.Visible = true;
             }
         }
@@ -118,31 +105,10 @@ namespace OpenGLTests.src.Drawables
         }
     }
 
-    public abstract class Entity : Drawable
+    public interface ICollidable
     {
-        [JsonProperty]
-        public GameCoordinate Speed { get; set; } = new GameCoordinate(0, 0);
-
-        public Entity()
-        {
-            this.Visible = true;
-        }
-
-        public override void DrawStep(DrawAdapter drawer)
-        {
-            GLCoordinate location = Location.ToGLCoordinate();
-            if (Visible)
-            {
-                if (Animation == null)
-                {
-                    drawer.FillRectangle(Color, location.X, location.Y, Size.X, Size.Y);
-                }
-                else
-                {
-                    drawer.DrawSprite(this);
-                }
-            }
-        }
+        [JsonIgnore]
+        RangeShape BoundingBox { get; set; }
     }
 
     public abstract class Element : Drawable
@@ -165,9 +131,101 @@ namespace OpenGLTests.src.Drawables
                 else
                 {
                     drawer.FillRectangle(Color, Location.X, Location.Y, Size.X, Size.Y);
-                    drawer.DrawSprite(this);
+                    drawer.DrawElement(this);
                 }
             }
         }
+    }
+
+    public abstract class Entity : Drawable
+    {
+        [JsonProperty]
+        public GameCoordinate Speed { get; set; } = new GameCoordinate(0, 0);
+
+        //todo: refactor this. We dont want drawable to  have game location. We want entity to have game location and element ot have gl location.
+        private GameCoordinate location;
+        [JsonProperty]
+        public virtual GameCoordinate Location
+        {
+            get
+            {
+                if (this.location == null) return new GameCoordinate(0, 0);
+                return this.location;
+            }
+            set { location = value; }
+        }
+
+        public Entity()
+        {
+            this.Visible = true;
+        }
+
+        public override void DrawStep(DrawAdapter drawer)
+        {
+            GLCoordinate location = Location.ToGLCoordinate();
+            if (Visible)
+            {
+                if (Animation == null)
+                {
+                    drawer.FillRectangle(Color, location.X, location.Y, Size.X, Size.Y);
+                }
+                else
+                {
+                    drawer.DrawEntity(this);
+                }
+            }
+        }
+    }
+
+    public abstract class Stuff : Entity, ICollidable
+    {
+        protected Stuff()
+        {
+            this.Color = Color.White;
+            this.BoundingBox = new RangeShape(new Rectangle(new GLCoordinate(0.1f, 0.1f)), this);
+        }
+
+        public RangeShape BoundingBox { get; set; }
+    }
+
+    public abstract class Unit : Entity
+    {
+        [JsonIgnore]
+        public RangeShape AggroShape { get; set; }
+        public bool InCombat { get; set; }
+        public abstract void Step();
+
+        public int HitPoints { get; set; }
+
+        public void Damage(int dmg)
+        {
+            this.HitPoints -= dmg;
+            if (HitPoints <= 0) OnDeath();
+        }
+
+        public virtual void OnDeath()
+        {
+
+        }
+        public abstract void OnAggro(Unit aggroed);
+
+    }
+
+    public abstract class Structure : Entity, ICollidable
+    {
+        public RangeShape BoundingBox { get; set; }
+
+        public Structure()
+        {
+            this.BoundingBox = new RangeShape(new Rectangle(new GLCoordinate(0.1f, 0.1f)), this);
+        }
+    }
+
+    public abstract class Indicator : Entity { }
+
+    public abstract class Item : Entity
+    {
+        public ItemAction Action;
+        public SpriteID Icon;
     }
 }

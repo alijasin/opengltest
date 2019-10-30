@@ -19,7 +19,7 @@ namespace OpenGLTests.src
 
     public class Yell : Ability
     {
-        public Yell(ICombatable owner)
+        public Yell(Unit owner)
         {
             this.Action = new LambdaAction((o) =>
             {
@@ -32,25 +32,26 @@ namespace OpenGLTests.src
 
     public class Teleport : Ability
     {
-        public Teleport(ICombatable owner)
+        public Teleport(Unit owner)
         {
             this.Action = new TeleportAction(new GLCoordinate(0.4f, 0.4f), owner);
             this.Icon = SpriteID.floor_1;
         }
     }
 
+    //todo: consider making all Abilities to hero abilities.
     public class Move : Ability
     {
-        public Move(ICombatable owner)
+        public Move(Unit owner)
         {
-            this.Action = new HeroMoveAction(new GLCoordinate(0.3f, 0.3f), owner);
+            this.Action = new HeroMoveAction(new GLCoordinate(0.3f, 0.3f), owner as Hero);
             this.Icon = SpriteID.action_move;
         }
     }
 
     public class TossBomb : Ability
     {
-        public TossBomb(ICombatable owner)
+        public TossBomb(Unit owner)
         {
             
             this.Action = new AOEEffectAction(new GLCoordinate(0.6f, 0.6f), new RangeShape(new Circle(new GLCoordinate(0.2f, 0.2f)), owner), owner); 

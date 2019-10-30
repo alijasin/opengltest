@@ -19,8 +19,8 @@ namespace OpenGLTests.src.Screens
     class EditorScreen : Screen
     {
         public GameConsole GameConsole;
-        public static Drawable CurrentlySelected { get; set; }
-        public static Drawable LastPlaced { get; set; }
+        public static Entity CurrentlySelected { get; set; }
+        public static Entity LastPlaced { get; set; }
         public static Button SnapToGridButton { get; set; }
         public static Button SaveButton;
         public static Button LoadButton;
@@ -28,7 +28,7 @@ namespace OpenGLTests.src.Screens
         public static Button RotationButton;
         List<Line> gridLines = new List<Line>();
         private bool SnapToGrid = false;
-        private List<Drawable> toWriteToJson = new List<Drawable>();
+        private List<Entity> toWriteToJson = new List<Entity>();
         List<IInteractable> Buttons = new List<IInteractable>();
 
         public EditorScreen()
@@ -193,10 +193,10 @@ namespace OpenGLTests.src.Screens
                     {
                         if (SnapToGrid) xd = xd.SnapCoordinate(new GameCoordinate(0.1f, 0.1f));
                         CurrentlySelected.Location = xd;
-                        CurrentlySelected = CurrentlySelected.Clone() as Drawable;
+                        CurrentlySelected = CurrentlySelected.Clone() as Entity;
                         toWriteToJson.Add(CurrentlySelected);
                         LastPlaced = CurrentlySelected;
-                        CurrentlySelected = CurrentlySelected.Clone() as Drawable;
+                        CurrentlySelected = CurrentlySelected.Clone() as Entity;
                     }
 
 

@@ -11,11 +11,7 @@ using OpenGLTests.src.Drawables;
 
 namespace OpenGLTests.src.Drawables
 {
-    public interface IFollowable
-    {
-        GameCoordinate Location { get; set; }
-        bool Visible { get; set; }
-    }
+
     interface IClickable
     {
         [JsonIgnore]
@@ -29,14 +25,14 @@ namespace OpenGLTests.src.Drawables
         void DrawStep(DrawAdapter drawer, GameCoordinate location);
     }
 
-    public class RangeShape : Entity
+    public class RangeShape : Indicator
     {
         public IShape Shape { get; set; }
         public bool IsInfinite { get; set; } = false;
-        public IFollowable Following { get; set; }
+        public Entity Following { get; set; }
 
 
-        public RangeShape(IShape shape, IFollowable following)
+        public RangeShape(IShape shape, Entity following)
         {
             this.Visible = false;
             this.Shape = shape;

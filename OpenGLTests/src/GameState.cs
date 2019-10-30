@@ -102,7 +102,7 @@ namespace OpenGLTests.src
             //this shuold only be movable units
             foreach (var reg in Drawables.GetAllRegions)
             {
-                foreach (IMovable e in Drawables.GetAllMovables)
+                foreach (Unit e in Drawables.GetAllUnits)
                 {
                     if (reg.Shape.Contains(e.Location))
                     {
@@ -111,11 +111,11 @@ namespace OpenGLTests.src
                 }
             }
 
-            foreach (var combatable in Drawables.GetAllCombatables)
+            foreach (var combatable in Drawables.GetAllUnits)
             {
                 combatable.Step();
             }
-            foreach (ICombatable aggro in Drawables.GetAllCombatables.Where(c => c is ICombatable && !(c is Hero) && c.AggroShape != null && c.InCombat == false).ToList())
+            foreach (Unit aggro in Drawables.GetAllUnits.Where(c => !(c is Hero) && c.AggroShape != null && c.InCombat == false).ToList())
             {
                 if (aggro.AggroShape.Contains(Hero.Location))
                 {

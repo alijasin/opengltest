@@ -9,7 +9,7 @@ namespace OpenGLTests.src.Drawables.Entities
 {
     public class DrawableButton : Button, IInteractable
     {
-        public DrawableButton(Drawable d)
+        public DrawableButton(Entity d)
         {
             if (d.Animation == null) return;
             this.Animation = d.Animation;
@@ -17,7 +17,7 @@ namespace OpenGLTests.src.Drawables.Entities
             OnInteraction = () =>
             {
                 Console.WriteLine(d + " clicked");
-                EditorScreen.CurrentlySelected = d.Clone() as Drawable;
+                EditorScreen.CurrentlySelected = d.Clone() as Entity;
             };
             d.Dispose();
         }

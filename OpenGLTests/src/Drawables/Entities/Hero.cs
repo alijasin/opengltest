@@ -9,13 +9,13 @@ using OpenGLTests.src;
 
 namespace OpenGLTests.src.Drawables
 {
-    public class Hero : Entity, IActionCapable, ICombatable, IMovable
+    public class Hero : Unit, IActionCapable
     {
         public Inventory Inventory;
         public ActionHandler ActionHandler { get; set; }
         private ActionBar ActionBar { get; set; }
         public int HitPoints { get; set; } = 1;
-        private HashSet<ICombatable> AggroFrom = new HashSet<ICombatable>();
+        private HashSet<Unit> AggroFrom = new HashSet<Unit>();
 
         private void ResetDefaultActionToMove()
         {
@@ -34,6 +34,7 @@ namespace OpenGLTests.src.Drawables
             Console.WriteLine("hero died!!!!");
         }
 
+
         public RangeShape AggroShape { get; set; }
         public bool InCombat { get; set; }
         private bool waitingForActionCommit = true; //todo remove this and call the commit from interaction button directly.
@@ -45,6 +46,7 @@ namespace OpenGLTests.src.Drawables
             this.Size = new GLCoordinate(0.1f, 0.1f);
             this.Speed = new GameCoordinate(0.02f, 0.02f);
             this.Animation = new Animation(new SpriteSheet_ElfIdle());
+
             //this.AggroShape = new RangeCircle(new GLCoordinate(0, 0), this);
             initActionBar();
             ActionHandler = new OutOfCombatActionHandler(this);
@@ -89,7 +91,7 @@ namespace OpenGLTests.src.Drawables
 
 
         private int actionIndex = 0;
-        public void Step()
+        public override void Step()
         {
             if (InCombat) CombatStep();
             else OutOfCombatStep();
@@ -131,7 +133,7 @@ namespace OpenGLTests.src.Drawables
             else actionIndex++;
         }
 
-        public void Deaggro(ICombatable deAggroed)
+        public void Deaggro(Unit deAggroed)
         {
             Console.WriteLine("hero deaggroed " + deAggroed);
             AggroFrom.Remove(deAggroed);
@@ -148,7 +150,7 @@ namespace OpenGLTests.src.Drawables
             }
         }
 
-        public void OnAggro(ICombatable aggroed)
+        public override void OnAggro(Unit aggroed)
         {
             Console.WriteLine("hero aggroed " + aggroed);
             AggroFrom.Add(aggroed);

@@ -10,54 +10,21 @@ using OpenGLTests.src.Util;
 
 namespace OpenGLTests.src.Drawables
 {
-    //todo: interface segragate
-    //todo: just remove this interface and use entities instead
-    public interface IMovable
+    public abstract class Hostile : Unit, ICollidable
     {
-        GameCoordinate Location { get; set; }
-        GameCoordinate Speed { get; set; }
-    }
-
-    public interface ICombatable : IFollowable, IMovable
-    {
-        [JsonIgnore]
-        RangeShape AggroShape { get; set; }
-        GameCoordinate Location { get; set; }
-        GameCoordinate Speed { get; set; }
-        bool InCombat { get; set; }
-        void Step();
-        GLCoordinate Size { get; set; }
-        Color Color { get; set; }
-        int HitPoints { get; set; }
-        void Damage(int dmg);
-        void OnDeath();
-        void OnAggro(ICombatable aggroed);
-    }
-
-
-    public abstract class Hostile : Entity, ICombatable
-    {
-        //[JsonConverter(typeof(RoomLoader.ConcreteConverter<RangeCircle>))]
-        [JsonIgnore]
-        public RangeShape AggroShape { get; set; } 
         protected ActionPattern ActionPattern;
-        private ICombatable currentAggro;
-        public bool InCombat { get; set; }
-        public int HitPoints { get; set; }
+        private Unit currentAggro;
+        public RangeShape BoundingBox { get; set; }
 
         protected Hostile()
         {
             this.HitPoints = 1;
+            this.BoundingBox = new RangeShape(new Rectangle(new GLCoordinate(0.1f, 0.1f)), this);
             Add();
         }
 
-        public void Damage(int dmg)
-        {
-            HitPoints -= dmg;
-            if(HitPoints <= 0) OnDeath();
-        }
 
-        public void OnDeath()
+        public override void OnDeath()
         {
             Console.WriteLine("{0} died.", this);
             if (currentAggro is Hero hero)
@@ -67,18 +34,18 @@ namespace OpenGLTests.src.Drawables
             this.Dispose();
         }
 
-        public void OnAggro(ICombatable aggroed)
+        public override void OnAggro(Unit aggroed)
         {
             currentAggro = aggroed;
             InCombat = true;
         }
 
-        public void Step()
+        public override void Step()
         {
             if(InCombat == false) OutOfCombatStep();  
         }
 
-        public void EnteredCombat(ICombatable triggeringEntity)
+        public void EnteredCombat(Unit triggeringUnit)
         {
             //ActionPattern = new FindAndChaseEntity(this, triggeringEntity);
         }
@@ -103,7 +70,6 @@ namespace OpenGLTests.src.Drawables
             GameState.Drawables.Add(this);
             if(AggroShape != null) GameState.Drawables.Add(this.AggroShape);
         }
-
 
     }
 

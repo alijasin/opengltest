@@ -21,11 +21,10 @@ namespace OpenGLTests.src
         public List<Drawable> GetAllDrawables => GetWhere<Drawable>(drawable => true);
         public List<Entity> GetAllEntities => GetWhere<Entity>(drawable => drawable is Entity);
         public List<Element> GetAllElements => GetWhere<Element>(drawable => drawable is Element);
-        public List<IMovable> GetAllMovables => GetWhere<IMovable>(drawable => drawable is IMovable);
-        public List<ICombatable> GetAllCombatables => GetWhere<ICombatable>(drawable => drawable is ICombatable);
+        public List<Unit> GetAllUnits => GetWhere<Unit>(drawable => drawable is Unit);
         public List<Hero> GetAllHeroes => drawableRepo.Where(E => E is Hero).Cast<Hero>().ToList();
+        public List<ICollidable> GetAllCollidables => GetWhere<ICollidable>(drawable => drawable is ICollidable).ToList();
         public List<IRegion> GetAllRegions => GetWhere<IRegion>(drawable => drawable is IRegion).ToList();
-        public List<ICollidable> GetAllCollidables => GetWhere<ICollidable>(E => E is ICollidable);
 
         private List<Drawable> toRemove = new List<Drawable>();
         private List<Drawable> toAdd = new List<Drawable>();

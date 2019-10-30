@@ -9,9 +9,9 @@ namespace OpenGLTests.src.Util
 {
     public static class GameActionLambdas
     {
-        public static ICombatable FindCombatableLambda(RangeShape lookingShape, ICombatable source)
+        public static Unit FindUnitLambda(RangeShape lookingShape, Unit source)
         {
-            foreach (var others in GameState.Drawables.GetAllCombatables.Where(d => d != source))
+            foreach (var others in GameState.Drawables.GetAllUnits.Where(d => d != source))
             {
                 if (lookingShape.Contains(others.Location))
                 {
@@ -21,7 +21,8 @@ namespace OpenGLTests.src.Util
 
             return null;
         }
-        public static ICombatable FindHeroLambda(RangeShape lookingShape)
+
+        public static Hero FindHeroLambda(RangeShape lookingShape)
         {
             foreach (var others in GameState.Drawables.GetAllHeroes)
             {
@@ -33,7 +34,7 @@ namespace OpenGLTests.src.Util
 
             return null;
         }
-        public static bool MoveTowardsPoint(ICombatable source, GameCoordinate point)
+        public static bool MoveTowardsPoint(Unit source, GameCoordinate point)
         {
             if (source.Location.Distance(point) < source.Speed.X || source.Location.Distance(point) < source.Speed.Y)
             {
@@ -56,7 +57,7 @@ namespace OpenGLTests.src.Util
         }
 
 
-        public static bool MoveAwayFromPoint(ICombatable source, GameCoordinate point)
+        public static bool MoveAwayFromPoint(Unit source, GameCoordinate point)
         {
             if (source.Location.Distance(point) < source.Speed.X || source.Location.Distance(point) < source.Speed.Y)
             {

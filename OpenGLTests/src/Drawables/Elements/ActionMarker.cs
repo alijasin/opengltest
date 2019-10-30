@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace OpenGLTests.src.Drawables
 {
-    public abstract class Marker : Entity, IFollowable
+    public abstract class Marker : Indicator
     {
         protected Marker(GameCoordinate loc)
         {
@@ -24,7 +24,7 @@ namespace OpenGLTests.src.Drawables
             base.DrawStep(drawer);
             if (Visible)
             {
-                drawer.DrawSprite(this);
+                drawer.DrawEntity(this);
             }
         }
 

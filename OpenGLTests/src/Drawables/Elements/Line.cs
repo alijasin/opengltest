@@ -13,7 +13,7 @@ namespace OpenGLTests.src.Drawables
         Dashed
     }
 
-    public class Line : Drawable
+    public class Line : Indicator
     {
         public virtual GameCoordinate Origin { get; set; }
         public virtual GameCoordinate Terminus { get; set; }
@@ -46,13 +46,13 @@ namespace OpenGLTests.src.Drawables
 
     public class ActionLine : Line
     {
-        private IFollowable originE;
-        public ActionLine(IFollowable originEntity) : base(originEntity.Location, originEntity.Location)
+        private Entity originE;
+        public ActionLine(Entity originEntity) : base(originEntity.Location, originEntity.Location)
         {
             originE = originEntity;
         }
 
-        public void Set(IFollowable origin, GameCoordinate loc)
+        public void Set(Entity origin, GameCoordinate loc)
         {
             this.originE = origin;
             this.Location = loc;

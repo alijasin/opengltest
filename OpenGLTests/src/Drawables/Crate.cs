@@ -8,14 +8,6 @@ using OpenGLTests.src.Util;
 
 namespace OpenGLTests.src.Drawables
 {
-    abstract class Stuff : Entity
-    {
-        protected Stuff()
-        {
-            this.Color = Color.White;
-        }
-    }
-
     class Crate : Stuff, IClickable
     {
         public Crate(GameCoordinate location)

@@ -231,14 +231,14 @@ namespace OpenGLTests.src
             //Rangeshape's location: last placed move location or hero's location if none placed.
             var lma = SubsequentlyPlacedActions.LastMoveAction();
             
-            IFollowable newFollow;
+            Entity newFollow;
             if (lma != null)
             {
                 newFollow = lma.Marker;
             }
             else
             {
-                newFollow = Owner as IFollowable;
+                newFollow = Owner as Unit;
             }
             SelectedAction.RangeShape.Following = newFollow;
             SelectedAction.ActionLine.Set(newFollow, mouseLocation);

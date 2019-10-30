@@ -7,11 +7,11 @@ using OpenGLTests.src.Drawables.Terrain;
 
 namespace OpenGLTests.src.Drawables
 {
-    public interface IRegion : IFollowable
+    public interface IRegion
     {
         RangeShape Shape { get; set; }
-        Func<IMovable, bool> EnteredFilter { get; set; }
-        void OnEntered(IMovable d);
+        Func<Unit, bool> EnteredFilter { get; set; }
+        void OnEntered(Unit d);
     }
 
     class RoomLoadRegion : Entity, IRegion
@@ -29,9 +29,9 @@ namespace OpenGLTests.src.Drawables
         }
 
         public RangeShape Shape { get; set; }
-        public Func<IMovable, bool> EnteredFilter { get; set; }
+        public Func<Unit, bool> EnteredFilter { get; set; }
 
-        public void OnEntered(IMovable d)
+        public void OnEntered(Unit d)
         {
             if (EnteredFilter(d))
             {

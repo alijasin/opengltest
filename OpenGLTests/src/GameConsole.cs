@@ -22,11 +22,6 @@ namespace OpenGLTests.src
             container.Location = new GLCoordinate(0, -1 + container.Size.Y/2);
             container.Color = Color.Red;
             container.Visible = true;
-
-            for (int i = 0; i < 18 * 2; i++)
-            {
-                AddDrawableToBar(new RectangleElement());
-            }
         }
 
         public void ToggleVisibility()
@@ -34,7 +29,7 @@ namespace OpenGLTests.src
             container.Visible = !container.Visible;
         }
 
-        public void AddDrawableToBar(Drawable d)
+        public void AddDrawableToBar(Entity d)
         {
             container.AddElement(d);
         }
@@ -67,7 +62,7 @@ namespace OpenGLTests.src
             }
         }
 
-        public void AddElement(Drawable d)
+        public void AddElement(Entity d)
         {
             var e = new DrawableButton(d);
             if (filledSlots >= maxFilledSlot)

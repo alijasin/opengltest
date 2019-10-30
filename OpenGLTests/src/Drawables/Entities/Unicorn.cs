@@ -9,7 +9,7 @@ namespace OpenGLTests.src.Drawables
     class Unicorn : Hostile
     {
         private ParticleGenerator pg;
-        public Unicorn(GameCoordinate location, ICombatable chasing)
+        public Unicorn(GameCoordinate location, Unit chasing)
         {
             ActionPattern = new FindAndChaseEntity(this);
 

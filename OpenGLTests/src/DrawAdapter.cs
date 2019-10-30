@@ -21,75 +21,63 @@ namespace OpenGLTests.src
         /// <param name="image">The image to be drawn</param>
         /// <param name="location">The location to draw the image</param>
         /// <param name="rotation">The rotation of the image in degrees</param>
-        public void DrawSprite(Drawable drawable)
+
+        public void DrawEntity(Entity drawable)
         {
             Sprite sprite = drawable.Animation.GetSprite();
             if (sprite == null) return;
+
             //todo: do this before entering draw
-            GLCoordinate location;
-            if (drawable is Entity) location = drawable.Location.ToGLCoordinate();
-            else
-            {
-                location = ((Element)drawable).Location;
-            }
+            GLCoordinate location = drawable.Location.ToGLCoordinate();
 
             float left, right, top, bottom;
 
-            #region bad way
-
-            /*
-
-                        if (drawable.XDirection == XDirection.Right)
-                        {
-                            right = location.X + drawable.Size.X/2;
-                            left = location.X - drawable.Size.X/2;
-                        }
-                        else
-                        {
-                            left = location.X + drawable.Size.X/2;
-                            right = location.X - drawable.Size.X/2;
-                        }
-
-                        if (drawable.YDirection == YDirection.UpsideDownRight)
-                        {
-                            bottom = location.Y - drawable.Size.Y / 2;
-                            top = (location.Y + drawable.Size.Y / 2);
-                        }
-                        else
-                        {
-                            bottom = (location.Y + drawable.Size.Y / 2);
-                            top = location.Y - drawable.Size.Y/2 ;
-                        }
-                       */
-
-            #endregion
-
-
-           /* if (drawable.Facing == Facing.Right)
-            {
-                if (drawable.Size.X < 0) drawable.Size.X *= -1;
-            }
-            else
-            {
-                if (drawable.Size.X > 0) drawable.Size.X *= -1;
-            }*/
-            /*
-            if (drawable.YDirection == YDirection.UpsideDownRight)
-            {
-                if (drawable.Size.Y < 0) drawable.Size.Y *= -1; 
-            }
-            else
-            {
-                if (drawable.Size.Y > 0) drawable.Size.Y *= -1;
-            }*/
-            
             bottom = location.Y - drawable.Size.Y / 2;
             top = location.Y + drawable.Size.Y / 2;
             right = location.X + drawable.Size.X / 2;
             left = location.X - drawable.Size.X / 2;
 
 
-            if (drawable is Hero || drawable is Hostile) TraceRectangle(Color.Red, location.X - drawable.Size.X/2, -location.Y + drawable.Size.Y/2, drawable.Size.X, -drawable.Size.Y);
+            if (drawable is Hero || drawable is Hostile) TraceRectangle(Color.Red, location.X - drawable.Size.X / 2, -location.Y + drawable.Size.Y / 2, drawable.Size.X, -drawable.Size.Y);
+
+            GL.PushMatrix();
+
+            GL.Enable(EnableCap.Texture2D);
+            GL.Enable(EnableCap.Blend);
+
+            GL.Color4(drawable.Color);
+
+            GL.BindTexture(TextureTarget.Texture2D, sprite.GLID);
+            GL.Begin(BeginMode.Quads);
+
+
+            if (drawable.Facing == Facing.Right) fillSprite(left, right, top, bottom, drawable);
+            else if (drawable.Facing == Facing.UpsideDownLeft) fillSprite(right, left, bottom, top, drawable);
+            else if (drawable.Facing == Facing.Left) fillSprite(right, left, top, bottom, drawable);
+            else if (drawable.Facing == Facing.UpsideDownRight) fillSprite(left, right, bottom, top, drawable);
+
+
+            GL.End();
+            GL.Disable(EnableCap.Texture2D);
+            GL.Disable(EnableCap.Blend);
+
+            GL.PopMatrix();
+        }
+        
+        public void DrawElement(Element drawable)
+        {
+            Sprite sprite = drawable.Animation.GetSprite();
+            if (sprite == null) return;
+            //todo: do this before entering draw
+            GLCoordinate location = ((Element)drawable).Location;
+
+            float left, right, top, bottom;
+            
+            bottom = location.Y - drawable.Size.Y / 2;
+            top = location.Y + drawable.Size.Y / 2;
+            right = location.X + drawable.Size.X / 2;
+            left = location.X - drawable.Size.X / 2;
+
 
             GL.PushMatrix();
 

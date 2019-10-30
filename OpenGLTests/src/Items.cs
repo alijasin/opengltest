@@ -11,15 +11,9 @@ using OpenGLTests.src.Util;
 /// </summary>
 namespace OpenGLTests.src
 {
-    public abstract class Item
-    {
-        public ItemAction Action;
-        public SpriteID Icon;
-    }
-
     public class Nothing : Item
     {
-        public Nothing(ICombatable owner)
+        public Nothing(Unit owner)
         {
 
         }
@@ -27,7 +21,7 @@ namespace OpenGLTests.src
 
     public class Apple : Item
     {
-        public Apple(ICombatable owner)
+        public Apple(Unit owner)
         {
             this.Action = new TossItemAction(owner, this);
             this.Icon = SpriteID.item_apple;
@@ -36,7 +30,7 @@ namespace OpenGLTests.src
 
     public class RedPotion : Item
     {
-        public RedPotion(ICombatable owner)
+        public RedPotion(Unit owner)
         {
             this.Action = new TurnRedAction(owner);
             this.Icon = SpriteID.item_flask_big_red;
@@ -45,7 +39,7 @@ namespace OpenGLTests.src
 
     public class GrowingPoition : Item
     {
-        public GrowingPoition(ICombatable owner)
+        public GrowingPoition(Unit owner)
         {
             this.Action = new GrowAction(owner);
             this.Icon = SpriteID.item_flask_big_green;

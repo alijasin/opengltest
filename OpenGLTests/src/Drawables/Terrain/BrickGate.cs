@@ -8,11 +8,7 @@ using OpenGLTests.src.Util;
 
 namespace OpenGLTests.src.Drawables.Terrain
 {
-    public interface ICollidable : IFollowable
-    {
-        [JsonIgnore]
-        RangeShape BoundingBox { get; set; }
-    }
+
     class BrickWall : Entity, ICollidable
     {
         public BrickWall(GameCoordinate location)

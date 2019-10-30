@@ -54,8 +54,8 @@ namespace OpenGLTests.src
     class TeleportPattern : ActionPattern
     {
         private GLCoordinate range;
-        private ICombatable source;
-        public TeleportPattern(ICombatable source, GLCoordinate range)
+        private Unit source;
+        public TeleportPattern(Unit source, GLCoordinate range)
         {
             this.source = source;
             this.range = range;
@@ -73,10 +73,10 @@ namespace OpenGLTests.src
 
     class FindAndChaseEntity : ActionPattern
     {
-        private ICombatable chasing;
-        private ICombatable source;
+        private Unit chasing;
+        private Unit source;
 
-        public FindAndChaseEntity(ICombatable source)
+        public FindAndChaseEntity(Unit source)
         {
             this.source = source;
             InitPattern();
@@ -92,10 +92,10 @@ namespace OpenGLTests.src
     }
     class FindAndFleeEntity : ActionPattern
     {
-        private ICombatable fleeing;
-        private ICombatable source;
+        private Unit fleeing;
+        private Unit source;
 
-        public FindAndFleeEntity(ICombatable source)
+        public FindAndFleeEntity(Unit source)
         {
             this.source = source;
             InitPattern();
@@ -111,8 +111,8 @@ namespace OpenGLTests.src
     }
     class MoveAroundAndChill : ActionPattern
     {
-        private ICombatable source;
-        public MoveAroundAndChill(ICombatable source) 
+        private Unit source;
+        public MoveAroundAndChill(Unit source) 
         {
             this.source = source;
             InitPattern();
@@ -130,9 +130,9 @@ namespace OpenGLTests.src
 
     class NeverEndingPatrol : ActionPattern
     {
-        private ICombatable source;
+        private Unit source;
         private GameCoordinate patrolDelta;
-        public NeverEndingPatrol(ICombatable source, GameCoordinate patrolDelta)
+        public NeverEndingPatrol(Unit source, GameCoordinate patrolDelta)
         {
             this.source = source;
             this.patrolDelta = patrolDelta;
@@ -158,9 +158,9 @@ namespace OpenGLTests.src
     /// </summary>
     class PatrolAndChill : ActionPattern
     {
-        private ICombatable source;
+        private Unit source;
         private GameCoordinate patrolDelta;
-        public PatrolAndChill(ICombatable source, GameCoordinate patrolDelta)
+        public PatrolAndChill(Unit source, GameCoordinate patrolDelta)
         {
             this.source = source;
             this.patrolDelta = patrolDelta;

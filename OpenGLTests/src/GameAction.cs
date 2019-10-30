@@ -36,12 +36,12 @@ namespace OpenGLTests.src
         public bool Ready { get; set; } = true;
         public bool IsPlaced { get; set; } = false;
         public bool IsInstant { get; set; } = false;
-        protected ICombatable Source { get; set; }
+        protected Unit Source { get; set; }
         public GameAction() : this(null)
         {
 
         }
-        protected GameAction(ICombatable source)
+        protected GameAction(Unit source)
         {
             Source = source;
 
@@ -89,7 +89,7 @@ namespace OpenGLTests.src
 
     abstract class CombatAction : GameAction
     {
-        protected CombatAction(ICombatable source) : base(source)
+        protected CombatAction(Unit source) : base(source)
         {
 
         }
@@ -97,7 +97,7 @@ namespace OpenGLTests.src
 
     public abstract class ItemAction : GameAction
     {
-        protected ItemAction(ICombatable source) : base(source)
+        protected ItemAction(Unit source) : base(source)
         {
             ActionLine.LineType = LineType.Dashed;
         }
@@ -105,7 +105,7 @@ namespace OpenGLTests.src
 
     class TossItemAction : ItemAction
     {
-        public TossItemAction(ICombatable source, Item i) : base(source)
+        public TossItemAction(Unit source, Item i) : base(source)
         {
             RangeShape = new RangeShape(new Circle(new GLCoordinate(0.5f, 0.5f)), source);
             RangeShape.Visible = false;
@@ -119,7 +119,7 @@ namespace OpenGLTests.src
                 if ((int) o >= 10)
                 {
                     var aoeShape = (Marker as AOEMarker).aoeShape;
-                    foreach (var others in GameState.Drawables.GetAllCombatables.Where(d => d != Source))
+                    foreach (var others in GameState.Drawables.GetAllUnits.Where(d => d != Source))
                     {
                         if (aoeShape.Contains(others.Location))
                         {
@@ -136,7 +136,7 @@ namespace OpenGLTests.src
 
     class TurnRedAction : ItemAction
     {
-        public TurnRedAction(ICombatable source) : base(source)
+        public TurnRedAction(Unit source) : base(source)
         {
             IsInstant = true;
         }
@@ -153,7 +153,7 @@ namespace OpenGLTests.src
 
     class GrowAction : ItemAction
     {
-        public GrowAction(ICombatable source) : base(source)
+        public GrowAction(Unit source) : base(source)
         {
             IsInstant = true;
         }
@@ -178,7 +178,7 @@ namespace OpenGLTests.src
     class InstantTeleport : CombatAction
     {
         private GameCoordinate loc;
-        public InstantTeleport(GameCoordinate location, ICombatable source) : base(source) 
+        public InstantTeleport(GameCoordinate location, Unit source) : base(source) 
         {
             this.loc = location;
         }
@@ -200,7 +200,7 @@ namespace OpenGLTests.src
     {
         private bool isOnCooldown = false;
 
-        public TeleportAction(GLCoordinate radius, ICombatable source) : base(source)
+        public TeleportAction(GLCoordinate radius, Unit source) : base(source)
         {
             RangeShape = new RangeShape(new Circle(radius), source);
             this.Marker = new MoveMarker(RangeShape.Location);
@@ -244,7 +244,7 @@ namespace OpenGLTests.src
     class LambdaAction : GameAction
     {
         private Func<object, bool> a; 
-        public LambdaAction(Func<object, bool> f, ICombatable source) : base(source)
+        public LambdaAction(Func<object, bool> f, Unit source) : base(source)
         {
             RangeShape = new RangeShape(new Circle(new GLCoordinate(0.8f, 0.8f)), source);
             this.Marker = new ActionMarker(RangeShape.Location);
@@ -268,7 +268,7 @@ namespace OpenGLTests.src
 
         private AOEMarker marker => Marker as AOEMarker;
 
-        public AOEEffectAction(GLCoordinate actionRange, RangeShape aoeShape, ICombatable source) : base(source)
+        public AOEEffectAction(GLCoordinate actionRange, RangeShape aoeShape, Unit source) : base(source)
         {
             new RangeShape(new Circle(actionRange), source);
             this.Marker = new AOEMarker(RangeShape.Location, aoeShape);
@@ -300,13 +300,13 @@ namespace OpenGLTests.src
     class FindAndChase : GameAction
     {
         private RangeShape findRad;
-        public FindAndChase(RangeShape findShape, ICombatable source) : base(source)
+        public FindAndChase(RangeShape findShape, Unit source) : base(source)
         {
             findRad = findShape;
         }
 
         private bool looking = true;
-        private ICombatable chasing;
+        private Unit chasing;
         public override Func<object, bool> GetAction()
         {
             return (o) =>
@@ -331,13 +331,13 @@ namespace OpenGLTests.src
     class FindAndFlee : GameAction
     {
         private RangeShape findRad;
-        public FindAndFlee(RangeShape findShape, ICombatable source) : base(source)
+        public FindAndFlee(RangeShape findShape, Unit source) : base(source)
         {
             findRad = findShape;
         }
 
         private bool looking = true;
-        private ICombatable chasing;
+        private Unit chasing;
         public override Func<object, bool> GetAction()
         {
             return (o) =>
@@ -362,7 +362,7 @@ namespace OpenGLTests.src
 
     class MoveAwayFromEntityAction : GameAction
     {
-        public MoveAwayFromEntityAction(ICombatable source) : base(source)
+        public MoveAwayFromEntityAction(Unit source) : base(source)
         {
             this.ActionLine.LineType = LineType.Solid;
         }
@@ -400,7 +400,7 @@ namespace OpenGLTests.src
     }
     class MoveTowardsEntityAction : GameAction
     {
-        public MoveTowardsEntityAction(ICombatable source) : base(source)
+        public MoveTowardsEntityAction(Unit source) : base(source)
         {
             this.ActionLine.LineType = LineType.Solid;
         }
@@ -440,7 +440,7 @@ namespace OpenGLTests.src
     {
         private GameCoordinate point;
 
-        public MoveAction(GameCoordinate point, ICombatable source) : base(source)
+        public MoveAction(GameCoordinate point, Unit source) : base(source)
         {
             this.point = point;
             this.Marker = new MoveMarker(point);
@@ -510,7 +510,7 @@ namespace OpenGLTests.src
         private MoveAction _prevMoveAction;
         private MoveAction _currentMove;
         //patrol between ICombatable location and ICombatable relative to point
-        public NeverEndingPatrolAction(ICombatable e, GameCoordinate point) : base(e)
+        public NeverEndingPatrolAction(Unit e, GameCoordinate point) : base(e)
         {
             mtOrigin = new MoveAction(e.Location + point, e);
             mtTerminus = new MoveAction(e.Location - new GameCoordinate(point.X * 2, point.Y * 2), e);
@@ -539,9 +539,9 @@ namespace OpenGLTests.src
     {
         private bool isOnCooldown = false;
 
-        public HeroMoveAction(GLCoordinate radius, ICombatable source) : base(source)
+        public HeroMoveAction(GLCoordinate radius, Hero hero) : base(hero)
         {
-            RangeShape = new RangeShape(new Circle(radius), source);
+            RangeShape = new RangeShape(new Circle(radius), hero);
             this.Marker = new MoveMarker(RangeShape.Location);
             this.ActionLine.LineType = LineType.Solid;
         }

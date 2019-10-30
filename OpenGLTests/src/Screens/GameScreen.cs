@@ -28,7 +28,7 @@ namespace OpenGLTests.src.Screens
 
             lock (l)
             {
-                foreach (var ent in GameState.Drawables.GetAllDrawables)
+                foreach (var ent in GameState.Drawables.GetAllEntities)
                 {
                     ent.DrawStep(drawer);
                 }
@@ -102,7 +102,7 @@ namespace OpenGLTests.src.Screens
                         }
                     }
 
-                    foreach (ICollidable c in GameState.Drawables.GetAllCollidables)
+                    /*foreach (ICollidable c in GameState.Drawables.GetAllCollidables)
                     {
                         var d = c as Drawable;
                         if (c.BoundingBox.Contains(xd))
@@ -117,7 +117,7 @@ namespace OpenGLTests.src.Screens
 
                             Console.WriteLine("Collidable clicked");
                         }
-                    }
+                    }*/
                 },
                 input =>
                 {
@@ -131,14 +131,14 @@ namespace OpenGLTests.src.Screens
                 {
                     GameCoordinate placed = new GameCoordinate(input.MouseButtonArgs.X, input.MouseButtonArgs.Y);
                     var xd = CoordinateFuckery.ClickToGLRelativeToCamera(placed, new GameCoordinate(0, 0));
-                    xd = xd.SnapCoordinate();
+                    //xd = xd.SnapCoordinate();
                     Game.Hero.ActionHandler.OnMouseDown(xd);
                 },
                 input =>
                 {
                     GameCoordinate placed = new GameCoordinate(input.MouseButtonArgs.X, input.MouseButtonArgs.Y);
                     var xd = CoordinateFuckery.ClickToGLRelativeToCamera(placed, new GameCoordinate(0, 0));
-                    xd = xd.SnapCoordinate();
+                    //xd = xd.SnapCoordinate();
                     Game.Hero.ActionHandler.OnMouseUp(xd);
                 }
             ));
