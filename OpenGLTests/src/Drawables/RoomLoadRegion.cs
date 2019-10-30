@@ -36,7 +36,7 @@ namespace OpenGLTests.src.Drawables
             if (EnteredFilter(d))
             {
                 Console.WriteLine("loading " + room);
-                GameState.Drawables.Clear(drawable => drawable is Hero || drawable is Floor || drawable is RangeShape || drawable is Marker || drawable is Line);
+                GameState.Drawables.ClearExcept(drawable => drawable is Hero || drawable is Floor || drawable is RangeShape || drawable is Marker || drawable is Line || drawable is Button);
                 RoomLoader.LoadRoom(room);
                 EnteredFilter = movable => false; //only enter one time.
             }

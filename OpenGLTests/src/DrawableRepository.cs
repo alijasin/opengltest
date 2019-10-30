@@ -77,7 +77,14 @@ namespace OpenGLTests.src
             toRemove.Add(d);
         }
 
-        public void Clear(Func<Drawable, bool> KeepFilter = null)
+        public void Clear(Func<Drawable, bool> ClearFilter)
+        {
+            toRemove.Clear();
+            toAdd.Clear();
+            drawableRepo.RemoveAll(e => ClearFilter(e));
+        }
+
+        public void ClearExcept(Func<Drawable, bool> KeepFilter = null)
         {
             List<Drawable> toKeep = new List<Drawable>();
             foreach (var d in GetAllDrawables)
