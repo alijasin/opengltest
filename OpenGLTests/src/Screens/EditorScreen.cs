@@ -28,6 +28,7 @@ namespace OpenGLTests.src.Screens
         public static Button RotationButton;
         List<Line> gridLines = new List<Line>();
         private bool SnapToGrid = false;
+        private static GameCoordinate SnapSize = new GameCoordinate(0.05f, 0.05f);
         private List<Entity> toWriteToJson = new List<Entity>();
         List<IInteractable> Buttons = new List<IInteractable>();
 
@@ -114,6 +115,19 @@ namespace OpenGLTests.src.Screens
             GL.Translate(-new GameCoordinate(0, 0).X, -new GameCoordinate(0, 0).Y, 0);
             ActiveCamera.Step();
 
+            int xx = (int)(1 / SnapSize.X);
+            int yy = (int)(1 / SnapSize.Y);
+            if (SnapToGrid)
+            {
+                for (int x = -xx; x <= xx; x++)
+                {
+                    drawer.DrawLine(new GLCoordinate(x * SnapSize.X, -1), new GLCoordinate(x * SnapSize.X, 1), Color.FromArgb(95, Color.Chocolate), LineType.Solid);
+                }
+                for (int y = -yy; y <= yy; y++)
+                {
+                    drawer.DrawLine(new GLCoordinate(-1f, y * SnapSize.Y), new GLCoordinate(1f, y * SnapSize.Y), Color.FromArgb(95, Color.Chocolate), LineType.Solid);
+                }
+            }
             try
             {
                 foreach (var ent in toWriteToJson)
@@ -132,18 +146,6 @@ namespace OpenGLTests.src.Screens
             {
             }
 
-
-            if (SnapToGrid)
-            {
-                for (int x = -10; x < 20; x++)
-                {
-                    drawer.DrawLine(new GLCoordinate(x * 0.1f, -1), new GLCoordinate(x * 0.1f, 1), Color.FromArgb(95, Color.Chocolate), LineType.Solid);
-                }
-                for (int y = -10; y < 20; y++)
-                {
-                    drawer.DrawLine(new GLCoordinate(-1f, y * 0.1f), new GLCoordinate(1f, y * 0.1f), Color.FromArgb(95, Color.Chocolate), LineType.Solid);
-                }
-            }
 
             GL.PopMatrix();
         }
@@ -191,7 +193,7 @@ namespace OpenGLTests.src.Screens
                     if (!GameConsole.container.Contains(clicked) && CurrentlySelected != null && !SaveButton.Contains(clicked) && 
                         !FacingButton.Contains(clicked) && !RotationButton.Contains(clicked))
                     {
-                        if (SnapToGrid) xd = xd.SnapCoordinate(new GameCoordinate(0.1f, 0.1f));
+                        if (SnapToGrid) xd = xd.SnapCoordinate(SnapSize);
                         CurrentlySelected.Location = xd;
                         CurrentlySelected = CurrentlySelected.Clone() as Entity;
                         toWriteToJson.Add(CurrentlySelected);
