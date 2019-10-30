@@ -12,14 +12,20 @@ namespace OpenGLTests.src.Drawables
 {
     //todo: interface segragate
     //todo: just remove this interface and use entities instead
-    public interface ICombatable : IFollowable
+    public interface IMovable
+    {
+        GameCoordinate Location { get; set; }
+        GameCoordinate Speed { get; set; }
+    }
+
+    public interface ICombatable : IFollowable, IMovable
     {
         [JsonIgnore]
         RangeShape AggroShape { get; set; }
-        bool InCombat { get; set; }
-        void Step();
         GameCoordinate Location { get; set; }
         GameCoordinate Speed { get; set; }
+        bool InCombat { get; set; }
+        void Step();
         GLCoordinate Size { get; set; }
         Color Color { get; set; }
         int HitPoints { get; set; }

@@ -29,7 +29,7 @@ namespace OpenGLTests.src
             }
             Hero = new Hero();
             Drawables.Add(Hero);
-
+            Drawables.Add(new RoomLoadRegion(new GameCoordinate(0.8f, 0.8f), RoomLoader.Room.TestSpace));
 
             //LoadRoom();
             //LoadTestRoom();
@@ -96,6 +96,19 @@ namespace OpenGLTests.src
             {
                 initStepsCount++;
                 return;
+            }
+
+            //:: Optimization point
+            //this shuold only be movable units
+            foreach (var reg in Drawables.GetAllRegions)
+            {
+                foreach (IMovable e in Drawables.GetAllMovables)
+                {
+                    if (reg.Shape.Contains(e.Location))
+                    {
+                        reg.OnEntered(e);
+                    }
+                }
             }
 
             foreach (var combatable in Drawables.GetAllCombatables)

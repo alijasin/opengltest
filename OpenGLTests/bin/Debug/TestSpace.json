@@ -1,5 +1,25 @@
 {
   "$type": "System.Collections.Generic.List`1[[OpenGLTests.src.Drawables.Entity, OpenGLTests]], mscorlib",
   "$values": [
+      {
+      "$type": "OpenGLTests.src.Drawables.Terrain.BrickGate, OpenGLTests",
+      "Flipped": true,
+      "Facing": 1,
+      "Speed": {
+        "X": 0.0,
+        "Y": 0.0
+      },
+      "Visible": true,
+      "Color": "White",
+      "Size": {
+        "X": 0.3,
+        "Y": 0.3
+      },
+      "Depth": 1,
+      "Location": {
+        "X": 0.219444445,
+        "Y": -0.188888893
+      }
+    }
   ]
 }

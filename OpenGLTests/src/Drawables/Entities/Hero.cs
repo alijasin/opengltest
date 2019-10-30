@@ -9,7 +9,7 @@ using OpenGLTests.src;
 
 namespace OpenGLTests.src.Drawables
 {
-    public class Hero : Entity, IActionCapable, ICombatable
+    public class Hero : Entity, IActionCapable, ICombatable, IMovable
     {
         public Inventory Inventory;
         public ActionHandler ActionHandler { get; set; }

@@ -21,8 +21,10 @@ namespace OpenGLTests.src
         public List<Drawable> GetAllDrawables => GetWhere<Drawable>(drawable => true);
         public List<Entity> GetAllEntities => GetWhere<Entity>(drawable => drawable is Entity);
         public List<Element> GetAllElements => GetWhere<Element>(drawable => drawable is Element);
+        public List<IMovable> GetAllMovables => GetWhere<IMovable>(drawable => drawable is IMovable);
         public List<ICombatable> GetAllCombatables => GetWhere<ICombatable>(drawable => drawable is ICombatable);
         public List<Hero> GetAllHeroes => drawableRepo.Where(E => E is Hero).Cast<Hero>().ToList();
+        public List<IRegion> GetAllRegions => GetWhere<IRegion>(drawable => drawable is IRegion).ToList();
         public List<ICollidable> GetAllCollidables => GetWhere<ICollidable>(E => E is ICollidable);
 
         private List<Drawable> toRemove = new List<Drawable>();
@@ -73,6 +75,23 @@ namespace OpenGLTests.src
         public void Remove(Drawable d)
         {
             toRemove.Add(d);
+        }
+
+        public void Clear(Func<Drawable, bool> KeepFilter = null)
+        {
+            List<Drawable> toKeep = new List<Drawable>();
+            foreach (var d in GetAllDrawables)
+            {
+                if (KeepFilter(d))
+                {
+                    toKeep.Add(d);
+                }
+            }
+
+            toRemove.Clear();
+            toAdd.Clear();
+            drawableRepo.Clear();
+            drawableRepo.AddRange(toKeep);
         }
     }
 }

@@ -79,6 +79,7 @@
     <Compile Include="src\Drawables\Entities\Unicorn.cs" />
     <Compile Include="src\DrawableRepository.cs" />
     <Compile Include="src\Drawables\RainGenerator.cs" />
+    <Compile Include="src\Drawables\RoomLoadRegion.cs" />
     <Compile Include="src\Drawables\Terrain\BrickGate.cs" />
     <Compile Include="src\Drawables\Terrain\Floor.cs" />
     <Compile Include="src\Drawables\WeatherGenerator.cs" />
