@@ -107,6 +107,7 @@ namespace OpenGLTests.src.Drawables
 
     public interface ICollidable
     {
+        bool Phased { get; set; }
         [JsonIgnore]
         RangeShape BoundingBox { get; set; }
     }
@@ -185,6 +186,7 @@ namespace OpenGLTests.src.Drawables
             this.BoundingBox = new RangeShape(new Rectangle(new GLCoordinate(0.1f, 0.1f)), this);
         }
 
+        public bool Phased { get; set; } = false;
         public RangeShape BoundingBox { get; set; }
     }
 
@@ -213,6 +215,7 @@ namespace OpenGLTests.src.Drawables
 
     public abstract class Structure : Entity, ICollidable
     {
+        public bool Phased { get; set; } = false;
         public RangeShape BoundingBox { get; set; }
 
         public Structure()

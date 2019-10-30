@@ -436,6 +436,36 @@
   <data name="floor_spikes_anim_f3" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\floor_spikes_anim_f3.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="generic_rpg_bridge" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\generic-rpg-bridge.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="generic_rpg_house_inn" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\generic-rpg-house-inn.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="generic_rpg_rock01" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\generic-rpg-rock04.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="generic_rpg_rock014" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\generic-rpg-rock01.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="generic_rpg_rock02" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\generic-rpg-rock05.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="generic_rpg_rock022" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\generic-rpg-rock02.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="generic_rpg_rock03" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\generic-rpg-rock03.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="generic_rpg_rock06" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\generic-rpg-rock06.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="generic_rpg_tree01" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\generic-rpg-tree01.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="generic_rpg_tree02" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\generic-rpg-tree02.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="goblin_idle_anim_f0" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\goblin_idle_anim_f0.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>

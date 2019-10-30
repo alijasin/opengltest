@@ -1123,6 +1123,106 @@ namespace OpenGLTests.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap generic_rpg_bridge {
+            get {
+                object obj = ResourceManager.GetObject("generic_rpg_bridge", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap generic_rpg_house_inn {
+            get {
+                object obj = ResourceManager.GetObject("generic_rpg_house_inn", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap generic_rpg_rock01 {
+            get {
+                object obj = ResourceManager.GetObject("generic_rpg_rock01", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap generic_rpg_rock014 {
+            get {
+                object obj = ResourceManager.GetObject("generic_rpg_rock014", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap generic_rpg_rock02 {
+            get {
+                object obj = ResourceManager.GetObject("generic_rpg_rock02", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap generic_rpg_rock022 {
+            get {
+                object obj = ResourceManager.GetObject("generic_rpg_rock022", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap generic_rpg_rock03 {
+            get {
+                object obj = ResourceManager.GetObject("generic_rpg_rock03", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap generic_rpg_rock06 {
+            get {
+                object obj = ResourceManager.GetObject("generic_rpg_rock06", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap generic_rpg_tree01 {
+            get {
+                object obj = ResourceManager.GetObject("generic_rpg_tree01", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap generic_rpg_tree02 {
+            get {
+                object obj = ResourceManager.GetObject("generic_rpg_tree02", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap goblin_idle_anim_f0 {
             get {
                 object obj = ResourceManager.GetObject("goblin_idle_anim_f0", resourceCulture);

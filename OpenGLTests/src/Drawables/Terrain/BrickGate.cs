@@ -9,7 +9,7 @@ using OpenGLTests.src.Util;
 namespace OpenGLTests.src.Drawables.Terrain
 {
 
-    class BrickWall : Entity, ICollidable
+    class BrickWall : Entity
     {
         public BrickWall(GameCoordinate location)
         {

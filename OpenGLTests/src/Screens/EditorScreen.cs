@@ -43,7 +43,10 @@ namespace OpenGLTests.src.Screens
             GameConsole.AddDrawableToBar(new BrickGate(new GameCoordinate(0, 0)));
             GameConsole.AddDrawableToBar(new BrickWall(new GameCoordinate(0, 0)));
             GameConsole.AddDrawableToBar(new FleeingPerson(new GameCoordinate(0, 0)));
-
+            GameConsole.AddDrawableToBar(new Rock(new GameCoordinate(0, 0)));
+            GameConsole.AddDrawableToBar(new House(new GameCoordinate(0, 0)));
+            GameConsole.AddDrawableToBar(new Bridge(new GameCoordinate(0, 0)));
+            GameConsole.AddDrawableToBar(new Tree(new GameCoordinate(0, 0)));
 
 
             foreach (var b in GameConsole.container.elementSlot)

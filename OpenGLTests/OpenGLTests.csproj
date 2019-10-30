@@ -64,12 +64,16 @@
     <Compile Include="src\Drawables\Elements\Button.cs" />
     <Compile Include="src\Drawables\Crate.cs" />
     <Compile Include="src\Drawables\Entities\AngryDude.cs" />
+    <Compile Include="src\Drawables\Entities\Bridge.cs" />
     <Compile Include="src\Drawables\Entities\Chaser.cs" />
     <Compile Include="src\Drawables\Entities\DrawableButton.cs" />
     <Compile Include="src\Drawables\Entities\FleeingPerson.cs" />
     <Compile Include="src\Drawables\Entities\Hero.cs" />
     <Compile Include="src\Drawables\Entities\Hostiles.cs" />
+    <Compile Include="src\Drawables\Entities\House.cs" />
     <Compile Include="src\Drawables\Entities\PatrolGuy.cs" />
+    <Compile Include="src\Drawables\Entities\Rock.cs" />
+    <Compile Include="src\Drawables\Entities\Tree.cs" />
     <Compile Include="src\Drawables\Inventory.cs" />
     <Compile Include="src\Drawables\Elements\Line.cs" />
     <Compile Include="src\Drawables\Elements\Particle.cs" />
@@ -124,6 +128,7 @@
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
@@ -1127,6 +1132,16 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="known bugs.txt" />
+    <None Include="Resources\generic-rpg-rock06.png" />
+    <None Include="Resources\generic-rpg-rock05.png" />
+    <None Include="Resources\generic-rpg-rock04.png" />
+    <None Include="Resources\generic-rpg-rock03.png" />
+    <None Include="Resources\generic-rpg-rock02.png" />
+    <None Include="Resources\generic-rpg-rock01.png" />
+    <None Include="Resources\generic-rpg-tree02.png" />
+    <None Include="Resources\generic-rpg-tree01.png" />
+    <None Include="Resources\generic-rpg-house-inn.png" />
+    <None Include="Resources\generic-rpg-bridge.png" />
     <None Include="Resources\ui_load_button.png" />
     <None Include="Resources\ui_save_button.png" />
     <None Include="Resources\ui_facing_button.png" />

@@ -590,7 +590,7 @@ namespace OpenGLTests.src
                 //:: Optimizable Area
                 //1. filter these collidables some more so we dont iterate all of them.
                 //2. store some things in variables
-                foreach (var collidable in GameState.Drawables.GetAllCollidables)
+                foreach (var collidable in GameState.Drawables.GetAllCollidables.Where(e => !e.Phased))
                 {
                     if (collidable.BoundingBox.Contains(new GameCoordinate(collidable.BoundingBox.Location.X,Source.Location.Y + velY*2))
                          && collidable.BoundingBox.Contains(new GameCoordinate(Source.Location.X + velX/2, collidable.BoundingBox.Location.Y)))

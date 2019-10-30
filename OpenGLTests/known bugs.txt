@@ -19,3 +19,6 @@ Difficulty 8
 
 I believe game starts to lag after a while, but im not sure. Will need to investigate
 Difficulty 2-10
+
+Bounding box for an entity should really be a list of bounding boxes. Phased bool in the ICollidable interface should be replaced with something decent.
+Difficulty 5

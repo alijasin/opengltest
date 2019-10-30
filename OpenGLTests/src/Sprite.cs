@@ -116,6 +116,11 @@ namespace OpenGLTests.src
         {
             return frameOrder.GetSprite(indexFrame);
         }
+
+        public SpriteID GetRandom()
+        {
+            return frameOrder.GetSprite(RNG.IntegerBetween(0, frameOrder.TotalFrames)).sid;
+        }
     }
 
     class SpriteSheet_BigDemonRun : SpriteSheet
@@ -149,6 +154,42 @@ namespace OpenGLTests.src
         { }
     }
 
+    class SpriteSheet_Bridge : SpriteSheet
+    {
+        public SpriteSheet_Bridge() : base(new Dictionary<SpriteID, int>()
+        {
+            { SpriteID.bridge, 12 },
+        })
+        { }
+    }
+
+    class SpriteSheet_WoodenHouse : SpriteSheet
+    {
+        public SpriteSheet_WoodenHouse() : base(new Dictionary<SpriteID, int>()
+        {
+            { SpriteID.wooden_house, 12 },
+        })
+        { }
+    }
+
+    class SpriteSheet_Trees : SpriteSheet
+    {
+        public SpriteSheet_Trees() : base(new Dictionary<SpriteID, int>()
+        {
+            { SpriteID.blue_tree, 12 },
+            { SpriteID.red_tree, 12 },
+        })
+        { }
+    }
+    class SpriteSheet_Rocks : SpriteSheet
+    {
+        public SpriteSheet_Rocks() : base(new Dictionary<SpriteID, int>()
+        {
+            { SpriteID.rock_1, 12 },
+            { SpriteID.rock_2, 12 },
+        })
+        { }
+    }
 
     class SpriteSheet_OgreRun : SpriteSheet
     {
@@ -210,24 +251,6 @@ namespace OpenGLTests.src
             { SpriteID.floor_8, 12 },
         })
         { }
-
-        //todo make this more beautiful
-        public SpriteID GetRandom()
-        {
-            var rng = RNG.IntegerBetween(0, 8);
-            switch (rng)
-            {
-                case 0: return SpriteID.floor_1;
-                case 1: return SpriteID.floor_2;
-                case 2: return SpriteID.floor_3;
-                case 3: return SpriteID.floor_4;
-                case 4: return SpriteID.floor_5;
-                case 5: return SpriteID.floor_6;
-                case 6: return SpriteID.floor_7;
-                case 7: return SpriteID.floor_8;
-                default: return SpriteID.missing;
-            }
-        }
     }
 
     class SpriteSheet_Stuff : SpriteSheet

@@ -14,6 +14,7 @@ namespace OpenGLTests.src.Drawables
     {
         protected ActionPattern ActionPattern;
         private Unit currentAggro;
+        public bool Phased { get; set; } = false;
         public RangeShape BoundingBox { get; set; }
 
         protected Hostile()

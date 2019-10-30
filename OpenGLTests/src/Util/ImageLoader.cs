@@ -65,6 +65,14 @@ namespace OpenGLTests.src.Util
         brick_gate_closed,
         brick_wall,
 
+        bridge,
+        wooden_house,
+        blue_tree,
+        red_tree,
+        rock_1,
+        rock_2,
+        rock_3,
+
         crate,
 
         action_move,
@@ -140,6 +148,13 @@ namespace OpenGLTests.src.Util
             Images[SpriteID.brick_gate_open] = new Bitmap(Properties.Resources.brick_gate_open);
             Images[SpriteID.brick_gate_closed] = new Bitmap(Properties.Resources.brick_gate_closed);
             Images[SpriteID.brick_wall] = new Bitmap(Properties.Resources.brick_wall);
+
+            Images[SpriteID.bridge] = new Bitmap(Properties.Resources.generic_rpg_bridge);
+            Images[SpriteID.wooden_house] = new Bitmap(Properties.Resources.generic_rpg_house_inn);
+            Images[SpriteID.blue_tree] = new Bitmap(Properties.Resources.generic_rpg_tree01); 
+            Images[SpriteID.red_tree] = new Bitmap(Properties.Resources.generic_rpg_tree02);
+            Images[SpriteID.rock_1] = new Bitmap(Properties.Resources.generic_rpg_rock01);
+            Images[SpriteID.rock_2] = new Bitmap(Properties.Resources.generic_rpg_rock02);
 
             Images[SpriteID.crate] = new Bitmap(Properties.Resources.crate);
 
