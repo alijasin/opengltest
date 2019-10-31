@@ -34,10 +34,69 @@ namespace OpenGLTests.src
         public virtual GameCoordinate Location { get; set; }
         Zoomer Zoom { get; }
         public GameCoordinate Speed { get; set; } = new GameCoordinate(0, 0);
-
+        public GameCoordinate BaseSpeed { get; set; } = new GameCoordinate(0.01f, 0.01f);
         public virtual void Step()
         {
 
+        }
+    }
+
+    public class HybridCamera : Camera
+    {
+        protected Entity following;
+        private GameCoordinate movedDistance = new GameCoordinate(0,0);
+        
+        public HybridCamera(Entity following)
+        {
+            this.following = following;
+        }
+
+        public override GameCoordinate Location
+        {
+            get
+            {
+                if (this.following?.Location == null) return new GameCoordinate(0, 0);
+                return this.following.Location + movedDistance;
+            }
+        }
+
+        public override void Step()
+        {
+            if (Math.Abs(Speed.X) < BaseSpeed.X)
+            {
+                if (Math.Abs(movedDistance.X - BaseSpeed.X) < BaseSpeed.X) movedDistance.X = 0;
+                else if (movedDistance.X - BaseSpeed.X > BaseSpeed.X)
+                {
+                    movedDistance.X -= BaseSpeed.X;
+                }
+                else if (movedDistance.X + BaseSpeed.X < -BaseSpeed.X)
+                {
+                    movedDistance.X += BaseSpeed.X;
+                }
+            }
+            else
+            {
+                movedDistance.X += Speed.X;
+            }
+
+
+            if (Math.Abs(Speed.Y) < BaseSpeed.Y)
+            {
+                if (Math.Abs(movedDistance.Y - BaseSpeed.Y) < BaseSpeed.Y) movedDistance.Y = 0;
+                else if (movedDistance.Y - BaseSpeed.Y > BaseSpeed.Y)
+                {
+                    movedDistance.Y -= BaseSpeed.Y;
+                }
+                else if (movedDistance.Y + BaseSpeed.Y < -BaseSpeed.Y)
+                {
+                    movedDistance.Y += BaseSpeed.Y;
+                }
+            }
+            else
+            {
+                movedDistance.Y += Speed.Y;
+            }
+            
         }
     }
 

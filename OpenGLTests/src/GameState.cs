@@ -41,8 +41,9 @@ namespace OpenGLTests.src
             //todo refactor this into screen
             var followCamera = new FollowCamera(Hero);
             var staticCamera = new MovableCamera(Hero.Location);
+            var hybridCamera = new HybridCamera(Hero);
 
-            Screen.ActiveCamera = staticCamera;
+            Screen.ActiveCamera = hybridCamera;
 
             Button testbutton = new Button();
             testbutton.Location = new GLCoordinate(-1, 1);
@@ -51,11 +52,15 @@ namespace OpenGLTests.src
                 Console.WriteLine("Camera swap");
                 if (Screen.ActiveCamera is MovableCamera)
                 {
-                    Screen.ActiveCamera = followCamera;
+                    Screen.ActiveCamera = hybridCamera;
                 }
-                else
+                else if(Screen.ActiveCamera is FollowCamera)
                 {
                     Screen.ActiveCamera = staticCamera;
+                }
+                else if (Screen.ActiveCamera is HybridCamera)
+                {
+                    Screen.ActiveCamera = followCamera;
                 }
                 Screen.ActiveCamera.Location = Hero.Location;
             };

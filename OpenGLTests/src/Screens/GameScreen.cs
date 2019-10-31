@@ -50,25 +50,25 @@ namespace OpenGLTests.src.Screens
             // Keyboard
             Bind(new Hotkey(
                 input => input.IsKeyboardInput && input.KeyboardArgs.Key == OpenTK.Input.Key.D,
-                _ => ActiveCamera.Speed.X = 0.01f,
+                _ => ActiveCamera.Speed.X = ActiveCamera.BaseSpeed.X,
                 _ => ActiveCamera.Speed.X = 0
             ));
 
             Bind(new Hotkey(
                 input => input.IsKeyboardInput && input.KeyboardArgs.Key == OpenTK.Input.Key.A,
-                _ => ActiveCamera.Speed.X = -0.01f,
+                _ => ActiveCamera.Speed.X = -ActiveCamera.BaseSpeed.X,
                 _ => ActiveCamera.Speed.X = 0
             ));
 
             Bind(new Hotkey(
                 input => input.IsKeyboardInput && input.KeyboardArgs.Key == OpenTK.Input.Key.W,
-                _ => ActiveCamera.Speed.Y = -0.01f,
+                _ => ActiveCamera.Speed.Y = -ActiveCamera.BaseSpeed.Y,
                 _ => ActiveCamera.Speed.Y = 0
             ));
 
             Bind(new Hotkey(
                 input => input.IsKeyboardInput && input.KeyboardArgs.Key == OpenTK.Input.Key.S,
-                _ => ActiveCamera.Speed.Y = 0.01f,
+                _ => ActiveCamera.Speed.Y = ActiveCamera.BaseSpeed.Y,
                 _ => ActiveCamera.Speed.Y = 0
             ));
 
