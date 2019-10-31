@@ -63,6 +63,7 @@
     <Compile Include="src\Drawables\Elements\ActionMarker.cs" />
     <Compile Include="src\Drawables\Elements\Button.cs" />
     <Compile Include="src\Drawables\Crate.cs" />
+    <Compile Include="src\Drawables\Elements\Heart.cs" />
     <Compile Include="src\Drawables\Entities\AngryDude.cs" />
     <Compile Include="src\Drawables\Entities\Bridge.cs" />
     <Compile Include="src\Drawables\Entities\Chaser.cs" />
@@ -1132,6 +1133,10 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="known bugs.txt" />
+    <None Include="Resources\heart4.png" />
+    <None Include="Resources\heart3.png" />
+    <None Include="Resources\heart2.png" />
+    <None Include="Resources\heart.png" />
     <None Include="Resources\generic-rpg-rock06.png" />
     <None Include="Resources\generic-rpg-rock05.png" />
     <None Include="Resources\generic-rpg-rock04.png" />

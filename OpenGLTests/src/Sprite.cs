@@ -154,6 +154,19 @@ namespace OpenGLTests.src
         { }
     }
 
+    class SpriteSheet_Heart : SpriteSheet
+    {
+        public SpriteSheet_Heart() : base(new Dictionary<SpriteID, int>()
+        {
+            { SpriteID.heart1, 12 },
+            { SpriteID.heart2, 12 },
+            { SpriteID.heart3, 12 },
+            { SpriteID.heart4, 12 },
+            { SpriteID.missing, 12 },
+        })
+        { }
+    }
+
     class SpriteSheet_Bridge : SpriteSheet
     {
         public SpriteSheet_Bridge() : base(new Dictionary<SpriteID, int>()

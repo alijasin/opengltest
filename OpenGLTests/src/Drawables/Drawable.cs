@@ -131,7 +131,7 @@ namespace OpenGLTests.src.Drawables
                 }
                 else
                 {
-                    drawer.FillRectangle(Color, Location.X, Location.Y, Size.X, Size.Y);
+                    //drawer.FillRectangle(Color, Location.X, Location.Y, Size.X, Size.Y);
                     drawer.DrawElement(this);
                 }
             }

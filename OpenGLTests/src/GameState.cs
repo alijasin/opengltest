@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using OpenGLTests.src.Drawables;
+using OpenGLTests.src.Drawables.Elements;
 using OpenGLTests.src.Drawables.Entities;
 using OpenGLTests.src.Drawables.Terrain;
 
@@ -30,13 +31,9 @@ namespace OpenGLTests.src
             Hero = new Hero();
             Drawables.Add(Hero);
             Drawables.Add(new RoomLoadRegion(new GameCoordinate(0.8f, 0.8f), RoomLoader.Room.TestSpace));
+   
 
-            //LoadRoom();
-            //LoadTestRoom();
             RoomLoader.LoadRoom(RoomLoader.Room.TestEditorOutPut);
-            //var MouseParticleGenerator = new TestParticleGenerator(50);
-            //Drawables.Add(MouseParticleGenerator);
-
 
             //todo refactor this into screen
             var followCamera = new FollowCamera(Hero);

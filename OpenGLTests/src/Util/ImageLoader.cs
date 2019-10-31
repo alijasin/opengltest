@@ -52,6 +52,11 @@ namespace OpenGLTests.src.Util
         lizard_f_run_anim_f2,
         lizard_f_run_anim_f3,
 
+        heart1,
+        heart2,
+        heart3,
+        heart4,
+
         floor_1,
         floor_2,
         floor_3,
@@ -157,6 +162,11 @@ namespace OpenGLTests.src.Util
             Images[SpriteID.rock_2] = new Bitmap(Properties.Resources.generic_rpg_rock02);
 
             Images[SpriteID.crate] = new Bitmap(Properties.Resources.crate);
+
+            Images[SpriteID.heart1] = new Bitmap(Properties.Resources.heart1);
+            Images[SpriteID.heart2] = new Bitmap(Properties.Resources.heart2);
+            Images[SpriteID.heart3] = new Bitmap(Properties.Resources.heart3);
+            Images[SpriteID.heart4] = new Bitmap(Properties.Resources.heart4);
 
             Images[SpriteID.action_move] = new Bitmap(Properties.Resources.action_move);
             Images[SpriteID.action_attack] = new Bitmap(Properties.Resources.action_attack);

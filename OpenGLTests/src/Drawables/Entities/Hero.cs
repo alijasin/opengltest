@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using OpenGLTests.src;
+using OpenGLTests.src.Drawables.Elements;
 
 namespace OpenGLTests.src.Drawables
 {
@@ -87,6 +88,9 @@ namespace OpenGLTests.src.Drawables
             Inventory.Add(new GrowingPoition(this));
             Inventory.Add(new RedPotion(this));
             Inventory.Add(new Apple(this));
+
+
+            GameState.Drawables.Add(new HeartBar(new GLCoordinate(0, -0.86f)));
         }
 
 
