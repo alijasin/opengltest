@@ -11,7 +11,7 @@ namespace OpenGLTests.src
 {
     public class FightBar : Element
     {
-        List<DrawableButton> Portraits = new List<DrawableButton>();
+        Queue<DrawableButton> Portraits = new Queue<DrawableButton>();
         private int portraitCount = 0;
         public FightBar()
         {
@@ -33,7 +33,7 @@ namespace OpenGLTests.src
             DrawableButton b = new DrawableButton(xd);
             b.Location = new GLCoordinate(leftMostOfBar + 0.1f * portraitCount + 0.1f/2, middleOfBar - 0.1f/2);
             b.Size = new GLCoordinate(0.1f, 0.1f);
-            Portraits.Add(b);
+            Portraits.Enqueue(b);
             portraitCount++;
 
             if (Portraits.Count > 0) this.Visible = true;
@@ -45,7 +45,7 @@ namespace OpenGLTests.src
             {
                 if (p.Entity.ID == u.ID)
                 {
-                    Portraits.Remove(p);
+                    Portraits.ToList().Remove(p);
                     p.Dispose();
                     if (Portraits.Count <= 1) this.Visible = false;
                     return;
@@ -61,6 +61,14 @@ namespace OpenGLTests.src
             {
                 p.DrawStep(drawer);
             }
+        }
+
+        public void SetFirstToLast()
+        {
+            if (Portraits.Count < 1) return;
+            var t = this.Portraits.First().Location;
+            this.Portraits.First().Location = this.Portraits.ElementAt(1).Location;
+            this.Portraits.ElementAt(1).Location = t;
         }
     }
 
@@ -113,7 +121,7 @@ namespace OpenGLTests.src
         public void UnitFinishedTurn(Unit u)
         {
             FighterQueue.Enqueue(FighterQueue.Dequeue());
-            Console.WriteLine("calling " + FighterQueue.Peek() + "'s OnPreTurn" );
+            fb.SetFirstToLast();
             u.OnPostTurn();
             FighterQueue.Peek().OnPreTurn();
         }
