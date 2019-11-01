@@ -38,6 +38,11 @@ namespace OpenGLTests.src
             FighterQueue.Enqueue(u);
         }
 
+        public void RemoveFighter(Unit u)
+        {
+            FighterQueue.ToList().Remove(u);
+        }
+
         public bool TurnToAct(Unit u)
         {
             if (u == fightersAndActions.First().Key) return true;

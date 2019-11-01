@@ -92,6 +92,10 @@ namespace OpenGLTests.src
                 {
                     toKeep.Add(d);
                 }
+                else
+                {
+                    d.Dispose();
+                }
             }
 
             toRemove.Clear();

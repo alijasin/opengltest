@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 using OpenGLTests.src;
 using OpenGLTests.src.Drawables.Elements;
 
@@ -113,19 +114,20 @@ namespace OpenGLTests.src.Drawables
             return false;
         }
 
+        private static int xd = 0;
         public override void OutOfCombatStep(int outOfCombatIndex)
         {
-            var status = ActionHandler.CommitActions(outOfCombatIndex);
+            var status = ActionHandler.CommitActions(xd);
 
             if (status == ActionReturns.NoAction) return;
    
             if (status == ActionReturns.Finished || status == ActionReturns.AllFinished)
             {
-                outOfCombatIndex = 0;
+                xd = 0;
                 ResetDefaultActionToMove();
                 return;
             }
-            else outOfCombatIndex++;
+            else xd++;
         }
 
         public override void OnPreTurn()

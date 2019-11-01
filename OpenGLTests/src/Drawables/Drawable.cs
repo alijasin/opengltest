@@ -95,6 +95,10 @@ namespace OpenGLTests.src.Drawables
 
         public virtual void Dispose()
         {
+            if (this is ICollidable c)
+            {
+                c.BoundingBox.Dispose();
+            }
             GameState.Drawables.Remove(this);
         }
 
@@ -224,6 +228,11 @@ namespace OpenGLTests.src.Drawables
         public virtual void OnPreTurn()
         {
 
+        }
+
+        public override void Dispose()
+        {
+            base.Dispose();
         }
     }
 
