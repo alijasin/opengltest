@@ -51,11 +51,23 @@ namespace OpenGLTests.src
         }
     }
 
-    class TeleportPattern : ActionPattern
+    class CustomPattern : ActionPattern
+    {
+        public CustomPattern(List<GameAction> actions)
+        {
+            Actions = actions;
+        }
+        public override void InitPattern()
+        {
+            
+        }
+    }
+
+    class SwamperTeleportPattern : ActionPattern
     {
         private GLCoordinate range;
         private Unit source;
-        public TeleportPattern(Unit source, GLCoordinate range)
+        public SwamperTeleportPattern(Unit source, GLCoordinate range)
         {
             this.source = source;
             this.range = range;

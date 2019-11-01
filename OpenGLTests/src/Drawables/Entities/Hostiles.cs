@@ -10,7 +10,7 @@ using OpenGLTests.src.Util;
 
 namespace OpenGLTests.src.Drawables
 {
-    public abstract class Hostile : Unit, ICollidable
+    public abstract class Hostile : Unit, ICollidable, IActionCapable
     {
         protected ActionPattern ActionPattern;
         private Unit currentAggro;
@@ -21,6 +21,7 @@ namespace OpenGLTests.src.Drawables
         {
             this.HitPoints = 1;
             this.BoundingBox = new RangeShape(new Rectangle(new GLCoordinate(0.1f, 0.1f)), this);
+            this.ActionHandler = new OutOfCombatActionHandler(this);
             Add();
         }
 
@@ -37,26 +38,46 @@ namespace OpenGLTests.src.Drawables
 
         public override void OnAggro(Unit aggroed)
         {
+            if (InCombat) return;
+            ActionHandler.Dispose();
+            ActionHandler = new CombatActionHandler(this);
             currentAggro = aggroed;
+            if(InCombat == false) EnteredCombat(aggroed);
             InCombat = true;
+            
         }
 
-        public override void Step()
+        public override void OutOfCombatStep(int outOfCombatIndex)
         {
-            if(InCombat == false) OutOfCombatStep();  
+            if (ActionPattern != null)
+            {
+                var status = ActionPattern.DoAction(outOfCombatIndex);
+            }
+        }
+
+        public override bool CombatStep(int combatIndex)
+        {
+            return true; 
+    
+            combatIndex++;
+            if (combatIndex == 40) return true;
+            return false;
         }
 
         public void EnteredCombat(Unit triggeringUnit)
         {
-            //ActionPattern = new FindAndChaseEntity(this, triggeringEntity);
+
         }
 
-        public virtual void OutOfCombatStep()
+        public override void OnPreTurn()
         {
-            if (ActionPattern != null)
-            {
-                var status = ActionPattern.DoAction(1);
-            }
+            ActionHandler.TryPlaceAction(new GrowAction(this), this.Location);
+            ActionHandler.TryPlaceAction(new TurnRedAction(this), this.Location);
+            var xd = new InstantTeleport(this.Location + new GameCoordinate(0.4f, 0.4f), this);
+            xd.ForcePlaced = true;
+
+            ActionHandler.TryPlaceAction(xd, this.Location + new GameCoordinate(0.4f, 0.4f));
+            Console.WriteLine("tried placing growaction");
         }
 
         public override void Dispose()
@@ -71,7 +92,5 @@ namespace OpenGLTests.src.Drawables
             GameState.Drawables.Add(this);
             if(AggroShape != null) GameState.Drawables.Add(this.AggroShape);
         }
-
     }
-
 }

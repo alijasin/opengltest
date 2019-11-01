@@ -10,5 +10,7 @@ namespace OpenGLTests.src
     {
         ActionHandler ActionHandler { get; set; }
         GameCoordinate Location { get; set; }
+        bool CombatStep(int combatIndex);
+
     }
 }

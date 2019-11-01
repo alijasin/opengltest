@@ -89,7 +89,14 @@ namespace OpenGLTests.src.Screens
                     {
                         if (i.Contains(clicked) && i.Visible)
                         {
-                            i.OnInteraction.Invoke();
+                            if (i is Button b)
+                            {
+                                if(b.Enabled) i.OnInteraction.Invoke();
+                            }
+                            else
+                            {
+                                i.OnInteraction.Invoke();
+                            }
                         }
                     }
 
@@ -101,23 +108,6 @@ namespace OpenGLTests.src.Screens
                             i.OnClick(clicked);
                         }
                     }
-
-                    /*foreach (ICollidable c in GameState.Drawables.GetAllCollidables)
-                    {
-                        var d = c as Drawable;
-                        if (c.BoundingBox.Contains(xd))
-                        {
-                           // if(d.XDirection == Drawables.XDirection.Right) d.XDirection = Drawables.XDirection.Left;
-                            //else d.XDirection = Drawables.XDirection.Right;
-                            //if (d.YDirection == Drawables.YDirection.UpsideDownRight) d.YDirection = Drawables.YDirection.UpsideDownLeft;
-                            //else d.YDirection = Drawables.YDirection.UpsideDownRight;
-
-                            //d.NextFacing();
-                            //d.Flip();
-
-                            Console.WriteLine("Collidable clicked");
-                        }
-                    }*/
                 },
                 input =>
                 {

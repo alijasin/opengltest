@@ -89,8 +89,10 @@ namespace OpenGLTests.src
             RoomLoader rl = new RoomLoader();
         }
 
+        private Fight fight = new Fight();
         private int initSteps = 25;
         private int initStepsCount = 0;
+        private static int outOfCombatIndex = 0;
         public void Step()
         {
             Screen.ActiveCamera.Step();
@@ -113,21 +115,63 @@ namespace OpenGLTests.src
                 }
             }
 
-            foreach (var combatable in Drawables.GetAllUnits)
+            //todo
+            foreach (var unit in Drawables.GetAllUnits)
             {
-                combatable.Step();
+                unit.CombatStep(1);
             }
+
+            if (fight != null) doFight();
+
+
+            foreach (var unit in Drawables.GetAllUnits)
+            {
+                if (!unit.InCombat)
+                {
+                    unit.OutOfCombatStep(outOfCombatIndex);
+                }
+            }
+
             foreach (Unit aggro in Drawables.GetAllUnits.Where(c => !(c is Hero) && c.AggroShape != null && c.InCombat == false).ToList())
             {
                 if (aggro.AggroShape.Contains(Hero.Location))
                 {
                     aggro.OnAggro(Hero);
                     Hero.OnAggro(aggro);
+                    fight.AddFighter(Hero);
+                    fight.AddFighter(aggro);
                 }
             }
+        }
 
+        private static int combatIndex = 0;
+        private void doFight()
+        {
+            var currentFighter = fight.GetCurrentTurn();
+            
+            if (currentFighter != null)
+            {
+                if (currentFighter is Hero h)
+                {
+                    if (h.CommitedActions == false) return;
+                }
 
+                var status = currentFighter.ActionHandler.CommitActions(combatIndex);
 
+                if (status == ActionReturns.Placing) return;
+                if (status == ActionReturns.Finished)
+                {
+                    combatIndex = 0;
+                    return;
+                }
+                else if (status == ActionReturns.AllFinished)
+                {
+                    combatIndex = 0;
+                    currentFighter.CommitedActions = false;
+                    fight.UnitFinishedTurn(currentFighter);
+                }
+                else combatIndex++;
+            }
         }
     }
 }

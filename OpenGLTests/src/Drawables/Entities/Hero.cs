@@ -13,11 +13,10 @@ namespace OpenGLTests.src.Drawables
     public class Hero : Unit, IActionCapable
     {
         public Inventory Inventory;
-        public ActionHandler ActionHandler { get; set; }
         private ActionBar ActionBar { get; set; }
         public int HitPoints { get; set; } = 1;
         private HashSet<Unit> AggroFrom = new HashSet<Unit>();
-
+        private CombatTurnConfirmationButton ctcb;
         private void ResetDefaultActionToMove()
         {
             ActionBar.GetDefaultButton().OnInteraction.Invoke();
@@ -37,7 +36,7 @@ namespace OpenGLTests.src.Drawables
 
 
         public RangeShape AggroShape { get; set; }
-        public bool InCombat { get; set; }
+
         private bool waitingForActionCommit = true; //todo remove this and call the commit from interaction button directly.
 
         public Hero()
@@ -47,10 +46,10 @@ namespace OpenGLTests.src.Drawables
             this.Size = new GLCoordinate(0.1f, 0.1f);
             this.Speed = new GameCoordinate(0.02f, 0.02f);
             this.Animation = new Animation(new SpriteSheet_ElfIdle());
-
+            this.ActionHandler = new OutOfCombatActionHandler(this);
+            this.Initiative = 10;
             //this.AggroShape = new RangeCircle(new GLCoordinate(0, 0), this);
             initActionBar();
-            ActionHandler = new OutOfCombatActionHandler(this);
             InCombat = false;
             
             ResetDefaultActionToMove();
@@ -75,13 +74,9 @@ namespace OpenGLTests.src.Drawables
 
         private void initGUI()
         {
-            Button b = new Button();
-            b.Location = new GLCoordinate(1, 1);
-            b.OnInteraction += () =>
-            {
-                waitingForActionCommit = false;
-            };
-            GameState.Drawables.Add(b);
+            ctcb = new CombatTurnConfirmationButton(new GLCoordinate( 0.9f, 0.9f));
+            ctcb.OnInteraction += () => { CommitedActions = true; };
+            GameState.Drawables.Add(ctcb);
 
             Inventory = new Inventory(this);
             GameState.Drawables.Add(Inventory);
@@ -90,51 +85,59 @@ namespace OpenGLTests.src.Drawables
             Inventory.Add(new Apple(this));
 
 
-            GameState.Drawables.Add(new HeartBar(new GLCoordinate(0, -0.86f)));
+            //GameState.Drawables.Add(new HeartBar(new GLCoordinate(0, -0.86f)));
         }
 
 
-        private int actionIndex = 0;
-        public override void Step()
+        public override bool CombatStep(int combatIndex)
         {
-            if (InCombat) CombatStep();
-            else OutOfCombatStep();
-        }
+            return true;
+            if (waitingForActionCommit) return false;
 
-        private void CombatStep()
-        {
-            
-            if (waitingForActionCommit) return;
+            var status = ActionHandler.CommitActions(combatIndex);
 
-            var status = ActionHandler.CommitActions(actionIndex);
-
-            if (status == ActionReturns.Placing) return;
+            if (status == ActionReturns.Placing) return false;
             if (status == ActionReturns.Finished)
             {
-                actionIndex = 0;
-                return;
+                combatIndex = 0;
+                return false;
             }
             else if (status == ActionReturns.AllFinished)
             {
-                actionIndex = 0;
+                combatIndex = 0;
                 waitingForActionCommit = true;
+                return true;
             }
-            else actionIndex++;
+            else combatIndex++;
+
+            return false;
         }
 
-        private void OutOfCombatStep()
+        public override void OutOfCombatStep(int outOfCombatIndex)
         {
-            var status = ActionHandler.CommitActions(actionIndex);
+            var status = ActionHandler.CommitActions(outOfCombatIndex);
 
             if (status == ActionReturns.NoAction) return;
    
             if (status == ActionReturns.Finished || status == ActionReturns.AllFinished)
             {
-                actionIndex = 0;
+                outOfCombatIndex = 0;
                 ResetDefaultActionToMove();
                 return;
             }
-            else actionIndex++;
+            else outOfCombatIndex++;
+        }
+
+        public override void OnPreTurn()
+        {
+            ctcb.Enabled = true;
+        }
+
+        //called from Fight public void UnitFinishedTurn(Unit u)
+        public override void OnPostTurn()
+        {
+            ResetDefaultActionToMove();
+            ctcb.Enabled = false;
         }
 
         public void Deaggro(Unit deAggroed)
@@ -162,14 +165,16 @@ namespace OpenGLTests.src.Drawables
 
             ActionHandler.Dispose();
 
-            //if we are in aggro already and we aggro another one this will reset. Todo:
-            actionIndex = 0;
             var defaultAction = ActionBar.GetDefaultButton().GameAction;
             defaultAction.RangeShape.IsInfinite = false; //assumes that the default action sh ouldnt be infinite in combat. 
             ActionHandler.Dispose();
             ActionHandler = new CombatActionHandler(this);
             waitingForActionCommit = true;
             ResetDefaultActionToMove();
+
+            Fight f = new Fight();
+            f.AddFighter(this);
+            f.AddFighter(aggroed);
         }
     }
 }

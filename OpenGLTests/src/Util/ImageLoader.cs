@@ -79,6 +79,7 @@ namespace OpenGLTests.src.Util
         rock_3,
 
         crate,
+        weapon_golden_sword,
 
         action_move,
         action_attack,
@@ -125,6 +126,8 @@ namespace OpenGLTests.src.Util
             Images[SpriteID.big_demon_run_anim_f1] = new Bitmap(Properties.Resources.big_demon_run_anim_f1);
             Images[SpriteID.big_demon_run_anim_f2] = new Bitmap(Properties.Resources.big_demon_run_anim_f2);
             Images[SpriteID.big_demon_run_anim_f3] = new Bitmap(Properties.Resources.big_demon_run_anim_f3);
+            
+            Images[SpriteID.weapon_golden_sword] = new Bitmap(Properties.Resources.weapon_golden_sword);
 
             Images[SpriteID.ogre_run_anim_f0] = new Bitmap(Properties.Resources.ogre_run_anim_f0);
             Images[SpriteID.ogre_run_anim_f1] = new Bitmap(Properties.Resources.ogre_run_anim_f1);

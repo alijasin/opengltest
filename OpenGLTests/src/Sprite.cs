@@ -135,6 +135,15 @@ namespace OpenGLTests.src
         { }
     }
 
+    class SpriteSheet_Weapon : SpriteSheet
+    {
+        public SpriteSheet_Weapon() : base(new Dictionary<SpriteID, int>()
+        {
+            { SpriteID.weapon_golden_sword, 12 },
+        })
+        { }
+    }
+
     class SpriteSheet_BrickGate : SpriteSheet
     {
         public SpriteSheet_BrickGate() : base(new Dictionary<SpriteID, int>()

@@ -190,14 +190,17 @@ namespace OpenGLTests.src.Drawables
         public RangeShape BoundingBox { get; set; }
     }
 
-    public abstract class Unit : Entity
+    public abstract class Unit : Entity, IActionCapable
     {
         [JsonIgnore]
         public RangeShape AggroShape { get; set; }
+        public abstract void OutOfCombatStep(int outOfCombatIndex);
+        public ActionHandler ActionHandler { get; set; }
+        public abstract bool CombatStep(int combatIndex);
+        public bool CommitedActions = false;
         public bool InCombat { get; set; }
-        public abstract void Step();
-
         public int HitPoints { get; set; }
+        public int Initiative { get; set; } = 0;
 
         public void Damage(int dmg)
         {
@@ -211,6 +214,15 @@ namespace OpenGLTests.src.Drawables
         }
         public abstract void OnAggro(Unit aggroed);
 
+        public virtual void OnPostTurn()
+        {
+
+        }
+
+        public virtual void OnPreTurn()
+        {
+
+        }
     }
 
     public abstract class Structure : Entity, ICollidable

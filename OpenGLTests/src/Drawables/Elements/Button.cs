@@ -10,6 +10,7 @@ namespace OpenGLTests.src.Drawables
 {
     public class Button : RectangleElement, IInteractable
     {
+        public virtual bool Enabled { get; set; } = true;
         private Color initialColor;
         private Color toggleColor;
         public Button() : this(new GLCoordinate(0.2f, 0.2f))
@@ -110,6 +111,28 @@ namespace OpenGLTests.src.Drawables
             {
                 inBar.Owner.ActionHandler.ActionButtonClicked(this);
             };
+        }
+    }
+
+    class CombatTurnConfirmationButton : Button
+    {
+        public override bool Enabled
+        {
+            set
+            {
+                base.Enabled = value;
+                if (Enabled) this.Color = Color.Green;
+                else this.Color = Color.Red;
+            }
+        }
+
+        public CombatTurnConfirmationButton(GLCoordinate Loc)
+        {
+            this.Location = Loc;
+            this.Size = new GLCoordinate(0.1f, 0.1f);
+            this.Animation = new Animation(new SpriteSheet_Weapon());
+            this.Animation.SetSprite( SpriteID.weapon_golden_sword);
+            this.Animation.IsStatic = true;
         }
     }
 }

@@ -15,7 +15,7 @@ namespace OpenGLTests.src.Drawables
             this.Location = location;
             this.Animation = new Animation(new SpriteSheet_Swamper());
             this.Color = Color.PaleGreen;
-            this.ActionPattern = new TeleportPattern(this, new GLCoordinate(0.3f, 0.3f));
+            this.ActionPattern = new SwamperTeleportPattern(this, new GLCoordinate(0.3f, 0.3f));
             this.ActionPattern.Loop = true;
             this.Size = new GLCoordinate(0.1f, 0.1f);
             this.HitPoints = 1;
@@ -23,14 +23,14 @@ namespace OpenGLTests.src.Drawables
 
         private bool teleported = false;
 
-        public override void OutOfCombatStep()
+        public override void OutOfCombatStep(int outOfCombatIndex)
         {
             //base.OutOfCombatStep(); dont do it
             if (Animation.GetSprite().sid == SpriteID.burrowing_swamper_f7)
             {
                 if (teleported == false)
                 {
-                    ActionPattern.DoAction("ogeli");
+                    ActionPattern.DoAction(outOfCombatIndex);
                 }
                 teleported = true;
             }

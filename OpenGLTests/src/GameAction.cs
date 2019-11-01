@@ -36,6 +36,7 @@ namespace OpenGLTests.src
         public bool Ready { get; set; } = true;
         public bool IsPlaced { get; set; } = false;
         public bool IsInstant { get; set; } = false;
+        public bool ForcePlaced { get; set; } = false;
         protected Unit Source { get; set; }
         public GameAction() : this(null)
         {

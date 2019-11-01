@@ -192,7 +192,7 @@ namespace OpenGLTests.src
 
         public override void TryPlaceAction(GameAction action, GameCoordinate location)
         {
-            if (action.RangeShape.Contains(location) || action.RangeShape.IsInfinite || action.IsInstant)
+            if (action.RangeShape.Contains(location) || action.RangeShape.IsInfinite || action.IsInstant || action.ForcePlaced)
             {
                 SubsequentlyPlacedActions.Add(action);
                 action.Place(location, SelectedActionIcon);
@@ -330,6 +330,7 @@ namespace OpenGLTests.src
             }
 
             return ActionReturns.Ongoing;
+
         }
     }
 }
