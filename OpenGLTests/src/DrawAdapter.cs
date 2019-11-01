@@ -122,8 +122,13 @@ namespace OpenGLTests.src
             GL.Vertex2(right, top);
         }
 
-        public void TraceRectangle(Color color, float x, float y, float width, float height)
+        public void TraceRectangle(Color color, float x, float y, float width, float height, float lineWidth = 3)
         {
+            GL.PushAttrib(AttribMask.EnableBit);
+            GL.Enable(EnableCap.Blend);
+            GL.LineWidth(lineWidth);
+
+            GL.PopAttrib();
             GL.Color4(color);
             GL.Begin(PrimitiveType.LineLoop);
 
@@ -133,8 +138,8 @@ namespace OpenGLTests.src
             GL.Vertex2(x, -(y + height));
 
             GL.End();
+            GL.PopAttrib();
         }
-
         public void FillRectangle(Color c, float x, float y, float width, float height)
         {
             y = -y;

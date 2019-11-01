@@ -114,6 +114,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="src\Screens\Screen.cs" />
     <Compile Include="src\Util\GameActionLambdas.cs" />
+    <Compile Include="src\Util\IDGenerator.cs" />
     <Compile Include="src\Util\ImageLoader.cs" />
     <Compile Include="src\Util\InputUnion.cs" />
     <Compile Include="src\Util\EntitySerializer.cs" />

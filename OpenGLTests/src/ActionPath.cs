@@ -97,6 +97,7 @@ namespace OpenGLTests.src
         public void RemoveFirst()
         {
             var node = linkedList.First;
+            if (node == null) return;
             node.Value.Dispose();
             linkedList.Remove(node);
         }

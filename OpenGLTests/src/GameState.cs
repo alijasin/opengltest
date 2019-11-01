@@ -122,7 +122,6 @@ namespace OpenGLTests.src
             }
 
             if (!fight.LastManStanding()) doFight();
-            else fight = new Fight();
 
             foreach (var unit in Drawables.GetAllUnits)
             {

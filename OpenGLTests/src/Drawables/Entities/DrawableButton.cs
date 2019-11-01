@@ -9,9 +9,11 @@ namespace OpenGLTests.src.Drawables.Entities
 {
     public class DrawableButton : Button, IInteractable
     {
+        public Entity Entity;
         public DrawableButton(Entity d)
         {
             if (d.Animation == null) return;
+            Entity = d;
             this.Animation = d.Animation;
             this.Animation.IsStatic = true;
             OnInteraction = () =>
@@ -20,6 +22,12 @@ namespace OpenGLTests.src.Drawables.Entities
                 EditorScreen.CurrentlySelected = d.Clone() as Entity;
             };
             d.Dispose();
+        }
+
+        public override void Dispose()
+        {
+            Entity.Dispose();
+            base.Dispose();
         }
     }
 }

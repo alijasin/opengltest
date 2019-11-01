@@ -22,7 +22,7 @@ namespace OpenGLTests.src
         public List<Entity> GetAllEntities => GetWhere<Entity>(drawable => drawable is Entity);
         public List<Element> GetAllElements => GetWhere<Element>(drawable => drawable is Element);
         public List<Unit> GetAllUnits => GetWhere<Unit>(drawable => drawable is Unit);
-        public List<Hero> GetAllHeroes => drawableRepo.Where(E => E is Hero).Cast<Hero>().ToList();
+        public List<Hero> GetAllHeroes => GetWhere<Hero>(drawable => drawable is Hero).ToList();
         public List<ICollidable> GetAllCollidables => GetWhere<ICollidable>(drawable => drawable is ICollidable).ToList();
         public List<IRegion> GetAllRegions => GetWhere<IRegion>(drawable => drawable is IRegion).ToList();
 
@@ -32,6 +32,7 @@ namespace OpenGLTests.src
         //todo this is digusting and you should change it. Todo!!! High importance low urgency
         private List<T> GetWhere<T>(Func<Drawable, bool> filter)
         {
+            //this can throw errors
             foreach (var rem in toRemove.ToList())
             {
                 bool success = drawableRepo.Remove(rem);

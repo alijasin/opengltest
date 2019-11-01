@@ -31,7 +31,7 @@ namespace OpenGLTests.src.Drawables
         [JsonIgnore]
         public Animation Animation { get; set; }
         public int Depth { get; set; } = 10;
-
+        public int ID = IDGenerator.GetID();
         public void SetFacing(Facing f)
         {
             Facing = f;

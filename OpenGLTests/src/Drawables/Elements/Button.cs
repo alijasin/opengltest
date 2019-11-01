@@ -10,6 +10,8 @@ namespace OpenGLTests.src.Drawables
 {
     public class Button : RectangleElement, IInteractable
     {
+        public Color BorderColor = System.Drawing.Color.Black;
+        public Color BackColor = Color.Firebrick;
         public virtual bool Enabled { get; set; } = true;
         private Color initialColor;
         private Color toggleColor;
@@ -51,6 +53,13 @@ namespace OpenGLTests.src.Drawables
         {
             base.Dispose();
             GameState.Drawables.UnRegisterInteractable(this);
+        }
+
+        public override void DrawStep(DrawAdapter drawer)
+        {
+            drawer.FillRectangle(this.BackColor, this.Location.X, this.Location.Y, this.Size.X, this.Size.Y);
+            drawer.TraceRectangle(this.BorderColor, this.Location.X - this.Size.X / 2, -this.Location.Y + this.Size.Y / 2, this.Size.X, -this.Size.Y);
+            base.DrawStep(drawer);
         }
     }
 

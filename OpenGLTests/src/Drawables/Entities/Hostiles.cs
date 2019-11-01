@@ -28,6 +28,7 @@ namespace OpenGLTests.src.Drawables
 
         public override void OnDeath()
         {
+            base.OnDeath();
             Console.WriteLine("{0} died.", this);
             if (currentAggro is Hero hero)
             {

@@ -173,10 +173,6 @@ namespace OpenGLTests.src.Drawables
             ActionHandler = new CombatActionHandler(this);
             waitingForActionCommit = true;
             ResetDefaultActionToMove();
-
-            Fight f = new Fight();
-            f.AddFighter(this);
-            f.AddFighter(aggroed);
         }
     }
 }
