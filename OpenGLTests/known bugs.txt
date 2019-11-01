@@ -1,11 +1,6 @@
 ﻿
 (description, est. difficulty fixing(1-10))
 
-After exiting aggro range the hero leaves combat even though the aggro unit is still alive.  
-Additionally, after exiting the aggro range the queued attacks are cleared which is not desirable.
-Two bugs, but one solution: don't leave combat until the aggro'd creature is dead(or outside some certain wider range).
-Difficulty: 6
-
 Burrower doesnt teleport every burrow. (only every second.)
 Not sure why this is but dont think it might be hard to trace down on.
 Difficulty 4
@@ -22,3 +17,9 @@ Difficulty 2-10
 
 Bounding box for an entity should really be a list of bounding boxes. Phased bool in the ICollidable interface should be replaced with something decent.
 Difficulty 5
+
+Game runs faster when there are fewer entities on the board. This probably has to do with the way we use a static int to do things in each step.
+Difficulty 4.
+
+All bounding boxes are not removed when entering a LoadRegion.
+Difficulty 4.

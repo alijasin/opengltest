@@ -216,8 +216,9 @@ namespace OpenGLTests.src.Drawables
 
         public virtual void OnDeath()
         {
-
+            Fight.RemoveFighter(this);
         }
+
         public abstract void OnAggro(Unit aggroed);
 
         public virtual void OnPostTurn()
@@ -232,6 +233,7 @@ namespace OpenGLTests.src.Drawables
 
         public override void Dispose()
         {
+            ActionHandler.Dispose();
             base.Dispose();
         }
     }

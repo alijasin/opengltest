@@ -20,27 +20,19 @@ namespace OpenGLTests.src
             }
         }
 
-        public void SubmitActions(Unit u, List<GameAction> actions)
+        public bool LastManStanding()
         {
-            fightersAndActions.Add(u, actions);
-            tryDoActions();
-        }
-
-        private void tryDoActions()
-        {
-            //check if any list of gameaction in unit is null, that means the unit hasnt submitted any actions and we dont proceed.
-            
-
+            foreach (var toRem in toRemove)
+            {
+                toRem.Dispose();
+                FighterQueue.ToList().Remove(toRem);
+            }
+            return FighterQueue.Count <= 1;
         }
 
         public void AddFighter(Unit u)
         {
             FighterQueue.Enqueue(u);
-        }
-
-        public void RemoveFighter(Unit u)
-        {
-            FighterQueue.ToList().Remove(u);
         }
 
         public bool TurnToAct(Unit u)
@@ -61,6 +53,12 @@ namespace OpenGLTests.src
             Console.WriteLine("calling " + FighterQueue.Peek() + "'s OnPreTurn" );
             u.OnPostTurn();
             FighterQueue.Peek().OnPreTurn();
+        }
+
+        private static List<Unit> toRemove = new List<Unit>();
+        public static void RemoveFighter(Unit u)
+        {
+            toRemove.Add(u);
         }
     }
 }
