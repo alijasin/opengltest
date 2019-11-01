@@ -109,6 +109,18 @@ namespace OpenGLTests.src.Screens
             };
             Buttons.Add(RotationButton);
 
+            LoadButton = new Button(new GLCoordinate(0.1f, 0.1f));
+            LoadButton.Animation = new Animation(new SpriteSheet_EditorUI());
+            LoadButton.Animation.IsStatic = true;
+            LoadButton.Animation.SetSprite(SpriteID.ui_load_button);
+            LoadButton.Location = new GLCoordinate(0.4f, 0.95f);
+            LoadButton.OnInteraction = () =>
+            {
+                var xd = EntitySerializer.LoadEntitiesFromFile(RoomLoader.Room.TestEditorOutPut.ToString());
+                foreach(var meme in xd) toWriteToJson.Add(meme);
+            };
+            Buttons.Add(LoadButton);
+
 
             #endregion
         }

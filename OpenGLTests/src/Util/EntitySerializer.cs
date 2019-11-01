@@ -43,8 +43,9 @@ namespace OpenGLTests.src.Util
             }
         }
 
-        public static void LoadEntitiesFromFile(string filename)
+        public static List<Entity> LoadEntitiesFromFile(string filename)
         {
+            List<Entity> var = new List<Entity>();
             JObject entitiesList = ReadFromJsonFile<JObject>(filename + ".json");
             JArray entities = entitiesList["$values"] as JArray;
             foreach (var entity in entities)
@@ -54,6 +55,7 @@ namespace OpenGLTests.src.Util
                     string sType = entity["$type"].ToString();
                     Type entityType = Type.GetType(sType);
                     dynamic xd = JsonConvert.DeserializeObject(entity.ToString(), entityType);
+                    var.Add(xd);
                     Console.WriteLine(xd);
                 }
                 catch (Exception e)
@@ -61,6 +63,8 @@ namespace OpenGLTests.src.Util
                     Console.WriteLine("fucked up deserializing " + entity.GetType() + e);
                 }
             }
+
+            return var;
         }
 
         /// <summary>

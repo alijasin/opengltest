@@ -66,9 +66,13 @@ namespace OpenGLTests.src
         public void SetFirstToLast()
         {
             if (Portraits.Count < 1) return;
-            var t = this.Portraits.First().Location;
-            this.Portraits.First().Location = this.Portraits.ElementAt(1).Location;
-            this.Portraits.ElementAt(1).Location = t;
+
+            for (int i = 0; i < Portraits.Count - 1; i++)
+            {
+                var tt = this.Portraits.ElementAt(i).Location;
+                this.Portraits.ElementAt(i).Location = this.Portraits.ElementAt(i + 1).Location;
+                this.Portraits.ElementAt(i+1).Location = tt;
+            }
         }
     }
 
@@ -102,13 +106,14 @@ namespace OpenGLTests.src
 
         public void AddFighter(Unit u)
         {
+            if (FighterQueue.Contains(u)) return;
             FighterQueue.Enqueue(u);
             fb.AddFighter(u);
         }
 
         public bool TurnToAct(Unit u)
         {
-            if (u == fightersAndActions.First().Key) return true;
+            if (u.ID == fightersAndActions.First().Key.ID) return true;
             else return false;
         }
 
