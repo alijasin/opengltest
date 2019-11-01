@@ -187,6 +187,7 @@ namespace OpenGLTests.src.Drawables
         }
 
         public bool Phased { get; set; } = false;
+        
         public RangeShape BoundingBox { get; set; }
     }
 
@@ -195,6 +196,7 @@ namespace OpenGLTests.src.Drawables
         [JsonIgnore]
         public RangeShape AggroShape { get; set; }
         public abstract void OutOfCombatStep(int outOfCombatIndex);
+        [JsonIgnore]
         public ActionHandler ActionHandler { get; set; }
         public abstract bool CombatStep(int combatIndex);
         public bool CommitedActions = false;
@@ -228,7 +230,8 @@ namespace OpenGLTests.src.Drawables
     public abstract class Structure : Entity, ICollidable
     {
         public bool Phased { get; set; } = false;
-        public RangeShape BoundingBox { get; set; }
+        [JsonIgnore]
+        public virtual RangeShape BoundingBox { get; set; }
 
         public Structure()
         {

@@ -9,7 +9,7 @@ using OpenGLTests.src.Util;
 namespace OpenGLTests.src.Drawables.Terrain
 {
 
-    class BrickWall : Entity
+    class BrickWall : Structure
     {
         public BrickWall(GameCoordinate location)
         {
@@ -23,8 +23,7 @@ namespace OpenGLTests.src.Drawables.Terrain
             this.BoundingBox.Visible = true;
             GameState.Drawables.Add(this);
         }
-
-        public RangeShape BoundingBox { get; set; }
+       
     }
 
     class BrickGate : Entity, IClickable
