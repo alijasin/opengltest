@@ -45,7 +45,8 @@ namespace OpenGLTests.src
             foreach (var a in Actions)
             {
                 //GameState.Drawables.Remove(a.Marker);
-                a.Marker.Dispose();
+                if(a.Marker != null) a.Marker.Dispose();
+                if(a.ActionLine != null) a.ActionLine.Dispose();
                 GameState.Drawables.Remove(a.RangeShape);
             }
         }
