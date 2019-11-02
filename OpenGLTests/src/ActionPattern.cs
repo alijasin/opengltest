@@ -44,7 +44,6 @@ namespace OpenGLTests.src
         {
             foreach (var a in Actions)
             {
-                //GameState.Drawables.Remove(a.Marker);
                 if(a.Marker != null) a.Marker.Dispose();
                 if(a.ActionLine != null) a.ActionLine.Dispose();
                 GameState.Drawables.Remove(a.RangeShape);
@@ -135,7 +134,9 @@ namespace OpenGLTests.src
         {
             Actions = new List<GameAction>()
             {
-                new MoveAction(RNG.RandomPointWithinCircleRelativeToLocation(source.Location, new GLCoordinate(0.4f, 0.4f)), source),
+                new UnitMoveAction(source, RNG.RandomPointWithinCircleRelativeToLocation(source.Location, new GLCoordinate(0.4f, 0.4f))),
+                //new HeroMoveAction(new GLCoordinate(0.2f, 0.2f), source),
+                //new MoveAction(RNG.RandomPointWithinCircleRelativeToLocation(source.Location, new GLCoordinate(0.4f, 0.4f)), source),
                 new ChillAction(),
             };
         }

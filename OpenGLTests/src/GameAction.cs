@@ -538,11 +538,31 @@ namespace OpenGLTests.src
         }
     }
 
+    class UnitMoveAction : GameAction
+    {
+        private GameCoordinate location;
+        public UnitMoveAction(Unit source, GameCoordinate location) : base(source)
+        {
+            this.location = location;
+        }
+        public override Func<object, bool> GetAction()
+        {
+            return o =>
+            {
+                Console.WriteLine(o);
+                int index = (int)o;
+                if (index > 20) return true; //dont get stuck
+                Console.WriteLine(location);
+                return GameActionLambdas.MoveTowardsPoint(Source, location); ;
+            };
+        }
+    }
+
     class HeroMoveAction : CombatAction
     {
         private bool isOnCooldown = false;
 
-        public HeroMoveAction(GLCoordinate radius, Hero hero) : base(hero)
+        public HeroMoveAction(GLCoordinate radius, Unit hero) : base(hero)
         {
             RangeShape = new RangeShape(new Circle(radius), hero);
             this.Marker = new MoveMarker(RangeShape.Location);
@@ -560,60 +580,12 @@ namespace OpenGLTests.src
             if (index > 200) return true; //dont get stuck
             if (Marker != null)
             {
-                if (Source.Location.Distance(Marker.Location) < Source.Speed.X || Source.Location.Distance(Marker.Location) < Source.Speed.Y)
-                {
-                    //we are close enough
-                    return true;
-                }
-
-                //todo heromove action should take hero and not icombatable
-                var h = Source as Hero;
-
-                if (Source.Location.X < Marker.Location.X)
-                {
-                    h.Facing = Facing.Right;
-                }
-                else
-                {
-                    h.Facing = Facing.Left;
-                }
-
-
-                var dx = Marker.Location.X - Source.Location.X;
-                var dy = Marker.Location.Y - Source.Location.Y;
-                var dist = Math.Sqrt(dx * dx + dy * dy);
-
-                var velX = (float)(dx / dist) * Source.Speed.X;
-                var velY = (float)(dy / dist) * Source.Speed.Y;
-
-
-                bool blockedX = false;
-                bool blockedY = false;
-
-                //:: Optimizable Area
-                //1. filter these collidables some more so we dont iterate all of them.
-                //2. store some things in variables
-                foreach (var collidable in GameState.Drawables.GetAllCollidables.Where(e => !e.Phased))
-                {
-                    if (collidable.BoundingBox.Contains(new GameCoordinate(collidable.BoundingBox.Location.X,Source.Location.Y + velY*2))
-                         && collidable.BoundingBox.Contains(new GameCoordinate(Source.Location.X + velX/2, collidable.BoundingBox.Location.Y)))
-                    {
-                        blockedY = true;
-                    }
-                    if (collidable.BoundingBox.Contains(new GameCoordinate(Source.Location.X + velX * 2, collidable.BoundingBox.Location.Y))
-                        && collidable.BoundingBox.Contains(new GameCoordinate(collidable.BoundingBox.Location.X, Source.Location.Y + velY/2)))
-                    {
-                        blockedX = true;
-                    }
-                }
-
-                if (!blockedY) Source.Location.Y += velY;
-                if (!blockedX) Source.Location.X += velX;
-
+                return GameActionLambdas.MoveTowardsPoint(Source, Marker.Location);
             }
 
 
             return false;
         }
     }
+
 }

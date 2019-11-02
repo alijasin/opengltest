@@ -25,7 +25,7 @@ namespace OpenGLTests.src
             {
                 for (int y = -10; y < 20; y++)
                 {
-                    GameState.Drawables.Add(new Floor(new GameCoordinate(0.1f * x, 0.1f * y)));
+                  //  GameState.Drawables.Add(new Floor(new GameCoordinate(0.1f * x, 0.1f * y)));
                 }
             }
             Hero = new Hero();

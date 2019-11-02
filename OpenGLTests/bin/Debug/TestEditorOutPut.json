@@ -5,7 +5,6 @@
       "$type": "OpenGLTests.src.Drawables.Terrain.BrickWall, OpenGLTests",
       "Flipped": false,
       "Facing": 0,
-      "ID": 72,
       "Phased": false,
       "Speed": {
         "X": 0.0,
@@ -13,73 +12,7 @@
       },
       "Location": {
         "X": -0.4,
-        "Y": -0.450000018
-      },
-      "Visible": true,
-      "Color": "White",
-      "Size": {
-        "X": 0.3,
-        "Y": 0.17
-      },
-      "Depth": 1
-    },
-    {
-      "$type": "OpenGLTests.src.Drawables.Terrain.BrickWall, OpenGLTests",
-      "Flipped": false,
-      "Facing": 0,
-      "ID": 76,
-      "Phased": false,
-      "Speed": {
-        "X": 0.0,
-        "Y": 0.0
-      },
-      "Location": {
-        "X": -0.7,
-        "Y": -0.450000018
-      },
-      "Visible": true,
-      "Color": "White",
-      "Size": {
-        "X": 0.3,
-        "Y": 0.17
-      },
-      "Depth": 1
-    },
-    {
-      "$type": "OpenGLTests.src.Drawables.Terrain.BrickWall, OpenGLTests",
-      "Flipped": false,
-      "Facing": 0,
-      "ID": 80,
-      "Phased": false,
-      "Speed": {
-        "X": 0.0,
-        "Y": 0.0
-      },
-      "Location": {
-        "X": 0.2,
-        "Y": -0.450000018
-      },
-      "Visible": true,
-      "Color": "White",
-      "Size": {
-        "X": 0.3,
-        "Y": 0.17
-      },
-      "Depth": 1
-    },
-    {
-      "$type": "OpenGLTests.src.Drawables.Terrain.BrickWall, OpenGLTests",
-      "Flipped": false,
-      "Facing": 0,
-      "ID": 84,
-      "Phased": false,
-      "Speed": {
-        "X": 0.0,
-        "Y": 0.0
-      },
-      "Location": {
-        "X": 0.5,
-        "Y": -0.450000018
+        "Y": -0.3
       },
       "Visible": true,
       "Color": "White",
@@ -93,14 +26,13 @@
       "$type": "OpenGLTests.src.Drawables.Terrain.BrickGate, OpenGLTests",
       "Flipped": false,
       "Facing": 0,
-      "ID": 88,
       "Speed": {
         "X": 0.0,
         "Y": 0.0
       },
       "Location": {
-        "X": -0.1,
-        "Y": -0.513888836
+        "X": -0.102777779,
+        "Y": -0.3638889
       },
       "Visible": true,
       "Color": "White",
@@ -111,18 +43,38 @@
       "Depth": 1
     },
     {
-      "$type": "OpenGLTests.src.Drawables.Entities.House, OpenGLTests",
+      "$type": "OpenGLTests.src.Drawables.Terrain.BrickWall, OpenGLTests",
       "Flipped": false,
       "Facing": 0,
-      "ID": 89,
       "Phased": false,
       "Speed": {
         "X": 0.0,
         "Y": 0.0
       },
       "Location": {
-        "X": 0.0222222228,
-        "Y": -1.32222235
+        "X": 0.2,
+        "Y": -0.3
+      },
+      "Visible": true,
+      "Color": "White",
+      "Size": {
+        "X": 0.3,
+        "Y": 0.17
+      },
+      "Depth": 1
+    },
+    {
+      "$type": "OpenGLTests.src.Drawables.Entities.House, OpenGLTests",
+      "Flipped": false,
+      "Facing": 0,
+      "Phased": false,
+      "Speed": {
+        "X": 0.0,
+        "Y": 0.0
+      },
+      "Location": {
+        "X": -0.1,
+        "Y": -1.1
       },
       "Visible": true,
       "Color": "White",
@@ -133,62 +85,17 @@
       "Depth": 10
     },
     {
-      "$type": "OpenGLTests.src.Drawables.Entities.Bridge, OpenGLTests",
-      "Flipped": false,
-      "Facing": 0,
-      "ID": 92,
-      "Phased": true,
-      "Speed": {
-        "X": 0.0,
-        "Y": 0.0
-      },
-      "Location": {
-        "X": 0.900000036,
-        "Y": 0.172222257
-      },
-      "Visible": true,
-      "Color": "White",
-      "Size": {
-        "X": 0.5,
-        "Y": 0.3
-      },
-      "Depth": 0
-    },
-    {
-      "$type": "OpenGLTests.src.Drawables.Entities.Bridge, OpenGLTests",
-      "Flipped": false,
-      "Facing": 0,
-      "ID": 95,
-      "Phased": true,
-      "Speed": {
-        "X": 0.0,
-        "Y": 0.0
-      },
-      "Location": {
-        "X": -0.9777778,
-        "Y": 0.161111146
-      },
-      "Visible": true,
-      "Color": "White",
-      "Size": {
-        "X": 0.5,
-        "Y": 0.3
-      },
-      "Depth": 0
-    },
-    {
       "$type": "OpenGLTests.src.Drawables.Entities.Tree, OpenGLTests",
       "Flipped": false,
       "Facing": 0,
-      "ID": 98,
       "Phased": false,
       "Speed": {
         "X": 0.0,
         "Y": 0.0
       },
       "Location": {
-        "X": 0.716666758,
-        "Y": -0.8361111
+        "X": 0.450000018,
+        "Y": -0.6
       },
       "Visible": true,
       "Color": "White",
@@ -202,15 +109,14 @@
       "$type": "OpenGLTests.src.Drawables.Entities.Tree, OpenGLTests",
       "Flipped": false,
       "Facing": 0,
-      "ID": 101,
       "Phased": false,
       "Speed": {
         "X": 0.0,
         "Y": 0.0
       },
       "Location": {
-        "X": -0.6333333,
-        "Y": -0.852777839
+        "X": -0.7,
+        "Y": -0.55
       },
       "Visible": true,
       "Color": "White",
@@ -221,155 +127,41 @@
       "Depth": 10
     },
     {
-      "$type": "OpenGLTests.src.Drawables.Entities.FleeingPerson, OpenGLTests",
-      "CommitedActions": false,
+      "$type": "OpenGLTests.src.Drawables.Entities.Bridge, OpenGLTests",
       "Flipped": false,
       "Facing": 0,
-      "ID": 104,
-      "Phased": false,
-      "InCombat": false,
-      "HitPoints": 1,
-      "Initiative": 0,
+      "Phased": true,
       "Speed": {
-        "X": 0.001,
-        "Y": 0.001
+        "X": 0.0,
+        "Y": 0.0
       },
       "Location": {
-        "X": -0.397222221,
-        "Y": -0.9444445
+        "X": 0.75,
+        "Y": 0.2
       },
       "Visible": true,
       "Color": "White",
       "Size": {
-        "X": 0.1,
-        "Y": 0.1
+        "X": 0.5,
+        "Y": 0.3
       },
-      "Depth": 10
+      "Depth": 0
     },
     {
-      "$type": "OpenGLTests.src.Drawables.Entities.FleeingPerson, OpenGLTests",
-      "CommitedActions": false,
+      "$type": "OpenGLTests.src.Drawables.Entities.Rock, OpenGLTests",
       "Flipped": false,
       "Facing": 0,
-      "ID": 111,
       "Phased": false,
-      "InCombat": false,
-      "HitPoints": 1,
-      "Initiative": 0,
       "Speed": {
-        "X": 0.001,
-        "Y": 0.001
+        "X": 0.0,
+        "Y": 0.0
       },
       "Location": {
-        "X": 0.461111128,
-        "Y": -0.936111152
+        "X": 0.6,
+        "Y": 0.35
       },
       "Visible": true,
       "Color": "White",
-      "Size": {
-        "X": 0.1,
-        "Y": 0.1
-      },
-      "Depth": 10
-    },
-    {
-      "$type": "OpenGLTests.src.Drawables.Swamper, OpenGLTests",
-      "CommitedActions": false,
-      "Flipped": false,
-      "Facing": 0,
-      "ID": 118,
-      "Phased": false,
-      "InCombat": false,
-      "HitPoints": 1,
-      "Initiative": 0,
-      "Speed": {
-        "X": 0.0,
-        "Y": 0.0
-      },
-      "Location": {
-        "X": 1.33333349,
-        "Y": 0.13055563
-      },
-      "Visible": true,
-      "Color": "PaleGreen",
-      "Size": {
-        "X": 0.1,
-        "Y": 0.1
-      },
-      "Depth": 10
-    },
-    {
-      "$type": "OpenGLTests.src.Drawables.Swamper, OpenGLTests",
-      "CommitedActions": false,
-      "Flipped": false,
-      "Facing": 0,
-      "ID": 124,
-      "Phased": false,
-      "InCombat": false,
-      "HitPoints": 1,
-      "Initiative": 0,
-      "Speed": {
-        "X": 0.0,
-        "Y": 0.0
-      },
-      "Location": {
-        "X": 1.338889,
-        "Y": 0.300000072
-      },
-      "Visible": true,
-      "Color": "PaleGreen",
-      "Size": {
-        "X": 0.1,
-        "Y": 0.1
-      },
-      "Depth": 10
-    },
-    {
-      "$type": "OpenGLTests.src.Drawables.Swamper, OpenGLTests",
-      "CommitedActions": false,
-      "Flipped": false,
-      "Facing": 0,
-      "ID": 130,
-      "Phased": false,
-      "InCombat": false,
-      "HitPoints": 1,
-      "Initiative": 0,
-      "Speed": {
-        "X": 0.0,
-        "Y": 0.0
-      },
-      "Location": {
-        "X": 1.51944458,
-        "Y": 0.5166667
-      },
-      "Visible": true,
-      "Color": "PaleGreen",
-      "Size": {
-        "X": 0.1,
-        "Y": 0.1
-      },
-      "Depth": 10
-    },
-    {
-      "$type": "OpenGLTests.src.Drawables.Swamper, OpenGLTests",
-      "CommitedActions": false,
-      "Flipped": false,
-      "Facing": 0,
-      "ID": 136,
-      "Phased": false,
-      "InCombat": false,
-      "HitPoints": 1,
-      "Initiative": 0,
-      "Speed": {
-        "X": 0.0,
-        "Y": 0.0
-      },
-      "Location": {
-        "X": 1.488889,
-        "Y": -0.0222221613
-      },
-      "Visible": true,
-      "Color": "PaleGreen",
       "Size": {
         "X": 0.1,
         "Y": 0.1
@@ -381,7 +173,6 @@
       "CommitedActions": false,
       "Flipped": false,
       "Facing": 0,
-      "ID": 142,
       "Phased": false,
       "InCombat": false,
       "HitPoints": 1,
@@ -391,8 +182,8 @@
         "Y": 0.005
       },
       "Location": {
-        "X": -0.202777743,
-        "Y": -0.280555516
+        "X": -0.85,
+        "Y": 0.75
       },
       "Visible": true,
       "Color": "White",
@@ -403,11 +194,85 @@
       "Depth": 10
     },
     {
-      "$type": "OpenGLTests.src.Drawables.Entities.ChasingPerson, OpenGLTests",
+      "$type": "OpenGLTests.src.Drawables.Swamper, OpenGLTests",
       "CommitedActions": false,
       "Flipped": false,
       "Facing": 0,
-      "ID": 157,
+      "Phased": false,
+      "InCombat": false,
+      "HitPoints": 1,
+      "Initiative": 0,
+      "Speed": {
+        "X": 0.0,
+        "Y": 0.0
+      },
+      "Location": {
+        "X": -1.25,
+        "Y": -0.95
+      },
+      "Visible": true,
+      "Color": "PaleGreen",
+      "Size": {
+        "X": 0.1,
+        "Y": 0.1
+      },
+      "Depth": 10
+    },
+    {
+      "$type": "OpenGLTests.src.Drawables.Swamper, OpenGLTests",
+      "CommitedActions": false,
+      "Flipped": false,
+      "Facing": 0,
+      "Phased": false,
+      "InCombat": false,
+      "HitPoints": 1,
+      "Initiative": 0,
+      "Speed": {
+        "X": 0.0,
+        "Y": 0.0
+      },
+      "Location": {
+        "X": -1.1,
+        "Y": -1.05000007
+      },
+      "Visible": true,
+      "Color": "PaleGreen",
+      "Size": {
+        "X": 0.1,
+        "Y": 0.1
+      },
+      "Depth": 10
+    },
+    {
+      "$type": "OpenGLTests.src.Drawables.Swamper, OpenGLTests",
+      "CommitedActions": false,
+      "Flipped": false,
+      "Facing": 0,
+      "Phased": false,
+      "InCombat": false,
+      "HitPoints": 1,
+      "Initiative": 0,
+      "Speed": {
+        "X": 0.0,
+        "Y": 0.0
+      },
+      "Location": {
+        "X": -1.05000007,
+        "Y": -0.900000036
+      },
+      "Visible": true,
+      "Color": "PaleGreen",
+      "Size": {
+        "X": 0.1,
+        "Y": 0.1
+      },
+      "Depth": 10
+    },
+    {
+      "$type": "OpenGLTests.src.Drawables.Entities.FleeingPerson, OpenGLTests",
+      "CommitedActions": false,
+      "Flipped": false,
+      "Facing": 0,
       "Phased": false,
       "InCombat": false,
       "HitPoints": 1,
@@ -417,8 +282,8 @@
         "Y": 0.001
       },
       "Location": {
-        "X": -0.274999946,
-        "Y": 0.8055556
+        "X": -0.900000036,
+        "Y": 0.15
       },
       "Visible": true,
       "Color": "White",
@@ -429,22 +294,21 @@
       "Depth": 10
     },
     {
-      "$type": "OpenGLTests.src.Drawables.Entities.ChasingPerson, OpenGLTests",
+      "$type": "OpenGLTests.src.Drawables.Entities.PatrolGuy, OpenGLTests",
       "CommitedActions": false,
       "Flipped": false,
       "Facing": 0,
-      "ID": 164,
       "Phased": false,
       "InCombat": false,
       "HitPoints": 1,
       "Initiative": 0,
       "Speed": {
-        "X": 0.001,
-        "Y": 0.001
+        "X": 0.01,
+        "Y": 0.005
       },
       "Location": {
-        "X": 0.08333337,
-        "Y": 0.825000048
+        "X": -0.55,
+        "Y": 0.85
       },
       "Visible": true,
       "Color": "White",
@@ -459,7 +323,6 @@
       "CommitedActions": false,
       "Flipped": false,
       "Facing": 0,
-      "ID": 171,
       "Phased": false,
       "InCombat": false,
       "HitPoints": 1,
@@ -469,8 +332,8 @@
         "Y": 0.01
       },
       "Location": {
-        "X": -1.51666677,
-        "Y": 0.172222272
+        "X": 1.35,
+        "Y": 0.25
       },
       "Visible": true,
       "Color": "White",
@@ -485,7 +348,6 @@
       "CommitedActions": false,
       "Flipped": false,
       "Facing": 0,
-      "ID": 180,
       "Phased": false,
       "InCombat": false,
       "HitPoints": 1,
@@ -495,8 +357,8 @@
         "Y": 0.01
       },
       "Location": {
-        "X": 0.7555556,
-        "Y": 0.6444445
+        "X": 1.35,
+        "Y": 0.0
       },
       "Visible": true,
       "Color": "White",
@@ -507,40 +369,399 @@
       "Depth": 10
     },
     {
-      "$type": "OpenGLTests.src.Drawables.Entities.Tree, OpenGLTests",
+      "$type": "OpenGLTests.src.Drawables.Entities.AngryDude, OpenGLTests",
+      "CommitedActions": false,
       "Flipped": false,
       "Facing": 0,
-      "ID": 189,
+      "Phased": false,
+      "InCombat": false,
+      "HitPoints": 1,
+      "Initiative": 0,
+      "Speed": {
+        "X": 0.01,
+        "Y": 0.01
+      },
+      "Location": {
+        "X": 1.35,
+        "Y": 0.5
+      },
+      "Visible": true,
+      "Color": "White",
+      "Size": {
+        "X": 0.1,
+        "Y": 0.1
+      },
+      "Depth": 10
+    },
+    {
+      "$type": "OpenGLTests.src.Drawables.Terrain.BrickWall, OpenGLTests",
+      "Flipped": false,
+      "Facing": 0,
       "Phased": false,
       "Speed": {
         "X": 0.0,
         "Y": 0.0
       },
       "Location": {
-        "X": -0.875,
-        "Y": 0.8222223
+        "X": 1.30000007,
+        "Y": -0.15
       },
       "Visible": true,
       "Color": "White",
       "Size": {
         "X": 0.3,
+        "Y": 0.17
+      },
+      "Depth": 1
+    },
+    {
+      "$type": "OpenGLTests.src.Drawables.Terrain.BrickWall, OpenGLTests",
+      "Flipped": false,
+      "Facing": 0,
+      "Phased": false,
+      "Speed": {
+        "X": 0.0,
+        "Y": 0.0
+      },
+      "Location": {
+        "X": 1.6,
+        "Y": -0.15
+      },
+      "Visible": true,
+      "Color": "White",
+      "Size": {
+        "X": 0.3,
+        "Y": 0.17
+      },
+      "Depth": 1
+    },
+    {
+      "$type": "OpenGLTests.src.Drawables.Terrain.BrickWall, OpenGLTests",
+      "Flipped": false,
+      "Facing": 0,
+      "Phased": false,
+      "Speed": {
+        "X": 0.0,
+        "Y": 0.0
+      },
+      "Location": {
+        "X": 1.9,
+        "Y": -0.15
+      },
+      "Visible": true,
+      "Color": "White",
+      "Size": {
+        "X": 0.3,
+        "Y": 0.17
+      },
+      "Depth": 1
+    },
+    {
+      "$type": "OpenGLTests.src.Drawables.Terrain.BrickWall, OpenGLTests",
+      "Flipped": false,
+      "Facing": 1,
+      "Phased": false,
+      "Speed": {
+        "X": 0.0,
+        "Y": 0.0
+      },
+      "Location": {
+        "X": 1.30000007,
+        "Y": 0.650000036
+      },
+      "Visible": true,
+      "Color": "White",
+      "Size": {
+        "X": 0.3,
+        "Y": 0.17
+      },
+      "Depth": 1
+    },
+    {
+      "$type": "OpenGLTests.src.Drawables.Terrain.BrickWall, OpenGLTests",
+      "Flipped": false,
+      "Facing": 1,
+      "Phased": false,
+      "Speed": {
+        "X": 0.0,
+        "Y": 0.0
+      },
+      "Location": {
+        "X": 1.6,
+        "Y": 0.650000036
+      },
+      "Visible": true,
+      "Color": "White",
+      "Size": {
+        "X": 0.3,
+        "Y": 0.17
+      },
+      "Depth": 1
+    },
+    {
+      "$type": "OpenGLTests.src.Drawables.Terrain.BrickWall, OpenGLTests",
+      "Flipped": false,
+      "Facing": 1,
+      "Phased": false,
+      "Speed": {
+        "X": 0.0,
+        "Y": 0.0
+      },
+      "Location": {
+        "X": 1.9,
+        "Y": 0.650000036
+      },
+      "Visible": true,
+      "Color": "White",
+      "Size": {
+        "X": 0.3,
+        "Y": 0.17
+      },
+      "Depth": 1
+    },
+    {
+      "$type": "OpenGLTests.src.Drawables.Terrain.BrickWall, OpenGLTests",
+      "Flipped": true,
+      "Facing": 0,
+      "Phased": false,
+      "Speed": {
+        "X": 0.0,
+        "Y": 0.0
+      },
+      "Location": {
+        "X": 2.15,
+        "Y": 0.4
+      },
+      "Visible": true,
+      "Color": "White",
+      "Size": {
+        "X": 0.17,
+        "Y": 0.3
+      },
+      "Depth": 1
+    },
+    {
+      "$type": "OpenGLTests.src.Drawables.Terrain.BrickWall, OpenGLTests",
+      "Flipped": true,
+      "Facing": 0,
+      "Phased": false,
+      "Speed": {
+        "X": 0.0,
+        "Y": 0.0
+      },
+      "Location": {
+        "X": 2.15,
+        "Y": 0.1
+      },
+      "Visible": true,
+      "Color": "White",
+      "Size": {
+        "X": 0.17,
+        "Y": 0.3
+      },
+      "Depth": 1
+    },
+    {
+      "$type": "OpenGLTests.src.Drawables.Entities.Rock, OpenGLTests",
+      "Flipped": false,
+      "Facing": 0,
+      "Phased": false,
+      "Speed": {
+        "X": 0.0,
+        "Y": 0.0
+      },
+      "Location": {
+        "X": 2.10000014,
+        "Y": 0.6
+      },
+      "Visible": true,
+      "Color": "White",
+      "Size": {
+        "X": 0.1,
+        "Y": 0.1
+      },
+      "Depth": 10
+    },
+    {
+      "$type": "OpenGLTests.src.Drawables.Entities.Rock, OpenGLTests",
+      "Flipped": false,
+      "Facing": 0,
+      "Phased": false,
+      "Speed": {
+        "X": 0.0,
+        "Y": 0.0
+      },
+      "Location": {
+        "X": 2.10000014,
+        "Y": -0.1
+      },
+      "Visible": true,
+      "Color": "White",
+      "Size": {
+        "X": 0.1,
+        "Y": 0.1
+      },
+      "Depth": 10
+    },
+    {
+      "$type": "OpenGLTests.src.Drawables.Entities.Rock, OpenGLTests",
+      "Flipped": false,
+      "Facing": 0,
+      "Phased": false,
+      "Speed": {
+        "X": 0.0,
+        "Y": 0.0
+      },
+      "Location": {
+        "X": 1.1,
+        "Y": -0.05
+      },
+      "Visible": true,
+      "Color": "White",
+      "Size": {
+        "X": 0.1,
+        "Y": 0.1
+      },
+      "Depth": 10
+    },
+    {
+      "$type": "OpenGLTests.src.Drawables.Entities.Rock, OpenGLTests",
+      "Flipped": false,
+      "Facing": 0,
+      "Phased": false,
+      "Speed": {
+        "X": 0.0,
+        "Y": 0.0
+      },
+      "Location": {
+        "X": 1.0,
+        "Y": 0.0
+      },
+      "Visible": true,
+      "Color": "White",
+      "Size": {
+        "X": 0.1,
+        "Y": 0.1
+      },
+      "Depth": 10
+    },
+    {
+      "$type": "OpenGLTests.src.Drawables.Entities.Rock, OpenGLTests",
+      "Flipped": false,
+      "Facing": 0,
+      "Phased": false,
+      "Speed": {
+        "X": 0.0,
+        "Y": 0.0
+      },
+      "Location": {
+        "X": 0.95,
+        "Y": 0.05
+      },
+      "Visible": true,
+      "Color": "White",
+      "Size": {
+        "X": 0.1,
+        "Y": 0.1
+      },
+      "Depth": 10
+    },
+    {
+      "$type": "OpenGLTests.src.Drawables.Entities.Rock, OpenGLTests",
+      "Flipped": false,
+      "Facing": 0,
+      "Phased": false,
+      "Speed": {
+        "X": 0.0,
+        "Y": 0.0
+      },
+      "Location": {
+        "X": 0.95,
+        "Y": 0.35
+      },
+      "Visible": true,
+      "Color": "White",
+      "Size": {
+        "X": 0.1,
+        "Y": 0.1
+      },
+      "Depth": 10
+    },
+    {
+      "$type": "OpenGLTests.src.Drawables.Entities.Rock, OpenGLTests",
+      "Flipped": false,
+      "Facing": 0,
+      "Phased": false,
+      "Speed": {
+        "X": 0.0,
+        "Y": 0.0
+      },
+      "Location": {
+        "X": 1.0,
+        "Y": 0.4
+      },
+      "Visible": true,
+      "Color": "White",
+      "Size": {
+        "X": 0.1,
+        "Y": 0.1
+      },
+      "Depth": 10
+    },
+    {
+      "$type": "OpenGLTests.src.Drawables.Entities.Rock, OpenGLTests",
+      "Flipped": false,
+      "Facing": 0,
+      "Phased": false,
+      "Speed": {
+        "X": 0.0,
+        "Y": 0.0
+      },
+      "Location": {
+        "X": 1.05000007,
+        "Y": 0.450000018
+      },
+      "Visible": true,
+      "Color": "White",
+      "Size": {
+        "X": 0.1,
+        "Y": 0.1
+      },
+      "Depth": 10
+    },
+    {
+      "$type": "OpenGLTests.src.Drawables.Entities.Rock, OpenGLTests",
+      "Flipped": false,
+      "Facing": 0,
+      "Phased": false,
+      "Speed": {
+        "X": 0.0,
+        "Y": 0.0
+      },
+      "Location": {
+        "X": 1.1,
         "Y": 0.5
       },
+      "Visible": true,
+      "Color": "White",
+      "Size": {
+        "X": 0.1,
+        "Y": 0.1
+      },
       "Depth": 10
     },
     {
       "$type": "OpenGLTests.src.Drawables.Entities.Rock, OpenGLTests",
       "Flipped": false,
       "Facing": 0,
-      "ID": 192,
       "Phased": false,
       "Speed": {
         "X": 0.0,
         "Y": 0.0
       },
       "Location": {
-        "X": -0.091666624,
-        "Y": 1.01111114
+        "X": 1.1,
+        "Y": 0.55
       },
       "Visible": true,
       "Color": "White",
@@ -554,15 +775,14 @@
       "$type": "OpenGLTests.src.Drawables.Entities.Rock, OpenGLTests",
       "Flipped": false,
       "Facing": 0,
-      "ID": 195,
       "Phased": false,
       "Speed": {
         "X": 0.0,
         "Y": 0.0
       },
       "Location": {
-        "X": -0.10833329,
-        "Y": 0.8222223
+        "X": 1.1,
+        "Y": 0.6
       },
       "Visible": true,
       "Color": "White",
@@ -576,15 +796,14 @@
       "$type": "OpenGLTests.src.Drawables.Entities.Rock, OpenGLTests",
       "Flipped": false,
       "Facing": 0,
-      "ID": 198,
       "Phased": false,
       "Speed": {
         "X": 0.0,
         "Y": 0.0
       },
       "Location": {
-        "X": 0.225000054,
-        "Y": 1.00555563
+        "X": 1.05000007,
+        "Y": -0.05
       },
       "Visible": true,
       "Color": "White",
@@ -598,59 +817,14 @@
       "$type": "OpenGLTests.src.Drawables.Entities.Rock, OpenGLTests",
       "Flipped": false,
       "Facing": 0,
-      "ID": 201,
       "Phased": false,
       "Speed": {
         "X": 0.0,
         "Y": 0.0
       },
       "Location": {
-        "X": 0.277777821,
-        "Y": 0.797222257
-      },
-      "Visible": true,
-      "Color": "White",
-      "Size": {
-        "X": 0.1,
-        "Y": 0.1
-      },
-      "Depth": 10
-    },
-    {
-      "$type": "OpenGLTests.src.Drawables.Entities.Rock, OpenGLTests",
-      "Flipped": false,
-      "Facing": 0,
-      "ID": 204,
-      "Phased": false,
-      "Speed": {
-        "X": 0.0,
-        "Y": 0.0
-      },
-      "Location": {
-        "X": -0.4222222,
-        "Y": 0.980555654
-      },
-      "Visible": true,
-      "Color": "White",
-      "Size": {
-        "X": 0.1,
-        "Y": 0.1
-      },
-      "Depth": 10
-    },
-    {
-      "$type": "OpenGLTests.src.Drawables.Entities.Rock, OpenGLTests",
-      "Flipped": false,
-      "Facing": 0,
-      "ID": 207,
-      "Phased": false,
-      "Speed": {
-        "X": 0.0,
-        "Y": 0.0
-      },
-      "Location": {
-        "X": -0.591666639,
-        "Y": 0.702777863
+        "X": 1.15,
+        "Y": -0.1
       },
       "Visible": true,
       "Color": "White",
@@ -664,145 +838,14 @@
       "$type": "OpenGLTests.src.Drawables.Crate, OpenGLTests",
       "Flipped": false,
       "Facing": 0,
-      "ID": 210,
       "Phased": false,
       "Speed": {
         "X": 0.0,
         "Y": 0.0
       },
       "Location": {
-        "X": -0.0999999642,
-        "Y": 1.37222242
-      },
-      "Visible": true,
-      "Color": "White",
-      "Size": {
-        "X": 0.1,
-        "Y": 0.1
-      },
-      "Depth": 10
-    },
-    {
-      "$type": "OpenGLTests.src.Drawables.Entities.AngryDude, OpenGLTests",
-      "CommitedActions": false,
-      "Flipped": false,
-      "Facing": 0,
-      "ID": 5,
-      "Phased": false,
-      "InCombat": false,
-      "HitPoints": 1,
-      "Initiative": 0,
-      "Speed": {
-        "X": 0.01,
-        "Y": 0.01
-      },
-      "Location": {
-        "X": -1.51388884,
-        "Y": 0.333333343
-      },
-      "Visible": true,
-      "Color": "White",
-      "Size": {
-        "X": 0.1,
-        "Y": 0.1
-      },
-      "Depth": 10
-    },
-    {
-      "$type": "OpenGLTests.src.Drawables.Entities.AngryDude, OpenGLTests",
-      "CommitedActions": false,
-      "Flipped": false,
-      "Facing": 0,
-      "ID": 5,
-      "Phased": false,
-      "InCombat": false,
-      "HitPoints": 1,
-      "Initiative": 0,
-      "Speed": {
-        "X": 0.01,
-        "Y": 0.01
-      },
-      "Location": {
-        "X": -1.48055553,
-        "Y": 0.572222233
-      },
-      "Visible": true,
-      "Color": "White",
-      "Size": {
-        "X": 0.1,
-        "Y": 0.1
-      },
-      "Depth": 10
-    },
-    {
-      "$type": "OpenGLTests.src.Drawables.Entities.AngryDude, OpenGLTests",
-      "CommitedActions": false,
-      "Flipped": false,
-      "Facing": 0,
-      "ID": 5,
-      "Phased": false,
-      "InCombat": false,
-      "HitPoints": 1,
-      "Initiative": 0,
-      "Speed": {
-        "X": 0.01,
-        "Y": 0.01
-      },
-      "Location": {
-        "X": -1.761111,
-        "Y": 0.269444466
-      },
-      "Visible": true,
-      "Color": "White",
-      "Size": {
-        "X": 0.1,
-        "Y": 0.1
-      },
-      "Depth": 10
-    },
-    {
-      "$type": "OpenGLTests.src.Drawables.Entities.AngryDude, OpenGLTests",
-      "CommitedActions": false,
-      "Flipped": false,
-      "Facing": 0,
-      "ID": 5,
-      "Phased": false,
-      "InCombat": false,
-      "HitPoints": 1,
-      "Initiative": 0,
-      "Speed": {
-        "X": 0.01,
-        "Y": 0.01
-      },
-      "Location": {
-        "X": -1.625,
-        "Y": -0.149999976
-      },
-      "Visible": true,
-      "Color": "White",
-      "Size": {
-        "X": 0.1,
-        "Y": 0.1
-      },
-      "Depth": 10
-    },
-    {
-      "$type": "OpenGLTests.src.Drawables.Entities.AngryDude, OpenGLTests",
-      "CommitedActions": false,
-      "Flipped": false,
-      "Facing": 0,
-      "ID": 5,
-      "Phased": false,
-      "InCombat": false,
-      "HitPoints": 1,
-      "Initiative": 0,
-      "Speed": {
-        "X": 0.01,
-        "Y": 0.01
-      },
-      "Location": {
-        "X": -1.4000001,
-        "Y": -0.1444444
+        "X": 1.7,
+        "Y": 0.25
       },
       "Visible": true,
       "Color": "White",

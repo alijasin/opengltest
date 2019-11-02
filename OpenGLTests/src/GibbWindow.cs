@@ -50,7 +50,7 @@ namespace OpenGLTests.src
             base.OnRenderFrame(e);
 
             GL.Clear(ClearBufferMask.ColorBufferBit);
-            GL.ClearColor(Color.Black);
+            GL.ClearColor(Color.DarkOliveGreen);
             GL.PushMatrix();
 
             var drawer = new DrawAdapter();

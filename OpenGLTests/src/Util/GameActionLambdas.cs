@@ -41,19 +41,53 @@ namespace OpenGLTests.src.Util
                 //we are close enough
                 return true;
             }
+            if (source.Location.X < point.X)
+            {
+                source.Facing = Facing.Right;
+            }
             else
             {
-                var dx = point.X - source.Location.X;
-                var dy = point.Y - source.Location.Y;
-                var dist = Math.Sqrt(dx * dx + dy * dy);
-
-                var velX = (dx / dist) * source.Speed.X;
-                var velY = (dy / dist) * source.Speed.Y;
-
-                source.Location.X += (float)velX;
-                source.Location.Y += (float)velY;
-                return false;
+                source.Facing = Facing.Left;
             }
+
+
+            var dx = point.X - source.Location.X;
+            var dy = point.Y - source.Location.Y;
+            var dist = Math.Sqrt(dx * dx + dy * dy);
+
+            var velX = (float)(dx / dist) * source.Speed.X;
+            var velY = (float)(dy / dist) * source.Speed.Y;
+
+
+            bool blockedX = false;
+            bool blockedY = false;
+
+            //:: Optimizable Area
+            //1. filter these collidables some more so we dont iterate all of them.
+            //2. store some things in variables
+            foreach (var collidable in GameState.Drawables.GetAllCollidables.Where(e => !e.Phased && e != source))
+            {
+                if (collidable.BoundingBox.Contains(new GameCoordinate(collidable.BoundingBox.Location.X,
+                        source.Location.Y + velY * 2))
+                    && collidable.BoundingBox.Contains(new GameCoordinate(source.Location.X + velX / 2,
+                        collidable.BoundingBox.Location.Y)))
+                {
+                    blockedY = true;
+                }
+
+                if (collidable.BoundingBox.Contains(new GameCoordinate(source.Location.X + velX * 2,
+                        collidable.BoundingBox.Location.Y))
+                    && collidable.BoundingBox.Contains(new GameCoordinate(collidable.BoundingBox.Location.X,
+                        source.Location.Y + velY / 2)))
+                {
+                    blockedX = true;
+                }
+            }
+
+            if (!blockedY) source.Location.Y += velY;
+            if (!blockedX) source.Location.X += velX;
+
+            return false;
         }
 
 

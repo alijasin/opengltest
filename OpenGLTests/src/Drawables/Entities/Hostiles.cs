@@ -76,9 +76,7 @@ namespace OpenGLTests.src.Drawables
             ActionHandler.TryPlaceAction(new TurnRedAction(this), this.Location);
             var xd = new InstantTeleport(this.Location + new GameCoordinate(0.4f, 0.4f), this);
             xd.ForcePlaced = true;
-
             ActionHandler.TryPlaceAction(xd, this.Location + new GameCoordinate(0.4f, 0.4f));
-            Console.WriteLine("tried placing growaction");
         }
 
         public override void Dispose()
