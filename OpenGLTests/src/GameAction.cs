@@ -167,7 +167,6 @@ namespace OpenGLTests.src
             return (o) =>
             {
                 var index = (int) o;
-                Console.WriteLine(index);
                 if (index < 10)
                 {
                     if (Source.Size.X >= maxSize) return true;
@@ -549,10 +548,8 @@ namespace OpenGLTests.src
         {
             return o =>
             {
-                Console.WriteLine(o);
                 int index = (int)o;
-                if (index > 20) return true; //dont get stuck
-                Console.WriteLine(location);
+                if (index > 200) return true; //dont get stuck
                 return GameActionLambdas.MoveTowardsPoint(Source, location); ;
             };
         }

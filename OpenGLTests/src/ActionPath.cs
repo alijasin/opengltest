@@ -34,20 +34,6 @@ namespace OpenGLTests.src
             linkedList.Clear();
         }
 
-        public int CountExceptThisType(Type exceptionType)
-        {
-            int c = 0;
-
-            var node = linkedList.First;
-            while (node != null)
-            {
-                if (node.Value.GetType() != exceptionType) c++;
-                node = node.Next;
-            }
-
-            return c;
-        }
-
         public void Remove(GameAction action)
         {
             var node = linkedList.Last;
@@ -80,12 +66,6 @@ namespace OpenGLTests.src
             }
 
             return null;
-        }
-
-        public GameAction Last()
-        {
-            if (linkedList.Count == 0) return null;
-            return linkedList.Last();
         }
 
         public GameAction First()
@@ -122,29 +102,6 @@ namespace OpenGLTests.src
         public int Count()
         {
             return linkedList.Count;
-        }
-
-        /// <summary>
-        /// Todo: This just returns a constant. In the future there should be some kind of placed action panel that can be hovered or similiar.
-        ///  Not just paint it at a fixed location.
-        /// </summary>
-        /// <param name="lpa"></param>
-        /// <returns></returns>
-        public GameCoordinate InstantLocationOffset(GameAction lpa)
-        {
-            var node = linkedList.First;
-            GameCoordinate offset = new GameCoordinate(0f, -lpa.Marker.Size.Y);
-            while (node != null)
-            {
-                if (node.Value == lpa)
-                {
-                    //if(lpa.Marker.)
-                }
-
-                node = node.Next;
-            }
-
-            return offset;
         }
     }
 

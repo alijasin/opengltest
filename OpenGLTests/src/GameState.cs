@@ -115,21 +115,34 @@ namespace OpenGLTests.src
                 }
             }
 
-            //todo
-            foreach (var unit in Drawables.GetAllUnits)
-            {
-                unit.CombatStep(1);
-            }
+            #region Pause for Fight
 
+            //if we have units in action do fight steps
+            //else we do out of combat actions. 
+            //this means units not in combat when there is a fight going on will be paused.
+            /*if (!fight.LastManStanding()) doFight();
+            else
+            {
+                foreach (var unit in Drawables.GetAllUnits)
+                {
+
+                    unit.OutOfCombatStep(outOfCombatIndex);
+
+                }
+            }
+            */
+
+            #endregion
             if (!fight.LastManStanding()) doFight();
 
             foreach (var unit in Drawables.GetAllUnits)
             {
-                if (!unit.InCombat)
+                if (unit.InCombat == false)
                 {
                     unit.OutOfCombatStep(outOfCombatIndex);
                 }
             }
+
 
             foreach (Unit aggro in Drawables.GetAllUnits.Where(c => !(c is Hero) && c.AggroShape != null && c.InCombat == false).ToList())
             {

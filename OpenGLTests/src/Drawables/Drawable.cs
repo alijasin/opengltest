@@ -203,7 +203,6 @@ namespace OpenGLTests.src.Drawables
         public abstract void OutOfCombatStep(int outOfCombatIndex);
         [JsonIgnore]
         public ActionHandler ActionHandler { get; set; }
-        public abstract bool CombatStep(int combatIndex);
         public bool CommitedActions = false;
         public bool InCombat { get; set; }
         public int HitPoints { get; set; }

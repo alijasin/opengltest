@@ -14,7 +14,6 @@ namespace OpenGLTests.src
     /// </summary>
     public abstract class ActionPattern
     {
-        public GameAction CurrentAction => Actions.First();
         public abstract void InitPattern();
         public List<GameAction> Actions;
         public bool Loop = false;
@@ -158,36 +157,6 @@ namespace OpenGLTests.src
             Actions = new List<GameAction>()
             {
                 new NeverEndingPatrolAction(source, patrolDelta),
-                new ChillAction(),
-            };
-        }
-    }
-
-
-    /// <summary>
-    /// this one is a piece of shit.
-    /// location is stored at the init and is not updated when the shitter moves.
-    /// This means that the programmer needs to keep track of where the entity is located and move it back accordingly
-    /// todo: make it possible for actions to be initialized when the previous one has finished execution.
-    /// </summary>
-    class PatrolAndChill : ActionPattern
-    {
-        private Unit source;
-        private GameCoordinate patrolDelta;
-        public PatrolAndChill(Unit source, GameCoordinate patrolDelta)
-        {
-            this.source = source;
-            this.patrolDelta = patrolDelta;
-            InitPattern();
-        }
-
-        public override void InitPattern()
-        {
-            Actions = new List<GameAction>()
-            {
-                new MoveAction(new GameCoordinate(source.Location.X + patrolDelta.X, source.Location.Y + patrolDelta.Y), source),
-                new ChillAction(),
-                new MoveAction(new GameCoordinate(source.Location.X - patrolDelta.X, source.Location.Y - patrolDelta.Y), source),
                 new ChillAction(),
             };
         }

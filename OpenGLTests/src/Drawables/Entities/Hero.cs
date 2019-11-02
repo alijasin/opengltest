@@ -97,30 +97,6 @@ namespace OpenGLTests.src.Drawables
         }
 
 
-        public override bool CombatStep(int combatIndex)
-        {
-            return true;
-            if (waitingForActionCommit) return false;
-
-            var status = ActionHandler.CommitActions(combatIndex);
-
-            if (status == ActionReturns.Placing) return false;
-            if (status == ActionReturns.Finished)
-            {
-                combatIndex = 0;
-                return false;
-            }
-            else if (status == ActionReturns.AllFinished)
-            {
-                combatIndex = 0;
-                waitingForActionCommit = true;
-                return true;
-            }
-            else combatIndex++;
-
-            return false;
-        }
-
         private static int xd = 0;
         public override void OutOfCombatStep(int outOfCombatIndex)
         {

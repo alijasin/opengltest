@@ -56,15 +56,6 @@ namespace OpenGLTests.src.Drawables
             }
         }
 
-        public override bool CombatStep(int combatIndex)
-        {
-            return true; 
-    
-            combatIndex++;
-            if (combatIndex == 40) return true;
-            return false;
-        }
-
         public void EnteredCombat(Unit triggeringUnit)
         {
 
