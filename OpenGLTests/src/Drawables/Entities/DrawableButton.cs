@@ -26,6 +26,7 @@ namespace OpenGLTests.src.Drawables.Entities
 
         public override void Dispose()
         {
+            Console.WriteLine("Disposing " + this + " ->  " + Entity);
             Entity.Dispose();
             base.Dispose();
         }

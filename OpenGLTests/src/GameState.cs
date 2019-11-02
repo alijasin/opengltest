@@ -147,7 +147,6 @@ namespace OpenGLTests.src
         private void doFight()
         {
             var currentFighter = fight.GetCurrentTurn();
-            
             if (currentFighter != null)
             {
                 if (currentFighter is Hero h)

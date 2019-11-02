@@ -18,6 +18,7 @@ namespace OpenGLTests.src.Drawables
         public int HitPoints { get; set; } = 1;
         private HashSet<Unit> AggroFrom = new HashSet<Unit>();
         private CombatTurnConfirmationButton ctcb;
+
         private void ResetDefaultActionToMove()
         {
             ActionBar.GetDefaultButton().OnInteraction.Invoke();
@@ -76,7 +77,13 @@ namespace OpenGLTests.src.Drawables
         private void initGUI()
         {
             ctcb = new CombatTurnConfirmationButton(new GLCoordinate( 0.9f, 0.9f));
-            ctcb.OnInteraction += () => { CommitedActions = true; };
+            ctcb.OnInteraction += () =>
+            {
+                if (InCombat && CommitedActions == false)
+                {
+                    CommitedActions = true;
+                }
+            };
             GameState.Drawables.Add(ctcb);
 
             Inventory = new Inventory(this);
@@ -139,7 +146,7 @@ namespace OpenGLTests.src.Drawables
         public override void OnPostTurn()
         {
             ResetDefaultActionToMove();
-            ctcb.Enabled = false;
+            if(AggroFrom.Count > 0) ctcb.Enabled = false;
         }
 
         public void Deaggro(Unit deAggroed)
@@ -148,15 +155,21 @@ namespace OpenGLTests.src.Drawables
             AggroFrom.Remove(deAggroed);
             if (AggroFrom.Count == 0)
             {
-                InCombat = false;
-
-                Console.WriteLine("left combat");
-                var defaultAction = ActionBar.GetDefaultButton().GameAction;
-                defaultAction.RangeShape.IsInfinite = true;
-                ActionHandler.Dispose();
-                ActionHandler = new OutOfCombatActionHandler(this);
-                ResetDefaultActionToMove();
+                OnLeftCombat();
             }
+        }
+
+        public void OnLeftCombat()
+        {
+            InCombat = false;
+
+            Console.WriteLine("left combat");
+            var defaultAction = ActionBar.GetDefaultButton().GameAction;
+            defaultAction.RangeShape.IsInfinite = true;
+            ActionHandler.Dispose();
+            ActionHandler = new OutOfCombatActionHandler(this);
+            ResetDefaultActionToMove();
+            ctcb.Enabled = true;
         }
 
         public override void OnAggro(Unit aggroed)

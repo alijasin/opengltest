@@ -40,7 +40,6 @@ namespace OpenGLTests.src.Drawables
                 RoomLoader.LoadRoom(room);
                 EnteredFilter = movable => false; //only enter one time.
             }
-            else Console.WriteLine("Drawable entered filter, but it was filtered.");
         }
     }
 }

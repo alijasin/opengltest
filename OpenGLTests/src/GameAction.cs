@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using OpenGLTests.src.Drawables;
 using OpenGLTests.src.Util;
+using OpenTK.Graphics.OpenGL4;
 
 namespace OpenGLTests.src
 {
@@ -154,9 +155,11 @@ namespace OpenGLTests.src
 
     class GrowAction : ItemAction
     {
-        public GrowAction(Unit source) : base(source)
+        private float maxSize = 0.3f;
+        public GrowAction(Unit source, float maxSize = 0.3f) : base(source)
         {
             IsInstant = true;
+            this.maxSize = maxSize;
         }
 
         public override Func<object, bool> GetAction()
@@ -167,6 +170,7 @@ namespace OpenGLTests.src
                 Console.WriteLine(index);
                 if (index < 10)
                 {
+                    if (Source.Size.X >= maxSize) return true;
                     Source.Size.X = Source.Size.X * 1.1f;
                     Source.Size.Y = Source.Size.Y * 1.1f;
                     return false;
@@ -188,8 +192,6 @@ namespace OpenGLTests.src
         {
             return (o) =>
             {
-                Console.WriteLine(Source.Location);
-                Console.WriteLine(loc);
                 Source.Location = loc;
                 return true;
             };
