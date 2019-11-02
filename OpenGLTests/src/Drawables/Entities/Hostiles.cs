@@ -16,7 +16,6 @@ namespace OpenGLTests.src.Drawables
         private Unit currentAggro;
         public bool Phased { get; set; } = false;
         public RangeShape BoundingBox { get; set; }
-
         protected Hostile()
         {
             this.HitPoints = 1;
@@ -48,11 +47,14 @@ namespace OpenGLTests.src.Drawables
             
         }
 
-        public override void OutOfCombatStep(int outOfCombatIndex)
+
+        public override void OutOfCombatStep()
         {
             if (ActionPattern != null)
             {
-                var status = ActionPattern.DoAction(outOfCombatIndex);
+                var status = ActionPattern.DoAction(OutOfCombatIndex);
+                if (status == ActionReturns.AllFinished || status == ActionReturns.Finished) OutOfCombatIndex = 0;
+                else OutOfCombatIndex++;
             }
         }
 

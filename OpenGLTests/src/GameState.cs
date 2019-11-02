@@ -92,7 +92,6 @@ namespace OpenGLTests.src
         private Fight fight = new Fight();
         private int initSteps = 25;
         private int initStepsCount = 0;
-        private static int outOfCombatIndex = 0;
         public void Step()
         {
             Screen.ActiveCamera.Step();
@@ -139,7 +138,7 @@ namespace OpenGLTests.src
             {
                 if (unit.InCombat == false)
                 {
-                    unit.OutOfCombatStep(outOfCombatIndex);
+                    unit.OutOfCombatStep();
                 }
             }
 

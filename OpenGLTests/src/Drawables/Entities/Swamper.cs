@@ -23,14 +23,14 @@ namespace OpenGLTests.src.Drawables
 
         private bool teleported = false;
 
-        public override void OutOfCombatStep(int outOfCombatIndex)
+        public override void OutOfCombatStep()
         {
             //base.OutOfCombatStep(); dont do it
             if (Animation.GetSprite().sid == SpriteID.burrowing_swamper_f7)
             {
                 if (teleported == false)
                 {
-                    ActionPattern.DoAction(outOfCombatIndex);
+                    ActionPattern.DoAction(OutOfCombatIndex);
                 }
                 teleported = true;
             }

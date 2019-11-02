@@ -96,21 +96,18 @@ namespace OpenGLTests.src.Drawables
             //GameState.Drawables.Add(new HeartBar(new GLCoordinate(0, -0.86f)));
         }
 
-
-        private static int xd = 0;
-        public override void OutOfCombatStep(int outOfCombatIndex)
+        public override void OutOfCombatStep()
         {
-            var status = ActionHandler.CommitActions(xd);
-
+            var status = ActionHandler.CommitActions(OutOfCombatIndex);
             if (status == ActionReturns.NoAction) return;
-   
+
             if (status == ActionReturns.Finished || status == ActionReturns.AllFinished)
             {
-                xd = 0;
+                OutOfCombatIndex = 0;
                 ResetDefaultActionToMove();
                 return;
             }
-            else xd++;
+            else OutOfCombatIndex++;
         }
 
         public override void OnPreTurn()

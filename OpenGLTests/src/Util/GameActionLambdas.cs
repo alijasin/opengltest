@@ -41,6 +41,7 @@ namespace OpenGLTests.src.Util
                 //we are close enough
                 return true;
             }
+
             if (source.Location.X < point.X)
             {
                 source.Facing = Facing.Right;

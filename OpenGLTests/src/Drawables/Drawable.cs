@@ -32,7 +32,7 @@ namespace OpenGLTests.src.Drawables
         public Animation Animation { get; set; }
         public int Depth { get; set; } = 10;
         [JsonIgnore]
-        public int ID = IDGenerator.GetID();
+        public int ID { get; set; } = IDGenerator.GetID();
         public void SetFacing(Facing f)
         {
             Facing = f;
@@ -148,7 +148,6 @@ namespace OpenGLTests.src.Drawables
         [JsonProperty]
         public GameCoordinate Speed { get; set; } = new GameCoordinate(0, 0);
 
-        //todo: refactor this. We dont want drawable to  have game location. We want entity to have game location and element ot have gl location.
         private GameCoordinate location;
         [JsonProperty]
         public virtual GameCoordinate Location
@@ -200,9 +199,10 @@ namespace OpenGLTests.src.Drawables
     {
         [JsonIgnore]
         public RangeShape AggroShape { get; set; }
-        public abstract void OutOfCombatStep(int outOfCombatIndex);
         [JsonIgnore]
         public ActionHandler ActionHandler { get; set; }
+        [JsonIgnore]
+        public int OutOfCombatIndex = 0;
         public bool CommitedActions = false;
         public bool InCombat { get; set; }
         public int HitPoints { get; set; }
@@ -236,6 +236,8 @@ namespace OpenGLTests.src.Drawables
             ActionHandler.Dispose();
             base.Dispose();
         }
+
+        public abstract void OutOfCombatStep();
     }
 
     public abstract class Structure : Entity, ICollidable

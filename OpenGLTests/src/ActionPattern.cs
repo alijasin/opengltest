@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using OpenGLTests.src.Drawables;
 using OpenGLTests.src.Util;
+using Console = System.Console;
 
 namespace OpenGLTests.src
 {
@@ -14,8 +15,8 @@ namespace OpenGLTests.src
     /// </summary>
     public abstract class ActionPattern
     {
-        public abstract void InitPattern();
-        public List<GameAction> Actions;
+        public abstract List<GameAction> InitPattern();
+        public List<GameAction> Actions = new List<GameAction>();
         public bool Loop = false;
 
         public virtual ActionReturns DoAction(object arg)
@@ -23,7 +24,10 @@ namespace OpenGLTests.src
             if (Actions.Count == 0)
             {
                 //reinitialize the pattern - all randomness will be regenerated.
-                if(Loop) InitPattern();
+                if (Loop)
+                {
+                    Actions = InitPattern();
+                }
                 return ActionReturns.AllFinished;
             }
             var currentGameAction = Actions.First();
@@ -52,13 +56,44 @@ namespace OpenGLTests.src
 
     class CustomPattern : ActionPattern
     {
-        public CustomPattern(List<GameAction> actions)
+        List<ActionPattern> initialPatterns = new List<ActionPattern>();
+        public CustomPattern(params ActionPattern[] patterns)
         {
-            Actions = actions;
+            initialPatterns = patterns.ToList();
         }
-        public override void InitPattern()
+        public override List<GameAction> InitPattern()
         {
-            
+            List<GameAction> actions = new List<GameAction>();
+            foreach (var pattern in initialPatterns)
+            {
+                actions.AddRange(pattern.InitPattern());
+            }
+
+            return actions;
+        }
+    }
+
+    class DebugPattern : ActionPattern
+    {
+        private Unit source;
+        public DebugPattern(Unit source)
+        {
+            this.source = source;
+            InitPattern();
+        }
+
+        public override List<GameAction> InitPattern()
+        {
+            var actions = new List<GameAction>()
+            {
+                new LambdaAction(o =>
+                {
+                    Console.WriteLine(RNG.IntegerBetween(419, 421));
+                    return true;
+
+                }, source),
+            };
+            return actions;
         }
     }
 
@@ -73,12 +108,13 @@ namespace OpenGLTests.src
             InitPattern();
         }
 
-        public override void InitPattern()
+        public override List<GameAction> InitPattern()
         {
-            Actions = new List<GameAction>()
+            var actions = new List<GameAction>()
             {
                 new InstantTeleport(RNG.RandomPointWithinCircleRelativeToLocation(source.Location, range), source),
             };
+            return actions;
         }
     }
 
@@ -93,12 +129,13 @@ namespace OpenGLTests.src
             InitPattern();
         }
 
-        public override void InitPattern()
+        public override List<GameAction> InitPattern()
         {
-            Actions = new List<GameAction>()
+            var actions = new List<GameAction>()
             {
                 new FindAndChase(new RangeShape(new Circle(new GLCoordinate(0.2f, 0.2f)), source), source),
             };
+            return actions;
         }
     }
     class FindAndFleeEntity : ActionPattern
@@ -112,14 +149,16 @@ namespace OpenGLTests.src
             InitPattern();
         }
 
-        public override void InitPattern()
+        public override List<GameAction> InitPattern()
         {
-            Actions = new List<GameAction>()
+            var actions = new List<GameAction>()
             {
                 new FindAndFlee(new RangeShape(new Circle(new GLCoordinate(0.2f, 0.2f)), source), source),
             };
+            return actions;
         }
     }
+
     class MoveAroundAndChill : ActionPattern
     {
         private Unit source;
@@ -129,15 +168,14 @@ namespace OpenGLTests.src
             InitPattern();
         }
 
-        public override void InitPattern()
+        public override List<GameAction> InitPattern()
         {
-            Actions = new List<GameAction>()
+            var actions = new List<GameAction>()
             {
                 new UnitMoveAction(source, RNG.RandomPointWithinCircleRelativeToLocation(source.Location, new GLCoordinate(0.4f, 0.4f))),
-                //new HeroMoveAction(new GLCoordinate(0.2f, 0.2f), source),
-                //new MoveAction(RNG.RandomPointWithinCircleRelativeToLocation(source.Location, new GLCoordinate(0.4f, 0.4f)), source),
                 new ChillAction(),
             };
+            return actions;
         }
     }
 
@@ -152,13 +190,14 @@ namespace OpenGLTests.src
             InitPattern();
         }
 
-        public override void InitPattern()
+        public override List<GameAction> InitPattern()
         {
-            Actions = new List<GameAction>()
+            var actions = new List<GameAction>()
             {
                 new NeverEndingPatrolAction(source, patrolDelta),
                 new ChillAction(),
             };
+            return actions;
         }
     }
 }

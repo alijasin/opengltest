@@ -549,7 +549,7 @@ namespace OpenGLTests.src
             return o =>
             {
                 int index = (int)o;
-                if (index > 200) return true; //dont get stuck
+                if (index > 50) return true; //dont get stuck
                 return GameActionLambdas.MoveTowardsPoint(Source, location); ;
             };
         }

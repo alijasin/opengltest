@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using OpenGLTests.src.Util;
 
 namespace OpenGLTests.src.Drawables.Entities
 {
@@ -14,8 +15,8 @@ namespace OpenGLTests.src.Drawables.Entities
             this.AggroShape = new RangeShape(new Circle(new GLCoordinate(0.2f, 0.2f)), this);
             this.AggroShape.Visible = true;
             this.Speed = new GameCoordinate(0.01f, 0.01f);
-            ActionPattern = new MoveAroundAndChill(this);
-            ActionPattern.Loop = true;
+            this.ActionPattern = new CustomPattern(new MoveAroundAndChill(this), new DebugPattern(this));
+            this.ActionPattern.Loop = true;
             Animation = new Animation(new SpriteSheet_BigZombieRun());
         }
 
