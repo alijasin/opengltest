@@ -53,7 +53,6 @@ namespace OpenGLTests.src.Drawables.Terrain
             };
         }
 
-
         public Action<GameCoordinate> OnClick { get; set; }
 
         public bool Contains(GameCoordinate clicked)

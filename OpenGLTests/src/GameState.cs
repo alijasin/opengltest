@@ -33,7 +33,7 @@ namespace OpenGLTests.src
             Drawables.Add(new RoomLoadRegion(new GameCoordinate(0.8f, 0.8f), RoomLoader.Room.TestSpace));
    
 
-            RoomLoader.LoadRoom(RoomLoader.Room.TestEditorOutPut);
+            RoomLoader.LoadRoom(RoomLoader.Room.TestSpace);
 
             //todo refactor this into screen
             var followCamera = new FollowCamera(Hero);

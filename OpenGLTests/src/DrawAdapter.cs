@@ -202,7 +202,36 @@ namespace OpenGLTests.src
             GL.End();
         }
 
+        public void DrawFan(GLCoordinate origin, GameCoordinate clicked, float l, int degrees)
+        {
+            var clickedGL = clicked.ToGLCoordinate();
 
+            GL.Enable(EnableCap.Blend);
+            GL.Begin(PrimitiveType.LineLoop);
+
+            var deltaX = clickedGL.X - origin.X;
+            var deltaY = clickedGL.Y - origin.Y;
+            var alpha = Math.Atan2(deltaY, deltaX);
+            var alphaDeg = (alpha * 180 / Math.PI + 360)%360;
+            int fanDeg1 = (int)alphaDeg + degrees/2;
+            int fanDeg2 = (int)alphaDeg - degrees/2;
+
+            GL.Color4(Color.Coral);
+
+            GL.Vertex2(origin.X, origin.Y);
+
+            for (int i = fanDeg2; i < fanDeg1; i++)
+            {
+                float theta = 2.0f * 3.1415926f * i / 360;//get the current angle
+                float xx = l * (float)Math.Cos(theta);//calculate the x component
+                float yy = l * (float)Math.Sin(theta);//calculate the y component
+                GL.Vertex2(xx, yy);
+            }
+
+            GL.Vertex2(origin.X, origin.Y);
+
+            GL.End();
+        }
 
         public void DrawLine(GLCoordinate origin, GLCoordinate terminus, Color color, LineType type, float width = 3)
         {

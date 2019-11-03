@@ -1,5 +1,5 @@
 ﻿
-(description, est. difficulty fixing(1-10))
+(description, (d) est. difficulty fixing(1-10), (i) importance(1-10))
 
 Burrower doesnt teleport every burrow. (only every second.)
 Not sure why this is but dont think it might be hard to trace down on.
@@ -23,3 +23,6 @@ Difficulty 4.
 
 All bounding boxes are not removed when entering a LoadRegion.
 Difficulty 4.
+
+If hero aggros 2 units and kills the one who will have action after hero, the second aggrod unit will not perform action and game will be stuck.
+d4i8

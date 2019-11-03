@@ -84,7 +84,7 @@ namespace OpenGLTests.src.Screens
                 {
                     GameCoordinate clicked = new GameCoordinate(input.MouseButtonArgs.X, input.MouseButtonArgs.Y);
                     var xd = CoordinateFuckery.ClickToGLRelativeToCamera(clicked, new GameCoordinate(0, 0));
-
+                    Game.Hero.TestOnClick(xd);
                     foreach (var i in GameState.Drawables.GetAllInteractables)
                     {
                         if (i.Contains(clicked) && i.Visible)
@@ -123,6 +123,8 @@ namespace OpenGLTests.src.Screens
                     var xd = CoordinateFuckery.ClickToGLRelativeToCamera(placed, new GameCoordinate(0, 0));
                     //xd = xd.SnapCoordinate();
                     Game.Hero.ActionHandler.OnMouseDown(xd);
+
+
                 },
                 input =>
                 {

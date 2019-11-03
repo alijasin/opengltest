@@ -160,5 +160,16 @@ namespace OpenGLTests.src.Drawables
             waitingForActionCommit = true;
             ResetDefaultActionToMove();
         }
+
+        public void TestOnClick(GameCoordinate xd)
+        {
+            clicked = new GameCoordinate(xd.X, xd.Y);
+        }
+        GameCoordinate clicked = new GameCoordinate(0, 0);
+        public override void DrawStep(DrawAdapter drawer)
+        {
+            base.DrawStep(drawer);
+            drawer.DrawFan(this.Location.ToGLCoordinate(), clicked, 0.5f, 60);
+        }
     }
 }
