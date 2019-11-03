@@ -202,33 +202,32 @@ namespace OpenGLTests.src
             GL.End();
         }
 
-        public void DrawFan(GLCoordinate origin, GameCoordinate clicked, float l, int degrees)
-        {
-            var clickedGL = clicked.ToGLCoordinate();
 
+        public void DrawFan(float originX, float originY, double alpha, float l, int degrees)
+        {
             GL.Enable(EnableCap.Blend);
             GL.Begin(PrimitiveType.LineLoop);
 
-            var deltaX = clickedGL.X - origin.X;
-            var deltaY = clickedGL.Y - origin.Y;
-            var alpha = Math.Atan2(deltaY, deltaX);
+            //var deltaX = direction.X - originX;
+            //var deltaY = direction.Y - originY;
+           // var alpha = Math.Atan2(deltaY, deltaX);//Math.Atan2(deltaY, deltaX);
             var alphaDeg = (alpha * 180 / Math.PI + 360)%360;
             int fanDeg1 = (int)alphaDeg + degrees/2;
             int fanDeg2 = (int)alphaDeg - degrees/2;
 
             GL.Color4(Color.Coral);
 
-            GL.Vertex2(origin.X, origin.Y);
+            GL.Vertex2(originX, originY);
 
             for (int i = fanDeg2; i < fanDeg1; i++)
             {
                 float theta = 2.0f * 3.1415926f * i / 360;//get the current angle
                 float xx = l * (float)Math.Cos(theta);//calculate the x component
                 float yy = l * (float)Math.Sin(theta);//calculate the y component
-                GL.Vertex2(xx, yy);
+                GL.Vertex2(originX + xx, originY + yy);
             }
 
-            GL.Vertex2(origin.X, origin.Y);
+            GL.Vertex2(originX, originY);
 
             GL.End();
         }
@@ -285,49 +284,5 @@ namespace OpenGLTests.src
 
             return id;
         }
-        /*
-        public void FillRectangle(Color cb, GLCoordinate topLeft, GLCoordinate bottomRight)
-        {
-            FillRectangle(cb, topLeft.X, topLeft.Y, bottomRight.X - topLeft.X, topLeft.Y - bottomRight.Y);
-        }
-        */
-        /// <summary>
-        /// Pushes a translation matrix
-        /// Rubber on before translating or scaling
-        /// </summary>
-        public void PushMatrix()
-        {
-            GL.PushMatrix();
-        }
-
-        /// <summary>
-        /// Pops a translation matrix
-        /// Rubber off after translating or scaling
-        /// </summary>
-        public void PopMatrix()
-        {
-            GL.PopMatrix();
-        }
-        /*
-        public void Translate(GLCoordinate translation)
-        {
-            Translate(translation.X, translation.Y);
-        }*/
-
-        public void Translate(float x, float y)
-        {
-            GL.Translate(x, y, 0);
-        }
-
-        public void Scale(float xScale, float yScale)
-        {
-            GL.Scale(xScale, yScale, 1);
-        }
-
-        public void Rotate(float radians)
-        {
-            GL.Rotate(radians, 0, 0, 1);
-        }
-    
     }
 }

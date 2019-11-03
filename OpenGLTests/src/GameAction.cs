@@ -543,6 +543,8 @@ namespace OpenGLTests.src
         public UnitMoveAction(Unit source, GameCoordinate location) : base(source)
         {
             this.location = location;
+            source.MovingTowardsPoint = location;
+
         }
         public override Func<object, bool> GetAction()
         {

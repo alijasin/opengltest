@@ -68,6 +68,7 @@
     <Compile Include="src\Drawables\Entities\Bridge.cs" />
     <Compile Include="src\Drawables\Entities\Chaser.cs" />
     <Compile Include="src\Drawables\Entities\DrawableButton.cs" />
+    <Compile Include="src\Drawables\Entities\FanBoy.cs" />
     <Compile Include="src\Drawables\Entities\FleeingPerson.cs" />
     <Compile Include="src\Drawables\Entities\Hero.cs" />
     <Compile Include="src\Drawables\Entities\Hostiles.cs" />

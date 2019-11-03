@@ -147,7 +147,8 @@ namespace OpenGLTests.src.Drawables
     {
         [JsonProperty]
         public GameCoordinate Speed { get; set; } = new GameCoordinate(0, 0);
-
+        [JsonIgnore]
+        public GameCoordinate MovingTowardsPoint { get; set; }
         private GameCoordinate location;
         [JsonProperty]
         public virtual GameCoordinate Location
@@ -203,6 +204,7 @@ namespace OpenGLTests.src.Drawables
         public ActionHandler ActionHandler { get; set; }
         [JsonIgnore]
         public int OutOfCombatIndex = 0;
+
         public bool CommitedActions = false;
         public bool InCombat { get; set; }
         public int HitPoints { get; set; }

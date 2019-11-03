@@ -59,7 +59,11 @@ namespace OpenGLTests.src.Drawables
         public override void DrawStep(DrawAdapter drawer)
         {
             if (IsInfinite) return;
-            if(Visible) Shape.DrawStep(drawer, Location);
+            if (Visible)
+            {
+                if (Shape is Fan f) f.MovingTowardsPoint = Following.MovingTowardsPoint;
+                Shape.DrawStep(drawer, Location);
+            }
         }
     }
     
@@ -109,5 +113,33 @@ namespace OpenGLTests.src.Drawables
             GLCoordinate locationx = location.ToGLCoordinate();
             drawer.TraceRectangle(Color.Gold, locationx.X - this.Dimensions.X / 2, -locationx.Y + this.Dimensions.Y / 2, this.Dimensions.X, -this.Dimensions.Y);
         }
+    }
+
+    public class Fan : IShape
+    {
+        public float Length;
+        public int Degrees;
+        public GameCoordinate MovingTowardsPoint;
+        public Fan(float Length, int Degrees, int directionDegs)
+        {
+            this.Length = Length;
+            this.Degrees = Degrees;
+        }
+
+        public bool Contains(GameCoordinate point, GameCoordinate location)
+        {
+            return false;
+        }
+
+       
+        public void DrawStep(DrawAdapter drawer, GameCoordinate location)
+        {
+            var deltaX = location.X - MovingTowardsPoint.X;
+            var deltaY = location.Y - MovingTowardsPoint.Y;
+            var alpha = Math.Atan2(deltaY, -deltaX);
+            var loc = location.ToGLCoordinate();
+            drawer.DrawFan(loc.X, loc.Y,  alpha, Length, Degrees);
+        }
+
     }
 }

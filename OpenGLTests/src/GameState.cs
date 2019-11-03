@@ -31,7 +31,7 @@ namespace OpenGLTests.src
             Hero = new Hero();
             Drawables.Add(Hero);
             Drawables.Add(new RoomLoadRegion(new GameCoordinate(0.8f, 0.8f), RoomLoader.Room.TestSpace));
-   
+            Drawables.Add(new FanBoy(new GameCoordinate(0.5f, 0)));
 
             RoomLoader.LoadRoom(RoomLoader.Room.TestSpace);
 
