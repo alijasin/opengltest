@@ -203,7 +203,7 @@ namespace OpenGLTests.src
         }
 
 
-        public void DrawFan(float originX, float originY, double alpha, float l, int degrees)
+        public void DrawFan(float originX, float originY, int alpha, float l, int degrees)
         {
             GL.Enable(EnableCap.Blend);
             GL.Begin(PrimitiveType.LineLoop);
@@ -211,9 +211,8 @@ namespace OpenGLTests.src
             //var deltaX = direction.X - originX;
             //var deltaY = direction.Y - originY;
            // var alpha = Math.Atan2(deltaY, deltaX);//Math.Atan2(deltaY, deltaX);
-            var alphaDeg = (alpha * 180 / Math.PI + 360)%360;
-            int fanDeg1 = (int)alphaDeg + degrees/2;
-            int fanDeg2 = (int)alphaDeg - degrees/2;
+            int fanDeg1 = alpha + degrees/2;
+            int fanDeg2 = alpha - degrees/2;
 
             GL.Color4(Color.Coral);
 

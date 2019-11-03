@@ -120,7 +120,7 @@ namespace OpenGLTests.src.Drawables
         public float Length;
         public int Degrees;
         public GameCoordinate MovingTowardsPoint;
-        public Fan(float Length, int Degrees, int directionDegs)
+        public Fan(float Length, int Degrees)
         {
             this.Length = Length;
             this.Degrees = Degrees;
@@ -128,18 +128,40 @@ namespace OpenGLTests.src.Drawables
 
         public bool Contains(GameCoordinate point, GameCoordinate location)
         {
-            return false;
+            var x = Math.Abs(point.X - location.X);
+            var y = Math.Abs(point.Y - location.Y);
+            //true if point within Length
+            var withinRadius = (x * x + y * y < Length * Length);
+
+
+            //calculate point angle relative to location. 
+            var angleDeg= angleDegrees(location, MovingTowardsPoint);
+            var angle1 = ((angleDeg - Degrees / 2) + 360) % 360; //turn [-180, 180] to [0, 360]
+            var angle2 = (angleDeg + Degrees / 2);
+            var pointAngleDeg = angleDegrees(location, point);
+
+            //true if point angle relative to location is within fan width
+            var withinAngle = (pointAngleDeg >= angle1 && pointAngleDeg <= angle2);
+
+            return withinRadius && withinAngle;
         }
 
        
         public void DrawStep(DrawAdapter drawer, GameCoordinate location)
         {
-            var deltaX = location.X - MovingTowardsPoint.X;
-            var deltaY = location.Y - MovingTowardsPoint.Y;
-            var alpha = Math.Atan2(deltaY, -deltaX);
+
             var loc = location.ToGLCoordinate();
-            drawer.DrawFan(loc.X, loc.Y,  alpha, Length, Degrees);
+            drawer.DrawFan(loc.X, loc.Y,  angleDegrees(location, MovingTowardsPoint), Length, Degrees);
         }
 
+        private int angleDegrees(GameCoordinate point, GameCoordinate relativeTo)
+        {
+            if (point == null || relativeTo == null) return 0;
+            var deltaX = point.X - relativeTo.X;
+            var deltaY = point.Y - relativeTo.Y;
+            var alpha = Math.Atan2(deltaY, -deltaX);
+            int alphaDeg = (int)((alpha * 180 / Math.PI + 360) % 360);
+            return alphaDeg;
+        }
     }
 }
