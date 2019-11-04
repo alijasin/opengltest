@@ -77,6 +77,72 @@ namespace OpenGLTests.src.Screens
                 _ => Game.Hero.Inventory.Visible = true,
                 _ => Game.Hero.Inventory.Visible = false
             ));
+            #region ActionBar Hotkeys
+            Bind(new Hotkey(
+                input => input.IsKeyboardInput && (input.KeyboardArgs.Key == OpenTK.Input.Key.Number1),
+                _ =>
+                {
+                    Game.Hero.ActionBar.GetActionButton(0).OnInteraction.Invoke();
+                },
+                _ => { }
+            ));
+            Bind(new Hotkey(
+                input => input.IsKeyboardInput && (input.KeyboardArgs.Key == OpenTK.Input.Key.Number2),
+                _ =>
+                {
+                    Game.Hero.ActionBar.GetActionButton(1).OnInteraction.Invoke();
+                },
+                _ => { }
+            ));
+            Bind(new Hotkey(
+                input => input.IsKeyboardInput && (input.KeyboardArgs.Key == OpenTK.Input.Key.Number3),
+                _ =>
+                {
+                    Game.Hero.ActionBar.GetActionButton(2).OnInteraction.Invoke();
+                },
+                _ => { }
+            ));
+            Bind(new Hotkey(
+                input => input.IsKeyboardInput && (input.KeyboardArgs.Key == OpenTK.Input.Key.Number4),
+                _ =>
+                {
+                    Game.Hero.ActionBar.GetActionButton(3).OnInteraction.Invoke();
+                },
+                _ => { }
+            ));
+            Bind(new Hotkey(
+                input => input.IsKeyboardInput && (input.KeyboardArgs.Key == OpenTK.Input.Key.Number5),
+                _ =>
+                {
+                    Game.Hero.ActionBar.GetActionButton(4).OnInteraction.Invoke();
+                },
+                _ => { }
+            ));
+            Bind(new Hotkey(
+                input => input.IsKeyboardInput && (input.KeyboardArgs.Key == OpenTK.Input.Key.Number6),
+                _ =>
+                {
+                    Game.Hero.ActionBar.GetActionButton(5).OnInteraction.Invoke();
+                },
+                _ => { }
+            ));
+            Bind(new Hotkey(
+                input => input.IsKeyboardInput && (input.KeyboardArgs.Key == OpenTK.Input.Key.Number7),
+                _ =>
+                {
+                    Game.Hero.ActionBar.GetActionButton(6).OnInteraction.Invoke();
+                },
+                _ => { }
+            ));
+            Bind(new Hotkey(
+                input => input.IsKeyboardInput && (input.KeyboardArgs.Key == OpenTK.Input.Key.Number8),
+                _ =>
+                {
+                    Game.Hero.ActionBar.GetActionButton(7).OnInteraction.Invoke();
+                },
+                _ => { }
+            ));
+            #endregion
             // Mouse
             Bind(new Hotkey(
                 input => input.IsMouseInput && input.MouseButtonArgs.Button == MouseButton.Left,

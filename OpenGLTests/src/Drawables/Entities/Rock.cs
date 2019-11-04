@@ -14,7 +14,7 @@ namespace OpenGLTests.src.Drawables.Entities
         {
             this.Location = Location;
             this.Speed = new GameCoordinate(0.0f, 0.0f);
-            this.Size = new GLCoordinate(0.1f, 0.1f);
+            this.Size = new GLCoordinate(0.2f, 0.2f);
             var sheet = new SpriteSheet_Rocks();
             this.Animation = new Animation(sheet);
             this.Animation.SetSprite(sheet.GetRandom());

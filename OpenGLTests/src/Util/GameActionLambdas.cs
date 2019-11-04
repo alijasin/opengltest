@@ -34,6 +34,7 @@ namespace OpenGLTests.src.Util
 
             return null;
         }
+
         public static bool MoveTowardsPoint(Unit source, GameCoordinate point)
         {
             if (source.Location.Distance(point) < source.Speed.X || source.Location.Distance(point) < source.Speed.Y)
@@ -87,7 +88,7 @@ namespace OpenGLTests.src.Util
 
             if (!blockedY) source.Location.Y += velY;
             if (!blockedX) source.Location.X += velX;
-
+            if (blockedX && blockedY || blockedX && Math.Abs(dy) < source.Speed.Y || blockedY && Math.Abs(dx) < source.Speed.X) return true; //we are kinda stuck
             return false;
         }
 

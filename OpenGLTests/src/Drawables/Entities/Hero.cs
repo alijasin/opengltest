@@ -14,17 +14,17 @@ namespace OpenGLTests.src.Drawables
     public class Hero : Unit, IActionCapable
     {
         public Inventory Inventory;
-        private ActionBar ActionBar { get; set; }
+        public ActionBar ActionBar { get; set; }
         public int HitPoints { get; set; } = 1;
         private HashSet<Unit> AggroFrom = new HashSet<Unit>();
         private CombatTurnConfirmationButton ctcb;
 
         private void ResetDefaultActionToMove()
         {
+            if(ActionHandler.SelectedAction != null) ActionHandler.SelectedAction.RangeShape.Visible = false;
             ActionBar.GetDefaultButton().OnInteraction.Invoke();
             if(!InCombat)ActionHandler.SelectedAction.RangeShape.IsInfinite = true;//set it to infinite range
         }
-
 
         public void Damage(int dmg)
         {

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace OpenGLTests.src.Drawables
 {
-    class ActionBar : Element
+    public class ActionBar : Element
     {
         public IActionCapable Owner;
         private List<ActionBarButton> actionButtons = new List<ActionBarButton>();
@@ -57,13 +57,25 @@ namespace OpenGLTests.src.Drawables
             return this.actionButtons.First();
         }
 
-        public void SetActiveButton(ActionBarButton barButton)
+        public ActionButton GetActionButton(int index)
         {
-            foreach (var ab in actionButtons.Where(but => but != barButton))
+            if (actionButtons.Count < index) return GetDefaultButton();
+
+            return actionButtons.ElementAt(index);
+        }
+
+        public void SetActiveButton(int index)
+        {
+            if (actionButtons.Count < index) return;
+
+            var newActive = actionButtons.ElementAt(index);
+
+            foreach (var ab in actionButtons.Where(but => but != newActive))
             {
                 ab.Deactivate();
             }
-            barButton.Activate();
+
+            newActive.Activate();
         }
     }
     
