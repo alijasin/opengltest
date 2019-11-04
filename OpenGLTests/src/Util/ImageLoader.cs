@@ -13,6 +13,16 @@ namespace OpenGLTests.src.Util
     {
         missing, //needs to be first for it to be default: https://stackoverflow.com/questions/529929/choosing-the-default-value-of-an-enum-type-without-having-to-change-values/529937
 
+        bag_closed,
+        bag_open,
+        bear_trap_closed,
+        bear_trap_open,
+        camp_fire,
+        fire_sword_slash_green,
+        fire_sword_slash_red,
+        haunch,
+        mossy_boot,
+
         elf_m_idle_anim_f0,
         elf_m_idle_anim_f1,
         elf_m_idle_anim_f2,
@@ -152,6 +162,18 @@ namespace OpenGLTests.src.Util
             Images[SpriteID.floor_6] = new Bitmap(Properties.Resources.floor_6);
             Images[SpriteID.floor_7] = new Bitmap(Properties.Resources.floor_7);
             Images[SpriteID.floor_8] = new Bitmap(Properties.Resources.floor_8);
+
+
+            Images[SpriteID.bag_closed] = new Bitmap(Properties.Resources.bag_closed);
+            Images[SpriteID.bag_open] = new Bitmap(Properties.Resources.bag_open);
+            Images[SpriteID.bear_trap_closed] = new Bitmap(Properties.Resources.bear_trap_closed);
+            Images[SpriteID.bear_trap_open] = new Bitmap(Properties.Resources.bear_trap_open);
+            Images[SpriteID.camp_fire] = new Bitmap(Properties.Resources.camp_fire);
+            Images[SpriteID.fire_sword_slash_green] = new Bitmap(Properties.Resources.fire_sword_slash_green);
+            Images[SpriteID.fire_sword_slash_red] = new Bitmap(Properties.Resources.fire_sword_slash_red);
+            Images[SpriteID.haunch] = new Bitmap(Properties.Resources.haunch);
+            Images[SpriteID.mossy_boot] = new Bitmap(Properties.Resources.mossy_boot);
+
 
             Images[SpriteID.brick_gate_open] = new Bitmap(Properties.Resources.brick_gate_open);
             Images[SpriteID.brick_gate_closed] = new Bitmap(Properties.Resources.brick_gate_closed);

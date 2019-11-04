@@ -29,3 +29,6 @@ d4i8
 
 We getting duplicated messages in console sometimes. Such as FanBoy died Fanboy died. Somethings fishy. Not really that important since it's not very important. But pretty time consuming to find.
 d4i2
+
+Out of combat I want to be able to make a new move while im doing another move. SO I want to be able to cancel the current move.
+d5i3

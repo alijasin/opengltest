@@ -66,6 +66,7 @@
     <Compile Include="src\Drawables\Elements\Heart.cs" />
     <Compile Include="src\Drawables\Entities\AngryDude.cs" />
     <Compile Include="src\Drawables\Entities\Bridge.cs" />
+    <Compile Include="src\Drawables\Entities\Campfire.cs" />
     <Compile Include="src\Drawables\Entities\Chaser.cs" />
     <Compile Include="src\Drawables\Entities\DrawableButton.cs" />
     <Compile Include="src\Drawables\Entities\FanBoy.cs" />
@@ -1136,6 +1137,15 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="known bugs.txt" />
+    <None Include="Resources\bag_closed.png" />
+    <None Include="Resources\bag_open.png" />
+    <None Include="Resources\bear_trap_open.png" />
+    <None Include="Resources\bear_trap_closed.png" />
+    <None Include="Resources\camp_fire.png" />
+    <None Include="Resources\fire_sword_slash_green.png" />
+    <None Include="Resources\fire_sword_slash_red.png" />
+    <None Include="Resources\haunch.png" />
+    <None Include="Resources\mossy_boot.png" />
     <None Include="Resources\heart4.png" />
     <None Include="Resources\heart3.png" />
     <None Include="Resources\heart2.png" />

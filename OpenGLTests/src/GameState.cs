@@ -35,7 +35,7 @@ namespace OpenGLTests.src
             Drawables.Add(Hero);
             Drawables.Add(new RoomLoadRegion(new GameCoordinate(0.8f, 0.8f), RoomLoader.Room.TestSpace));
             Drawables.Add(new FanBoy(new GameCoordinate(0.5f, 0)));
-
+            Drawables.Add(new Campfire(new GameCoordinate(0, 0.3f)));
             RoomLoader.LoadRoom(RoomLoader.Room.TestEditorOutPut);
 
             //todo refactor this into screen

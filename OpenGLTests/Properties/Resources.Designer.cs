@@ -103,6 +103,46 @@ namespace OpenGLTests.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap bag_closed {
+            get {
+                object obj = ResourceManager.GetObject("bag_closed", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap bag_open {
+            get {
+                object obj = ResourceManager.GetObject("bag_open", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap bear_trap_closed {
+            get {
+                object obj = ResourceManager.GetObject("bear_trap_closed", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap bear_trap_open {
+            get {
+                object obj = ResourceManager.GetObject("bear_trap_open", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap big_demon_idle_anim_f0 {
             get {
                 object obj = ResourceManager.GetObject("big_demon_idle_anim_f0", resourceCulture);
@@ -436,6 +476,16 @@ namespace OpenGLTests.Properties {
         internal static System.Drawing.Bitmap burrowing_swamper_f12 {
             get {
                 object obj = ResourceManager.GetObject("burrowing_swamper_f12", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap camp_fire {
+            get {
+                object obj = ResourceManager.GetObject("camp_fire", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -913,6 +963,26 @@ namespace OpenGLTests.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap fire_sword_slash_green {
+            get {
+                object obj = ResourceManager.GetObject("fire_sword_slash_green", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap fire_sword_slash_red {
+            get {
+                object obj = ResourceManager.GetObject("fire_sword_slash_red", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap flask_big_blue {
             get {
                 object obj = ResourceManager.GetObject("flask_big_blue", resourceCulture);
@@ -1296,6 +1366,16 @@ namespace OpenGLTests.Properties {
         internal static System.Drawing.Bitmap goblin_run_anim_f3 {
             get {
                 object obj = ResourceManager.GetObject("goblin_run_anim_f3", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap haunch {
+            get {
+                object obj = ResourceManager.GetObject("haunch", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -1956,6 +2036,16 @@ namespace OpenGLTests.Properties {
         internal static System.Drawing.Bitmap masked_orc_run_anim_f3 {
             get {
                 object obj = ResourceManager.GetObject("masked_orc_run_anim_f3", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap mossy_boot {
+            get {
+                object obj = ResourceManager.GetObject("mossy_boot", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

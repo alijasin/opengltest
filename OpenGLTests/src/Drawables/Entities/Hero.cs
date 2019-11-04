@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using System.Xml.Linq;
 using OpenGLTests.src;
 using OpenGLTests.src.Drawables.Elements;
+using OpenGLTests.src.Drawables.Entities;
 
 namespace OpenGLTests.src.Drawables
 {
@@ -97,6 +98,8 @@ namespace OpenGLTests.src.Drawables
             Inventory.Add(new RedPotion(this));
             Inventory.Add(new Apple(this));
 
+
+            //DrawableButton inventoryButton = new DrawableButton();
 
             //GameState.Drawables.Add(new HeartBar(new GLCoordinate(0, -0.86f)));
         }

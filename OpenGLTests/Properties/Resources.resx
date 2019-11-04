@@ -130,6 +130,18 @@
   <data name="apple" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\apple.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="bag_closed" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\bag_closed.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="bag_open" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\bag_open.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="bear_trap_closed" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\bear_trap_closed.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="bear_trap_open" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\bear_trap_open.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="big_demon_idle_anim_f0" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\big_demon_idle_anim_f0.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -231,6 +243,9 @@
   </data>
   <data name="burrowing_swamper_f12" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\burrowing_swamper_f12.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="camp_fire" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\camp_fire.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="chest_empty_open_anim_f0" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\chest_empty_open_anim_f0.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -373,6 +388,12 @@
   <data name="empty" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\empty.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="fire_sword_slash_green" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\fire_sword_slash_green.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="fire_sword_slash_red" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\fire_sword_slash_red.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="flask_big_blue" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\flask_big_blue.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -489,6 +510,9 @@
   </data>
   <data name="goblin_run_anim_f3" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\goblin_run_anim_f3.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="haunch" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\haunch.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="heart1" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\heart.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -687,6 +711,9 @@
   </data>
   <data name="masked_orc_run_anim_f3" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\masked_orc_run_anim_f3.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="mossy_boot" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\mossy_boot.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="muddy_idle_anim_f0" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\muddy_idle_anim_f0.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>

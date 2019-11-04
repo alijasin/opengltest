@@ -140,6 +140,8 @@ namespace OpenGLTests.src
         public SpriteSheet_Weapon() : base(new Dictionary<SpriteID, int>()
         {
             { SpriteID.weapon_golden_sword, 12 },
+            { SpriteID.fire_sword_slash_green, 12 },
+            { SpriteID.fire_sword_slash_red, 12}
         })
         { }
     }
@@ -275,11 +277,16 @@ namespace OpenGLTests.src
         { }
     }
 
+
     class SpriteSheet_Stuff : SpriteSheet
     {
         public SpriteSheet_Stuff() : base(new Dictionary<SpriteID, int>()
         {
-            {SpriteID.crate, 5}
+            { SpriteID.crate, 5},
+            { SpriteID.camp_fire, 12 },
+
+            { SpriteID.bear_trap_closed, 12},
+            { SpriteID.bear_trap_open, 12 }
         })
         { }
     }
@@ -307,6 +314,10 @@ namespace OpenGLTests.src
             { SpriteID.floor_1, 5 },
             { SpriteID.big_demon_run_anim_f0, 12 },
             { SpriteID.big_zombie_run_anim_f0, 12 },
+            { SpriteID.bag_closed, 12 },
+            { SpriteID.bag_open, 12 },
+            { SpriteID.haunch, 12 },
+            { SpriteID.mossy_boot, 12 },
 
         })
         { }
