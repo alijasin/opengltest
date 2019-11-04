@@ -18,16 +18,20 @@ namespace OpenGLTests.src
         public Hero Hero { get; set; }
         public static DrawableRepository Drawables = new DrawableRepository();
         public static bool Combat { get; set; } = false;
-        public static RainGenerator RainGenerator = new RainGenerator(RainGenerator.RainType.Clear); //todo: move to drawable
+
+        public static RainGenerator
+            RainGenerator = new RainGenerator(RainGenerator.RainType.Clear); //todo: move to drawable
+
         public GameState()
         {
             for (int x = -10; x < 20; x++)
             {
                 for (int y = -10; y < 20; y++)
                 {
-                  //  GameState.Drawables.Add(new Floor(new GameCoordinate(0.1f * x, 0.1f * y)));
+                    //  GameState.Drawables.Add(new Floor(new GameCoordinate(0.1f * x, 0.1f * y)));
                 }
             }
+
             Hero = new Hero();
             Drawables.Add(Hero);
             Drawables.Add(new RoomLoadRegion(new GameCoordinate(0.8f, 0.8f), RoomLoader.Room.TestSpace));
@@ -51,7 +55,7 @@ namespace OpenGLTests.src
                 {
                     Screen.ActiveCamera = hybridCamera;
                 }
-                else if(Screen.ActiveCamera is FollowCamera)
+                else if (Screen.ActiveCamera is FollowCamera)
                 {
                     Screen.ActiveCamera = staticCamera;
                 }
@@ -59,6 +63,7 @@ namespace OpenGLTests.src
                 {
                     Screen.ActiveCamera = followCamera;
                 }
+
                 Screen.ActiveCamera.Location = Hero.Location;
             };
             Drawables.Add(testbutton);
@@ -92,6 +97,7 @@ namespace OpenGLTests.src
         private Fight fight = new Fight();
         private int initSteps = 25;
         private int initStepsCount = 0;
+
         public void Step()
         {
             Screen.ActiveCamera.Step();
@@ -132,7 +138,15 @@ namespace OpenGLTests.src
             */
 
             #endregion
-            if (!fight.LastManStanding()) doFight();
+
+            if (!fight.LastManStanding())
+            {
+                var currentFighter = fight.GetCurrentTurn();
+                if (currentFighter != null) //redundant?
+                {
+                    currentFighter.CombatStep(fight);
+                }
+            }
 
             foreach (var unit in Drawables.GetAllUnits)
             {
@@ -143,7 +157,8 @@ namespace OpenGLTests.src
             }
 
 
-            foreach (Unit aggro in Drawables.GetAllUnits.Where(c => !(c is Hero) && c.AggroShape != null && c.InCombat == false).ToList())
+            foreach (Unit aggro in Drawables.GetAllUnits
+                .Where(c => !(c is Hero) && c.AggroShape != null && c.InCombat == false).ToList())
             {
                 if (aggro.AggroShape.Contains(Hero.Location))
                 {
@@ -152,35 +167,6 @@ namespace OpenGLTests.src
                     fight.AddFighter(Hero);
                     fight.AddFighter(aggro);
                 }
-            }
-        }
-
-        private static int combatIndex = 0;
-        private void doFight()
-        {
-            var currentFighter = fight.GetCurrentTurn();
-            if (currentFighter != null)
-            {
-                if (currentFighter is Hero h)
-                {
-                    if (h.CommitedActions == false) return;
-                }
-
-                var status = currentFighter.ActionHandler.CommitActions(combatIndex);
-
-                if (status == ActionReturns.Placing) return;
-                if (status == ActionReturns.Finished)
-                {
-                    combatIndex = 0;
-                    return;
-                }
-                else if (status == ActionReturns.AllFinished)
-                {
-                    combatIndex = 0;
-                    currentFighter.CommitedActions = false;
-                    fight.UnitFinishedTurn(currentFighter);
-                }
-                else combatIndex++;
             }
         }
     }

@@ -88,7 +88,7 @@ namespace OpenGLTests.src
             {
                 new LambdaAction(o =>
                 {
-                    Console.WriteLine(RNG.IntegerBetween(419, 421));
+                    //Console.WriteLine(RNG.IntegerBetween(419, 421));
                     return true;
 
                 }, source),

@@ -57,6 +57,7 @@ namespace OpenGLTests.src.Drawables
 
         public override void DrawStep(DrawAdapter drawer)
         {
+            if (!Visible) return;
             drawer.FillRectangle(this.BackColor, this.Location.X, this.Location.Y, this.Size.X, this.Size.Y);
             drawer.TraceRectangle(this.BorderColor, this.Location.X - this.Size.X / 2, -this.Location.Y + this.Size.Y / 2, this.Size.X, -this.Size.Y);
             base.DrawStep(drawer);
@@ -95,7 +96,7 @@ namespace OpenGLTests.src.Drawables
             {
                 try
                 {
-                    inventory.Owner.ActionHandler.ActionButtonClicked(this);
+                    inventory.Owner.ActionHandler.ActionButtonActivated(this);
                 }
                 catch (Exception e)
                 {
@@ -118,7 +119,7 @@ namespace OpenGLTests.src.Drawables
             this.GameAction = sa.Action;
             OnInteraction += () =>
             {
-                inBar.Owner.ActionHandler.ActionButtonClicked(this);
+                inBar.Owner.ActionHandler.ActionButtonActivated(this);
             };
         }
     }
@@ -137,6 +138,8 @@ namespace OpenGLTests.src.Drawables
 
         public CombatTurnConfirmationButton(GLCoordinate Loc)
         {
+            this.Visible = false; //assume we not in combat when we starting
+            this.Color = Color.Green;
             this.Location = Loc;
             this.Size = new GLCoordinate(0.1f, 0.1f);
             this.Animation = new Animation(new SpriteSheet_Weapon());

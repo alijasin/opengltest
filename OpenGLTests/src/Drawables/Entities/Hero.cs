@@ -13,6 +13,9 @@ namespace OpenGLTests.src.Drawables
 {
     public class Hero : Unit, IActionCapable
     {
+        public int InitialActionPoint { get; set; } = 3;
+        public int ActionPoints { get; set; } = 3;
+        public int Stamina { get; set; } = 2;
         public Inventory Inventory;
         public ActionBar ActionBar { get; set; }
         public int HitPoints { get; set; } = 1;
@@ -80,9 +83,9 @@ namespace OpenGLTests.src.Drawables
             ctcb = new CombatTurnConfirmationButton(new GLCoordinate( 0.9f, 0.9f));
             ctcb.OnInteraction += () =>
             {
-                if (InCombat && CommitedActions == false)
+                if (InCombat && EndedTurn == false)
                 {
-                    CommitedActions = true;
+                    EndedTurn = true;
                 }
             };
             GameState.Drawables.Add(ctcb);
@@ -95,6 +98,31 @@ namespace OpenGLTests.src.Drawables
 
 
             //GameState.Drawables.Add(new HeartBar(new GLCoordinate(0, -0.86f)));
+        }
+
+        public override void CombatStep(Fight fight)
+        {
+            if (EndedTurn)
+            {
+                fight.UnitFinishedTurn(this);
+                return;
+            }
+            ActionStatus = ActionHandler.CommitActions(CombatIndex);
+
+            if (ActionStatus == ActionReturns.Placing) return;
+            if (ActionStatus == ActionReturns.Finished || ActionStatus == ActionReturns.AllFinished)
+            {
+                CombatIndex = 0;
+                ActionPoints--;
+                if (ActionPoints == 0)
+                {
+                    Console.WriteLine(this + " ran out of action points. Force ending turn.");
+                    EndedTurn = true;
+                }
+                return;
+            }
+            else if(ActionStatus == ActionReturns.Ongoing) CombatIndex++;
+
         }
 
         public override void OutOfCombatStep()
@@ -121,6 +149,10 @@ namespace OpenGLTests.src.Drawables
         {
             ResetDefaultActionToMove();
             if(AggroFrom.Count > 0) ctcb.Enabled = false;
+
+            CombatIndex = 0;
+            EndedTurn = false;
+            ActionPoints += Stamina;
         }
 
         public void Deaggro(Unit deAggroed)
@@ -136,7 +168,7 @@ namespace OpenGLTests.src.Drawables
         public void OnLeftCombat()
         {
             InCombat = false;
-
+            ctcb.Visible = false;
             Console.WriteLine("left combat");
             var defaultAction = ActionBar.GetDefaultButton().GameAction;
             defaultAction.RangeShape.IsInfinite = true;
@@ -144,6 +176,8 @@ namespace OpenGLTests.src.Drawables
             ActionHandler = new OutOfCombatActionHandler(this);
             ResetDefaultActionToMove();
             ctcb.Enabled = true;
+
+            ActionPoints = InitialActionPoint;
         }
 
         public override void OnAggro(Unit aggroed)
@@ -151,7 +185,7 @@ namespace OpenGLTests.src.Drawables
             Console.WriteLine("hero aggroed " + aggroed);
             AggroFrom.Add(aggroed);
             InCombat = true;
-
+            ctcb.Visible = true;
             ActionHandler.Dispose();
 
             var defaultAction = ActionBar.GetDefaultButton().GameAction;

@@ -123,6 +123,7 @@ namespace OpenGLTests.src
         public void OnMouseUp(GameCoordinate mouseLocation)
         {
             if (SelectedAction == null) return;
+
             if (SelectedAction.PlacementFilter(mouseLocation))
             {
                 TryPlaceAction(SelectedAction, mouseLocation);
@@ -132,7 +133,7 @@ namespace OpenGLTests.src
 
         public abstract void OnMouseDown(GameCoordinate mouseLocation);
 
-        public void ActionButtonClicked(ActionButton actionButton)
+        public void ActionButtonActivated(ActionButton actionButton)
         {
             SelectedAction = actionButton.GameAction;
             SelectedActionIcon = actionButton.Animation.GetSprite().sid;

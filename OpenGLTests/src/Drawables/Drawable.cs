@@ -204,8 +204,11 @@ namespace OpenGLTests.src.Drawables
         public ActionHandler ActionHandler { get; set; }
         [JsonIgnore]
         public int OutOfCombatIndex = 0;
-
-        public bool CommitedActions = false;
+        [JsonIgnore]
+        public int CombatIndex = 0;
+        [JsonIgnore]
+        public ActionReturns ActionStatus;
+        public bool EndedTurn = false;
         public bool InCombat { get; set; }
         public int HitPoints { get; set; }
         public int Initiative { get; set; } = 0;
@@ -238,6 +241,8 @@ namespace OpenGLTests.src.Drawables
             ActionHandler.Dispose();
             base.Dispose();
         }
+
+        public abstract void CombatStep(Fight fight);
 
         public abstract void OutOfCombatStep();
     }

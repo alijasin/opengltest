@@ -47,6 +47,24 @@ namespace OpenGLTests.src.Drawables
             
         }
 
+        public override void CombatStep(Fight fight)
+        {
+            var status = ActionHandler.CommitActions(CombatIndex);
+
+            if (status == ActionReturns.Placing) return;
+            if (status == ActionReturns.Finished)
+            {
+                CombatIndex = 0;
+                return;
+            }
+            else if (status == ActionReturns.AllFinished)
+            {
+                CombatIndex = 0;
+                EndedTurn = false;
+                fight.UnitFinishedTurn(this);
+            }
+            else CombatIndex++;
+        }
 
         public override void OutOfCombatStep()
         {
