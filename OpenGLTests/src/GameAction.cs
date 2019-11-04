@@ -200,16 +200,16 @@ namespace OpenGLTests.src
         }
     }
 
-    class HookShotAction : GameAction
+    class RealHookShotAction : GameAction
     {
-        public HookShotAction(Unit source) : base(source)
+        private Unit theCollided;
+        public RealHookShotAction(Unit source) : base(source)
         {
             RangeShape = new RangeShape(new Circle(new GLCoordinate(0.8f, 0.7f)), source);
             this.Marker = new ActionMarker(RangeShape.Location);
             this.ActionLine.LineType = LineType.Solid;
             PlacementFilter = coordinate =>
             {
-                //only placeable on collidables.
                 return GameState.Drawables.GetAllCollidables.Any(d => d.BoundingBox.Contains(coordinate));
             };
         }
@@ -218,12 +218,48 @@ namespace OpenGLTests.src
         {
             return (o) =>
             {
-
-                return true;
+                return GameActionLambdas.MoveTowardsPoint(Source, Marker.Location, new GameCoordinate(0.05f, 0.05f));
             };
         }
     }
 
+    class HookShotAction : GameAction
+    {
+        private Unit theCollided;
+        public HookShotAction(Unit source) : base(source)
+        {
+            RangeShape = new RangeShape(new Circle(new GLCoordinate(0.8f, 0.7f)), source);
+            this.Marker = new ActionMarker(RangeShape.Location);
+            this.ActionLine.LineType = LineType.Solid;
+            PlacementFilter = coordinate =>
+            {
+                //only placeable on collidables.
+                bool collided = false;
+                foreach (var d in GameState.Drawables.GetAllCollidables)
+                {
+                    if (d is Unit)
+                    {
+                        if (d.BoundingBox.Contains(coordinate))
+                        {
+                            collided = true;
+                            theCollided = d as Unit;
+                        }
+                    }
+                }
+
+                return collided;
+                //return GameState.Drawables.GetAllCollidables.Any(d => d.BoundingBox.Contains(coordinate));
+            };
+        }
+
+        public override Func<object, bool> GetAction()
+        {
+            return (o) =>
+            {
+                return GameActionLambdas.MoveTowardsPoint(theCollided, Source.Location, new GameCoordinate(0.05f, 0.05f));
+            };
+        }
+    }
     //todo: dont teleport within radius, but instead of a rangeshape
     class TeleportAction : CombatAction
     {

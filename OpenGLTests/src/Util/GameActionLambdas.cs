@@ -37,7 +37,22 @@ namespace OpenGLTests.src.Util
 
         public static bool MoveTowardsPoint(Unit source, GameCoordinate point)
         {
-            if (source.Location.Distance(point) < source.Speed.X || source.Location.Distance(point) < source.Speed.Y)
+            return MoveTowardsPoint(source, point, source.Speed);
+        }
+
+        public static bool FlyTowardsPoint(Unit source, GameCoordinate point)
+        {
+            return MoveTowardsPoint(source, point, source.Speed, false);
+        }
+
+        public static bool FlyTowardsPoint(Unit source, GameCoordinate point, GameCoordinate speed)
+        {
+            return MoveTowardsPoint(source, point, speed, false);
+        }
+
+        public static bool MoveTowardsPoint(Unit source, GameCoordinate point, GameCoordinate speed, bool doCollisionCheck = true)
+        {
+            if (source.Location.Distance(point) < speed.X || source.Location.Distance(point) < speed.Y)
             {
                 //we are close enough
                 return true;
@@ -57,38 +72,40 @@ namespace OpenGLTests.src.Util
             var dy = point.Y - source.Location.Y;
             var dist = Math.Sqrt(dx * dx + dy * dy);
 
-            var velX = (float)(dx / dist) * source.Speed.X;
-            var velY = (float)(dy / dist) * source.Speed.Y;
+            var velX = (float)(dx / dist) * speed.X;
+            var velY = (float)(dy / dist) * speed.Y;
 
 
             bool blockedX = false;
             bool blockedY = false;
-
-            //:: Optimizable Area
-            //1. filter these collidables some more so we dont iterate all of them.
-            //2. store some things in variables
-            foreach (var collidable in GameState.Drawables.GetAllCollidables.Where(e => !e.Phased && e != source))
+            if (doCollisionCheck)
             {
-                if (collidable.BoundingBox.Contains(new GameCoordinate(collidable.BoundingBox.Location.X,
-                        source.Location.Y + velY * 2))
-                    && collidable.BoundingBox.Contains(new GameCoordinate(source.Location.X + velX / 2,
-                        collidable.BoundingBox.Location.Y)))
+                //:: Optimizable Area
+                //1. filter these collidables some more so we dont iterate all of them.
+                //2. store some things in variables
+                foreach (var collidable in GameState.Drawables.GetAllCollidables.Where(e => !e.Phased && e != source))
                 {
-                    blockedY = true;
-                }
+                    if (collidable.BoundingBox.Contains(new GameCoordinate(collidable.BoundingBox.Location.X,
+                            source.Location.Y + velY * 2))
+                        && collidable.BoundingBox.Contains(new GameCoordinate(source.Location.X + velX / 2,
+                            collidable.BoundingBox.Location.Y)))
+                    {
+                        blockedY = true;
+                    }
 
-                if (collidable.BoundingBox.Contains(new GameCoordinate(source.Location.X + velX * 2,
-                        collidable.BoundingBox.Location.Y))
-                    && collidable.BoundingBox.Contains(new GameCoordinate(collidable.BoundingBox.Location.X,
-                        source.Location.Y + velY / 2)))
-                {
-                    blockedX = true;
+                    if (collidable.BoundingBox.Contains(new GameCoordinate(source.Location.X + velX * 2,
+                            collidable.BoundingBox.Location.Y))
+                        && collidable.BoundingBox.Contains(new GameCoordinate(collidable.BoundingBox.Location.X,
+                            source.Location.Y + velY / 2)))
+                    {
+                        blockedX = true;
+                    }
                 }
             }
 
             if (!blockedY) source.Location.Y += velY;
             if (!blockedX) source.Location.X += velX;
-            if (blockedX && blockedY || blockedX && Math.Abs(dy) < source.Speed.Y || blockedY && Math.Abs(dx) < source.Speed.X) return true; //we are kinda stuck
+            if (blockedX && blockedY || blockedX && Math.Abs(dy) < speed.Y || blockedY && Math.Abs(dx) < speed.X) return true; //we are kinda stuck
             return false;
         }
 
