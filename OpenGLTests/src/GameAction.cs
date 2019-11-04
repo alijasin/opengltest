@@ -38,7 +38,10 @@ namespace OpenGLTests.src
         public bool IsPlaced { get; set; } = false;
         public bool IsInstant { get; set; } = false;
         public bool ForcePlaced { get; set; } = false;
+        public virtual Func<GameCoordinate, bool> PlacementFilter { get; set; } = coordinate => true;
         protected Unit Source { get; set; }
+
+
         public GameAction() : this(null)
         {
 
@@ -192,6 +195,30 @@ namespace OpenGLTests.src
             return (o) =>
             {
                 Source.Location = loc;
+                return true;
+            };
+        }
+    }
+
+    class HookShotAction : GameAction
+    {
+        public HookShotAction(Unit source) : base(source)
+        {
+            RangeShape = new RangeShape(new Circle(new GLCoordinate(0.8f, 0.7f)), source);
+            this.Marker = new ActionMarker(RangeShape.Location);
+            this.ActionLine.LineType = LineType.Solid;
+            PlacementFilter = coordinate =>
+            {
+                //only placeable on collidables.
+                return GameState.Drawables.GetAllCollidables.Any(d => d.BoundingBox.Contains(coordinate));
+            };
+        }
+
+        public override Func<object, bool> GetAction()
+        {
+            return (o) =>
+            {
+
                 return true;
             };
         }

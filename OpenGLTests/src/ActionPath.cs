@@ -123,8 +123,10 @@ namespace OpenGLTests.src
         public void OnMouseUp(GameCoordinate mouseLocation)
         {
             if (SelectedAction == null) return;
-
-            TryPlaceAction(SelectedAction, mouseLocation);
+            if (SelectedAction.PlacementFilter(mouseLocation))
+            {
+                TryPlaceAction(SelectedAction, mouseLocation);
+            }
             SelectedAction.RangeShape.Visible = false;
         }
 

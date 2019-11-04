@@ -39,6 +39,15 @@ namespace OpenGLTests.src
         }
     }
 
+    public class HookShot : Ability
+    {
+        public HookShot(Unit owner)
+        {
+            this.Action = new HookShotAction(owner);
+            this.Icon = SpriteID.big_demon_run_anim_f0;
+        }
+    }
+
     //todo: consider making all Abilities to hero abilities.
     public class Move : Ability
     {

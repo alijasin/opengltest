@@ -89,7 +89,7 @@ namespace OpenGLTests.src.Drawables
         public void DrawStep(DrawAdapter drawer, GameCoordinate location)
         {
             GLCoordinate locationx = location.ToGLCoordinate();
-            drawer.DrawCircle(locationx.X, locationx.Y, Radius, Color.Green);
+            drawer.DrawCircle(locationx.X, locationx.Y, Radius, Color.Gold);
         }
     }
 

@@ -67,6 +67,7 @@ namespace OpenGLTests.src.Drawables
             ActionBar.Add(new Yell(this));
             ActionBar.Add(new Teleport(this));
             ActionBar.Add(new TossBomb(this));
+            ActionBar.Add(new HookShot(this));
         }
 
         private void initInventory()
