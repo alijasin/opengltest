@@ -200,10 +200,10 @@ namespace OpenGLTests.src
         }
     }
 
-    class RealHookShotAction : GameAction
+    class HookShotAction : GameAction
     {
         private Unit theCollided;
-        public RealHookShotAction(Unit source) : base(source)
+        public HookShotAction(Unit source) : base(source)
         {
             RangeShape = new RangeShape(new Circle(new GLCoordinate(0.8f, 0.7f)), source);
             this.Marker = new ActionMarker(RangeShape.Location);
@@ -223,10 +223,10 @@ namespace OpenGLTests.src
         }
     }
 
-    class HookShotAction : GameAction
+    class HookAction : GameAction
     {
         private Unit theCollided;
-        public HookShotAction(Unit source) : base(source)
+        public HookAction(Unit source) : base(source)
         {
             RangeShape = new RangeShape(new Circle(new GLCoordinate(0.8f, 0.7f)), source);
             this.Marker = new ActionMarker(RangeShape.Location);

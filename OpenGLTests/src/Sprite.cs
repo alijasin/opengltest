@@ -306,7 +306,7 @@ namespace OpenGLTests.src
             { SpriteID.action_charge, 5 },
             { SpriteID.floor_1, 5 },
             { SpriteID.big_demon_run_anim_f0, 12 },
-
+            { SpriteID.big_zombie_run_anim_f0, 12 },
 
         })
         { }

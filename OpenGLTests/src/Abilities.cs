@@ -39,12 +39,21 @@ namespace OpenGLTests.src
         }
     }
 
+    public class Hook : Ability
+    {
+        public Hook(Unit owner)
+        {
+            this.Action = new HookAction(owner);
+            this.Icon = SpriteID.big_demon_run_anim_f0;
+        }
+    }
+
     public class HookShot : Ability
     {
         public HookShot(Unit owner)
         {
             this.Action = new HookShotAction(owner);
-            this.Icon = SpriteID.big_demon_run_anim_f0;
+            this.Icon = SpriteID.big_zombie_run_anim_f0;
         }
     }
 
