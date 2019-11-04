@@ -59,24 +59,11 @@ namespace OpenGLTests.src.Drawables
 
         public ActionButton GetActionButton(int index)
         {
-            if (actionButtons.Count < index) return GetDefaultButton();
+            if (FilledActionSlots <= index) return GetDefaultButton();
 
             return actionButtons.ElementAt(index);
         }
 
-        public void SetActiveButton(int index)
-        {
-            if (actionButtons.Count < index) return;
-
-            var newActive = actionButtons.ElementAt(index);
-
-            foreach (var ab in actionButtons.Where(but => but != newActive))
-            {
-                ab.Deactivate();
-            }
-
-            newActive.Activate();
-        }
     }
     
 }
