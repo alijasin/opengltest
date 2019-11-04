@@ -35,9 +35,9 @@ namespace OpenGLTests.src.Util
             return null;
         }
 
-        public static bool MoveTowardsPoint(Unit source, GameCoordinate point)
+        public static bool MoveTowardsPoint(Unit source, GameCoordinate point, params Type[] collisionCheckFilter)
         {
-            return MoveTowardsPoint(source, point, source.Speed);
+            return MoveTowardsPoint(source, point, source.Speed, true, collisionCheckFilter);
         }
 
         public static bool FlyTowardsPoint(Unit source, GameCoordinate point)
@@ -50,7 +50,7 @@ namespace OpenGLTests.src.Util
             return MoveTowardsPoint(source, point, speed, false);
         }
 
-        public static bool MoveTowardsPoint(Unit source, GameCoordinate point, GameCoordinate speed, bool doCollisionCheck = true)
+        public static bool MoveTowardsPoint(Unit source, GameCoordinate point, GameCoordinate speed, bool collisionCheck = true, params Type [] collisionCheckFilter)
         {
             if (source.Location.Distance(point) < speed.X || source.Location.Distance(point) < speed.Y)
             {
@@ -78,13 +78,15 @@ namespace OpenGLTests.src.Util
 
             bool blockedX = false;
             bool blockedY = false;
-            if (doCollisionCheck)
+            if (collisionCheck)
             {
                 //:: Optimizable Area
                 //1. filter these collidables some more so we dont iterate all of them.
                 //2. store some things in variables
                 foreach (var collidable in GameState.Drawables.GetAllCollidables.Where(e => !e.Phased && e != source))
                 {
+                    if(collisionCheckFilter.Any(t => collidable.GetType().IsSubclassOf(t) || t == collidable.GetType())) continue;
+                    
                     if (collidable.BoundingBox.Contains(new GameCoordinate(collidable.BoundingBox.Location.X,
                             source.Location.Y + velY * 2))
                         && collidable.BoundingBox.Contains(new GameCoordinate(source.Location.X + velX / 2,

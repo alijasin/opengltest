@@ -600,6 +600,7 @@ namespace OpenGLTests.src
         }
     }
 
+    //this really shouldnt be unlike hero move action. Todo
     class UnitMoveAction : GameAction
     {
         private GameCoordinate location;
@@ -633,7 +634,22 @@ namespace OpenGLTests.src
 
         public override Func<object, bool> GetAction()
         {
-            return (o) => { return combatAction(o); };
+            return (o) =>
+            {
+                if (Source.InCombat) return combatAction(o);
+                else return outOfCombatAction(o);
+            };
+        }
+
+        private bool outOfCombatAction(object arg)
+        {
+            int index = (int)arg;
+            if (index > 200) return true; //dont get stuck
+            if (Marker != null)
+            {
+                return GameActionLambdas.MoveTowardsPoint(Source, Marker.Location);
+            }
+            return false;
         }
 
         private bool combatAction(object arg)
@@ -642,10 +658,8 @@ namespace OpenGLTests.src
             if (index > 200) return true; //dont get stuck
             if (Marker != null)
             {
-                return GameActionLambdas.MoveTowardsPoint(Source, Marker.Location);
+                return GameActionLambdas.MoveTowardsPoint(Source, Marker.Location, typeof(Unit));
             }
-
-
             return false;
         }
     }

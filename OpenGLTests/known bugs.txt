@@ -26,3 +26,6 @@ Difficulty 4.
 
 If hero aggros 2 units and kills the one who will have action after hero, the second aggrod unit will not perform action and game will be stuck.
 d4i8
+
+We getting duplicated messages in console sometimes. Such as FanBoy died Fanboy died. Somethings fishy. Not really that important since it's not very important. But pretty time consuming to find.
+d4i2

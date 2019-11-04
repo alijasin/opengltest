@@ -57,7 +57,6 @@ namespace OpenGLTests.src
             this.Icon = SpriteID.action_move;
         }
     }
-
     public class TossBomb : Ability
     {
         public TossBomb(Unit owner)

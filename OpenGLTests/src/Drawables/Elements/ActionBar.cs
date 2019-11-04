@@ -45,12 +45,6 @@ namespace OpenGLTests.src.Drawables
             }
         }
 
-        public GameAction GetDefaultAction()
-        {
-            if (actionButtons.Count == 0) return null;
-            return this.actionButtons.First().GameAction;
-        }
-
         public ActionButton GetDefaultButton()
         {
             if (actionButtons.Count == 0) return null;
