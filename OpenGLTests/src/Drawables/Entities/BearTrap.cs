@@ -40,8 +40,8 @@ namespace OpenGLTests.src.Drawables.Entities
             {
                 isTriggered = true;
                 this.Animation.SetSprite(SpriteID.bear_trap_closed);
-                new DamageEffect(d);
-                new RootEffect(d);
+                new DamageStatusEffect(d);
+                new RootStatusEffect(d);
             }
         }
     }
