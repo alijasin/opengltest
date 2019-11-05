@@ -71,8 +71,9 @@ namespace OpenGLTests.src
         {
             IsPlaced = false;
 
-            Marker.Visible = false;
-            ActionLine.Visible = false;
+            if(Marker != null) Marker.Visible = false;
+            if(ActionLine != null) ActionLine.Visible = false;
+            if(RangeShape != null) RangeShape.Visible = false;
         }
 
         public void Place(GameCoordinate location, SpriteID sid)

@@ -135,6 +135,8 @@ namespace OpenGLTests.src
 
         public void ActionButtonActivated(ActionButton actionButton)
         {
+            var oldSelected = SelectedAction;
+            if(oldSelected != null) oldSelected.Dispose();
             SelectedAction = actionButton.GameAction;
             SelectedActionIcon = actionButton.Animation.GetSprite().sid;
         }
