@@ -90,7 +90,7 @@
     <Compile Include="src\Drawables\Terrain\BrickGate.cs" />
     <Compile Include="src\Drawables\Terrain\Floor.cs" />
     <Compile Include="src\Drawables\WeatherGenerator.cs" />
-    <Compile Include="src\Effect.cs" />
+    <Compile Include="src\StatusEffect.cs" />
     <Compile Include="src\Fight.cs" />
     <Compile Include="src\GameAction.cs" />
     <Compile Include="src\GameConsole.cs" />
@@ -117,6 +117,7 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="src\Screens\Screen.cs" />
+    <Compile Include="src\Util\EffectGenerator.cs" />
     <Compile Include="src\Util\GameActionLambdas.cs" />
     <Compile Include="src\Util\IDGenerator.cs" />
     <Compile Include="src\Util\ImageLoader.cs" />

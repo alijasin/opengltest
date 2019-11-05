@@ -251,6 +251,11 @@ namespace OpenGLTests.src.Drawables
         public abstract void OutOfCombatStep();
     }
 
+    public abstract class Effect : Entity
+    {
+        protected GameCoordinate Origin { get; set; }
+    }
+
     public abstract class Structure : Entity, ICollidable
     {
         public bool Phased { get; set; } = false;
