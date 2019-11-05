@@ -15,6 +15,8 @@ namespace OpenGLTests.src.Drawables
         public virtual bool Enabled { get; set; } = true;
         private Color initialColor;
         private Color toggleColor;
+        protected bool HasBorder = true;
+        protected bool HasBackground = true;
         public Button() : this(new GLCoordinate(0.2f, 0.2f))
         {
             GameState.Drawables.RegisterInteractable(this);
@@ -58,8 +60,8 @@ namespace OpenGLTests.src.Drawables
         public override void DrawStep(DrawAdapter drawer)
         {
             if (!Visible) return;
-            drawer.FillRectangle(this.BackColor, this.Location.X, this.Location.Y, this.Size.X, this.Size.Y);
-            drawer.TraceRectangle(this.BorderColor, this.Location.X - this.Size.X / 2, -this.Location.Y + this.Size.Y / 2, this.Size.X, -this.Size.Y);
+            if(HasBackground) drawer.FillRectangle(this.BackColor, this.Location.X, this.Location.Y, this.Size.X, this.Size.Y);
+            if(HasBorder)drawer.TraceRectangle(this.BorderColor, this.Location.X - this.Size.X / 2, -this.Location.Y + this.Size.Y / 2, this.Size.X, -this.Size.Y);
             base.DrawStep(drawer);
         }
     }
@@ -72,7 +74,7 @@ namespace OpenGLTests.src.Drawables
         {
             OnInteraction += () =>
             {
-                
+                GameAction.OnSelected();
             };
         }
 
@@ -145,6 +147,33 @@ namespace OpenGLTests.src.Drawables
             this.Animation = new Animation(new SpriteSheet_Weapon());
             this.Animation.SetSprite( SpriteID.weapon_golden_sword);
             this.Animation.IsStatic = true;
+        }
+    }
+
+    public class InventoryButton : Button
+    {
+        private Inventory inventory;
+        public InventoryButton(GLCoordinate relativeLoc, Inventory i)
+        {
+            this.Size = new GLCoordinate(0.2f, 0.2f);
+            this.Location = new GLCoordinate(relativeLoc.X - this.Size.X/2, relativeLoc.Y + this.Size.Y / 2);
+            this.Animation = new Animation(new SpriteSheet_Icons());
+            this.Animation.SetSprite(SpriteID.bag_closed);
+            this.Animation.IsStatic = true;
+            this.inventory = i;
+
+            this.OnInteraction = () =>
+            {
+                ShowInventory();
+            };
+        }
+
+        public void ShowInventory()
+        {
+            if (this.Animation.GetSprite().sid == SpriteID.bag_closed) this.Animation.SetSprite(SpriteID.bag_open);
+            else this.Animation.SetSprite(SpriteID.bag_closed);
+
+            inventory.Visible = !inventory.Visible;
         }
     }
 }

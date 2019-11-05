@@ -74,8 +74,8 @@ namespace OpenGLTests.src.Screens
 
             Bind(new Hotkey(
                 input => input.IsKeyboardInput && (input.KeyboardArgs.Key == OpenTK.Input.Key.E || input.KeyboardArgs.Key == Key.Tab),
-                _ => Game.Hero.Inventory.Visible = true,
-                _ => Game.Hero.Inventory.Visible = false
+                _ => Game.Hero.InventoryButton.ShowInventory(),
+                _ => { }
             ));
             #region ActionBar Hotkeys
             Bind(new Hotkey(

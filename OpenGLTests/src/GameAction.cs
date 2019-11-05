@@ -90,6 +90,8 @@ namespace OpenGLTests.src
         {
             this.RangeShape = r;
         }
+
+        public virtual Action OnSelected { get; set; } = () => { };
     }
 
     abstract class CombatAction : GameAction
@@ -463,43 +465,6 @@ namespace OpenGLTests.src
             };
         }
     }
-    class MoveTowardsEntityAction : GameAction
-    {
-        public MoveTowardsEntityAction(Unit source) : base(source)
-        {
-            this.ActionLine.LineType = LineType.Solid;
-        }
-        
-        public override Func<object, bool> GetAction()
-        {
-            return (o) =>
-            {
-                Func<GameCoordinate> currentLocationMethod = (Func<GameCoordinate>) o;
-                GameCoordinate point = currentLocationMethod.Invoke();
-
-                //todo refactor this to outside helper function
-                if (Source.Location.Distance(point) < Source.Speed.X || Source.Location.Distance(point) < Source.Speed.Y)
-                {
-                    //we are close enough
-                    return true;
-                }
-                else
-                {
-                    var dx = point.X - Source.Location.X;
-                    var dy = point.Y - Source.Location.Y;
-                    var dist = Math.Sqrt(dx * dx + dy * dy);
-
-                    var velX = (dx / dist) * Source.Speed.X;
-                    var velY = (dy / dist) * Source.Speed.Y;
-
-                    Source.Location.X += (float)velX;
-                    Source.Location.Y += (float)velY;
-                    return false;
-                }
-            };
-        }
-    }
-
 
     class MoveAction : GameAction
     {
@@ -553,7 +518,7 @@ namespace OpenGLTests.src
         /// </summary>
         /// <param name="n">times out of</param>
         /// <param name="r">r</param>
-        public ChillAction(int n = 2, int r = 100)
+        public ChillAction(int n = 25, int r = 100)
         {
             this.n = n;
             this.r = r;
@@ -615,7 +580,7 @@ namespace OpenGLTests.src
             return o =>
             {
                 int index = (int)o;
-                if (index > 50) return true; //dont get stuck
+                if (index > 150) return true; //dont get stuck
                 return GameActionLambdas.MoveTowardsPoint(Source, location); ;
             };
         }

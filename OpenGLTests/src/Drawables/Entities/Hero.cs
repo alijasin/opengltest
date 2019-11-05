@@ -17,9 +17,9 @@ namespace OpenGLTests.src.Drawables
         public int InitialActionPoint { get; set; } = 3;
         public int ActionPoints { get; set; } = 3;
         public int Stamina { get; set; } = 2;
-        public Inventory Inventory;
+        public InventoryButton InventoryButton;
+        private Inventory Inventory;
         public ActionBar ActionBar { get; set; }
-        public int HitPoints { get; set; } = 1;
         private HashSet<Unit> AggroFrom = new HashSet<Unit>();
         private CombatTurnConfirmationButton ctcb;
 
@@ -97,10 +97,8 @@ namespace OpenGLTests.src.Drawables
             Inventory.Add(new GrowingPoition(this));
             Inventory.Add(new RedPotion(this));
             Inventory.Add(new Apple(this));
-
-
-            //DrawableButton inventoryButton = new DrawableButton();
-
+            InventoryButton = new InventoryButton(new GLCoordinate(ActionBar.Location.X - ActionBar.Size.X / 2, ActionBar.Location.Y), Inventory);
+            GameState.Drawables.Add(InventoryButton);
             //GameState.Drawables.Add(new HeartBar(new GLCoordinate(0, -0.86f)));
         }
 

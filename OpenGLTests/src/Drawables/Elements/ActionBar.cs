@@ -36,7 +36,7 @@ namespace OpenGLTests.src.Drawables
             {
                 ab.OnInteraction += () =>
                 {
-                    //Owner.ActionHandler.SetActiveAction(ab.GameAction);
+                    
                 };
                 ab.Location = new GLCoordinate(fodder * (FilledActionSlots + 1) + this.Location.X - this.Size.X / 2 + FilledActionSlots * ab.Size.X + ab.Size.X / 2, this.Location.Y + ab.Size.Y / 2 + fodder);
                 actionButtons.Add(ab);
@@ -45,10 +45,11 @@ namespace OpenGLTests.src.Drawables
             }
         }
 
+        private const int MOVE_INDEX = 0;
         public ActionButton GetDefaultButton()
         {
             if (actionButtons.Count == 0) return null;
-            return this.actionButtons.First();
+            return this.actionButtons[MOVE_INDEX]; //this is move action.
         }
 
         public ActionButton GetActionButton(int index)

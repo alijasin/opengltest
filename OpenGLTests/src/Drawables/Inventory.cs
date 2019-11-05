@@ -18,10 +18,11 @@ namespace OpenGLTests.src.Drawables
         public Inventory(IActionCapable owner)
         {
             this.Visible = false;
-            this.Location = new GLCoordinate(-0.5f, 0f);
             this.Size = new GLCoordinate(rows*InventorySlot.StandardSize.X + (rows+1)*(fodder), columns * InventorySlot.StandardSize.Y + (columns + 1) * (fodder));
+            this.Location = new GLCoordinate(-1 + this.Size.X / 2, -1 + this.Size.Y / 2);
             this.Owner = owner;
             this.Color = Color.Purple;
+            this.Depth = 11;
         }
 
         public bool Add(Item i)

@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace OpenGLTests.src.Drawables
 {
+    //todo I really really want to rename this to rectangularelement but I'm getting conflict and right now i'm jammin to Abba so i'm not really in the mood for conflicts.
     public class RectangleElement : Element
     {
         public bool Contains(GameCoordinate point)
