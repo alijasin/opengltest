@@ -10,6 +10,11 @@ namespace OpenGLTests.src.Drawables.Entities
     class BearTrap : Stuff, IRegion
     {
         private bool isTriggered = false;
+
+        public BearTrap() : this(new GameCoordinate(0, 0))
+        {
+            
+        }
         public BearTrap(GameCoordinate location)
         {
             this.Location = location;
@@ -21,7 +26,6 @@ namespace OpenGLTests.src.Drawables.Entities
             this.Depth = 0;
             this.Shape = new RangeShape(new Rectangle(this.Size), this);
             //OnClick = coordinate => this.Color = Color.Purple;
-            GameState.Drawables.Add(this);
         }
 
         public Action<GameCoordinate> OnClick { get; set; }

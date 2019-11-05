@@ -1,4 +1,5 @@
 ﻿using System;
+using System.CodeDom;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
@@ -325,6 +326,30 @@ namespace OpenGLTests.src
             return (o) =>
             {
                 a.Invoke(o);
+                return true;
+            };
+        }
+    }
+
+    class SpawnEntityAction : GameAction
+    {
+        private Entity toSpawn;
+        public SpawnEntityAction(Unit source, Entity toSpawn) : base(source)
+        {
+            this.toSpawn = toSpawn;
+
+            this.RangeShape = new RangeShape(new Circle(new GLCoordinate(0.4f, 0.4f)), source);
+            this.Marker = new ActionMarker(RangeShape.Location);
+
+        }
+
+        public override Func<object, bool> GetAction()
+        {
+            return (o) =>
+            {
+                var spawn = (Entity)Activator.CreateInstance(toSpawn.GetType());
+                spawn.Location = Marker.Location;
+                GameState.Drawables.Add(spawn);
                 return true;
             };
         }
