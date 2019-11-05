@@ -42,7 +42,7 @@ namespace OpenGLTests.src
         {
             if (LiveTime % 10 == 0)
             {
-                Target.HitPoints--;
+                Target.Damage(1);
                 Console.WriteLine("Damaged " + Target.GetType());
             }
 
