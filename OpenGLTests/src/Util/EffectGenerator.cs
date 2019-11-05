@@ -21,7 +21,7 @@ namespace OpenGLTests.src.Util
                 }
             }
 
-            class SmokeParticle : Effect
+            class SmokeParticle : StatusEffect
             {
                 SmokeParticle(GameCoordinate origin)
                 {

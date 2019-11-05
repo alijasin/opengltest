@@ -8,11 +8,11 @@ using OpenGLTests.src.Drawables;
 
 namespace OpenGLTests.src
 {
-    public abstract class Effect
+    public abstract class StatusEffect
     {
         public int LiveTime { get; set; } = 1;
         protected Unit Target;
-        protected Effect(Unit target)
+        protected StatusEffect(Unit target)
         {
             Console.WriteLine("Applied " + this.GetType() + " to " + target.GetType());
             this.Target = target;
@@ -31,9 +31,9 @@ namespace OpenGLTests.src
         }
     }
 
-    public class DamageEffect : Effect
+    public class DamageStatusEffect : StatusEffect
     {
-        public DamageEffect(Unit target) : base(target)
+        public DamageStatusEffect(Unit target) : base(target)
         {
             LiveTime = 20;
         }
@@ -50,9 +50,9 @@ namespace OpenGLTests.src
         }
     }
 
-    public class RootEffect : Effect
+    public class RootStatusEffect : StatusEffect
     {
-        public RootEffect(Unit target) : base(target)
+        public RootStatusEffect(Unit target) : base(target)
         {
             LiveTime = 30;
         }
