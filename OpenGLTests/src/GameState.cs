@@ -17,7 +17,7 @@ namespace OpenGLTests.src
     {
         public Hero Hero { get; set; }
         public static DrawableRepository Drawables = new DrawableRepository();
-
+        public static List<Effect> Effects = new List<Effect>();
         public static RainGenerator
             RainGenerator = new RainGenerator(RainGenerator.RainType.Clear); //todo: move to drawable
 
@@ -36,6 +36,7 @@ namespace OpenGLTests.src
             Drawables.Add(new RoomLoadRegion(new GameCoordinate(0.8f, 0.8f), RoomLoader.Room.TestSpace));
             Drawables.Add(new FanBoy(new GameCoordinate(0.5f, 0)));
             Drawables.Add(new Campfire(new GameCoordinate(0, 0.3f)));
+            Drawables.Add(new BearTrap(new GameCoordinate(0, 0.2f)));
             RoomLoader.LoadRoom(RoomLoader.Room.TestEditorOutPut);
 
             //todo refactor this into screen
@@ -105,6 +106,17 @@ namespace OpenGLTests.src
                 initStepsCount++;
                 return;
             }
+
+            foreach (var effect in Effects)
+            {
+                effect.TryApplyEffect();
+            }
+
+            for (int i = Effects.Count - 1; i >= 0; i--)
+            {
+                if(Effects.ElementAt(i).LiveTime == 0) Effects.RemoveAt(i);
+            }
+
 
             //:: Optimization point
             //this shuold only be movable units

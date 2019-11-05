@@ -10,7 +10,6 @@ namespace OpenGLTests.src.Drawables
     public interface IRegion
     {
         RangeShape Shape { get; set; }
-        Func<Unit, bool> EnteredFilter { get; set; }
         void OnEntered(Unit d);
     }
 
@@ -29,13 +28,14 @@ namespace OpenGLTests.src.Drawables
         }
 
         public RangeShape Shape { get; set; }
-        public Func<Unit, bool> EnteredFilter { get; set; }
+        public Func<Drawable, bool> EnteredFilter { get; set; }
 
         public void OnEntered(Unit d)
         {
             if (EnteredFilter(d))
             {
                 Console.WriteLine("loading " + room);
+                //todo: this doesnt work. Or I mean. It works but I dont want it this way.
                 GameState.Drawables.ClearExcept(drawable => drawable is Hero || drawable is Floor || drawable is RangeShape || drawable is Marker || drawable is Line || drawable is Button);
                 RoomLoader.LoadRoom(room);
                 EnteredFilter = movable => false; //only enter one time.

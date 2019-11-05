@@ -65,6 +65,7 @@
     <Compile Include="src\Drawables\Crate.cs" />
     <Compile Include="src\Drawables\Elements\Heart.cs" />
     <Compile Include="src\Drawables\Entities\AngryDude.cs" />
+    <Compile Include="src\Drawables\Entities\BearTrap.cs" />
     <Compile Include="src\Drawables\Entities\Bridge.cs" />
     <Compile Include="src\Drawables\Entities\Campfire.cs" />
     <Compile Include="src\Drawables\Entities\Chaser.cs" />
@@ -89,6 +90,7 @@
     <Compile Include="src\Drawables\Terrain\BrickGate.cs" />
     <Compile Include="src\Drawables\Terrain\Floor.cs" />
     <Compile Include="src\Drawables\WeatherGenerator.cs" />
+    <Compile Include="src\Effect.cs" />
     <Compile Include="src\Fight.cs" />
     <Compile Include="src\GameAction.cs" />
     <Compile Include="src\GameConsole.cs" />
@@ -1137,10 +1139,10 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="known bugs.txt" />
+    <None Include="Resources\bear_trap_closed.png" />
     <None Include="Resources\bag_closed.png" />
     <None Include="Resources\bag_open.png" />
     <None Include="Resources\bear_trap_open.png" />
-    <None Include="Resources\bear_trap_closed.png" />
     <None Include="Resources\camp_fire.png" />
     <None Include="Resources\fire_sword_slash_green.png" />
     <None Include="Resources\fire_sword_slash_red.png" />

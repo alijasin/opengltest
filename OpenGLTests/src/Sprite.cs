@@ -318,6 +318,7 @@ namespace OpenGLTests.src
             { SpriteID.bag_open, 12 },
             { SpriteID.haunch, 12 },
             { SpriteID.mossy_boot, 12 },
+            { SpriteID.bear_trap_open, 12 }
 
         })
         { }

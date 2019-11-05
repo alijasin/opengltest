@@ -198,6 +198,7 @@ namespace OpenGLTests.src.Drawables
 
     public abstract class Unit : Entity, IActionCapable
     {
+        //todo fix decorators
         [JsonIgnore]
         public RangeShape AggroShape { get; set; }
         [JsonIgnore]
@@ -208,6 +209,9 @@ namespace OpenGLTests.src.Drawables
         public int CombatIndex = 0;
         [JsonIgnore]
         public ActionReturns ActionStatus;
+        [JsonIgnore]
+        public GameCoordinate InitialSpeed = new GameCoordinate(0.015f, 0.015f);
+        [JsonIgnore]
         public bool EndedTurn = false;
         public bool InCombat { get; set; }
         public int HitPoints { get; set; }

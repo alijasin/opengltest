@@ -14,6 +14,7 @@ namespace OpenGLTests.src.Drawables
 {
     public class Hero : Unit, IActionCapable
     {
+
         public int InitialActionPoint { get; set; } = 3;
         public int ActionPoints { get; set; } = 3;
         public int Stamina { get; set; } = 2;
@@ -50,7 +51,7 @@ namespace OpenGLTests.src.Drawables
             Color = Color.CadetBlue;
             this.Location = new GameCoordinate(0f, 0f);
             this.Size = new GLCoordinate(0.1f, 0.1f);
-            this.Speed = new GameCoordinate(0.02f, 0.02f);
+            this.Speed = InitialSpeed;
             this.Animation = new Animation(new SpriteSheet_ElfIdle());
             this.ActionHandler = new OutOfCombatActionHandler(this);
             this.Initiative = 10;
