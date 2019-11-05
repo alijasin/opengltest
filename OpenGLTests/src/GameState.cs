@@ -17,7 +17,7 @@ namespace OpenGLTests.src
     {
         public Hero Hero { get; set; }
         public static DrawableRepository Drawables = new DrawableRepository();
-        public static List<Effect> Effects = new List<Effect>();
+        public static List<StatusEffect> Effects = new List<StatusEffect>();
         public static RainGenerator
             RainGenerator = new RainGenerator(RainGenerator.RainType.Clear); //todo: move to drawable
 

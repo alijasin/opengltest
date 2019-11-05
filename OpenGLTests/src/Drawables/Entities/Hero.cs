@@ -31,12 +31,7 @@ namespace OpenGLTests.src.Drawables
             if(!InCombat)ActionHandler.SelectedAction.RangeShape.IsInfinite = true;//set it to infinite range
         }
 
-        public void Damage(int dmg)
-        {
-            
-        }
-
-        public void OnDeath()
+        public override void OnDeath()
         {
             Console.WriteLine("hero died!!!!");
         }
@@ -55,6 +50,7 @@ namespace OpenGLTests.src.Drawables
             this.Animation = new Animation(new SpriteSheet_ElfIdle());
             this.ActionHandler = new OutOfCombatActionHandler(this);
             this.Initiative = 10;
+            this.HitPoints = 5;
             //this.AggroShape = new RangeCircle(new GLCoordinate(0, 0), this);
             initActionBar();
             InCombat = false;

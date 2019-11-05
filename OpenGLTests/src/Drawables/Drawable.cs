@@ -214,7 +214,7 @@ namespace OpenGLTests.src.Drawables
         [JsonIgnore]
         public bool EndedTurn = false;
         public bool InCombat { get; set; }
-        public int HitPoints { get; private set; }
+        public int HitPoints { get; set; }
         public int Initiative { get; set; } = 0;
 
         public void Damage(int dmg)
@@ -249,6 +249,11 @@ namespace OpenGLTests.src.Drawables
         public abstract void CombatStep(Fight fight);
 
         public abstract void OutOfCombatStep();
+    }
+
+    public abstract class Effect : Entity
+    {
+        protected GameCoordinate Origin { get; set; }
     }
 
     public abstract class Structure : Entity, ICollidable
