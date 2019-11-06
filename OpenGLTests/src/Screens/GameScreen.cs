@@ -196,7 +196,6 @@ namespace OpenGLTests.src.Screens
                     var xd = CoordinateFuckery.ClickToGLRelativeToCamera(placed, new GameCoordinate(0, 0));
                     if (Game.Hero.ActionStatus == ActionReturns.Ongoing && Game.Hero.InCombat) return; //dont let place while hero is doing actions in combat
                     Game.Hero.ActionHandler.OnMouseUp(xd);
-                    Console.WriteLine("once");
                 }
             ));
             /*

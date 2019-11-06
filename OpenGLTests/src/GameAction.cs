@@ -276,7 +276,7 @@ namespace OpenGLTests.src
             };
         }
     }
-    //todo: dont teleport within radius, but instead of a rangeshape
+    //todo: dont teleport within radius, but instead use a rangeshape
     class TeleportAction : CombatAction
     {
         private bool isOnCooldown = false;
@@ -286,6 +286,8 @@ namespace OpenGLTests.src
             RangeShape = new RangeShape(new Circle(radius), source);
             this.Marker = new MoveMarker(RangeShape.Location);
             this.ActionLine.LineType = LineType.Solid;
+            //dont allow teleportation within collidables.
+            this.PlacementFilter = coordinate => !GameState.Drawables.GetAllCollidables.Any(c => c.BoundingBox.Contains(coordinate));
         }
 
         public override Func<object, bool> GetAction()
