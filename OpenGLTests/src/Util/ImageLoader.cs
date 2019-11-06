@@ -238,7 +238,7 @@ namespace OpenGLTests.src.Util
         }
 
         /// <summary>
-        /// Gets the int used by OpenGL to identify the texture bound from the given Images
+        /// Gets the int Used by OpenGL to identify the texture bound from the given Images
         /// </summary>
         /// <param name="spriteId"></param>
         /// <returns></returns>

@@ -11,10 +11,10 @@ namespace OpenGLTests.src.Drawables.Elements
     {
         public enum State
         {
-            used,
-            unused,
-            tobefilled,
-            locked,
+            Used,
+            Unused,
+            ToBeFilled,
+            Locked,
         }
 
         private State state;
@@ -23,20 +23,20 @@ namespace OpenGLTests.src.Drawables.Elements
             this.Animation = new Animation(new SpriteSheet_ActionPointBarStuff());
             this.Animation.SetSprite(SpriteID.ui_action_point_unused);
             this.Animation.IsStatic = true;
-            this.state = State.locked;
+            this.state = State.Locked;
         }
 
         public void SetState(State state)
         {
             switch (state)
             {
-                case State.unused: this.Animation.SetSprite(SpriteID.ui_action_point_unused);
+                case State.Unused: this.Animation.SetSprite(SpriteID.ui_action_point_unused);
                     break;
-                case State.used: this.Animation.SetSprite(SpriteID.ui_action_point_used);
+                case State.Used: this.Animation.SetSprite(SpriteID.ui_action_point_used);
                     break;
-                case State.tobefilled: this.Animation.SetSprite(SpriteID.ui_action_point_tobefilled);
+                case State.ToBeFilled: this.Animation.SetSprite(SpriteID.ui_action_point_tobefilled);
                     break;
-                case State.locked: this.Animation.SetSprite(SpriteID.ui_action_point_locked);
+                case State.Locked: this.Animation.SetSprite(SpriteID.ui_action_point_locked);
                     break;
             }
 
@@ -53,6 +53,7 @@ namespace OpenGLTests.src.Drawables.Elements
             this.Animation.IsStatic = true;
         }
     }
+
     class ActionPointBar : Element
     {
         private const int NUMBER_OF_ACTION_POINTS = 10;
@@ -61,7 +62,7 @@ namespace OpenGLTests.src.Drawables.Elements
 
         private float leftMost => this.Location.X - this.Size.X / 2;
         private float topMost => this.Location.Y + this.Size.Y/2;
-        public ActionPointBar(GLCoordinate location, GLCoordinate size, int actionPointsCount)
+        public ActionPointBar(GLCoordinate location, GLCoordinate size)
         {
             this.Size = size;
             this.Location = new GLCoordinate(location.X, location.Y + this.Size.Y/2);
@@ -73,8 +74,6 @@ namespace OpenGLTests.src.Drawables.Elements
                 actionPoints[i] = new ActionPoint();
                 actionPoints[i].Size = new GLCoordinate(this.Size.X / NUMBER_OF_ACTION_POINTS - this.Size.X/NUMBER_OF_ACTION_POINTS*0.1f, this.Size.Y * 2);
                 actionPoints[i].Location = new GLCoordinate(leftMost + this.Size.X/NUMBER_OF_ACTION_POINTS*i + actionPoints[i].Size.X/2, topMost + actionPoints[i].Size.Y/2 - 0.008f); //todo: we want to move these one pixel down but this is just insane
-                if(i < actionPointsCount) actionPoints[i].SetState(ActionPoint.State.unused);
-                else actionPoints[i].SetState(ActionPoint.State.locked);
             }
 
             GoldenThing leftGolden = new GoldenThing();
@@ -86,6 +85,18 @@ namespace OpenGLTests.src.Drawables.Elements
             goldenThings[1] = rightGolden;
 
             GameState.Drawables.Add(this);
+        }
+
+        public void OnAvailableActionPointsChanged(ActionPointData apd)
+        {
+            int used = apd.TurnsInitialActionPoints - apd.AvailableActionPoints;
+            for (int i = 0; i < NUMBER_OF_ACTION_POINTS; i++)
+            {
+                if (i < apd.AvailableActionPoints) actionPoints[i].SetState(ActionPoint.State.Unused);
+                else if(i < apd.AvailableActionPoints + apd.Stamina) actionPoints[i].SetState(ActionPoint.State.ToBeFilled);
+                else if(i < apd.TurnsInitialActionPoints + apd.Stamina) actionPoints[i].SetState(ActionPoint.State.Used);
+                else actionPoints[i].SetState(ActionPoint.State.Locked);
+            }
         }
 
         public override void DrawStep(DrawAdapter drawer)
@@ -100,6 +111,20 @@ namespace OpenGLTests.src.Drawables.Elements
             {
                 golden.DrawStep(drawer);
             }
+        }
+    }
+
+    public class ActionPointData
+    {
+        public int TurnsInitialActionPoints;
+        public int Stamina;
+        public int AvailableActionPoints;
+        
+        public ActionPointData(int turnsInitialActionPoints, int Stamina, int availableActionPoints)
+        {
+            this.TurnsInitialActionPoints = turnsInitialActionPoints;
+            this.Stamina = Stamina;
+            this.AvailableActionPoints = availableActionPoints;
         }
     }
 }

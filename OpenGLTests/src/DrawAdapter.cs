@@ -256,7 +256,7 @@ namespace OpenGLTests.src
         /// Binds an Image in OpenGL 
         /// </summary>
         /// <param name="image">The image to be bound to a texture</param>
-        /// <returns>The integer used by OpenGL to identify the created texture</returns>
+        /// <returns>The integer Used by OpenGL to identify the created texture</returns>
         public static int CreateTexture(Image image)
         {
             int id = GL.GenTexture();

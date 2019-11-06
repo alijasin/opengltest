@@ -132,7 +132,7 @@
     <None Include="App.config" />
     <None Include="OpenTK.dll.config" />
     <None Include="packages.config" />
-    <None Include="src\Drawables\Elements\ElementLocations" />
+    <None Include="src\Drawables\Elements\ElementLocations.json" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Properties\Resources.resx">

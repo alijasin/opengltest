@@ -14,31 +14,17 @@ namespace OpenGLTests.src.Drawables
 {
     public class Hero : Unit, IActionCapable
     {
-
-        public int InitialActionPoint { get; set; } = 3;
-        public int ActionPoints { get; set; } = 3;
+        //todo put all these things into some wrapper thing
+        public int BaseAvailableActionPoints { get; set; } = 5;
+        private int actionPointsAvailableAtStartOfTurn { get; set; } = 5;
         public int Stamina { get; set; } = 2;
         public InventoryButton InventoryButton;
         private Inventory Inventory;
         public ActionBar ActionBar { get; set; }
+        private ActionPointBar ActionPointBar { get; set; }
         private HashSet<Unit> AggroFrom = new HashSet<Unit>();
         private CombatTurnConfirmationButton ctcb;
-
-        private void ResetDefaultActionToMove()
-        {
-            if(ActionHandler.SelectedAction != null) ActionHandler.SelectedAction.RangeShape.Visible = false;
-            ActionBar.GetDefaultButton().OnInteraction.Invoke();
-            if(!InCombat)ActionHandler.SelectedAction.RangeShape.IsInfinite = true;//set it to infinite range
-        }
-
-        public override void OnDeath()
-        {
-            Console.WriteLine("hero died!!!!");
-        }
-
-
         public RangeShape AggroShape { get; set; }
-
         private bool waitingForActionCommit = true; //todo remove this and call the commit from interaction button directly.
 
         public Hero()
@@ -51,6 +37,7 @@ namespace OpenGLTests.src.Drawables
             this.ActionHandler = new OutOfCombatActionHandler(this);
             this.Initiative = 10;
             this.HitPoints = 5;
+
             //this.AggroShape = new RangeCircle(new GLCoordinate(0, 0), this);
             initActionBar();
             InCombat = false;
@@ -58,7 +45,6 @@ namespace OpenGLTests.src.Drawables
             ResetDefaultActionToMove();
             initGUI();
         }
-
 
         private void initActionBar()
         {
@@ -99,8 +85,34 @@ namespace OpenGLTests.src.Drawables
 
             GameState.Drawables.Add(InventoryButton);
             //GameState.Drawables.Add(new HeartBar(new GLCoordinate(0, -0.86f)));
-            var apb = new ActionPointBar(new GLCoordinate(new GLCoordinate(ActionBar.Location.X, ActionBar.Location.Y + ActionBar.Size.Y/2)), new GLCoordinate(ActionBar.Size.X, 0.03f), ActionPoints);
+            ActionPointBar = new ActionPointBar(new GLCoordinate(new GLCoordinate(ActionBar.Location.X, ActionBar.Location.Y + ActionBar.Size.Y/2)), new GLCoordinate(ActionBar.Size.X, 0.03f));
+            this.AvailableActionPoints = 5; //needs to be after ACTIONPOINTSBAR for it to be updated properly initially
+            
         }
+
+        private void ResetDefaultActionToMove()
+        {
+            if (ActionHandler.SelectedAction != null) ActionHandler.SelectedAction.RangeShape.Visible = false;
+            ActionBar.GetDefaultButton().OnInteraction.Invoke();
+            if (!InCombat) ActionHandler.SelectedAction.RangeShape.IsInfinite = true;//set it to infinite range
+        }
+
+        public override int AvailableActionPoints
+        {
+            set
+            {
+                base.AvailableActionPoints = value;
+                if (base.AvailableActionPoints > 10) AvailableActionPoints = 10;
+                if(ActionPointBar != null) ActionPointBar.OnAvailableActionPointsChanged(new ActionPointData(actionPointsAvailableAtStartOfTurn, Stamina, AvailableActionPoints));
+            }
+        }
+
+
+        public override void OnDeath()
+        {
+            Console.WriteLine("hero died!!!!");
+        }
+
 
         public override void CombatStep(Fight fight)
         {
@@ -115,8 +127,7 @@ namespace OpenGLTests.src.Drawables
             if (ActionStatus == ActionReturns.Finished || ActionStatus == ActionReturns.AllFinished)
             {
                 CombatIndex = 0;
-                ActionPoints--;
-                if (ActionPoints == 0)
+                if (AvailableActionPoints == 0)
                 {
                     Console.WriteLine(this + " ran out of action points. Force ending turn.");
                     EndedTurn = true;
@@ -154,7 +165,8 @@ namespace OpenGLTests.src.Drawables
 
             CombatIndex = 0;
             EndedTurn = false;
-            ActionPoints += Stamina;
+            AvailableActionPoints += Stamina;
+            actionPointsAvailableAtStartOfTurn = AvailableActionPoints;
         }
 
         public void Deaggro(Unit deAggroed)
@@ -179,7 +191,7 @@ namespace OpenGLTests.src.Drawables
             ResetDefaultActionToMove();
             ctcb.Enabled = true;
 
-            ActionPoints = InitialActionPoint;
+            AvailableActionPoints = BaseAvailableActionPoints;
         }
 
         public override void OnAggro(Unit aggroed)

@@ -116,7 +116,7 @@ namespace OpenGLTests.src
             Owner = owner;
         }
 
-        public abstract void TryPlaceAction(GameAction action, GameCoordinate location);
+        public abstract bool TryPlaceAction(GameAction action, GameCoordinate location);
 
         public abstract ActionReturns CommitActions(object args);
 
@@ -128,6 +128,7 @@ namespace OpenGLTests.src
             {
                 TryPlaceAction(SelectedAction, mouseLocation);
             }
+
             SelectedAction.RangeShape.Visible = false;
         }
 
@@ -153,13 +154,19 @@ namespace OpenGLTests.src
             SubsequentlyPlacedActions = new SubsequentlyPlacedActions();
         }
 
-        public override void TryPlaceAction(GameAction action, GameCoordinate location)
+        public override bool TryPlaceAction(GameAction action, GameCoordinate location)
         {
             if (action.RangeShape.Contains(location) || action.RangeShape.IsInfinite || action.IsInstant || action.ForcePlaced)
             {
-                SubsequentlyPlacedActions.Add(action);
-                action.Place(location, SelectedActionIcon);
+                if (action.PayPreConditions())
+                {
+                    SubsequentlyPlacedActions.Add(action);
+                    action.Place(location, SelectedActionIcon);
+                    return true;
+                }
             }
+
+            return false;
         }
 
         public override ActionReturns CommitActions(object args)
@@ -248,12 +255,13 @@ namespace OpenGLTests.src
 
         }
 
-        public override void TryPlaceAction(GameAction action, GameCoordinate location)
+        public override bool TryPlaceAction(GameAction action, GameCoordinate location)
         {
             //If clicked within range or if the range is infinite
             if (action.IsInstant)
             {
                 PlacedActions.Add(action);
+                return true;
             }
             else if (action.RangeShape.IsInfinite || action.RangeShape.Contains(location))
             {
@@ -262,7 +270,10 @@ namespace OpenGLTests.src
 
                 action.Place(location, SelectedActionIcon);
                 PlacedActions.Add(action);
+                return true;
             }
+
+            return false;
         }
 
         public override void OnMouseDown(GameCoordinate mouseLocation)

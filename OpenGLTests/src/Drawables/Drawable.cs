@@ -200,6 +200,8 @@ namespace OpenGLTests.src.Drawables
     {
         //todo fix decorators
         [JsonIgnore]
+        public virtual int AvailableActionPoints { get; set; } = 3;
+        [JsonIgnore]
         public RangeShape AggroShape { get; set; }
         [JsonIgnore]
         public ActionHandler ActionHandler { get; set; }

@@ -41,7 +41,7 @@ namespace OpenGLTests.src
         public bool ForcePlaced { get; set; } = false;
         public virtual Func<GameCoordinate, bool> PlacementFilter { get; set; } = coordinate => true;
         protected Unit Source { get; set; }
-
+        protected int ActionPointCost = 0;
 
         public GameAction() : this(null)
         {
@@ -91,6 +91,17 @@ namespace OpenGLTests.src
         public void SetRangeShape(RangeShape r)
         {
             this.RangeShape = r;
+        }
+
+        public virtual bool PayPreConditions()
+        { 
+            if (Source.AvailableActionPoints >= this.ActionPointCost)
+            {
+                Source.AvailableActionPoints -= this.ActionPointCost;
+                return true;
+            }
+
+            return false;
         }
 
         public virtual Action OnSelected { get; set; } = () => { };
@@ -235,6 +246,7 @@ namespace OpenGLTests.src
             RangeShape = new RangeShape(new Circle(new GLCoordinate(0.8f, 0.7f)), source);
             this.Marker = new ActionMarker(RangeShape.Location);
             this.ActionLine.LineType = LineType.Solid;
+            this.ActionPointCost = 2;
             PlacementFilter = coordinate =>
             {
                 //only placeable on collidables.
@@ -544,7 +556,7 @@ namespace OpenGLTests.src
         /// </summary>
         /// <param name="n">times out of</param>
         /// <param name="r">r</param>
-        public ChillAction(int n = 25, int r = 100)
+        public ChillAction(int n = 1, int r = 100)
         {
             this.n = n;
             this.r = r;
@@ -621,6 +633,7 @@ namespace OpenGLTests.src
             RangeShape = new RangeShape(new Circle(radius), hero);
             this.Marker = new MoveMarker(RangeShape.Location);
             this.ActionLine.LineType = LineType.Solid;
+            this.ActionPointCost = 1;
         }
 
         public override Func<object, bool> GetAction()

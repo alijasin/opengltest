@@ -13,7 +13,7 @@ namespace OpenGLTests.src.Drawables.Entities
             this.Location = Location;
             this.AggroShape = new RangeShape(new Fan(0.4f, 80), this);
             this.AggroShape.Visible = true;
-            this.Speed = new GameCoordinate(0.01f, 0.01f);
+            this.Speed = new GameCoordinate(0.005f, 0.005f);
             this.ActionPattern = new CustomPattern(new MoveAroundAndChill(this), new DebugPattern(this));
             this.ActionPattern.Loop = true;
             Animation = new Animation(new SpriteSheet_BigZombieRun());
