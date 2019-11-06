@@ -61,6 +61,7 @@
     <Compile Include="src\Camera.cs" />
     <Compile Include="src\Drawables\Elements\ActionBar.cs" />
     <Compile Include="src\Drawables\Elements\ActionMarker.cs" />
+    <Compile Include="src\Drawables\Elements\ActionPointBar.cs" />
     <Compile Include="src\Drawables\Elements\Button.cs" />
     <Compile Include="src\Drawables\Crate.cs" />
     <Compile Include="src\Drawables\Elements\Heart.cs" />
@@ -1140,6 +1141,12 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="known bugs.txt" />
+    <None Include="Resources\action_point_bar.png" />
+    <None Include="Resources\action_point_used.png" />
+    <None Include="Resources\action_point_unused.png" />
+    <None Include="Resources\action_point_tobefilled.png" />
+    <None Include="Resources\action_point_locked.png" />
+    <None Include="Resources\action_point_golden.png" />
     <None Include="Resources\bear_trap_closed.png" />
     <None Include="Resources\bag_closed.png" />
     <None Include="Resources\bag_open.png" />

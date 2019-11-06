@@ -146,6 +146,20 @@ namespace OpenGLTests.src
         { }
     }
 
+    class SpriteSheet_ActionPointBarStuff : SpriteSheet
+    {
+        public SpriteSheet_ActionPointBarStuff() : base(new Dictionary<SpriteID, int>()
+        {
+            { SpriteID.ui_action_point_bar       , 12},
+            { SpriteID.ui_action_point_locked    , 12},
+            { SpriteID.ui_action_point_used      , 12},
+            { SpriteID.ui_action_point_unused    , 12},
+            { SpriteID.ui_action_point_tobefilled, 12},
+            { SpriteID.ui_action_point_golden    , 12}
+        })
+        { }
+    }
+
     class SpriteSheet_BrickGate : SpriteSheet
     {
         public SpriteSheet_BrickGate() : base(new Dictionary<SpriteID, int>()

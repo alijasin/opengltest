@@ -105,6 +105,15 @@ namespace OpenGLTests.src.Util
         ui_load_button,
         ui_rotate_button,
         ui_save_button,
+
+
+        ui_action_point_bar,
+        ui_action_point_locked,
+        ui_action_point_used,
+        ui_action_point_unused,
+        ui_action_point_tobefilled,
+        ui_action_point_golden,
+
     }
     static class ImageLoader
     {
@@ -206,6 +215,13 @@ namespace OpenGLTests.src.Util
             Images[SpriteID.ui_facing_button] = new Bitmap(Properties.Resources.ui_facing_button);
             Images[SpriteID.ui_rotate_button] = new Bitmap(Properties.Resources.ui_rotate_button);
             Images[SpriteID.ui_save_button] = new Bitmap(Properties.Resources.ui_save_button);
+
+            Images[SpriteID.ui_action_point_bar] = new Bitmap(Properties.Resources.action_point_bar);
+            Images[SpriteID.ui_action_point_locked] = new Bitmap(Properties.Resources.action_point_locked);
+            Images[SpriteID.ui_action_point_used] = new Bitmap(Properties.Resources.action_point_used);
+            Images[SpriteID.ui_action_point_unused] = new Bitmap(Properties.Resources.action_point_unused);
+            Images[SpriteID.ui_action_point_tobefilled] = new Bitmap(Properties.Resources.action_point_tobefilled);
+            Images[SpriteID.ui_action_point_golden] = new Bitmap(Properties.Resources.action_point_golden);
 
             Images[SpriteID.missing] = new Bitmap(Properties.Resources.empty);
             //foreach (var image in Enum.GetValues(typeof(SpriteID)).Cast<SpriteID>())
