@@ -42,7 +42,8 @@ namespace OpenGLTests.src
         public virtual Func<GameCoordinate, bool> PlacementFilter { get; set; } = coordinate => true;
         protected Unit Source { get; set; }
         protected int ActionPointCost = 0;
-        public virtual Func<NPCState, GameCoordinate> NPCActionPlacementCalculator { get; set; } = (state) => null;  
+        public virtual Func<NPCState, GameCoordinate> NPCActionPlacementCalculator { get; set; } = (state) => new GameCoordinate(0, 0); 
+        public GameCoordinate PlacedLocation { get; set; }
 
         public GameAction() : this(null)
         {
@@ -200,17 +201,21 @@ namespace OpenGLTests.src
 
     class InstantTeleport : CombatAction
     {
-        private GameCoordinate loc;
-        public InstantTeleport(GameCoordinate location, Unit source) : base(source) 
+        public InstantTeleport(GameCoordinate location, Unit source) : base(source)
         {
-            this.loc = location;
+            PlacedLocation = location;
+            NPCActionPlacementCalculator = state =>
+            {
+                return Source.Location + RNG.RandomPointWithinCircle(new GLCoordinate(0.2f, 0.2f));
+            };
         }
+
 
         public override Func<object, bool> GetAction()
         {
             return (o) =>
             {
-                Source.Location = loc;
+                Source.Location = PlacedLocation;
                 return true;
             };
         }

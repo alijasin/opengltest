@@ -64,7 +64,7 @@ namespace OpenGLTests.src.Drawables
                 CombatIndex = 0;
                 return;
             }
-            else if (status == ActionReturns.AllFinished)
+            else if (status == ActionReturns.AllFinished || status == ActionReturns.NoAction)
             {
                 CombatIndex = 0;
                 EndedTurn = false;

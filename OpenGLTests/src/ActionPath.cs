@@ -156,8 +156,10 @@ namespace OpenGLTests.src
         {
             var Location = action.NPCActionPlacementCalculator(state);
             if (Location == null) Location = Owner.Location;
-
-            return base.TryPlaceAction(action, Location);
+            action.ForcePlaced = true;
+            action.PlacedLocation = Location;
+            return base.TryPlaceAction(action, action.PlacedLocation); 
+             
         }
     }
 

@@ -36,7 +36,6 @@ namespace OpenGLTests.src
 
         public virtual ActionReturns DoAction(object arg)
         {
-            if (Actions == null) Actions = InitPattern();
             if (Actions.Count == 0)
             {
                 //reinitialize the pattern - all randomness will be regenerated.
