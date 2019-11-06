@@ -9,7 +9,7 @@ namespace OpenGLTests.src.Drawables.Elements
 {
     class ActionPoint : Element
     {
-        enum State
+        public enum State
         {
             used,
             unused,
@@ -25,25 +25,66 @@ namespace OpenGLTests.src.Drawables.Elements
             this.Animation.IsStatic = true;
             this.state = State.locked;
         }
+
+        public void SetState(State state)
+        {
+            switch (state)
+            {
+                case State.unused: this.Animation.SetSprite(SpriteID.ui_action_point_unused);
+                    break;
+                case State.used: this.Animation.SetSprite(SpriteID.ui_action_point_used);
+                    break;
+                case State.tobefilled: this.Animation.SetSprite(SpriteID.ui_action_point_tobefilled);
+                    break;
+                case State.locked: this.Animation.SetSprite(SpriteID.ui_action_point_locked);
+                    break;
+            }
+
+            this.state = state;
+        }
+    }
+
+    class GoldenThing : Element
+    {
+        public GoldenThing()
+        {
+            this.Animation = new Animation(new SpriteSheet_ActionPointBarStuff());
+            this.Animation.SetSprite(SpriteID.ui_action_point_golden);
+            this.Animation.IsStatic = true;
+        }
     }
     class ActionPointBar : Element
     {
         private const int NUMBER_OF_ACTION_POINTS = 10;
         private ActionPoint [] actionPoints = new ActionPoint[NUMBER_OF_ACTION_POINTS];
-        
-        public ActionPointBar()
+        private GoldenThing [] goldenThings = new GoldenThing[2];
+
+        private float leftMost => this.Location.X - this.Size.X / 2;
+        private float topMost => this.Location.Y + this.Size.Y/2;
+        public ActionPointBar(GLCoordinate location, GLCoordinate size, int actionPointsCount)
         {
-            this.Location = new GLCoordinate(0, 0);
-            this.Size = new GLCoordinate(0.8f, 0.03f);
+            this.Size = size;
+            this.Location = new GLCoordinate(location.X, location.Y + this.Size.Y/2);
             this.Animation = new Animation(new SpriteSheet_ActionPointBarStuff());
             this.Animation.SetSprite(SpriteID.ui_action_point_bar);
             this.Animation.IsStatic = true;
             for (int i = 0; i < NUMBER_OF_ACTION_POINTS; i++)
             {
                 actionPoints[i] = new ActionPoint();
-                actionPoints[i].Size = new GLCoordinate(this.Size.X / NUMBER_OF_ACTION_POINTS - this.Size.X/NUMBER_OF_ACTION_POINTS*0.1f, 0.1f);
-                actionPoints[i].Location = new GLCoordinate(this.Location.X - this.Size.X/2 + this.Size.X/NUMBER_OF_ACTION_POINTS*i + actionPoints[i].Size.X/2, this.Location.Y + this.Size.Y/2 + actionPoints[i].Size.Y/2);
+                actionPoints[i].Size = new GLCoordinate(this.Size.X / NUMBER_OF_ACTION_POINTS - this.Size.X/NUMBER_OF_ACTION_POINTS*0.1f, this.Size.Y * 2);
+                actionPoints[i].Location = new GLCoordinate(leftMost + this.Size.X/NUMBER_OF_ACTION_POINTS*i + actionPoints[i].Size.X/2, topMost + actionPoints[i].Size.Y/2 - 0.008f); //todo: we want to move these one pixel down but this is just insane
+                if(i < actionPointsCount) actionPoints[i].SetState(ActionPoint.State.unused);
+                else actionPoints[i].SetState(ActionPoint.State.locked);
             }
+
+            GoldenThing leftGolden = new GoldenThing();
+            GoldenThing rightGolden = new GoldenThing();
+            leftGolden.Size = rightGolden.Size = new GLCoordinate(0.02f, this.Size.Y*2);
+            leftGolden.Location = new GLCoordinate(leftMost - leftGolden.Size.X / 2, this.Location.Y);
+            rightGolden.Location = new GLCoordinate(leftMost + this.Size.X, this.Location.Y);
+            goldenThings[0] = leftGolden;
+            goldenThings[1] = rightGolden;
+
             GameState.Drawables.Add(this);
         }
 
@@ -53,6 +94,11 @@ namespace OpenGLTests.src.Drawables.Elements
             foreach (var ap in actionPoints)
             {
                 ap.DrawStep(drawer);
+            }
+
+            foreach (var golden in goldenThings)
+            {
+                golden.DrawStep(drawer);
             }
         }
     }

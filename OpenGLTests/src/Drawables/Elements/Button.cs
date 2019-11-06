@@ -156,7 +156,7 @@ namespace OpenGLTests.src.Drawables
         public InventoryButton(GLCoordinate relativeLoc, Inventory i)
         {
             this.Size = new GLCoordinate(0.2f, 0.2f);
-            this.Location = new GLCoordinate(relativeLoc.X - this.Size.X/2, relativeLoc.Y + this.Size.Y / 2);
+            this.Location = new GLCoordinate(relativeLoc.X + this.Size.X/2, relativeLoc.Y + this.Size.Y / 2);
             this.Animation = new Animation(new SpriteSheet_Icons());
             this.Animation.SetSprite(SpriteID.bag_closed);
             this.Animation.IsStatic = true;

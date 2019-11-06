@@ -95,9 +95,11 @@ namespace OpenGLTests.src.Drawables
             Inventory.Add(new GrowingPoition(this));
             Inventory.Add(new RedPotion(this));
             Inventory.Add(new Apple(this));
-            InventoryButton = new InventoryButton(new GLCoordinate(ActionBar.Location.X - ActionBar.Size.X / 2, ActionBar.Location.Y), Inventory);
+            InventoryButton = new InventoryButton(new GLCoordinate(-1, ActionBar.Location.Y), Inventory);
+
             GameState.Drawables.Add(InventoryButton);
             //GameState.Drawables.Add(new HeartBar(new GLCoordinate(0, -0.86f)));
+            var apb = new ActionPointBar(new GLCoordinate(new GLCoordinate(ActionBar.Location.X, ActionBar.Location.Y + ActionBar.Size.Y/2)), new GLCoordinate(ActionBar.Size.X, 0.03f), ActionPoints);
         }
 
         public override void CombatStep(Fight fight)

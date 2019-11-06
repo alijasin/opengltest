@@ -19,7 +19,7 @@ namespace OpenGLTests.src.Drawables
         {
             this.Visible = false;
             this.Size = new GLCoordinate(rows*InventorySlot.StandardSize.X + (rows+1)*(fodder), columns * InventorySlot.StandardSize.Y + (columns + 1) * (fodder));
-            this.Location = new GLCoordinate(-1 + this.Size.X / 2, -1 + this.Size.Y / 2);
+            this.Location = new GLCoordinate(-1 + this.Size.X/2, -1 + this.Size.Y / 2 + 0.2f);
             this.Owner = owner;
             this.Color = Color.Purple;
             this.Depth = 11;
