@@ -15,8 +15,8 @@ namespace OpenGLTests.src.Drawables
             this.Location = location;
             this.Animation = new Animation(new SpriteSheet_Swamper());
             this.Color = Color.PaleGreen;
-            this.ActionPattern = new SwamperTeleportPattern(this, new GLCoordinate(0.3f, 0.3f));
-            this.ActionPattern.Loop = true;
+            this.OutOfCombatActionPattern = new SwamperTeleportPattern(this, new GLCoordinate(0.3f, 0.3f));
+            this.OutOfCombatActionPattern.Loop = true;
             this.Size = new GLCoordinate(0.1f, 0.1f);
             this.HitPoints = 1;
         }
@@ -30,7 +30,7 @@ namespace OpenGLTests.src.Drawables
             {
                 if (teleported == false)
                 {
-                    ActionPattern.DoAction(OutOfCombatIndex);
+                    OutOfCombatActionPattern.DoAction(OutOfCombatIndex);
                 }
                 teleported = true;
             }

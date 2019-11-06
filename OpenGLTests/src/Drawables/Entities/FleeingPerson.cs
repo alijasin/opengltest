@@ -13,8 +13,8 @@ namespace OpenGLTests.src.Drawables.Entities
             this.Location = location;
             this.Speed = new GameCoordinate(0.001f, 0.001f);
 
-            ActionPattern = new FindAndFleeEntity(this);
-            ActionPattern.Loop = true;
+            OutOfCombatActionPattern = new FindAndFleeEntity(this);
+            OutOfCombatActionPattern.Loop = true;
 
             Animation = new Animation(new SpriteSheet_LizardRun());
         }

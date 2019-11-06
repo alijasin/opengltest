@@ -32,3 +32,6 @@ d4i2
 
 Out of combat I want to be able to make a new move while im doing another move. SO I want to be able to cancel the current move.
 d5i3
+
+Hero can place actions while not its turn. This will cost the hero action points but move will not execute.
+d4i8

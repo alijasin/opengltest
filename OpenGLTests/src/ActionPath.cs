@@ -145,6 +145,22 @@ namespace OpenGLTests.src
         public abstract void Dispose();
     }
 
+    public class NPCCombatActionHandler : CombatActionHandler
+    {
+        public NPCCombatActionHandler(IActionCapable owner) : base(owner)
+        {
+
+        }
+
+        public bool TryPlaceAction(GameAction action, NPCState state)
+        {
+            var Location = action.NPCActionPlacementCalculator(state);
+            if (Location == null) Location = Owner.Location;
+
+            return base.TryPlaceAction(action, Location);
+        }
+    }
+
     public class CombatActionHandler : ActionHandler
     {
         private SubsequentlyPlacedActions SubsequentlyPlacedActions;

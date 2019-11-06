@@ -11,16 +11,32 @@ using Console = System.Console;
 namespace OpenGLTests.src
 {
     /// <summary>
-    /// Contains a list of game actions that will be executed and returns the execution status.
+    /// Contains a list of game actions that will be executed in turn and returns the game actions execution status.
+    /// Execution statuses can be: AllFinished, Finished, Ongoing, Placing, .. And are enumerated in "ActionReturns"
     /// </summary>
     public abstract class ActionPattern
     {
         public abstract List<GameAction> InitPattern();
-        public List<GameAction> Actions = new List<GameAction>();
+
+        private List<GameAction> actions;
+        public List<GameAction> Actions
+        {
+            get
+            {
+                if (actions == null)
+                {
+                    actions = InitPattern();
+                }
+                return actions;
+            }
+            set { this.actions = value; }
+        }
+
         public bool Loop = false;
 
         public virtual ActionReturns DoAction(object arg)
         {
+            if (Actions == null) Actions = InitPattern();
             if (Actions.Count == 0)
             {
                 //reinitialize the pattern - all randomness will be regenerated.
@@ -54,10 +70,24 @@ namespace OpenGLTests.src
         }
     }
 
-    class CustomPattern : ActionPattern
+    class TailoredPattern : ActionPattern
+    {
+        List<GameAction> actions = new List<GameAction>();
+        public TailoredPattern(params GameAction[] actions)
+        {
+            this.actions = actions.ToList();
+        }
+
+        public override List<GameAction> InitPattern()
+        {
+            return actions;
+        }
+    }
+
+    class StitchedPattern : ActionPattern
     {
         List<ActionPattern> initialPatterns = new List<ActionPattern>();
-        public CustomPattern(params ActionPattern[] patterns)
+        public StitchedPattern(params ActionPattern[] patterns)
         {
             initialPatterns = patterns.ToList();
         }
@@ -105,7 +135,6 @@ namespace OpenGLTests.src
         {
             this.source = source;
             this.range = range;
-            InitPattern();
         }
 
         public override List<GameAction> InitPattern()
@@ -187,7 +216,6 @@ namespace OpenGLTests.src
         {
             this.source = source;
             this.patrolDelta = patrolDelta;
-            InitPattern();
         }
 
         public override List<GameAction> InitPattern()

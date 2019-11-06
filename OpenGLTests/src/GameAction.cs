@@ -42,6 +42,7 @@ namespace OpenGLTests.src
         public virtual Func<GameCoordinate, bool> PlacementFilter { get; set; } = coordinate => true;
         protected Unit Source { get; set; }
         protected int ActionPointCost = 0;
+        public virtual Func<NPCState, GameCoordinate> NPCActionPlacementCalculator { get; set; } = (state) => null;  
 
         public GameAction() : this(null)
         {

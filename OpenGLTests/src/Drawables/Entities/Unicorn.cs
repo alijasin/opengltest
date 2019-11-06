@@ -11,12 +11,12 @@ namespace OpenGLTests.src.Drawables
         private ParticleGenerator pg;
         public Unicorn(GameCoordinate location, Unit chasing)
         {
-            ActionPattern = new FindAndChaseEntity(this);
+            OutOfCombatActionPattern = new FindAndChaseEntity(this);
 
             this.Location = location;
             //this.Speed = new GameCoordinate(0.01f, 0.005f);
             pg = new ParticleGenerator(80, this.Location);
-            //ActionPattern.Loop = true;
+            //OutOfCombatActionPattern.Loop = true;
         }
 
         public override void DrawStep(DrawAdapter drawer)

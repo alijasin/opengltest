@@ -13,8 +13,8 @@ namespace OpenGLTests.src.Drawables.Entities
             this.Speed = new GameCoordinate(0.01f, 0.005f);
             this.Location = location;
 
-            ActionPattern = new NeverEndingPatrol(this, new GameCoordinate(0.2f, 0));
-            ActionPattern.Loop = true;
+            OutOfCombatActionPattern = new NeverEndingPatrol(this, new GameCoordinate(0.2f, 0));
+            OutOfCombatActionPattern.Loop = true;
 
             Animation = new Animation(new SpriteSheet_OgreRun());
         }

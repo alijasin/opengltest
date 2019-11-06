@@ -10,9 +10,16 @@ using OpenGLTests.src.Util;
 
 namespace OpenGLTests.src.Drawables
 {
-    public abstract class Hostile : Unit, ICollidable, IActionCapable
+    public enum NPCState
     {
-        protected ActionPattern ActionPattern;
+        Scared,
+        Angry,
+
+    }
+    public abstract class Hostile : Unit, ICollidable
+    {
+        protected ActionPattern OutOfCombatActionPattern;
+        protected ActionPattern CombatActionPattern;
         private Unit currentAggro;
         public bool Phased { get; set; } = false;
         public RangeShape BoundingBox { get; set; }
@@ -40,7 +47,7 @@ namespace OpenGLTests.src.Drawables
         {
             if (InCombat) return;
             ActionHandler.Dispose();
-            ActionHandler = new CombatActionHandler(this);
+            ActionHandler = new NPCCombatActionHandler(this);
             currentAggro = aggroed;
             if(InCombat == false) EnteredCombat(aggroed);
             InCombat = true;
@@ -68,9 +75,9 @@ namespace OpenGLTests.src.Drawables
 
         public override void OutOfCombatStep()
         {
-            if (ActionPattern != null)
+            if (OutOfCombatActionPattern != null)
             {
-                var status = ActionPattern.DoAction(OutOfCombatIndex);
+                var status = OutOfCombatActionPattern.DoAction(OutOfCombatIndex);
                 if (status == ActionReturns.AllFinished || status == ActionReturns.Finished) OutOfCombatIndex = 0;
                 else OutOfCombatIndex++;
             }
@@ -83,18 +90,20 @@ namespace OpenGLTests.src.Drawables
 
         public override void OnPreTurn()
         {
-            ActionHandler.TryPlaceAction(new GrowAction(this), this.Location);
-            ActionHandler.TryPlaceAction(new TurnRedAction(this), this.Location);
-            var xd = new InstantTeleport(this.Location + new GameCoordinate(0.4f, 0.4f), this);
-            xd.ForcePlaced = true;
-            ActionHandler.TryPlaceAction(xd, this.Location + new GameCoordinate(0.4f, 0.4f));
+            if (CombatActionPattern == null || ActionHandler == null) return;
+
+            foreach (var ca in CombatActionPattern.Actions)
+            {
+                var combatActionHandler = ActionHandler as NPCCombatActionHandler; //todo dont.
+                combatActionHandler.TryPlaceAction(ca, NPCState.Angry);
+            }
         }
 
         public override void Dispose()
         {
             base.Dispose();
             if(AggroShape != null) AggroShape.Dispose();
-            if(ActionPattern != null) ActionPattern.Dispose();
+            if(OutOfCombatActionPattern != null) OutOfCombatActionPattern.Dispose();
         }
 
         protected void Add()

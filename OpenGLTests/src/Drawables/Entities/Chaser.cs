@@ -13,8 +13,8 @@ namespace OpenGLTests.src.Drawables.Entities
             this.Location = location;
             this.Speed = new GameCoordinate(0.001f, 0.001f);
 
-            ActionPattern = new FindAndChaseEntity(this);
-            ActionPattern.Loop = true;
+            OutOfCombatActionPattern = new FindAndChaseEntity(this);
+            OutOfCombatActionPattern.Loop = true;
 
             Animation = new Animation(new SpriteSheet_BigDemonRun());
         }
