@@ -14,8 +14,8 @@ namespace OpenGLTests.src
     class GibbWindow : GameWindow
     {
         public Action<DrawAdapter> RenderCallback { get; private set; }
-        public const int WIDTH = 720;
-        public const int HEIGHT = 720;
+        public static int WIDTH = 720;
+        public static int HEIGHT = 720;
         public GibbWindow(Action<DrawAdapter> renderCallback) : base(WIDTH, HEIGHT, new OpenTK.Graphics.GraphicsMode(32, 24, 0, 8))
         {
             ImageLoader.Init();
@@ -43,6 +43,16 @@ namespace OpenGLTests.src
             GL.DeleteVertexArrays(1, ref _vertexArray);
             GL.DeleteProgram(_program);
             base.Exit();
+        }
+
+        protected override void OnResize(EventArgs e)
+        {
+            base.OnResize(e);
+
+            GL.Viewport(0,0, Width,Height);
+            GL.Ortho(0, Height, Width, 0, 0, 0);
+            WIDTH = Width;
+            HEIGHT = Height;
         }
 
         protected override void OnRenderFrame(FrameEventArgs e)
