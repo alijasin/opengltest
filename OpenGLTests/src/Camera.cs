@@ -109,12 +109,32 @@ namespace OpenGLTests.src
             this.following = following;
         }
 
+
         public override GameCoordinate Location
         {
             get
             {
                 if (this.following?.Location == null) return new GameCoordinate(0, 0);
                 return this.following.Location;
+            }
+        }
+    }
+
+    public class FightCamera : Camera
+    {
+        private Fight f;
+        public void SetFight(Fight f)
+        {
+            this.f = f;
+        }
+
+        public override GameCoordinate Location
+        {
+            get
+            {
+                if(f == null) return new GameCoordinate(0, 0);
+                if (this.f.GetCurrentTurn()?.Location == null) return new GameCoordinate(0, 0);
+                return this.f.GetCurrentTurn()?.Location;
             }
         }
     }

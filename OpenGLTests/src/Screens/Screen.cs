@@ -21,7 +21,6 @@ namespace OpenGLTests.src
     {
         public abstract void Draw(DrawAdapter drawer);
         protected List<HotkeyMapping> Keybindings { get; } = new List<HotkeyMapping>();
-        public static Camera ActiveCamera { get; set; } = new MovableCamera(new GameCoordinate(0,0));
 
         public Screen()
         {

@@ -20,6 +20,7 @@ namespace OpenGLTests.src.Drawables
         public int Stamina { get; set; } = 2;
         public InventoryButton InventoryButton;
         private Inventory Inventory;
+        public Player Player { get; set; }
         public ActionBar ActionBar { get; set; }
         private ActionPointBar ActionPointBar { get; set; }
         private HashSet<Unit> AggroFrom = new HashSet<Unit>();
@@ -192,6 +193,8 @@ namespace OpenGLTests.src.Drawables
             ctcb.Enabled = true;
 
             AvailableActionPoints = BaseAvailableActionPoints;
+
+            Player.SetCameraToDefault();
         }
 
         public override void OnAggro(Unit aggroed)
@@ -209,16 +212,5 @@ namespace OpenGLTests.src.Drawables
             waitingForActionCommit = true;
             ResetDefaultActionToMove();
         }
-        /*
-        public void TestOnClick(GameCoordinate xd)
-        {
-            clicked = new GameCoordinate(xd.X, xd.Y);
-        }
-        GameCoordinate clicked = new GameCoordinate(0, 0);
-        public override void DrawStep(DrawAdapter drawer)
-        {
-            base.DrawStep(drawer);
-            drawer.DrawFan(this.Location.ToGLCoordinate(), clicked, 0.5f, 60);
-        }*/
     }
 }

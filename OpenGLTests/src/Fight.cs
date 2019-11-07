@@ -45,6 +45,13 @@ namespace OpenGLTests.src
             GameState.Drawables.Add(this);
         }
 
+        public List<Hero> Heroes()
+        {
+            List<Hero> heroes = new List<Hero>();
+            heroes.AddRange(FighterQueue.Where(f => f.Unit is Hero).Select(f => f.Unit).Cast<Hero>().ToList());
+            return heroes;
+        }
+
         public bool LastManStanding()
         {
             foreach (var toRem in toRemove.ToList())

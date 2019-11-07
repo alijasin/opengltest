@@ -15,23 +15,18 @@ namespace OpenGLTests.src
 {
     public class GameState
     {
+        public static List<Player> Players { get; set; }
         public Hero Hero { get; set; }
         public static DrawableRepository Drawables = new DrawableRepository();
         public static List<StatusEffect> Effects = new List<StatusEffect>();
-        public static RainGenerator
-            RainGenerator = new RainGenerator(RainGenerator.RainType.Clear); //todo: move to drawable
+        public static RainGenerator RainGenerator = new RainGenerator(RainGenerator.RainType.Clear); //todo: move to drawable
 
         public GameState()
         {
-            for (int x = -10; x < 20; x++)
-            {
-                for (int y = -10; y < 20; y++)
-                {
-                    //  GameState.Drawables.Add(new Floor(new GameCoordinate(0.1f * x, 0.1f * y)));
-                }
-            }
-
+            Players = new List<Player>();
             Hero = new Hero();
+            Players.Add(new Player(Hero));
+
             Drawables.Add(Hero);
             Drawables.Add(new RoomLoadRegion(new GameCoordinate(0.8f, 0.8f), RoomLoader.Room.TestSpace));
             Drawables.Add(new FanBoy(new GameCoordinate(0.5f, 0)));
@@ -39,35 +34,6 @@ namespace OpenGLTests.src
             Drawables.Add(new BearTrap(new GameCoordinate(0, 0.2f)));
 
             RoomLoader.LoadRoom(RoomLoader.Room.TestEditorOutPut);
-
-            //todo refactor this into screen
-            var followCamera = new FollowCamera(Hero);
-            var staticCamera = new MovableCamera(Hero.Location);
-            var hybridCamera = new HybridCamera(Hero);
-
-            Screen.ActiveCamera = hybridCamera;
-
-            Button testbutton = new Button();
-            testbutton.Location = new GLCoordinate(-1, 1);
-            testbutton.OnInteraction = () =>
-            {
-                Console.WriteLine("Camera swap");
-                if (Screen.ActiveCamera is MovableCamera)
-                {
-                    Screen.ActiveCamera = hybridCamera;
-                }
-                else if (Screen.ActiveCamera is FollowCamera)
-                {
-                    Screen.ActiveCamera = staticCamera;
-                }
-                else if (Screen.ActiveCamera is HybridCamera)
-                {
-                    Screen.ActiveCamera = followCamera;
-                }
-
-                Screen.ActiveCamera.Location = Hero.Location;
-            };
-            Drawables.Add(testbutton);
         }
 
         //todo: create class room and let room load entities from a file.
@@ -101,7 +67,8 @@ namespace OpenGLTests.src
 
         public void Step()
         {
-            Screen.ActiveCamera.Step();
+            foreach(var playa in Players) playa.ActiveCamera.Step();
+
             if (initStepsCount < initSteps)
             {
                 initStepsCount++;
@@ -154,6 +121,13 @@ namespace OpenGLTests.src
             if (!fight.LastManStanding())
             {
                 var currentFighter = fight.GetCurrentTurn();
+
+                foreach (var h in fight.Heroes())
+                {
+                    if(h == currentFighter) h.Player.SetCameraToDefault();
+                    else h.Player.SetFightCamera(fight);
+                }
+
                 if (currentFighter != null) //redundant?
                 {
                     currentFighter.CombatStep(fight);

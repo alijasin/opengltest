@@ -22,8 +22,6 @@ namespace OpenGLTests.src.Screens
 
             //Cursor.Draw();
 
-            //todo: i think theres a bug and with adding and removing entities while we are drawing. Fix this so we don't have to try catch and sometimes not render.
-
             object l = true;
 
             lock (l)
@@ -50,26 +48,26 @@ namespace OpenGLTests.src.Screens
             // Keyboard
             Bind(new Hotkey(
                 input => input.IsKeyboardInput && input.KeyboardArgs.Key == OpenTK.Input.Key.D,
-                _ => ActiveCamera.Speed.X = ActiveCamera.BaseSpeed.X,
-                _ => ActiveCamera.Speed.X = 0
+                _ => GameState.Players.ForEach(p => p.ActiveCamera.Speed.X = p.ActiveCamera.BaseSpeed.X),
+                _ => GameState.Players.ForEach(p => p.ActiveCamera.Speed.X = 0)
             ));
 
             Bind(new Hotkey(
                 input => input.IsKeyboardInput && input.KeyboardArgs.Key == OpenTK.Input.Key.A,
-                _ => ActiveCamera.Speed.X = -ActiveCamera.BaseSpeed.X,
-                _ => ActiveCamera.Speed.X = 0
+                _ => GameState.Players.ForEach(p => p.ActiveCamera.Speed.X = -p.ActiveCamera.BaseSpeed.X),
+                _ => GameState.Players.ForEach(p => p.ActiveCamera.Speed.X = 0)
             ));
 
             Bind(new Hotkey(
                 input => input.IsKeyboardInput && input.KeyboardArgs.Key == OpenTK.Input.Key.W,
-                _ => ActiveCamera.Speed.Y = -ActiveCamera.BaseSpeed.Y,
-                _ => ActiveCamera.Speed.Y = 0
+                _ => GameState.Players.ForEach(p => p.ActiveCamera.Speed.Y = -p.ActiveCamera.BaseSpeed.Y),
+                _ => GameState.Players.ForEach(p => p.ActiveCamera.Speed.Y = 0)
             ));
 
             Bind(new Hotkey(
                 input => input.IsKeyboardInput && input.KeyboardArgs.Key == OpenTK.Input.Key.S,
-                _ => ActiveCamera.Speed.Y = ActiveCamera.BaseSpeed.Y,
-                _ => ActiveCamera.Speed.Y = 0
+                _ => GameState.Players.ForEach(p => p.ActiveCamera.Speed.Y = p.ActiveCamera.BaseSpeed.Y),
+                _ => GameState.Players.ForEach(p => p.ActiveCamera.Speed.Y = 0)
             ));
 
             Bind(new Hotkey(
