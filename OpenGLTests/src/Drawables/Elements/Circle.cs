@@ -130,17 +130,16 @@ namespace OpenGLTests.src.Drawables
         {
             var x = Math.Abs(point.X - location.X);
             var y = Math.Abs(point.Y - location.Y);
+
             //true if point within Length
             var withinRadius = (x * x + y * y < Length * Length);
-
 
             //calculate point angle relative to location. 
             var angleDeg= angleDegrees(location, MovingTowardsPoint);
             var angle1 = ((angleDeg - Degrees / 2) + 360) % 360; //turn [-180, 180] to [0, 360]
             var angle2 = (angleDeg + Degrees / 2);
             var pointAngleDeg = angleDegrees(location, point);
-            //Console.WriteLine(angle1 + ", " + angle2);
-            Console.WriteLine("angle2 " + angle2 + ", " + pointAngleDeg);
+
             //true if point angle relative to location is within fan width
             var withinAngle = ((pointAngleDeg >= angle1 || pointAngleDeg <= Math.Abs(angle1-360)) && (pointAngleDeg <= angle2 || Math.Abs(pointAngleDeg-360) <= angle2));
 

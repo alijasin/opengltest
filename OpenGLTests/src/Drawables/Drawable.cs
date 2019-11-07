@@ -183,6 +183,31 @@ namespace OpenGLTests.src.Drawables
         }
     }
 
+    public abstract class Weapon : Entity
+    {
+        public int Rotation { get; set; } = 0;
+        public Unit Owner;
+        public override GameCoordinate Location
+        {
+            get
+            {
+                if(Owner == null) return new GameCoordinate(0,0);
+                if (Owner.Facing == Facing.Right)
+                {
+                    Rotation = 340;
+                }
+                else
+                {
+                    Rotation = 120;
+                }
+                return new GameCoordinate(Owner.LeftHandLocation().X, Owner.LeftHandLocation().Y);
+            }
+        }
+
+        public Facing GetFacing => Owner.Facing;
+
+    }
+
     public abstract class Stuff : Entity, ICollidable
     {
         protected Stuff()
@@ -215,6 +240,14 @@ namespace OpenGLTests.src.Drawables
         public GameCoordinate InitialSpeed = new GameCoordinate(0.015f, 0.015f);
         [JsonIgnore]
         public bool EndedTurn = false;
+
+        public Weapon Weapon { get; set; }
+
+        public virtual GameCoordinate LeftHandLocation()
+        {
+            return this.Location;
+        }
+
         public bool InCombat { get; set; }
         public int HitPoints { get; set; }
         public int Initiative { get; set; } = 0;
@@ -251,6 +284,12 @@ namespace OpenGLTests.src.Drawables
         public abstract void CombatStep(Fight fight);
 
         public abstract void OutOfCombatStep();
+
+        public override void DrawStep(DrawAdapter drawer)
+        {
+            base.DrawStep(drawer);
+            if(Weapon != null) Weapon.DrawStep(drawer);
+        }
     }
 
     public abstract class Effect : Entity

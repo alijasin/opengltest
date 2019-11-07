@@ -22,6 +22,42 @@ namespace OpenGLTests.src
         /// <param name="location">The location to draw the image</param>
         /// <param name="rotation">The rotation of the image in degrees</param>
 
+        public void DrawWeapon(Weapon w)
+        {
+            Sprite sprite = w.Animation.GetSprite();
+            if (sprite == null) return;
+
+            GLCoordinate location = w.Location.ToGLCoordinate();
+
+            float left, right, top, bottom;
+
+            bottom = location.Y - w.Size.Y / 2;
+            top = location.Y + w.Size.Y / 2;
+            right = location.X + w.Size.X / 2;
+            left = location.X - w.Size.X / 2;
+
+            GL.PushMatrix();
+            GL.Translate(location.X, location.Y, 0);
+            GL.Rotate((double)w.Rotation, 0, 0, 1);
+            GL.Translate(-location.X, -location.Y, 0);
+
+            GL.Enable(EnableCap.Texture2D);
+            GL.Enable(EnableCap.Blend);
+
+            GL.Color4(w.Color);
+
+            GL.BindTexture(TextureTarget.Texture2D, sprite.GLID);
+            GL.Begin(BeginMode.Quads);
+            if (w.GetFacing == Facing.Right) fillSprite(left, right, top, bottom, w);
+            else if (w.GetFacing == Facing.Left) fillSprite(right, left, top, bottom, w);
+
+            GL.End();
+            GL.Disable(EnableCap.Texture2D);
+            GL.Disable(EnableCap.Blend);
+
+            GL.PopMatrix();
+        }
+
         public void DrawEntity(Entity drawable)
         {
             Sprite sprite = drawable.Animation.GetSprite();

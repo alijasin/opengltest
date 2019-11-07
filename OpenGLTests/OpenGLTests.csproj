@@ -76,6 +76,7 @@
     <Compile Include="src\Drawables\Entities\Hero.cs" />
     <Compile Include="src\Drawables\Entities\Hostiles.cs" />
     <Compile Include="src\Drawables\Entities\House.cs" />
+    <Compile Include="src\Drawables\Entities\Katana.cs" />
     <Compile Include="src\Drawables\Entities\PatrolGuy.cs" />
     <Compile Include="src\Drawables\Entities\Rock.cs" />
     <Compile Include="src\Drawables\Entities\Tree.cs" />

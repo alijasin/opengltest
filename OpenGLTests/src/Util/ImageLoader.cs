@@ -90,6 +90,7 @@ namespace OpenGLTests.src.Util
 
         crate,
         weapon_golden_sword,
+        weapon_katana,
 
         action_move,
         action_attack,
@@ -147,6 +148,7 @@ namespace OpenGLTests.src.Util
             Images[SpriteID.big_demon_run_anim_f3] = new Bitmap(Properties.Resources.big_demon_run_anim_f3);
             
             Images[SpriteID.weapon_golden_sword] = new Bitmap(Properties.Resources.weapon_golden_sword);
+            Images[SpriteID.weapon_katana] = new Bitmap(Properties.Resources.weapon_katana);
 
             Images[SpriteID.ogre_run_anim_f0] = new Bitmap(Properties.Resources.ogre_run_anim_f0);
             Images[SpriteID.ogre_run_anim_f1] = new Bitmap(Properties.Resources.ogre_run_anim_f1);

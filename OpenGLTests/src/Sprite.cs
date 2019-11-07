@@ -140,6 +140,7 @@ namespace OpenGLTests.src
         public SpriteSheet_Weapon() : base(new Dictionary<SpriteID, int>()
         {
             { SpriteID.weapon_golden_sword, 12 },
+            { SpriteID.weapon_katana, 12 },
             { SpriteID.fire_sword_slash_green, 12 },
             { SpriteID.fire_sword_slash_red, 12}
         })

@@ -26,19 +26,19 @@ namespace OpenGLTests.src.Drawables
         private HashSet<Unit> AggroFrom = new HashSet<Unit>();
         private CombatTurnConfirmationButton ctcb;
         public RangeShape AggroShape { get; set; }
-        private bool waitingForActionCommit = true; //todo remove this and call the commit from interaction button directly.
+
 
         public Hero()
         {
             Color = Color.CadetBlue;
             this.Location = new GameCoordinate(0f, 0f);
-            this.Size = new GLCoordinate(0.1f, 0.1f);
+            this.Size = new GLCoordinate(0.2f, 0.1f);
             this.Speed = InitialSpeed;
             this.Animation = new Animation(new SpriteSheet_ElfIdle());
             this.ActionHandler = new OutOfCombatActionHandler(this);
             this.Initiative = 10;
             this.HitPoints = 5;
-
+            this.Weapon = new Katana(this);
             //this.AggroShape = new RangeCircle(new GLCoordinate(0, 0), this);
             initActionBar();
             InCombat = false;
@@ -108,6 +108,19 @@ namespace OpenGLTests.src.Drawables
             }
         }
 
+
+        public override GameCoordinate LeftHandLocation()
+        {
+            if (this.Facing == Facing.Left)
+            {
+                return new GameCoordinate(this.Location.X , this.Location.Y + this.Size.Y/1.8f );
+            }
+            else
+            {
+                return new GameCoordinate(this.Location.X + this.Size.X/2, this.Location.Y - this.Size.Y/2);
+            }
+
+        }
 
         public override void OnDeath()
         {
@@ -209,7 +222,7 @@ namespace OpenGLTests.src.Drawables
             defaultAction.RangeShape.IsInfinite = false; //assumes that the default action sh ouldnt be infinite in combat. 
             ActionHandler.Dispose();
             ActionHandler = new CombatActionHandler(this);
-            waitingForActionCommit = true;
+
             ResetDefaultActionToMove();
         }
     }
