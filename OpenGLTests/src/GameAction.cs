@@ -140,7 +140,7 @@ namespace OpenGLTests.src
             {
                 if ((int) o >= 10)
                 {
-                    var aoeShape = (Marker as AOEMarker).aoeShape;
+                    var aoeShape = (Marker as AOEMarker).AOEShape;
                     foreach (var others in GameState.Drawables.GetAllUnits.Where(d => d != Source))
                     {
                         if (aoeShape.Contains(others.Location))
@@ -328,6 +328,26 @@ namespace OpenGLTests.src
             };
         }
 
+    }
+
+    class SliceAction : CombatAction
+    {
+        public SliceAction(Unit source) : base(source)
+        {
+            RangeShape = new RangeShape(new Circle(new GLCoordinate(0.2f, 0.2f)), source);
+            this.Marker = new AOEMarker(RangeShape.Location, new RangeShape(new Fan(0.2f, 120), source));
+            this.ActionLine.LineType = LineType.Dashed;
+        }
+
+        public override Func<object, bool> GetAction()
+        {
+            return o =>
+            {
+
+                Console.WriteLine("foo");
+                return true;
+            };
+        }
     }
 
     class LambdaAction : GameAction

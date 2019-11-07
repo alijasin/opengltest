@@ -44,11 +44,11 @@ namespace OpenGLTests.src.Drawables
 
     public class AOEMarker : ActionMarker
     {
-        public RangeShape aoeShape;
+        public RangeShape AOEShape;
         public AOEMarker(GameCoordinate loc, RangeShape aoeShape) : base(loc)
         {
             this.Location = loc;
-            this.aoeShape = aoeShape;
+            this.AOEShape = aoeShape;
             aoeShape.Following = this;
         }
 
@@ -57,7 +57,7 @@ namespace OpenGLTests.src.Drawables
             if (Visible)
             {
                 base.DrawStep(drawer);
-                aoeShape.DrawStep(drawer);
+                AOEShape.DrawStep(drawer);
             }
         }
 
@@ -66,7 +66,7 @@ namespace OpenGLTests.src.Drawables
             set
             {
                 base.Visible = value;
-                if(aoeShape != null) aoeShape.Visible = value;
+                if(AOEShape != null) AOEShape.Visible = value;
             }
         }
     }

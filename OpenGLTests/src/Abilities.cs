@@ -81,4 +81,13 @@ namespace OpenGLTests.src
             this.Icon = SpriteID.bear_trap_open;
         }
     }
+
+    public class Slice : Ability
+    {
+        public Slice(Unit owner)
+        {
+            this.Action = new SliceAction(owner);
+            this.Icon = SpriteID.fire_sword_slash_green;
+        }
+    }
 }

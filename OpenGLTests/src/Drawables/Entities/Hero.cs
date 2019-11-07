@@ -52,7 +52,7 @@ namespace OpenGLTests.src.Drawables
             ActionBar = new ActionBar(this);
             GameState.Drawables.Add(ActionBar);
             ActionBar.Add(new Move(this));
-            ActionBar.Add(new Yell(this));
+            ActionBar.Add(new Slice(this));
             ActionBar.Add(new Teleport(this));
             ActionBar.Add(new TossBomb(this));
             ActionBar.Add(new Hook(this));

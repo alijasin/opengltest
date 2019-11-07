@@ -114,7 +114,7 @@ namespace OpenGLTests.src.Drawables
         public ActionBarButton(Ability sa, ActionBar inBar)
         {
             this.Size = StandardSize;
-            this.Color = Color.HotPink;
+            //this.Color = Color.HotPink;
             this.Animation = new Animation(new SpriteSheet_Icons());
             this.Animation.SetSprite(sa.Icon);
             this.Animation.IsStatic = true;

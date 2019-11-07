@@ -23,8 +23,6 @@ namespace OpenGLTests.src.Drawables.Entities
         public override void DrawStep(DrawAdapter drawer)
         {
             drawer.DrawWeapon(this);
-            this.Rotation++;
-            Console.WriteLine(Rotation);
         }
     }
 }
