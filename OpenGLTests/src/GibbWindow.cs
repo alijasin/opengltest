@@ -16,6 +16,9 @@ namespace OpenGLTests.src
         public Action<DrawAdapter> RenderCallback { get; private set; }
         public static int WIDTH = 720;
         public static int HEIGHT = 720;
+        public static int WINX = 0;
+        public static int WINY = 0;
+
         public GibbWindow(Action<DrawAdapter> renderCallback) : base(WIDTH, HEIGHT, new OpenTK.Graphics.GraphicsMode(32, 24, 0, 8))
         {
             ImageLoader.Init();
@@ -36,6 +39,10 @@ namespace OpenGLTests.src
             GL.BindVertexArray(_vertexArray);*/
             Console.WriteLine("Shaders loaded");
             Closed += OnClosed;
+            WINX = PointToScreen(ClientRectangle.Location).X;
+            WINY = PointToScreen(ClientRectangle.Location).Y;
+
+            Title = "Oyy veeyyy";
         }
 
         private void OnClosed(object sender, EventArgs e)
@@ -43,6 +50,13 @@ namespace OpenGLTests.src
             GL.DeleteVertexArrays(1, ref _vertexArray);
             GL.DeleteProgram(_program);
             base.Exit();
+        }
+
+        protected override void OnMove(EventArgs e)
+        {
+            base.OnMove(e);
+            WINX = PointToScreen(ClientRectangle.Location).X;
+            WINY = PointToScreen(ClientRectangle.Location).Y;
         }
 
         protected override void OnResize(EventArgs e)

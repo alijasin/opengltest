@@ -679,7 +679,7 @@ namespace OpenGLTests.src
             if (index > 200) return true; //dont get stuck
             if (Marker != null)
             {
-                return GameActionLambdas.MoveTowardsPoint(Source, Marker.Location);
+                return GameActionLambdas.MoveTowardsPoint(Source, PlacedLocation);
             }
             return false;
         }

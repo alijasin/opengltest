@@ -11,13 +11,13 @@ namespace OpenGLTests.src
 {
     public class Animation
     {
-        private SpriteSheet spriteSheet;
+        public SpriteSheet SpriteSheet;
         public int SpriteIndex { get; set; }= 0;
         public bool IsStatic = false;
 
         public Animation(SpriteSheet sheet)
         {
-            spriteSheet = sheet;
+            SpriteSheet = sheet;
             
             if (sheet is SpriteSheet_Icons)
             {
@@ -28,14 +28,14 @@ namespace OpenGLTests.src
         //todo: assert this actually works.
         public void SetSprite(SpriteID sid)
         {
-            SpriteIndex = spriteSheet.IndexOfSpriteID(sid);
+            SpriteIndex = SpriteSheet.IndexOfSpriteID(sid);
         }
 
         public Sprite GetSprite()
         {
             if (!IsStatic) SpriteIndex++;
-            if (SpriteIndex == spriteSheet.NumberOfSprites()) SpriteIndex = 0;
-            return spriteSheet.GetSprite(SpriteIndex);
+            if (SpriteIndex == SpriteSheet.NumberOfSprites()) SpriteIndex = 0;
+            return SpriteSheet.GetSprite(SpriteIndex);
         }
     }
 

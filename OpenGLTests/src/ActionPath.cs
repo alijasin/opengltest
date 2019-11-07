@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Xml.Linq;
 using OpenGLTests.src;
 using OpenGLTests.src.Drawables;
+using OpenGLTests.src.Screens;
 using OpenGLTests.src.Util;
 using OpenTK;
 using OpenTK.Graphics.ES10;
@@ -109,7 +110,18 @@ namespace OpenGLTests.src
     {
         protected SpriteID SelectedActionIcon { get; set; }
         public IActionCapable Owner { get; set; }
-        public GameAction SelectedAction { get; set; }
+
+        private GameAction selectedAction;
+        public GameAction SelectedAction
+        {
+            get { return selectedAction; }
+            set
+            {
+                selectedAction = value;
+                GameScreen.Cursor.SetCursor(selectedAction.Marker.Animation);
+            }
+        }
+
 
         public ActionHandler(IActionCapable owner)
         {
@@ -126,7 +138,9 @@ namespace OpenGLTests.src
 
             if (SelectedAction.PlacementFilter(mouseLocation))
             {
-                TryPlaceAction(SelectedAction, mouseLocation);
+                var placed = TryPlaceAction(SelectedAction, mouseLocation);
+                SelectedAction.PlacedLocation = mouseLocation;
+                if (placed) GameScreen.Cursor.Hide();
             }
 
             SelectedAction.RangeShape.Visible = false;
@@ -297,7 +311,6 @@ namespace OpenGLTests.src
         public override void OnMouseDown(GameCoordinate mouseLocation)
         {
             if (SelectedAction == null) return;
-
             SelectedAction.RangeShape.Visible = true;
         }
 

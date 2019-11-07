@@ -4,6 +4,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using OpenTK.Graphics.OpenGL4;
 
 namespace OpenGLTests.src.Drawables
 {
@@ -26,11 +27,6 @@ namespace OpenGLTests.src.Drawables
             {
                 drawer.DrawEntity(this);
             }
-        }
-
-        public override void Dispose()
-        {
-            base.Dispose();
         }
     }
 

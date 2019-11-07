@@ -14,13 +14,12 @@ namespace OpenGLTests.src.Screens
     class GameScreen : Screen
     {
         public GameState Game { get; set; } = new GameState();
-
+        public static Cursor Cursor { get; set; } = new Cursor();
         public override void Draw(DrawAdapter drawer)
         {
             GL.PushMatrix();
             GL.Translate(-new GameCoordinate(0, 0).X, -new GameCoordinate(0, 0).Y, 0);
 
-            //Cursor.Draw();
 
             object l = true;
 
@@ -36,6 +35,7 @@ namespace OpenGLTests.src.Screens
                     ele.DrawStep(drawer);
                 }
 
+                if(Cursor != null) Cursor.DrawStep(drawer);
                 GameState.RainGenerator.Draw(drawer);
             }
 
@@ -196,7 +196,7 @@ namespace OpenGLTests.src.Screens
                     Game.Hero.ActionHandler.OnMouseUp(xd);
                 }
             ));
-            /*
+            
             Bind(new Hotkey(
                 input => input.IsMouseMove && (input.MouseMoveArgs.XDelta != 0 && input.MouseMoveArgs.XDelta != 0),
                 input =>
@@ -205,15 +205,14 @@ namespace OpenGLTests.src.Screens
                     var yy = input.MouseMoveArgs.Y;
                     GameCoordinate xxdd = new GameCoordinate(xx, yy);
                     var xd = CoordinateFuckery.ClickToGLRelativeToCamera(xxdd, new GameCoordinate(0, 0));
-                    Console.WriteLine(xd);
-                    Cursor.Draw(xd);
-                    //Console.WriteLine(gc);
+
+                    Cursor.Location = xd;
                 },
                 input =>
                 {
 
                 }
-            ));*/
+            ));
 
         }
 
