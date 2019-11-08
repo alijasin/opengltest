@@ -117,7 +117,8 @@ namespace OpenGLTests.src
             set
             {
                 selectedAction = value;
-                GameScreen.Cursor.SetAction(value);
+                //check not needed after Hero has been refactored into player. TODO
+                if(Player.Cursor != null) Player.Cursor.SetAction(value);
             }
         }
 
@@ -138,7 +139,7 @@ namespace OpenGLTests.src
             {
                 var placed = TryPlaceAction(SelectedAction, mouseLocation);
                 SelectedAction.PlacedLocation = mouseLocation;
-                if (placed) GameScreen.Cursor.Hide();
+                if (placed) Player.Cursor.Hide();
             }
 
             SelectedAction.RangeShape.Visible = false;

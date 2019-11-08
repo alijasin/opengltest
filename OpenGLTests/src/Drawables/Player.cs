@@ -9,7 +9,7 @@ namespace OpenGLTests.src.Drawables
     public class Player
     {
         public Camera ActiveCamera { get; set; }
-
+        public static Cursor Cursor { get; set; }
         public FollowCamera FollowCamera;
         public MovableCamera StaticCamera;
         public FightCamera FightCamera;
@@ -18,13 +18,14 @@ namespace OpenGLTests.src.Drawables
         public Hero Hero { get; set; }
         public bool Fighting => Hero.InCombat;
 
-        public Player(Hero hero)
+        public Player(Hero Hero)
         {
-            Hero = hero;
+            Cursor = new Cursor(this);
             Hero.Player = this;
-            FollowCamera = new FollowCamera(hero);
-            StaticCamera = new MovableCamera(hero.Location);
-            HybridCamera = new HybridCamera(hero);
+            this.Hero = Hero;
+            FollowCamera = new FollowCamera(Hero);
+            StaticCamera = new MovableCamera(Hero.Location);
+            HybridCamera = new HybridCamera(Hero);
             FightCamera = new FightCamera();
             ActiveCamera = HybridCamera;
         }

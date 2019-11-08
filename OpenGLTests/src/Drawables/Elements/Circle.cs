@@ -11,7 +11,6 @@ using OpenGLTests.src.Drawables;
 
 namespace OpenGLTests.src.Drawables
 {
-
     interface IClickable
     {
         [JsonIgnore]

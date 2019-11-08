@@ -14,7 +14,7 @@ namespace OpenGLTests.src.Screens
     class GameScreen : Screen
     {
         public GameState Game { get; set; } = new GameState();
-        public static Cursor Cursor { get; set; } = new Cursor();
+
         public override void Draw(DrawAdapter drawer)
         {
             GL.PushMatrix();
@@ -35,7 +35,7 @@ namespace OpenGLTests.src.Screens
                     ele.DrawStep(drawer);
                 }
 
-                if(Cursor != null) Cursor.DrawStep(drawer);
+                if(Player.Cursor != null) Player.Cursor.DrawStep(drawer);
                 GameState.RainGenerator.Draw(drawer);
             }
 
@@ -206,7 +206,7 @@ namespace OpenGLTests.src.Screens
                     GameCoordinate xxdd = new GameCoordinate(xx, yy);
                     var xd = CoordinateFuckery.ClickToGLRelativeToCamera(xxdd, new GameCoordinate(0, 0));
 
-                    Cursor.Location = xd;
+                    Player.Cursor.Location = xd;
                 },
                 input =>
                 {

@@ -16,7 +16,7 @@ namespace OpenGLTests.src
     public class GameState
     {
         public static List<Player> Players { get; set; }
-        public Hero Hero { get; set; }
+        public Hero Hero { get; set; }  //todo, move this to Player
         public static DrawableRepository Drawables = new DrawableRepository();
         public static List<StatusEffect> Effects = new List<StatusEffect>();
         public static RainGenerator RainGenerator = new RainGenerator(RainGenerator.RainType.Clear); //todo: move to drawable
@@ -25,8 +25,8 @@ namespace OpenGLTests.src
         {
             Players = new List<Player>();
             Hero = new Hero();
+            Hero.Location = new GameCoordinate(0, 0);
             Players.Add(new Player(Hero));
-
             Drawables.Add(Hero);
             Drawables.Add(new RoomLoadRegion(new GameCoordinate(0.8f, 0.8f), RoomLoader.Room.TestSpace));
             Drawables.Add(new FanBoy(new GameCoordinate(0.5f, 0)));
