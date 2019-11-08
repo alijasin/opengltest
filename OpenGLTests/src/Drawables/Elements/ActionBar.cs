@@ -34,10 +34,6 @@ namespace OpenGLTests.src.Drawables
             var ab = new ActionBarButton(s, this);
             if (FilledActionSlots < MaxActionSlots)
             {
-                ab.OnInteraction += () =>
-                {
-                    
-                };
                 ab.Location = new GLCoordinate(fodder * (FilledActionSlots + 1) + this.Location.X - this.Size.X / 2 + FilledActionSlots * ab.Size.X + ab.Size.X / 2, this.Location.Y + ab.Size.Y / 2 + fodder);
                 actionButtons.Add(ab);
                 GameState.Drawables.Add(ab);

@@ -24,7 +24,7 @@ namespace OpenGLTests.src
         public Apple(Unit owner)
         {
             this.Action = new TossItemAction(owner, this);
-            this.Icon = SpriteID.item_apple;
+            Action.Icon = SpriteID.item_apple;
         }
     }
 
@@ -33,7 +33,7 @@ namespace OpenGLTests.src
         public RedPotion(Unit owner)
         {
             this.Action = new TurnRedAction(owner);
-            this.Icon = SpriteID.item_flask_big_red;
+            Action.Icon = SpriteID.item_flask_big_red;
         }
     }
 
@@ -42,7 +42,7 @@ namespace OpenGLTests.src
         public GrowingPoition(Unit owner)
         {
             this.Action = new GrowAction(owner);
-            this.Icon = SpriteID.item_flask_big_green;
+            Action.Icon = SpriteID.item_flask_big_green;
         }
     }
 }

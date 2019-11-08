@@ -39,7 +39,8 @@ namespace OpenGLTests.src
                 if (success) toRemove.Remove(rem);
             }
 
-            if (toAdd.Count > 0)
+            object locker = 1;
+            lock (locker)
             {
                 drawableRepo.AddRange(toAdd);
                 toAdd.Clear();

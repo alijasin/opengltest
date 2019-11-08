@@ -44,6 +44,8 @@ namespace OpenGLTests.src
         protected int ActionPointCost = 0;
         public virtual Func<NPCState, GameCoordinate> NPCActionPlacementCalculator { get; set; } = (state) => new GameCoordinate(0, 0); 
         public GameCoordinate PlacedLocation { get; set; }
+        public Animation IconAnimation { get; set; }
+        public SpriteID Icon { get; set; }
 
         public GameAction() : this(null)
         {
@@ -53,6 +55,8 @@ namespace OpenGLTests.src
         {
             Source = source;
 
+            this.IconAnimation = new Animation(new SpriteSheet_Icons());
+            this.IconAnimation.SetSprite(SpriteID.missing);
             Marker = new ActionMarker(new GameCoordinate(0,0));
             Marker.Visible = false;
             if (source != null)
@@ -63,11 +67,6 @@ namespace OpenGLTests.src
 
                 RangeShape = new RangeShape(new Circle(new GLCoordinate(0f, 0f)), Marker);
             }
-        }
-
-        public void SetMarkerIcon(SpriteID sid)
-        {
-            this.Marker.Animation.SetSprite(sid);
         }
 
         public void Dispose()
@@ -88,11 +87,6 @@ namespace OpenGLTests.src
             this.ActionLine.Terminus = location;
             Marker.Visible = true;
             ActionLine.Visible = true;
-        }
-
-        public void SetRangeShape(RangeShape r)
-        {
-            this.RangeShape = r;
         }
 
         public virtual bool PayPreConditions()

@@ -108,23 +108,18 @@ namespace OpenGLTests.src
 
     public abstract class ActionHandler
     {
-        private SpriteID selectedActionIcon;
-        protected SpriteID SelectedActionIcon
-        {
-            get
-            {
-                return selectedActionIcon;
-            }
-            set
-            {
-                selectedActionIcon = value;
-                GameScreen.Cursor.SetCursor(SelectedActionIcon);
-            }
-        }
         public IActionCapable Owner { get; set; }
 
-
-        public GameAction SelectedAction { get; set; }
+        private GameAction selectedAction;
+        public GameAction SelectedAction
+        {
+            get { return selectedAction; }
+            set
+            {
+                selectedAction = value;
+                GameScreen.Cursor.SetAction(value);
+            }
+        }
 
         public ActionHandler(IActionCapable owner)
         {
@@ -151,12 +146,11 @@ namespace OpenGLTests.src
 
         public abstract void OnMouseDown(GameCoordinate mouseLocation);
 
-        public void ActionButtonActivated(ActionButton actionButton)
+        public void ActionButtonActivated(GameAction gameAction)
         {
             var oldSelected = SelectedAction;
             if(oldSelected != null) oldSelected.Dispose();
-            SelectedAction = actionButton.GameAction;
-            SelectedActionIcon = actionButton.Animation.GetSprite().sid;
+            SelectedAction = gameAction;
         }
 
         public abstract void Dispose();
@@ -196,7 +190,7 @@ namespace OpenGLTests.src
                 if (action.PayPreConditions())
                 {
                     SubsequentlyPlacedActions.Add(action);
-                    action.Place(location, SelectedActionIcon);
+                    action.Place(location, SelectedAction.Icon);
                     return true;
                 }
             }
@@ -303,7 +297,7 @@ namespace OpenGLTests.src
                 //remove all placed actions that are identical to the new one.
                 PlacedActions.RemoveWhere(pa => pa.GetType() == action.GetType());
 
-                action.Place(location, SelectedActionIcon);
+                action.Place(location, SelectedAction.Icon);
                 PlacedActions.Add(action);
                 return true;
             }

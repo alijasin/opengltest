@@ -98,7 +98,7 @@ namespace OpenGLTests.src.Drawables
             {
                 try
                 {
-                    inventory.Owner.ActionHandler.ActionButtonActivated(this);
+                    inventory.Owner.ActionHandler.ActionButtonActivated(i.Action);
                 }
                 catch (Exception e)
                 {
@@ -114,14 +114,13 @@ namespace OpenGLTests.src.Drawables
         public ActionBarButton(Ability sa, ActionBar inBar)
         {
             this.Size = StandardSize;
-            //this.Color = Color.HotPink;
             this.Animation = new Animation(new SpriteSheet_Icons());
             this.Animation.SetSprite(sa.Icon);
             this.Animation.IsStatic = true;
             this.GameAction = sa.Action;
             OnInteraction += () =>
             {
-                inBar.Owner.ActionHandler.ActionButtonActivated(this);
+                inBar.Owner.ActionHandler.ActionButtonActivated(this.GameAction);
             };
         }
     }
