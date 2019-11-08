@@ -10,6 +10,7 @@ namespace OpenGLTests.src.Drawables
 {
     public class Cursor : Indicator
     {
+        private GameAction action;
         private Marker marker;
         private RangeShape rs;
         private RangeShape markerRs;
@@ -39,7 +40,7 @@ namespace OpenGLTests.src.Drawables
 
             if (rs != null)
             {
-                if (rs.Contains(Location))
+                if (action.PlacementFilter(Location))
                 {
                     this.Color = Color.White;
                 }
@@ -58,6 +59,7 @@ namespace OpenGLTests.src.Drawables
 
         public void SetAction(GameAction action)
         {
+            this.action = action; //todo: only use this.
             setCursor(action.Icon);
             setRangeShape(action.RangeShape);
             if (action.Marker != null)

@@ -59,6 +59,14 @@ namespace OpenGLTests.src
             this.IconAnimation.SetSprite(SpriteID.missing);
             Marker = new ActionMarker(new GameCoordinate(0,0));
             Marker.Visible = false;
+
+            PlacementFilter += (loc) =>
+            {
+                if (IsInstant) return true;
+                if (RangeShape == null) return true;
+                else return RangeShape.Contains(loc);
+            };
+
             if (source != null)
             {
                 ActionLine = new ActionLine(source);
@@ -223,7 +231,7 @@ namespace OpenGLTests.src
             RangeShape = new RangeShape(new Circle(new GLCoordinate(0.8f, 0.7f)), source);
             this.Marker = new ActionMarker(RangeShape.Location);
             this.ActionLine.LineType = LineType.Solid;
-            PlacementFilter = coordinate =>
+            PlacementFilter += coordinate =>
             {
                 return GameState.Drawables.GetAllCollidables.Any(d => d.BoundingBox.Contains(coordinate));
             };
@@ -247,7 +255,7 @@ namespace OpenGLTests.src
             this.Marker = new ActionMarker(RangeShape.Location);
             this.ActionLine.LineType = LineType.Solid;
             this.ActionPointCost = 2;
-            PlacementFilter = coordinate =>
+            PlacementFilter += coordinate =>
             {
                 //only placeable on collidables.
                 bool collided = false;
@@ -287,7 +295,7 @@ namespace OpenGLTests.src
             this.Marker = new MoveMarker(RangeShape.Location);
             this.ActionLine.LineType = LineType.Solid;
             //dont allow teleportation within collidables.
-            this.PlacementFilter = coordinate => !GameState.Drawables.GetAllCollidables.Any(c => c.BoundingBox.Contains(coordinate));
+            this.PlacementFilter += coordinate => !GameState.Drawables.GetAllCollidables.Any(c => c.BoundingBox.Contains(coordinate));
         }
 
         public override Func<object, bool> GetAction()
