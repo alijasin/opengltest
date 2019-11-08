@@ -4,6 +4,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using OpenGLTests.src.Util;
 
 namespace OpenGLTests.src.Drawables
 {
@@ -14,14 +15,15 @@ namespace OpenGLTests.src.Drawables
             this.Visible = true;
             this.Size = new GLCoordinate(0.05f, 0.05f);
             this.Depth = 100;
+            this.Animation = new Animation(new SpriteSheet_Icons());
+            this.Animation.IsStatic = true;
         }
 
-        public void SetCursor(Animation ani)
+        public void SetCursor(SpriteID sid)
         {
             this.Visible = true;
-            this.Animation = new Animation(ani.SpriteSheet);
-            this.Animation.SetSprite(ani.GetSprite().sid);
-            this.Animation.IsStatic = true;
+            this.Animation.SetSprite(sid);
+
         }
 
         public void Hide()

@@ -108,20 +108,23 @@ namespace OpenGLTests.src
 
     public abstract class ActionHandler
     {
-        protected SpriteID SelectedActionIcon { get; set; }
-        public IActionCapable Owner { get; set; }
-
-        private GameAction selectedAction;
-        public GameAction SelectedAction
+        private SpriteID selectedActionIcon;
+        protected SpriteID SelectedActionIcon
         {
-            get { return selectedAction; }
+            get
+            {
+                return selectedActionIcon;
+            }
             set
             {
-                selectedAction = value;
-                GameScreen.Cursor.SetCursor(selectedAction.Marker.Animation);
+                selectedActionIcon = value;
+                GameScreen.Cursor.SetCursor(SelectedActionIcon);
             }
         }
+        public IActionCapable Owner { get; set; }
 
+
+        public GameAction SelectedAction { get; set; }
 
         public ActionHandler(IActionCapable owner)
         {

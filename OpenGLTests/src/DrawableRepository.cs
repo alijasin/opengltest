@@ -39,8 +39,11 @@ namespace OpenGLTests.src
                 if (success) toRemove.Remove(rem);
             }
 
-            drawableRepo.AddRange(toAdd);
-            toAdd.Clear();
+            if (toAdd.Count > 0)
+            {
+                drawableRepo.AddRange(toAdd);
+                toAdd.Clear();
+            }
 
             List<Drawable> temp = new List<Drawable>();
 
