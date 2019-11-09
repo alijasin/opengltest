@@ -38,8 +38,11 @@ namespace OpenGLTests.src
             {
                 for (int i = toRemove.Count-1; i >= 0; i--)
                 {
-                    var success = drawableRepo.Remove(toRemove[i]);
-                    if(success) toRemove.RemoveAt(i);
+                    if (toRemove.Count > 0)
+                    {
+                        var success = drawableRepo.Remove(toRemove[i]);
+                        if (success) toRemove.RemoveAt(i);
+                    }
                 }
 
                 if (toAdd.Count > 0)

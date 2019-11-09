@@ -185,6 +185,7 @@ namespace OpenGLTests.src.Drawables
 
     public abstract class Weapon : Entity
     {
+        public GLCoordinate InitialSize { get; set; }
         public int Rotation { get; set; } = 0;
         public Unit Owner;
         public override GameCoordinate Location
@@ -192,15 +193,19 @@ namespace OpenGLTests.src.Drawables
             get
             {
                 if(Owner == null) return new GameCoordinate(0,0);
-                if (Owner.Facing == Facing.Right)
+                if (!(Owner.ActionHandler.SelectedAction is WeaponAction))
                 {
-                    Rotation = 340;
+                    if (Owner.Facing == Facing.Right)
+                    {
+                        Rotation = 340;
+                    }
+                    else
+                    {
+                        Rotation = 120;
+                    }
                 }
-                else
-                {
-                    Rotation = 120;
-                }
-                return new GameCoordinate(Owner.LeftHandLocation().X, Owner.LeftHandLocation().Y);
+
+                return new GameCoordinate(Owner.LeftHandLocation.X, Owner.LeftHandLocation.Y);
             }
         }
 
@@ -240,13 +245,10 @@ namespace OpenGLTests.src.Drawables
         [JsonIgnore]
         public bool EndedTurn = false;
 
-
+        public bool HasWeapon => Weapon != null;
         public Weapon Weapon { get; set; }
-
-        public virtual GameCoordinate LeftHandLocation()
-        {
-            return this.Location;
-        }
+        public bool DoingWeaponAction => ActionHandler.SelectedAction is WeaponAction && ActionStatus == ActionReturns.Ongoing;
+        public virtual GameCoordinate LeftHandLocation { get; set; }
 
         public bool InCombat { get; set; }
         public int HitPoints { get; set; }

@@ -16,6 +16,7 @@ namespace OpenGLTests.src.Drawables.Entities
             this.Animation.SetSprite(SpriteID.weapon_katana);
             this.Animation.IsStatic = true;
             this.Size = new GLCoordinate(0.04f, 0.2f);
+            this.InitialSize = new GLCoordinate(0.04f, 0.2f);
             Rotation = 340;
         }
 

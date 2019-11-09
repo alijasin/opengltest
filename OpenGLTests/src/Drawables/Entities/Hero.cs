@@ -28,6 +28,7 @@ namespace OpenGLTests.src.Drawables
         private CombatTurnConfirmationButton ctcb;
         public RangeShape AggroShape { get; set; }
 
+
         public Hero()
         {
             Color = Color.CadetBlue;
@@ -115,19 +116,27 @@ namespace OpenGLTests.src.Drawables
             }
         }
 
-
-        public override GameCoordinate LeftHandLocation()
+        public override GameCoordinate LeftHandLocation
         {
-            if (this.Facing == Facing.Left)
+            get
             {
-                return new GameCoordinate(this.Location.X , this.Location.Y + this.Size.Y/1.8f );
-            }
-            else
-            {
-                return new GameCoordinate(this.Location.X + this.Size.X/2, this.Location.Y - this.Size.Y/2);
-            }
+                if (DoingWeaponAction)
+                {
+                    return new GameCoordinate(this.Location.X, this.Location.Y);
+                }
 
+                if (this.Facing == Facing.Left)
+                {
+                    return new GameCoordinate(this.Location.X, this.Location.Y + this.Size.Y / 1.8f);
+                }
+                else
+                {
+                    return new GameCoordinate(this.Location.X + this.Size.X / 2, this.Location.Y - this.Size.Y / 2);
+                }
+            }
+            set { }
         }
+
 
         public override void OnDeath()
         {
@@ -161,10 +170,10 @@ namespace OpenGLTests.src.Drawables
 
         public override void OutOfCombatStep()
         {
-            var status = ActionHandler.CommitActions(OutOfCombatIndex);
-            if (status == ActionReturns.NoAction) return;
+            ActionStatus = ActionHandler.CommitActions(OutOfCombatIndex);
+            if (ActionStatus == ActionReturns.NoAction) return;
 
-            if (status == ActionReturns.Finished || status == ActionReturns.AllFinished)
+            if (ActionStatus == ActionReturns.Finished || ActionStatus == ActionReturns.AllFinished)
             {
                 OutOfCombatIndex = 0;
                 ResetDefaultActionToMove();

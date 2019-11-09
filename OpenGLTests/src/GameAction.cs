@@ -329,25 +329,70 @@ namespace OpenGLTests.src
                 return false;
             };
         }
-
     }
 
-    class SliceAction : GameAction
+    abstract class WeaponAction : GameAction
     {
+        protected WeaponAction(Unit source) : base(source)
+        {
+
+        }
+    }
+
+    class SliceAction : WeaponAction
+    {
+        private Fan fan;
+        private int degs;
         public SliceAction(Unit source) : base(source)
         {
             RangeShape = new RangeShape(new Circle(new GLCoordinate(0.2f, 0.2f)), source);
-            this.Marker = new AOEMarker(source.Location, new RangeShape(new Fan(0.2f, 120), source));
+            degs = 110;
+            fan = new Fan(0.2f, degs);
+            this.Marker = new AOEMarker(source.Location, new RangeShape(fan, source));
             this.ActionLine.LineType = LineType.Dashed;
+
+
             ActionPointCost = 1;
         }
 
+        private int initAngle;
         public override Func<object, bool> GetAction()
         {
             return o =>
             {
-                return true;
-                return true;
+                int i = (int) o;
+                if (i == 0)
+                {
+                    initAngle = Source.Weapon.Rotation;
+                    Source.Weapon.Color = Color.GreenYellow;
+                    Source.Weapon.Size.Y *= 2;
+                }
+                else
+                {
+                    var angle = MyMath.AngleBetweenTwoPoints(Source.Location, Marker.Location);
+                    Source.Weapon.Rotation = angle - 90 + degs/2 - i*10;
+                }
+
+                if (i*10 > degs)
+                {
+                    Source.Weapon.Rotation = initAngle;
+                    Source.Weapon.Color = Color.White;
+                    Source.Weapon.Size = new GLCoordinate(Source.Weapon.InitialSize.X, Source.Weapon.InitialSize.Y);
+                    foreach (var u in GameState.Drawables.GetAllUnits)
+                    {
+                        if (u != Source)
+                        {
+                            if (RangeShape.Contains(u.Location))
+                            {
+                                u.Damage(1);
+                                Console.WriteLine("Damaged " + u.GetType() + " for 1 dmg");
+                            }
+                        }
+                        
+                    }
+                    return true;
+                }
+                return false;
             };
         }
     }
