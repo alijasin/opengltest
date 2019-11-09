@@ -115,7 +115,6 @@ namespace OpenGLTests.src.Drawables
         private void setRangeShape(RangeShape rs)
         {
             if (rs == null) return;
-            Console.WriteLine("rs set");
             this.rs = rs;
             this.rs.Visible = true;
         }

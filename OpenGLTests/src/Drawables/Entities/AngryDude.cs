@@ -15,7 +15,7 @@ namespace OpenGLTests.src.Drawables.Entities
             this.AggroShape = new RangeShape(new Circle(new GLCoordinate(0.2f, 0.2f)), this);
             this.AggroShape.Visible = true;
             this.Speed = new GameCoordinate(0.01f, 0.01f);
-            this.OutOfCombatActionPattern = new StitchedPattern(new MoveAroundAndChill(this), new DebugPattern(this));
+            this.OutOfCombatActionPattern = new StitchedPattern(new MoveAroundAndChill(this));
             this.OutOfCombatActionPattern.Loop = true;
             Animation = new Animation(new SpriteSheet_BigZombieRun());
         }

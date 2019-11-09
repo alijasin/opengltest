@@ -16,40 +16,41 @@ namespace OpenGLTests.src
     /// </summary>
     public abstract class ActionPattern
     {
-        public abstract List<GameAction> InitPattern();
-
         private List<GameAction> actions;
         public List<GameAction> Actions
         {
-            get
+            get { return actions; }
+            set
             {
-                if (actions == null)
+                actions = value;
+                foreach (var a in value)
                 {
-                    actions = InitPattern();
+                    ActionsUsed.Add(a, false);
                 }
-                return actions;
             }
-            set { this.actions = value; }
         }
 
         public bool Loop = false;
+        
+        public Dictionary<GameAction, bool> ActionsUsed = new Dictionary<GameAction, bool>();
 
         public virtual ActionReturns DoAction(object arg)
         {
-            if (Actions.Count == 0)
+            if(ActionsUsed.All(a => a.Value == true))
             {
-                //reinitialize the pattern - all randomness will be regenerated.
                 if (Loop)
                 {
-                    Actions = InitPattern();
+                    ActionsUsed.ToList().ForEach(a => ActionsUsed[a.Key] = false);
                 }
                 return ActionReturns.AllFinished;
             }
-            var currentGameAction = Actions.First();
-            var actionFinished = currentGameAction.GetAction().Invoke(arg);
+
+            var currentGameAction = ActionsUsed.First(a => a.Value == false);
+            currentGameAction.Key.PlacedLocation = currentGameAction.Key.NPCActionPlacementCalculator(NPCState.Angry);
+            var actionFinished = currentGameAction.Key.GetAction().Invoke(arg);
             if (actionFinished)
             {
-                Actions.Remove(currentGameAction);
+                ActionsUsed[currentGameAction.Key] = true;
                 return ActionReturns.Finished;
             }
             else
@@ -60,7 +61,7 @@ namespace OpenGLTests.src
 
         public void Dispose()
         {
-            foreach (var a in Actions)
+            foreach (var a in ActionsUsed.Keys)
             {
                 if(a.Marker != null) a.Marker.Dispose();
                 if(a.ActionLine != null) a.ActionLine.Dispose();
@@ -71,160 +72,84 @@ namespace OpenGLTests.src
 
     class TailoredPattern : ActionPattern
     {
-        List<GameAction> actions = new List<GameAction>();
         public TailoredPattern(params GameAction[] actions)
         {
-            this.actions = actions.ToList();
-        }
-
-        public override List<GameAction> InitPattern()
-        {
-            return actions;
+            this.Actions = actions.ToList();
         }
     }
 
     class StitchedPattern : ActionPattern
     {
-        List<ActionPattern> initialPatterns = new List<ActionPattern>();
         public StitchedPattern(params ActionPattern[] patterns)
         {
-            initialPatterns = patterns.ToList();
-        }
-        public override List<GameAction> InitPattern()
-        {
             List<GameAction> actions = new List<GameAction>();
-            foreach (var pattern in initialPatterns)
+            foreach (var pattern in patterns)
             {
-                actions.AddRange(pattern.InitPattern());
+                actions.AddRange(pattern.Actions);
             }
 
-            return actions;
-        }
-    }
-
-    class DebugPattern : ActionPattern
-    {
-        private Unit source;
-        public DebugPattern(Unit source)
-        {
-            this.source = source;
-            InitPattern();
-        }
-
-        public override List<GameAction> InitPattern()
-        {
-            var actions = new List<GameAction>()
-            {
-                new LambdaAction(o =>
-                {
-                    //Console.WriteLine(RNG.IntegerBetween(419, 421));
-                    return true;
-
-                }, source),
-            };
-            return actions;
+            Actions = actions;
         }
     }
 
     class SwamperTeleportPattern : ActionPattern
     {
-        private GLCoordinate range;
-        private Unit source;
         public SwamperTeleportPattern(Unit source, GLCoordinate range)
         {
-            this.source = source;
-            this.range = range;
-        }
-
-        public override List<GameAction> InitPattern()
-        {
-            var actions = new List<GameAction>()
+            Actions = new List<GameAction>()
             {
-                new InstantTeleport(RNG.RandomPointWithinCircleRelativeToLocation(source.Location, range), source),
+                new InstantTeleport(RNG.RandomPointWithinCircleRelativeToLocation(source.Location, range), source)
             };
-            return actions;
         }
     }
 
     class FindAndChaseEntity : ActionPattern
     {
         private Unit chasing;
-        private Unit source;
 
         public FindAndChaseEntity(Unit source)
         {
-            this.source = source;
-            InitPattern();
-        }
-
-        public override List<GameAction> InitPattern()
-        {
-            var actions = new List<GameAction>()
+            Actions = new List<GameAction>()
             {
                 new FindAndChase(new RangeShape(new Circle(new GLCoordinate(0.2f, 0.2f)), source), source),
             };
-            return actions;
         }
     }
+
     class FindAndFleeEntity : ActionPattern
     {
         private Unit fleeing;
-        private Unit source;
 
         public FindAndFleeEntity(Unit source)
         {
-            this.source = source;
-            InitPattern();
-        }
-
-        public override List<GameAction> InitPattern()
-        {
-            var actions = new List<GameAction>()
+            Actions = new List<GameAction>()
             {
                 new FindAndFlee(new RangeShape(new Circle(new GLCoordinate(0.2f, 0.2f)), source), source),
             };
-            return actions;
         }
     }
 
     class MoveAroundAndChill : ActionPattern
     {
-        private Unit source;
         public MoveAroundAndChill(Unit source) 
         {
-            this.source = source;
-            InitPattern();
-        }
-
-        public override List<GameAction> InitPattern()
-        {
-            var actions = new List<GameAction>()
+            Actions = new List<GameAction>()
             {
                 new UnitMoveAction(source, RNG.RandomPointWithinCircleRelativeToLocation(source.Location, new GLCoordinate(0.4f, 0.4f))),
                 new ChillAction(),
             };
-            return actions;
         }
     }
 
     class NeverEndingPatrol : ActionPattern
     {
-        private Unit source;
-        private GameCoordinate patrolDelta;
         public NeverEndingPatrol(Unit source, GameCoordinate patrolDelta)
         {
-            this.source = source;
-            this.patrolDelta = patrolDelta;
-        }
-
-        public override List<GameAction> InitPattern()
-        {
-            var actions = new List<GameAction>()
+            Actions = new List<GameAction>()
             {
                 new NeverEndingPatrolAction(source, patrolDelta),
                 new ChillAction(),
             };
-            return actions;
         }
     }
 }

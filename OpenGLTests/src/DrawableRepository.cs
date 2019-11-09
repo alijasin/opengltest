@@ -29,22 +29,24 @@ namespace OpenGLTests.src
         private List<Drawable> toRemove = new List<Drawable>();
         private List<Drawable> toAdd = new List<Drawable>();
 
+        private static object _lock = new object();
         //todo this is digusting and you should change it. Todo!!! High importance low urgency
         //additionaly, i think this just fails sometimes
         private List<T> GetWhere<T>(Func<Drawable, bool> filter)
         {
-            //this can throw errors
-            foreach (var rem in toRemove.ToList())
+            lock (_lock)
             {
-                bool success = drawableRepo.Remove(rem);
-                if (success) toRemove.Remove(rem);
-            }
+                for (int i = toRemove.Count-1; i >= 0; i--)
+                {
+                    var success = drawableRepo.Remove(toRemove[i]);
+                    if(success) toRemove.RemoveAt(i);
+                }
 
-            object locker = new object();
-            lock (locker)
-            {
-                drawableRepo.AddRange(toAdd);
-                toAdd.Clear();
+                if (toAdd.Count > 0)
+                {
+                    drawableRepo.AddRange(toAdd);
+                    toAdd.Clear();
+                }
             }
 
             List<Drawable> temp = new List<Drawable>();

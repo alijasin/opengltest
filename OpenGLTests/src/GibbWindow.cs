@@ -33,11 +33,9 @@ namespace OpenGLTests.src
         protected override void OnLoad(EventArgs e)
         {
             base.OnLoad(e);
-            Console.WriteLine("Window loaded");
             /*_program = Shader.CompileShaders();
             GL.GenVertexArrays(1, out _vertexArray);
             GL.BindVertexArray(_vertexArray);*/
-            Console.WriteLine("Shaders loaded");
             Closed += OnClosed;
             WINX = PointToScreen(ClientRectangle.Location).X;
             WINY = PointToScreen(ClientRectangle.Location).Y;

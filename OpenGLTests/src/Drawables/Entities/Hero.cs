@@ -28,7 +28,6 @@ namespace OpenGLTests.src.Drawables
         private CombatTurnConfirmationButton ctcb;
         public RangeShape AggroShape { get; set; }
 
-
         public Hero()
         {
             Color = Color.CadetBlue;
@@ -53,12 +52,6 @@ namespace OpenGLTests.src.Drawables
         public override int FacingAngle
         {
             get { return MyMath.AngleBetweenTwoPoints(this.Location, Player.Cursor.Location); }
-        }
-
-        public override void DrawStep(DrawAdapter drawer)
-        {
-            base.DrawStep(drawer);
-            Console.WriteLine(FacingAngle);
         }
 
         private void initActionBar()

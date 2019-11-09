@@ -73,7 +73,7 @@ namespace OpenGLTests.src
         public Unit GetCurrentTurn()
         {
             if (FighterQueue.Count < 1) return null;
-            return FighterQueue.First().Unit;
+            return FighterQueue.Peek().Unit;
         }
 
         public void UnitFinishedTurn(Unit u)
