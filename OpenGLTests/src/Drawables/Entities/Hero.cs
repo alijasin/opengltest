@@ -9,6 +9,7 @@ using System.Xml.Linq;
 using OpenGLTests.src;
 using OpenGLTests.src.Drawables.Elements;
 using OpenGLTests.src.Drawables.Entities;
+using OpenGLTests.src.Util;
 
 namespace OpenGLTests.src.Drawables
 {
@@ -45,6 +46,19 @@ namespace OpenGLTests.src.Drawables
             
             ResetDefaultActionToMove();
             initGUI();
+
+            
+        }
+
+        public override int FacingAngle
+        {
+            get { return MyMath.AngleBetweenTwoPoints(this.Location, Player.Cursor.Location); }
+        }
+
+        public override void DrawStep(DrawAdapter drawer)
+        {
+            base.DrawStep(drawer);
+            Console.WriteLine(FacingAngle);
         }
 
         private void initActionBar()

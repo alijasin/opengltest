@@ -3,6 +3,7 @@ using System.CodeDom;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using OpenGLTests.src.Drawables;
@@ -36,10 +37,10 @@ namespace OpenGLTests.src
         public ActionMarker Marker { get; set; }
         public ActionLine ActionLine { get; set; }
         public bool Ready { get; set; } = true;
-        public bool IsPlaced { get; set; } = false;
+        public virtual bool IsPlaced { get; set; } = false;
         public bool IsInstant { get; set; } = false;
         public bool ForcePlaced { get; set; } = false;
-        public virtual Func<GameCoordinate, bool> PlacementFilter { get; set; } = coordinate => true;
+        public virtual Func<GameCoordinate, bool> PlacementFilter { get; set; }
         protected Unit Source { get; set; }
         protected int ActionPointCost = 0;
         public virtual Func<NPCState, GameCoordinate> NPCActionPlacementCalculator { get; set; } = (state) => new GameCoordinate(0, 0); 
@@ -59,14 +60,7 @@ namespace OpenGLTests.src
             this.IconAnimation.SetSprite(SpriteID.missing);
             Marker = new ActionMarker(new GameCoordinate(0,0));
             Marker.Visible = false;
-
-            PlacementFilter += (loc) =>
-            {
-                if (IsInstant) return true;
-                if (RangeShape == null) return true;
-                else return RangeShape.Contains(loc);
-            };
-
+            PlacementFilter = DefaultPlacementFilter;
             if (source != null)
             {
                 ActionLine = new ActionLine(source);
@@ -75,6 +69,18 @@ namespace OpenGLTests.src
 
                 RangeShape = new RangeShape(new Circle(new GLCoordinate(0f, 0f)), Marker);
             }
+        }
+
+        public bool DefaultPlacementFilter(GameCoordinate loc)
+        {
+            if (Source.AvailableActionPoints < this.ActionPointCost) return false;
+            if (RangeShape == null) return true;
+            if (RangeShape.Contains(loc)) return true;
+            else
+            {
+                return RangeShape.IsInfinite || IsInstant;
+            }
+            return false;
         }
 
         public void Dispose()
@@ -90,6 +96,7 @@ namespace OpenGLTests.src
         {
             IsPlaced = true;
 
+            this.PlacedLocation = location;
             this.Marker.Location = location;
             this.Marker.Animation.SetSprite(sid);
             this.ActionLine.Terminus = location;
@@ -97,15 +104,9 @@ namespace OpenGLTests.src
             ActionLine.Visible = true;
         }
 
-        public virtual bool PayPreConditions()
+        public virtual void PayPreConditions()
         { 
-            if (Source.AvailableActionPoints >= this.ActionPointCost)
-            {
-                Source.AvailableActionPoints -= this.ActionPointCost;
-                return true;
-            }
-
-            return false;
+            Source.AvailableActionPoints -= this.ActionPointCost;
         }
 
         public virtual Action OnSelected { get; set; } = () => { };
@@ -255,7 +256,7 @@ namespace OpenGLTests.src
             this.Marker = new ActionMarker(RangeShape.Location);
             this.ActionLine.LineType = LineType.Solid;
             this.ActionPointCost = 2;
-            PlacementFilter += coordinate =>
+            PlacementFilter = coordinate =>
             {
                 //only placeable on collidables.
                 bool collided = false;
@@ -270,8 +271,7 @@ namespace OpenGLTests.src
                         }
                     }
                 }
-
-                return collided;
+                return collided && DefaultPlacementFilter(coordinate);
                 //return GameState.Drawables.GetAllCollidables.Any(d => d.BoundingBox.Contains(coordinate));
             };
         }
@@ -295,7 +295,7 @@ namespace OpenGLTests.src
             this.Marker = new MoveMarker(RangeShape.Location);
             this.ActionLine.LineType = LineType.Solid;
             //dont allow teleportation within collidables.
-            this.PlacementFilter += coordinate => !GameState.Drawables.GetAllCollidables.Any(c => c.BoundingBox.Contains(coordinate));
+            this.PlacementFilter = coordinate => !GameState.Drawables.GetAllCollidables.Any(c => !c.Phased && c.BoundingBox.Contains(coordinate)) && DefaultPlacementFilter(coordinate);
         }
 
         public override Func<object, bool> GetAction()
@@ -332,21 +332,21 @@ namespace OpenGLTests.src
 
     }
 
-    class SliceAction : CombatAction
+    class SliceAction : GameAction
     {
         public SliceAction(Unit source) : base(source)
         {
             RangeShape = new RangeShape(new Circle(new GLCoordinate(0.2f, 0.2f)), source);
-            this.Marker = new AOEMarker(RangeShape.Location, new RangeShape(new Fan(0.2f, 120), source));
+            this.Marker = new AOEMarker(source.Location, new RangeShape(new Fan(0.2f, 120), source));
             this.ActionLine.LineType = LineType.Dashed;
+            ActionPointCost = 1;
         }
 
         public override Func<object, bool> GetAction()
         {
             return o =>
             {
-
-                Console.WriteLine("foo");
+                return true;
                 return true;
             };
         }
@@ -493,7 +493,6 @@ namespace OpenGLTests.src
             };
         }
     }
-
 
     class MoveAwayFromEntityAction : GameAction
     {

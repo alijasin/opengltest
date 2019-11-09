@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using Newtonsoft.Json;
 using OpenGLTests.src;
 using OpenGLTests.src.Drawables;
+using Console = System.Console;
 
 namespace OpenGLTests.src.Drawables
 {
@@ -20,8 +21,8 @@ namespace OpenGLTests.src.Drawables
 
     public interface IShape
     {
-        bool Contains(GameCoordinate point, GameCoordinate location);
-        void DrawStep(DrawAdapter drawer, GameCoordinate location);
+        bool Contains(GameCoordinate point, GameCoordinate location, int angle);
+        void DrawStep(DrawAdapter drawer, GameCoordinate location, int angle);
     }
 
     public class RangeShape : Indicator
@@ -29,7 +30,6 @@ namespace OpenGLTests.src.Drawables
         public IShape Shape { get; set; }
         public bool IsInfinite { get; set; } = false;
         public Entity Following { get; set; }
-
 
         public RangeShape(IShape shape, Entity following)
         {
@@ -52,7 +52,7 @@ namespace OpenGLTests.src.Drawables
         public bool Contains(GameCoordinate point)
         {
             if (IsInfinite) return true;
-            return Shape.Contains(point, Location);
+            return Shape.Contains(point, Following.Location, Following.FacingAngle);
         }
 
         public override void DrawStep(DrawAdapter drawer)
@@ -60,8 +60,7 @@ namespace OpenGLTests.src.Drawables
             if (IsInfinite) return;
             if (Visible)
             {
-                if (Shape is Fan f) f.MovingTowardsPoint = Following.MovingTowardsPoint;
-                Shape.DrawStep(drawer, Location);
+                Shape.DrawStep(drawer, Following.Location, Following.FacingAngle);
             }
         }
     }
@@ -77,7 +76,7 @@ namespace OpenGLTests.src.Drawables
             this.Radius = radius;
         }
 
-        public bool Contains(GameCoordinate point, GameCoordinate location)
+        public bool Contains(GameCoordinate point, GameCoordinate location, int angle = 0)
         {
             var x = Math.Abs(point.X - location.X);
             var y = Math.Abs(point.Y - location.Y);
@@ -85,7 +84,7 @@ namespace OpenGLTests.src.Drawables
             return x * x + y * y < Radius.X * Radius.X; //todo no ellipsis, this is circle
         }
 
-        public void DrawStep(DrawAdapter drawer, GameCoordinate location)
+        public void DrawStep(DrawAdapter drawer, GameCoordinate location, int angle)
         {
             GLCoordinate locationx = location.ToGLCoordinate();
             drawer.DrawCircle(locationx.X, locationx.Y, Radius, Color.Gold);
@@ -101,13 +100,13 @@ namespace OpenGLTests.src.Drawables
             this.Dimensions = dimensions;
         }
 
-        public bool Contains(GameCoordinate point, GameCoordinate location)
+        public bool Contains(GameCoordinate point, GameCoordinate location, int angle = 0)
         {
             return (point.X < location.X + Dimensions.X / 2 && point.X > location.X - Dimensions.X / 2 &&
                     point.Y < location.Y + Dimensions.Y / 2 && point.Y > location.Y - Dimensions.Y / 2);
         }
 
-        public void DrawStep(DrawAdapter drawer, GameCoordinate location)
+        public void DrawStep(DrawAdapter drawer, GameCoordinate location, int angle)
         {
             GLCoordinate locationx = location.ToGLCoordinate();
             drawer.TraceRectangle(Color.Gold, locationx.X - this.Dimensions.X / 2, -locationx.Y + this.Dimensions.Y / 2, this.Dimensions.X, -this.Dimensions.Y);
@@ -118,14 +117,13 @@ namespace OpenGLTests.src.Drawables
     {
         public float Length;
         public int Degrees;
-        public GameCoordinate MovingTowardsPoint;
         public Fan(float Length, int Degrees)
         {
             this.Length = Length;
             this.Degrees = Degrees;
         }
 
-        public bool Contains(GameCoordinate point, GameCoordinate location)
+        public bool Contains(GameCoordinate point, GameCoordinate location, int angle)
         {
             var x = Math.Abs(point.X - location.X);
             var y = Math.Abs(point.Y - location.Y);
@@ -133,10 +131,11 @@ namespace OpenGLTests.src.Drawables
             //true if point within Length
             var withinRadius = (x * x + y * y < Length * Length);
 
+            //calculate min and max angle
+            var angle1 = ((angle - Degrees / 2) + 360) % 360; //turn [-180, 180) to [0, 360)
+            var angle2 = (angle + Degrees / 2);
+
             //calculate point angle relative to location. 
-            var angleDeg= angleDegrees(location, MovingTowardsPoint);
-            var angle1 = ((angleDeg - Degrees / 2) + 360) % 360; //turn [-180, 180] to [0, 360]
-            var angle2 = (angleDeg + Degrees / 2);
             var pointAngleDeg = angleDegrees(location, point);
 
             //true if point angle relative to location is within fan width
@@ -146,11 +145,10 @@ namespace OpenGLTests.src.Drawables
         }
 
        
-        public void DrawStep(DrawAdapter drawer, GameCoordinate location)
+        public void DrawStep(DrawAdapter drawer, GameCoordinate location, int angle)
         {
-
             var loc = location.ToGLCoordinate();
-            drawer.DrawFan(loc.X, loc.Y,  angleDegrees(location, MovingTowardsPoint), Length, Degrees);
+            drawer.DrawFan(loc.X, loc.Y,  angle, Length, Degrees);
         }
 
         private int angleDegrees(GameCoordinate point, GameCoordinate relativeTo)

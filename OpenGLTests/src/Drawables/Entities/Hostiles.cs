@@ -31,6 +31,10 @@ namespace OpenGLTests.src.Drawables
             Add();
         }
 
+        public override int FacingAngle
+        {
+            get { return MyMath.AngleBetweenTwoPoints(this.Location, MovingTowardsPoint); }
+        }
 
         public override void OnDeath()
         {

@@ -112,7 +112,7 @@
     <Compile Include="src\Util\Coloring.cs" />
     <Compile Include="src\Util\ContainsLambdas.cs" />
     <Compile Include="src\Util\Coordinate.cs" />
-    <Compile Include="src\Drawables\Elements\Circle.cs" />
+    <Compile Include="src\Drawables\Elements\Shape.cs" />
     <Compile Include="src\Drawables\Drawable.cs" />
     <Compile Include="src\DrawAdapter.cs" />
     <Compile Include="src\GameState.cs" />

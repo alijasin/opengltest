@@ -8,8 +8,14 @@ using OpenGLTests.src.Util;
 
 namespace OpenGLTests.src.Drawables
 {
+    public interface ICursorPositionListener
+    {
+        void OnChanged(GameCoordinate loc);
+    }
+
     public class Cursor : Indicator
     {
+        private List<ICursorPositionListener> listeners = new List<ICursorPositionListener>();
         private GameAction action;
         private Marker marker;
         private RangeShape rs;
@@ -31,13 +37,33 @@ namespace OpenGLTests.src.Drawables
             this.Visible = false;
         }
 
+        private void subscribe(ICursorPositionListener cpl)
+        {
+            Console.WriteLine(cpl + " subbed");
+            listeners.Add(cpl);
+        }
+
+        private void notify(GameCoordinate loc)
+        {
+            foreach(var l in listeners)
+                l.OnChanged(loc);
+        }
+
+        public override GameCoordinate Location
+        {
+            get
+            {
+                var loc = new GameCoordinate(OpenTK.Input.Mouse.GetCursorState().X - GibbWindow.WINX, OpenTK.Input.Mouse.GetCursorState().Y - GibbWindow.WINY);
+                var xd=  CoordinateFuckery.ClickToGLRelativeToCamera(loc, new GameCoordinate(0, 0));
+                return xd;
+            }
+        }
+
         public override void DrawStep(DrawAdapter drawer)
         {
             if (Visible == false) return;
 
-            this.Location = new GameCoordinate(OpenTK.Input.Mouse.GetCursorState().X - GibbWindow.WINX, OpenTK.Input.Mouse.GetCursorState().Y - GibbWindow.WINY);
-            this.Location = CoordinateFuckery.ClickToGLRelativeToCamera(Location, new GameCoordinate(0, 0));
-
+            notify(Location);
             if (rs != null)
             {
                 if (action.PlacementFilter(Location))
@@ -51,8 +77,14 @@ namespace OpenGLTests.src.Drawables
                 rs.DrawStep(drawer);
             }
 
-            if (marker != null) marker.Location = Location;
-            if (markerRs != null) markerRs.DrawStep(drawer);
+            if (marker != null)
+            {
+                if(!(marker is AOEMarker)) marker.Location = Location;
+            }
+            if (markerRs != null)
+            {
+                markerRs.DrawStep(drawer);
+            }
 
             base.DrawStep(drawer);
         }
@@ -60,6 +92,7 @@ namespace OpenGLTests.src.Drawables
         public void SetAction(GameAction action)
         {
             this.action = action; //todo: only use this.
+            if(action is ICursorPositionListener cpl) subscribe(cpl);
             setCursor(action.Icon);
             setRangeShape(action.RangeShape);
             if (action.Marker != null)

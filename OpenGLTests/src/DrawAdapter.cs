@@ -244,9 +244,6 @@ namespace OpenGLTests.src
             GL.Enable(EnableCap.Blend);
             GL.Begin(PrimitiveType.LineLoop);
 
-            //var deltaX = direction.X - originX;
-            //var deltaY = direction.Y - originY;
-           // var alpha = Math.Atan2(deltaY, deltaX);//Math.Atan2(deltaY, deltaX);
             int fanDeg1 = alpha + degrees/2;
             int fanDeg2 = alpha - degrees/2;
 

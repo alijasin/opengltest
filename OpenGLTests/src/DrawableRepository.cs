@@ -30,6 +30,7 @@ namespace OpenGLTests.src
         private List<Drawable> toAdd = new List<Drawable>();
 
         //todo this is digusting and you should change it. Todo!!! High importance low urgency
+        //additionaly, i think this just fails sometimes
         private List<T> GetWhere<T>(Func<Drawable, bool> filter)
         {
             //this can throw errors
@@ -39,7 +40,7 @@ namespace OpenGLTests.src
                 if (success) toRemove.Remove(rem);
             }
 
-            object locker = 1;
+            object locker = new object();
             lock (locker)
             {
                 drawableRepo.AddRange(toAdd);

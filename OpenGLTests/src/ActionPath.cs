@@ -127,8 +127,6 @@ namespace OpenGLTests.src
             Owner = owner;
         }
 
-        public abstract bool TryPlaceAction(GameAction action, GameCoordinate location);
-
         public abstract ActionReturns CommitActions(object args);
 
         public void OnMouseUp(GameCoordinate mouseLocation)
@@ -137,9 +135,11 @@ namespace OpenGLTests.src
 
             if (SelectedAction.PlacementFilter(mouseLocation))
             {
-                var placed = TryPlaceAction(SelectedAction, mouseLocation);
-                SelectedAction.PlacedLocation = mouseLocation;
-                if (placed) Player.Cursor.Hide();
+                PlaceAction(SelectedAction, mouseLocation);
+                if (SelectedAction.IsPlaced)
+                {
+                    Player.Cursor.Hide();
+                }
             }
 
             SelectedAction.RangeShape.Visible = false;
@@ -154,6 +154,7 @@ namespace OpenGLTests.src
             SelectedAction = gameAction;
         }
 
+        public abstract void PlaceAction(GameAction action, GameCoordinate mouseLocation);
         public abstract void Dispose();
     }
 
@@ -164,14 +165,13 @@ namespace OpenGLTests.src
 
         }
 
-        public bool TryPlaceAction(GameAction action, NPCState state)
+        public void TryPlaceAction(GameAction action, NPCState state)
         {
-            var Location = action.NPCActionPlacementCalculator(state);
+            /*var Location = action.NPCActionPlacementCalculator(state);
             if (Location == null) Location = Owner.Location;
             action.ForcePlaced = true;
             action.PlacedLocation = Location;
-            return base.TryPlaceAction(action, action.PlacedLocation); 
-             
+            base.TryPlaceAction(action, action.PlacedLocation); */
         }
     }
 
@@ -184,19 +184,11 @@ namespace OpenGLTests.src
             SubsequentlyPlacedActions = new SubsequentlyPlacedActions();
         }
 
-        public override bool TryPlaceAction(GameAction action, GameCoordinate location)
+        public override void PlaceAction(GameAction action, GameCoordinate mouseLocation)
         {
-            if (action.RangeShape.Contains(location) || action.RangeShape.IsInfinite || action.IsInstant || action.ForcePlaced)
-            {
-                if (action.PayPreConditions())
-                {
-                    SubsequentlyPlacedActions.Add(action);
-                    action.Place(location, SelectedAction.Icon);
-                    return true;
-                }
-            }
-
-            return false;
+            SelectedAction.PayPreConditions();
+            SubsequentlyPlacedActions.Add(action);
+            SelectedAction.Place(mouseLocation, SelectedAction.Icon);
         }
 
         public override ActionReturns CommitActions(object args)
@@ -285,31 +277,21 @@ namespace OpenGLTests.src
 
         }
 
-        public override bool TryPlaceAction(GameAction action, GameCoordinate location)
+        public override void PlaceAction(GameAction action, GameCoordinate mouseLocation)
         {
-            //If clicked within range or if the range is infinite
-            if (action.IsInstant)
-            {
-                PlacedActions.Add(action);
-                return true;
-            }
-            else if (action.RangeShape.IsInfinite || action.RangeShape.Contains(location))
-            {
-                //remove all placed actions that are identical to the new one.
-                PlacedActions.RemoveWhere(pa => pa.GetType() == action.GetType());
+            //remove all placed actions that are identical to the new one.
+            PlacedActions.RemoveWhere(pa => pa.GetType() == action.GetType());
 
-                action.Place(location, SelectedAction.Icon);
-                PlacedActions.Add(action);
-                return true;
-            }
-
-            return false;
+            SelectedAction.Place(mouseLocation, SelectedAction.Icon);
+            if(SelectedAction.IsPlaced)
+            PlacedActions.Add(action); 
         }
 
         public override void OnMouseDown(GameCoordinate mouseLocation)
         {
             if (SelectedAction == null) return;
             SelectedAction.RangeShape.Visible = true;
+
         }
 
         public override void Dispose()

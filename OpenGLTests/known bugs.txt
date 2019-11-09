@@ -38,3 +38,6 @@ d4i8
 
 Seems we are not aggroing within FanShape sometimes(to the right)
 d7i6
+
+When finishing an action the current action is reset to move. However this isn't always desirable. Need to think further on how we want this to be handled.
+d3i4

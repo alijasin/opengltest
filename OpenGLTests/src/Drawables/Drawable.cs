@@ -148,7 +148,7 @@ namespace OpenGLTests.src.Drawables
         [JsonProperty]
         public GameCoordinate Speed { get; set; } = new GameCoordinate(0, 0);
         [JsonIgnore]
-        public GameCoordinate MovingTowardsPoint { get; set; }
+        public virtual GameCoordinate MovingTowardsPoint { get; set; }
         private GameCoordinate location;
         [JsonProperty]
         public virtual GameCoordinate Location
@@ -160,7 +160,7 @@ namespace OpenGLTests.src.Drawables
             }
             set { location = value; }
         }
-
+        public virtual int FacingAngle { get; set; }
         public Entity()
         {
             this.Visible = true;
@@ -223,7 +223,6 @@ namespace OpenGLTests.src.Drawables
 
     public abstract class Unit : Entity, IActionCapable
     {
-        //todo fix decorators
         [JsonIgnore]
         public virtual int AvailableActionPoints { get; set; } = 3;
         [JsonIgnore]
@@ -240,6 +239,7 @@ namespace OpenGLTests.src.Drawables
         public GameCoordinate InitialSpeed = new GameCoordinate(0.015f, 0.015f);
         [JsonIgnore]
         public bool EndedTurn = false;
+
 
         public Weapon Weapon { get; set; }
 
@@ -309,7 +309,9 @@ namespace OpenGLTests.src.Drawables
         }
     }
 
-    public abstract class Indicator : Entity { }
+    public abstract class Indicator : Entity
+    {
+    }
 
     public abstract class Item : Entity
     {
