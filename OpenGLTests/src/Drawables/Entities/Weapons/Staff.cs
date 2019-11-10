@@ -13,7 +13,7 @@ namespace OpenGLTests.src.Drawables.Entities.Weapons
         {
             this.Owner = owner;
             this.Animation = new Animation(new SpriteSheet_Weapon());
-            this.Animation.SetSprite(SpriteID.weapon_green_magic_staff);
+            this.Animation.SetSprite(SpriteID.weapon_staff_red_crown);
             this.Animation.IsStatic = true;
             this.Size = new GLCoordinate(0.04f, 0.15f);
             this.InitialSize = new GLCoordinate(0.04f, 0.15f);

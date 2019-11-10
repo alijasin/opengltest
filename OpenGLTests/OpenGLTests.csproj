@@ -144,8 +144,8 @@
   <ItemGroup>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
@@ -1149,6 +1149,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="known bugs.txt" />
+    <None Include="Resources\staff_red_crown.png" />
     <None Include="Resources\fireball_0.png" />
     <None Include="Resources\fireball_4.png" />
     <None Include="Resources\fireball_6.png" />

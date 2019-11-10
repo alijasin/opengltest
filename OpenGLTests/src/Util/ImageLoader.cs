@@ -96,7 +96,7 @@ namespace OpenGLTests.src.Util
         crate,
         weapon_golden_sword,
         weapon_katana,
-        weapon_green_magic_staff,
+        weapon_staff_red_crown,
 
         action_move,
         action_attack,
@@ -168,7 +168,7 @@ namespace OpenGLTests.src.Util
             
             Images[SpriteID.weapon_golden_sword] = new Bitmap(Properties.Resources.weapon_golden_sword);
             Images[SpriteID.weapon_katana] = new Bitmap(Properties.Resources.weapon_katana);
-            Images[SpriteID.weapon_green_magic_staff] = new Bitmap(Properties.Resources.weapon_green_magic_staff);
+            Images[SpriteID.weapon_staff_red_crown] = new Bitmap(Properties.Resources.staff_red_crown);
 
             Images[SpriteID.ogre_run_anim_f0] = new Bitmap(Properties.Resources.ogre_run_anim_f0);
             Images[SpriteID.ogre_run_anim_f1] = new Bitmap(Properties.Resources.ogre_run_anim_f1);
@@ -240,12 +240,6 @@ namespace OpenGLTests.src.Util
             Images[SpriteID.fireball_4] = new Bitmap(Properties.Resources.fireball_4);
             Images[SpriteID.fireball_5] = new Bitmap(Properties.Resources.fireball_5);
             Images[SpriteID.fireball_6] = new Bitmap(Properties.Resources.fireball_6); 
-            
-            
-            
-            
-            
-            
             
 
             Images[SpriteID.ui_load_button] = new Bitmap(Properties.Resources.ui_load_button);

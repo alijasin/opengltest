@@ -170,7 +170,7 @@ namespace OpenGLTests.src
             { SpriteID.weapon_katana, 12 },
             { SpriteID.fire_sword_slash_green, 12 },
             { SpriteID.fire_sword_slash_red, 12},
-            { SpriteID.weapon_green_magic_staff, 12 }
+            { SpriteID.weapon_staff_red_crown, 12 }
         })
         { }
     }

@@ -251,7 +251,7 @@ namespace OpenGLTests.src.Drawables
         public bool HasWeapon => Weapon != null;
         public Weapon Weapon { get; set; }
         public bool DoingWeaponAction => ActionHandler.SelectedAction is WeaponAction && ActionStatus == ActionReturns.Ongoing;
-        public virtual GameCoordinate LeftHandLocation { get; set; }
+        public virtual GameCoordinate LeftHandLocation { get; set; } //todo: refactor this into animation
 
         public bool InCombat { get; set; }
         public int HitPoints { get; set; }
@@ -301,6 +301,11 @@ namespace OpenGLTests.src.Drawables
     public abstract class Effect : Entity
     {
         protected GameCoordinate Origin { get; set; }
+
+        public virtual void LogicStep()
+        {
+
+        }
     }
 
     public abstract class Structure : Entity, ICollidable

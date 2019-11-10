@@ -18,7 +18,7 @@ namespace OpenGLTests.src
         public static List<Player> Players { get; set; }
         public Hero Hero { get; set; }  //todo, move this to Player
         public static DrawableRepository Drawables = new DrawableRepository();
-        public static List<StatusEffect> Effects = new List<StatusEffect>();
+        public static List<StatusEffect> StatusEffects = new List<StatusEffect>();
         public static RainGenerator RainGenerator = new RainGenerator(RainGenerator.RainType.Clear); //todo: move to drawable
 
         public GameState()
@@ -56,14 +56,14 @@ namespace OpenGLTests.src
                 return;
             }
 
-            foreach (var effect in Effects)
+            foreach (var effect in StatusEffects)
             {
                 effect.TryApplyEffect();
             }
 
-            for (int i = Effects.Count - 1; i >= 0; i--)
+            for (int i = StatusEffects.Count - 1; i >= 0; i--)
             {
-                if(Effects.ElementAt(i).LiveTime == 0) Effects.RemoveAt(i);
+                if(StatusEffects.ElementAt(i).LiveTime == 0) StatusEffects.RemoveAt(i);
             }
 
 
@@ -123,6 +123,10 @@ namespace OpenGLTests.src
                 }
             }
 
+            foreach (var effect in Drawables.GetAllEffects)
+            {
+                effect.LogicStep();
+            }
 
             foreach (Unit aggro in Drawables.GetAllUnits
                 .Where(c => !(c is Hero) && c.AggroShape != null && c.InCombat == false).ToList())

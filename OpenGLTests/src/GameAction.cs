@@ -168,6 +168,7 @@ namespace OpenGLTests.src
         private Fan fan;
         private int degs;
         private float range = 0.7f;
+        private int collisionDamage = 1;
         public FireballAction(Unit source) : base(source)
         {
             RangeShape = new RangeShape(new Circle(new GLCoordinate(0.5f, 0.5f)), source);
@@ -188,19 +189,18 @@ namespace OpenGLTests.src
                 if (i == 0)
                 {
                     originLoc = new GameCoordinate(Source.Location.X, Source.Location.Y);
-                    fb = new Fireball(originLoc);
+                    var dirAngle = MyMath.AngleBetweenTwoPoints(originLoc, PlacedLocation);
+                    fb = new Fireball(originLoc, new GameCoordinate((float)Math.Cos(dirAngle * Math.PI/180), -(float)Math.Sin(dirAngle * Math.PI / 180)), collisionDamage, Source);
                     GameState.Drawables.Add(fb);
                 }
 
                 var traveledDistance = MyMath.DistanceBetweenTwoPoints(fb.Location, originLoc);
-                Console.WriteLine(traveledDistance);
-                if (traveledDistance > range)
+   
+                if (traveledDistance > range || fb.Finished)
                 {
-                    Console.WriteLine("fin");
                     fb.Dispose();
                     return true;
                 }
-                
 
                 return false;
             };

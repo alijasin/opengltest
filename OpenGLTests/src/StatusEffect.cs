@@ -16,7 +16,7 @@ namespace OpenGLTests.src
         {
             Console.WriteLine("Applied " + this.GetType() + " to " + target.GetType());
             this.Target = target;
-            GameState.Effects.Add(this);
+            GameState.StatusEffects.Add(this);
         }
 
         public virtual void TryApplyEffect()

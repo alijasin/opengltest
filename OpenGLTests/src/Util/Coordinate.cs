@@ -71,6 +71,13 @@ namespace OpenGLTests.src
             return a + -b;
         }
 
+        public bool CloseEnough(GameCoordinate other, float distance)
+        {
+            return
+                Math.Abs(X - other.X) < distance &&
+                Math.Abs(Y - other.Y) < distance;
+        }
+
         public GameCoordinate SnapCoordinate()
         {
             return SnapCoordinate(new GameCoordinate(0.1f, 0.1f));

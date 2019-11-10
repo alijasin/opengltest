@@ -25,7 +25,7 @@ namespace OpenGLTests.src
         public List<Hero> GetAllHeroes => GetWhere<Hero>(drawable => drawable is Hero).ToList();
         public List<ICollidable> GetAllCollidables => GetWhere<ICollidable>(drawable => drawable is ICollidable).ToList();
         public List<IRegion> GetAllRegions => GetWhere<IRegion>(drawable => drawable is IRegion).ToList();
-
+        public List<Effect> GetAllEffects => GetWhere<Effect>(drawable => drawable is Effect).ToList();
         private List<Drawable> toRemove = new List<Drawable>();
         private List<Drawable> toAdd = new List<Drawable>();
 
