@@ -126,7 +126,7 @@ namespace OpenGLTests.src.Util
 
                 var velX = (dx / dist) * source.Speed.X;
                 var velY = (dy / dist) * source.Speed.Y;
-
+                Console.WriteLine(source.Speed.X);
                 source.Location.X -= (float)velX;
                 source.Location.Y -= (float)velY;
                 return false;

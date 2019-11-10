@@ -39,6 +39,8 @@ namespace OpenGLTests.src
         {
 
         }
+
+        public static Camera ActiveCamera { get; set; }
     }
 
     public class HybridCamera : Camera

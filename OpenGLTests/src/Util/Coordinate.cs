@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using OpenGLTests.src.Drawables;
+using OpenGLTests.src.Screens;
 
 namespace OpenGLTests.src
 {
@@ -15,7 +16,15 @@ namespace OpenGLTests.src
             var x = Math.Abs(clicked.X - entityLocation.X);
             var y = Math.Abs(clicked.Y - entityLocation.Y);
             var gcc = new GLCoordinate(x * 2 / GibbWindow.WIDTH - 1, y * 2 / GibbWindow.HEIGHT - 1);
-            return new GameCoordinate(gcc.X + GameState.Players.First().ActiveCamera.Location.X, gcc.Y + GameState.Players.First().ActiveCamera.Location.Y);
+            return new GameCoordinate(gcc.X + Camera.ActiveCamera.Location.X, gcc.Y + Camera.ActiveCamera.Location.Y);
+        }
+
+        public static GameCoordinate EditorClickToGLRelativeToCamera(Camera c, GameCoordinate clicked, GameCoordinate entityLocation)
+        {
+            var x = Math.Abs(clicked.X - entityLocation.X);
+            var y = Math.Abs(clicked.Y - entityLocation.Y);
+            var gcc = new GLCoordinate(x * 2 / GibbWindow.WIDTH - 1, y * 2 / GibbWindow.HEIGHT - 1);
+            return new GameCoordinate(gcc.X + c.Location.X, gcc.Y + c.Location.Y);
         }
     }
 
@@ -37,8 +46,8 @@ namespace OpenGLTests.src
 
         public GLCoordinate ToGLCoordinate()
         {
-            var x = X - GameState.Players.First().ActiveCamera.Location.X;
-            var y = -(Y - GameState.Players.First().ActiveCamera.Location.Y);
+            var x = X - Camera.ActiveCamera.Location.X;
+            var y = -(Y - Camera.ActiveCamera.Location.Y);
 
             return new GLCoordinate(x, y);
         }

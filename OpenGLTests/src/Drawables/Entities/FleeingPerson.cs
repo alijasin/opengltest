@@ -11,7 +11,7 @@ namespace OpenGLTests.src.Drawables.Entities
         public FleeingPerson(GameCoordinate location)
         {
             this.Location = location;
-            this.Speed = new GameCoordinate(0.001f, 0.001f);
+            this.Speed = new GameCoordinate(0.02f, 0.02f);
 
             OutOfCombatActionPattern = new FindAndFleeEntity(this);
             OutOfCombatActionPattern.Loop = true;

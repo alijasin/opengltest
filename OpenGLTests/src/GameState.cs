@@ -28,11 +28,11 @@ namespace OpenGLTests.src
             Hero.Location = new GameCoordinate(0, 0);
             Players.Add(new Player(Hero));
             Drawables.Add(Hero);
-            Drawables.Add(new RoomLoadRegion(new GameCoordinate(0.8f, 0.8f), RoomLoader.Room.TestSpace));
+            /*Drawables.Add(new RoomLoadRegion(new GameCoordinate(0.8f, 0.8f), RoomLoader.Room.TestSpace));
             Drawables.Add(new FanBoy(new GameCoordinate(0.7f, -0.5f)));
             Drawables.Add(new Campfire(new GameCoordinate(0, 0.3f)));
             Drawables.Add(new BearTrap(new GameCoordinate(0, 0.2f)));
-            new Wizard(new GameCoordinate(-0.5f, 0));
+            new Wizard(new GameCoordinate(-0.5f, 0));*/
             RoomLoader.LoadRoom(RoomLoader.Room.TestEditorOutPut);
         }
 
@@ -48,7 +48,7 @@ namespace OpenGLTests.src
 
         public void Step()
         {
-            foreach(var playa in Players) playa.ActiveCamera.Step();
+            foreach(var playa in Players) Camera.ActiveCamera.Step();
 
             if (initStepsCount < initSteps)
             {

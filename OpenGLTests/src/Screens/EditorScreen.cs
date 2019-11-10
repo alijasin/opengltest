@@ -31,9 +31,21 @@ namespace OpenGLTests.src.Screens
         private static GameCoordinate SnapSize = new GameCoordinate(0.05f, 0.05f);
         private List<Entity> toWriteToJson = new List<Entity>();
         List<IInteractable> Buttons = new List<IInteractable>();
+        private EditorState state;
+        public class EditorState
+        {
+            public EditorState()
+            {
+                Camera.ActiveCamera = new MovableCamera(new GameCoordinate(0, 0));
+            }
+
+            public Camera ActiveCamera => Camera.ActiveCamera;
+        }
 
         public EditorScreen()
         {
+            state = new EditorState();
+
             GameConsole = new GameConsole();
             GameConsole.AddDrawableToBar(new Crate(new GameCoordinate(0, 0)));
             GameConsole.AddDrawableToBar(new AngryDude(new GameCoordinate(0, 0)));
@@ -47,6 +59,10 @@ namespace OpenGLTests.src.Screens
             GameConsole.AddDrawableToBar(new House(new GameCoordinate(0, 0)));
             GameConsole.AddDrawableToBar(new Bridge(new GameCoordinate(0, 0)));
             GameConsole.AddDrawableToBar(new Tree(new GameCoordinate(0, 0)));
+            GameConsole.AddDrawableToBar(new BearTrap(new GameCoordinate(0, 0)));
+            GameConsole.AddDrawableToBar(new Campfire(new GameCoordinate(0, 0)));
+            GameConsole.AddDrawableToBar(new FanBoy(new GameCoordinate(0, 0)));
+            GameConsole.AddDrawableToBar(new Wizard(new GameCoordinate(0, 0)));
 
 
             foreach (var b in GameConsole.container.elementSlot)
@@ -128,7 +144,7 @@ namespace OpenGLTests.src.Screens
         {
             GL.PushMatrix();
             GL.Translate(-new GameCoordinate(0, 0).X, -new GameCoordinate(0, 0).Y, 0);
-            //ActiveCamera.Step();
+            state.ActiveCamera.Step();
 
             int xx = (int)(1 / SnapSize.X);
             int yy = (int)(1 / SnapSize.Y);
@@ -168,30 +184,30 @@ namespace OpenGLTests.src.Screens
         protected override void SetupInputBindings()
         {
             //todo we need to get the correct player and do these things for that player, not all players.
-
+            
             // Keyboard
             Bind(new Hotkey(
                 input => input.IsKeyboardInput && input.KeyboardArgs.Key == OpenTK.Input.Key.D,
-                _ => GameState.Players.ForEach(p => p.ActiveCamera.Speed.X = 0.05f),
-                _ => GameState.Players.ForEach(p => p.ActiveCamera.Speed.X = 0)
+                _ => state.ActiveCamera.Speed.X = 0.05f,
+                _ => state.ActiveCamera.Speed.X = 0
             ));
 
             Bind(new Hotkey(
                 input => input.IsKeyboardInput && input.KeyboardArgs.Key == OpenTK.Input.Key.A,
-                _ => GameState.Players.ForEach(p => p.ActiveCamera.Speed.X = -0.05f),
-                _ => GameState.Players.ForEach(p => p.ActiveCamera.Speed.X = 0)
+                _ => state.ActiveCamera.Speed.X = -0.05f,
+                _ => state.ActiveCamera.Speed.X = 0
             ));
 
             Bind(new Hotkey(
                 input => input.IsKeyboardInput && input.KeyboardArgs.Key == OpenTK.Input.Key.W,
-                _ => GameState.Players.ForEach(p => p.ActiveCamera.Speed.Y = -0.05f),
-                _ => GameState.Players.ForEach(p => p.ActiveCamera.Speed.Y = 0)
+                _ => state.ActiveCamera.Speed.Y = -0.05f,
+                _ => state.ActiveCamera.Speed.Y = 0
             ));
 
             Bind(new Hotkey(
                 input => input.IsKeyboardInput && input.KeyboardArgs.Key == OpenTK.Input.Key.S,
-                _ => GameState.Players.ForEach(p => p.ActiveCamera.Speed.X = 0.05f), 
-                _ => GameState.Players.ForEach(p => p.ActiveCamera.Speed.Y = 0)
+                _ => state.ActiveCamera.Speed.Y = 0.05f,
+                _ => state.ActiveCamera.Speed.Y = 0
             ));
             Bind(new Hotkey(
                 input => input.IsKeyboardInput && input.KeyboardArgs.Key == OpenTK.Input.Key.Tilde,
@@ -204,9 +220,8 @@ namespace OpenGLTests.src.Screens
                 input =>
                 {
                     GameCoordinate clicked = new GameCoordinate(input.MouseButtonArgs.X, input.MouseButtonArgs.Y);
-                    var xd = CoordinateFuckery.ClickToGLRelativeToCamera(clicked, new GameCoordinate(0, 0));
+                    var xd = CoordinateFuckery.EditorClickToGLRelativeToCamera(state.ActiveCamera, clicked, new GameCoordinate(0, 0));
 
-                    //should be xd?
                     if (!GameConsole.container.Contains(clicked) && CurrentlySelected != null && !SaveButton.Contains(clicked) && 
                         !FacingButton.Contains(clicked) && !RotationButton.Contains(clicked))
                     {
@@ -242,7 +257,7 @@ namespace OpenGLTests.src.Screens
                 input =>
                 {
                     GameCoordinate clicked = new GameCoordinate(input.MouseButtonArgs.X, input.MouseButtonArgs.Y);
-                    var xd = CoordinateFuckery.ClickToGLRelativeToCamera(clicked, new GameCoordinate(0, 0));
+                    var xd = CoordinateFuckery.EditorClickToGLRelativeToCamera(state.ActiveCamera, clicked, new GameCoordinate(0, 0));
 
                     foreach (var d in toWriteToJson)
                     {
@@ -255,11 +270,6 @@ namespace OpenGLTests.src.Screens
                     }
                 }
             ));
-        }
-
-        private T Create<T>() where T : class, new()
-        {
-            return new T();
         }
     }
 
