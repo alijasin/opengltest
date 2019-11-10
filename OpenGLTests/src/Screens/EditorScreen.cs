@@ -124,7 +124,7 @@ namespace OpenGLTests.src.Screens
                 toWriteToJson.Add(LastPlaced);
             };
             Buttons.Add(RotationButton);
-
+            /*
             LoadButton = new Button(new GLCoordinate(0.1f, 0.1f));
             LoadButton.Animation = new Animation(new SpriteSheet_EditorUI());
             LoadButton.Animation.IsStatic = true;
@@ -135,7 +135,7 @@ namespace OpenGLTests.src.Screens
                 var xd = EntitySerializer.LoadEntitiesFromFile(RoomLoader.Room.TestEditorOutPut.ToString());
                 foreach(var meme in xd) toWriteToJson.Add(meme);
             };
-            Buttons.Add(LoadButton);
+            Buttons.Add(LoadButton);*/
 
 
             #endregion

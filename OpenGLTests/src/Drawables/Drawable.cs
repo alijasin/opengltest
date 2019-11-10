@@ -222,6 +222,7 @@ namespace OpenGLTests.src.Drawables
         {
             this.Color = Color.White;
             this.BoundingBox = new RangeShape(new Rectangle(new GLCoordinate(0.1f, 0.1f)), this);
+            GameState.Drawables.Add(this);
         }
         
         public bool Phased { get; set; } = false;
@@ -247,9 +248,10 @@ namespace OpenGLTests.src.Drawables
         public GameCoordinate InitialSpeed = new GameCoordinate(0.015f, 0.015f);
         [JsonIgnore]
         public bool EndedTurn = false;
+        [JsonIgnore]
+        public Weapon Weapon { get; set; }
 
         public bool HasWeapon => Weapon != null;
-        public Weapon Weapon { get; set; }
         public bool DoingWeaponAction => ActionHandler.SelectedAction is WeaponAction && ActionStatus == ActionReturns.Ongoing;
         public virtual GameCoordinate LeftHandLocation { get; set; } //todo: refactor this into animation
 

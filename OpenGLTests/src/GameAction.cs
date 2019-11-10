@@ -476,7 +476,7 @@ namespace OpenGLTests.src
 
             this.RangeShape = new RangeShape(new Circle(new GLCoordinate(0.4f, 0.4f)), source);
             this.Marker = new ActionMarker(RangeShape.Location);
-
+            toSpawn.Dispose(); //only used to create action.
         }
 
         public override Func<object, bool> GetAction()

@@ -77,7 +77,7 @@ namespace OpenGLTests.src
     {
         public SpawnBearTrapAbility(Unit owner)
         {
-            this.Action = new SpawnEntityAction(owner, new BearTrap());
+            this.Action = new SpawnEntityAction(owner, new BearTrap(new GameCoordinate(-0.5f, -0.5f)));
             Action.Icon = SpriteID.bear_trap_open;
         }
     }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
 using OpenGLTests.src.Util;
 
 namespace OpenGLTests.src.Drawables.Entities
@@ -11,10 +12,6 @@ namespace OpenGLTests.src.Drawables.Entities
     {
         private bool isTriggered = false;
 
-        public BearTrap() : this(new GameCoordinate(0, 0))
-        {
-            
-        }
         public BearTrap(GameCoordinate location)
         {
             this.Location = location;
@@ -30,7 +27,7 @@ namespace OpenGLTests.src.Drawables.Entities
 
         public Action<GameCoordinate> OnClick { get; set; }
 
-
+        [JsonIgnore]
         public RangeShape Shape { get; set; }
 
         public void OnEntered(Unit d)
