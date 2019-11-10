@@ -41,9 +41,20 @@ namespace OpenGLTests.src.Drawables
     public class AOEMarker : ActionMarker
     {
         public RangeShape AOEShape;
+
+        public AOEMarker(GameCoordinate loc) : base(loc)
+        {
+            this.Location = loc;
+        }
+
         public AOEMarker(GameCoordinate loc, RangeShape aoeShape) : base(loc)
         {
             this.Location = loc;
+            SetShape(aoeShape);
+        }
+
+        public void SetShape(RangeShape aoeShape)
+        {
             this.AOEShape = aoeShape;
         }
 

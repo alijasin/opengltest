@@ -79,7 +79,7 @@ namespace OpenGLTests.src.Drawables
 
             if (marker != null)
             {
-                if(!(marker is AOEMarker)) marker.Location = Location;
+                marker.Location = Location;
             }
             if (markerRs != null)
             {

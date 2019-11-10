@@ -133,8 +133,10 @@ namespace OpenGLTests.src
         public TossItemAction(Unit source, Item i) : base(source)
         {
             RangeShape = new RangeShape(new Circle(new GLCoordinate(0.5f, 0.5f)), source);
+            Marker = new AOEMarker(source.Location);
+            var aoeShape = new RangeShape(new Circle(new GLCoordinate(0.05f, 0.05f)), Marker);
+            (Marker as AOEMarker).SetShape(aoeShape);
             RangeShape.Visible = false;
-            Marker = new AOEMarker(new GameCoordinate(0.5f, 0.5f), new RangeShape(new Circle(new GLCoordinate(0.05f, 0.05f)), source));
         }
 
         public override Func<object, bool> GetAction()
@@ -343,6 +345,7 @@ namespace OpenGLTests.src
     {
         private Fan fan;
         private int degs;
+
         public SliceAction(Unit source) : base(source)
         {
             RangeShape = new RangeShape(new Circle(new GLCoordinate(0.5f, 0.5f)), source);
@@ -386,7 +389,6 @@ namespace OpenGLTests.src
                             if (fan.Contains(u.Location, Source.Location, degs))
                             {
                                 u.Damage(1);
-                                Console.WriteLine("Damaged " + u.GetType() + " for 1 dmg");
                             }
                         }
                         

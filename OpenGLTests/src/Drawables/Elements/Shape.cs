@@ -61,7 +61,7 @@ namespace OpenGLTests.src.Drawables
             if (IsInfinite) return;
             if (Visible)
             {
-                Shape.DrawStep(drawer, Following.Location, Following.FacingAngle);
+                Shape.DrawStep(drawer, Location, Following.FacingAngle);
             }
         }
     }

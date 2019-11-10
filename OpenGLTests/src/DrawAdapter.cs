@@ -158,6 +158,7 @@ namespace OpenGLTests.src
             GL.Vertex2(right, top);
         }
 
+        //todo fix this so that it doesnt fuck with the coordinates
         public void TraceRectangle(Color color, float x, float y, float width, float height, float lineWidth = 3)
         {
             GL.PushAttrib(AttribMask.EnableBit);

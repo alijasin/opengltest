@@ -256,6 +256,7 @@ namespace OpenGLTests.src.Drawables
 
         public void Damage(int dmg)
         {
+            Console.WriteLine("Damaged " + this.GetType() + " for " + dmg + " damage.");
             this.HitPoints -= dmg;
             if (HitPoints <= 0) OnDeath();
         }
