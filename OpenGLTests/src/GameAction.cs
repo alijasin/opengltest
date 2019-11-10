@@ -345,7 +345,8 @@ namespace OpenGLTests.src
         private int degs;
         public SliceAction(Unit source) : base(source)
         {
-            RangeShape = new RangeShape(new Circle(new GLCoordinate(0.2f, 0.2f)), source);
+            RangeShape = new RangeShape(new Circle(new GLCoordinate(0.5f, 0.5f)), source);
+            RangeShape.IsInfinite = true;
             degs = 110;
             fan = new Fan(0.2f, degs);
             this.Marker = new AOEMarker(source.Location, new RangeShape(fan, source));
@@ -361,6 +362,7 @@ namespace OpenGLTests.src
             return o =>
             {
                 int i = (int) o;
+                var angle = MyMath.AngleBetweenTwoPoints(Source.Location, Marker.Location);
                 if (i == 0)
                 {
                     initAngle = Source.Weapon.Rotation;
@@ -369,7 +371,6 @@ namespace OpenGLTests.src
                 }
                 else
                 {
-                    var angle = MyMath.AngleBetweenTwoPoints(Source.Location, Marker.Location);
                     Source.Weapon.Rotation = angle - 90 + degs/2 - i*10;
                 }
 
@@ -382,7 +383,7 @@ namespace OpenGLTests.src
                     {
                         if (u != Source)
                         {
-                            if (RangeShape.Contains(u.Location))
+                            if (fan.Contains(u.Location, Source.Location, degs))
                             {
                                 u.Damage(1);
                                 Console.WriteLine("Damaged " + u.GetType() + " for 1 dmg");
