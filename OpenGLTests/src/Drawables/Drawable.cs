@@ -24,7 +24,7 @@ namespace OpenGLTests.src.Drawables
     public abstract class Drawable : ICloneable
     {
         public bool Flipped = false;
-        public Facing Facing = Facing.Right;
+        public Facing Facing { get; private set; } = Facing.Right;
         public virtual bool Visible { get; set; }
         public Color Color { get; set; } = Color.White;
         public GLCoordinate Size { get; set; } = new GLCoordinate(0.1f, 0.1f);
@@ -187,6 +187,9 @@ namespace OpenGLTests.src.Drawables
     {
         public GLCoordinate InitialSize { get; set; }
         public int Rotation { get; set; } = 0;
+        protected int LeftFacingRotation = 120;
+        protected int RightFacingRotation = 340;
+
         public Unit Owner;
         public override GameCoordinate Location
         {
@@ -197,11 +200,11 @@ namespace OpenGLTests.src.Drawables
                 {
                     if (Owner.Facing == Facing.Right)
                     {
-                        Rotation = 340;
+                        Rotation = RightFacingRotation;
                     }
                     else
                     {
-                        Rotation = 120;
+                        Rotation = LeftFacingRotation;
                     }
                 }
 

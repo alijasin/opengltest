@@ -32,29 +32,10 @@ namespace OpenGLTests.src
             Drawables.Add(new FanBoy(new GameCoordinate(0.7f, -0.5f)));
             Drawables.Add(new Campfire(new GameCoordinate(0, 0.3f)));
             Drawables.Add(new BearTrap(new GameCoordinate(0, 0.2f)));
-            Drawables.Add(new Wizard(new GameCoordinate(-0.5f, 0)));
+            new Wizard(new GameCoordinate(-0.5f, 0));
             RoomLoader.LoadRoom(RoomLoader.Room.TestEditorOutPut);
         }
 
-        //todo: create class room and let room load entities from a file.
-        private void LoadRoom()
-        {
-            var angerdude = new AngryDude(new GameCoordinate(0.2f, 0.8f));
-            Drawables.Add(angerdude);
-
-            var patroldude = new PatrolGuy(new GameCoordinate(-0.6f, -0.4f));
-            Drawables.Add(patroldude);
-
-            var chasingdude = new ChasingPerson(new GameCoordinate(0.5f, 0));
-            Drawables.Add(chasingdude);
-
-            var swamper = new Swamper(new GameCoordinate(0.5f, -0.5f));
-            Drawables.Add(swamper);
-
-            //var unicorn = new Unicorn(new GameCoordinate(-0.5f, 0), Hero);
-            //Drawables.Add(unicorn);
-
-        }
 
         private void LoadTestRoom()
         {

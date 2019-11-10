@@ -77,10 +77,11 @@
     <Compile Include="src\Drawables\Entities\Hero.cs" />
     <Compile Include="src\Drawables\Entities\Hostiles.cs" />
     <Compile Include="src\Drawables\Entities\House.cs" />
-    <Compile Include="src\Drawables\Entities\Katana.cs" />
+    <Compile Include="src\Drawables\Entities\Weapons\Katana.cs" />
     <Compile Include="src\Drawables\Entities\PatrolGuy.cs" />
     <Compile Include="src\Drawables\Entities\Rock.cs" />
     <Compile Include="src\Drawables\Entities\Tree.cs" />
+    <Compile Include="src\Drawables\Entities\Weapons\Staff.cs" />
     <Compile Include="src\Drawables\Entities\Wizard.cs" />
     <Compile Include="src\Drawables\Inventory.cs" />
     <Compile Include="src\Drawables\Elements\Line.cs" />

@@ -141,6 +141,7 @@ namespace OpenGLTests.src.Screens
                 _ => { }
             ));
             #endregion
+
             // Mouse
             Bind(new Hotkey(
                 input => input.IsMouseInput && input.MouseButtonArgs.Button == MouseButton.Left,
