@@ -73,6 +73,7 @@
     <Compile Include="src\Drawables\Entities\Chaser.cs" />
     <Compile Include="src\Drawables\Entities\DrawableButton.cs" />
     <Compile Include="src\Drawables\Entities\FanBoy.cs" />
+    <Compile Include="src\Drawables\Entities\Fireball.cs" />
     <Compile Include="src\Drawables\Entities\FleeingPerson.cs" />
     <Compile Include="src\Drawables\Entities\Hero.cs" />
     <Compile Include="src\Drawables\Entities\Hostiles.cs" />
@@ -1148,6 +1149,13 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="known bugs.txt" />
+    <None Include="Resources\fireball_0.png" />
+    <None Include="Resources\fireball_4.png" />
+    <None Include="Resources\fireball_6.png" />
+    <None Include="Resources\fireball_5.png" />
+    <None Include="Resources\fireball_3.png" />
+    <None Include="Resources\fireball_2.png" />
+    <None Include="Resources\fireball_1.png" />
     <None Include="Resources\action_point_bar.png" />
     <None Include="Resources\action_point_used.png" />
     <None Include="Resources\action_point_unused.png" />

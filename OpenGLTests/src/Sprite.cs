@@ -123,6 +123,21 @@ namespace OpenGLTests.src
         }
     }
 
+    class SpriteSheet_Fireball : SpriteSheet
+    {
+        public SpriteSheet_Fireball() : base (new Dictionary<SpriteID, int>()
+        {
+            { SpriteID.fireball_0, 6 },
+            { SpriteID.fireball_1, 6 },
+            { SpriteID.fireball_2, 6 },
+            { SpriteID.fireball_3, 6 },
+            { SpriteID.fireball_4, 6 },
+            { SpriteID.fireball_5, 6 },
+            { SpriteID.fireball_6, 6 },
+        })
+        { }
+    }
+
     class SpriteSheet_BigDemonRun : SpriteSheet
     {
         public SpriteSheet_BigDemonRun() : base(new Dictionary<SpriteID, int>()

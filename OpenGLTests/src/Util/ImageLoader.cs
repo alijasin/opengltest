@@ -106,6 +106,14 @@ namespace OpenGLTests.src.Util
         item_flask_big_green,
         item_apple,
 
+        fireball_0,
+        fireball_1,
+        fireball_2,
+        fireball_3,
+        fireball_4,
+        fireball_5,
+        fireball_6,
+
 
         ui_snap_to_grid_button,
         ui_facing_button,
@@ -223,6 +231,22 @@ namespace OpenGLTests.src.Util
             Images[SpriteID.item_flask_big_red] = new Bitmap(Properties.Resources.flask_big_red);
             Images[SpriteID.item_flask_big_green] = new Bitmap(Properties.Resources.flask_big_green);
             Images[SpriteID.item_apple] = new Bitmap(Properties.Resources.apple);
+
+
+            Images[SpriteID.fireball_0] = new Bitmap(Properties.Resources.fireball_0);
+            Images[SpriteID.fireball_1] = new Bitmap(Properties.Resources.fireball_1);
+            Images[SpriteID.fireball_2] = new Bitmap(Properties.Resources.fireball_2);
+            Images[SpriteID.fireball_3] = new Bitmap(Properties.Resources.fireball_3);
+            Images[SpriteID.fireball_4] = new Bitmap(Properties.Resources.fireball_4);
+            Images[SpriteID.fireball_5] = new Bitmap(Properties.Resources.fireball_5);
+            Images[SpriteID.fireball_6] = new Bitmap(Properties.Resources.fireball_6); 
+            
+            
+            
+            
+            
+            
+            
 
             Images[SpriteID.ui_load_button] = new Bitmap(Properties.Resources.ui_load_button);
             Images[SpriteID.ui_snap_to_grid_button] = new Bitmap(Properties.Resources.icon_snap_to_grid);
