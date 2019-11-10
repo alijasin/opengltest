@@ -33,7 +33,6 @@ namespace OpenGLTests.src
             Drawables.Add(new Campfire(new GameCoordinate(0, 0.3f)));
             Drawables.Add(new BearTrap(new GameCoordinate(0, 0.2f)));
             new Wizard(new GameCoordinate(-0.5f, 0));
-            Drawables.Add(new Fireball());
             RoomLoader.LoadRoom(RoomLoader.Room.TestEditorOutPut);
         }
 

@@ -363,6 +363,7 @@ namespace OpenGLTests.src
             { SpriteID.mossy_boot, 12 },
             { SpriteID.bear_trap_open, 12 },
             { SpriteID.fire_sword_slash_green, 12 },
+            { SpriteID.fireball_0, 12 }
 
         })
         { }

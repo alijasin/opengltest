@@ -59,13 +59,14 @@ namespace OpenGLTests.src.Drawables
         {
             ActionBar = new ActionBar(this);
             GameState.Drawables.Add(ActionBar);
-            ActionBar.Add(new Move(this));
-            ActionBar.Add(new Slice(this));
-            ActionBar.Add(new Teleport(this));
-            ActionBar.Add(new TossBomb(this));
-            ActionBar.Add(new Hook(this));
-            ActionBar.Add(new HookShot(this));
-            ActionBar.Add(new SpawnBearTrap(this));
+            ActionBar.Add(new MoveAbility(this));
+            ActionBar.Add(new SliceAbility(this));
+            ActionBar.Add(new TeleportAbility(this));
+            ActionBar.Add(new TossBombAbility(this));
+            ActionBar.Add(new HookAbility(this));
+            ActionBar.Add(new HookShotAbility(this));
+            ActionBar.Add(new SpawnBearTrapAbility(this));
+            ActionBar.Add(new FireBallAbility(this));
         }
 
         private void initInventory()

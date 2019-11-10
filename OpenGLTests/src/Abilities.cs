@@ -15,9 +15,9 @@ namespace OpenGLTests.src
         public SpriteID Icon => Action.Icon;
     }
 
-    public class Yell : Ability
+    public class YellAbility : Ability
     {
-        public Yell(Unit owner)
+        public YellAbility(Unit owner)
         {
             this.Action = new LambdaAction((o) =>
             {
@@ -28,66 +28,75 @@ namespace OpenGLTests.src
         }
     }
 
-    public class Teleport : Ability
+    public class TeleportAbility : Ability
     {
-        public Teleport(Unit owner)
+        public TeleportAbility(Unit owner)
         {
             this.Action = new TeleportAction(new GLCoordinate(0.4f, 0.4f), owner);
             Action.Icon = SpriteID.floor_1;
         }
     }
 
-    public class Hook : Ability
+    public class HookAbility : Ability
     {
-        public Hook(Unit owner)
+        public HookAbility(Unit owner)
         {
             this.Action = new HookAction(owner);
             Action.Icon = SpriteID.big_demon_run_anim_f0;
         }
     }
 
-    public class HookShot : Ability
+    public class HookShotAbility : Ability
     {
-        public HookShot(Unit owner)
+        public HookShotAbility(Unit owner)
         {
             this.Action = new HookShotAction(owner);
             Action.Icon = SpriteID.big_zombie_run_anim_f0;
         }
     }
 
-    public class Move : Ability
+    public class MoveAbility : Ability
     {
-        public Move(Unit owner)
+        public MoveAbility(Unit owner)
         {
             this.Action = new HeroMoveAction(new GLCoordinate(0.3f, 0.3f), owner as Hero);
             Action.Icon = SpriteID.action_move;
         }
     }
 
-    public class TossBomb : Ability
+    public class TossBombAbility : Ability
     {
-        public TossBomb(Unit owner)
+        public TossBombAbility(Unit owner)
         {
             this.Action = new AOEEffectAction(new GLCoordinate(0.6f, 0.6f), new RangeShape(new Circle(new GLCoordinate(0.2f, 0.2f)), owner), owner);
             Action.Icon = SpriteID.action_attack;
         }
     }
 
-    public class SpawnBearTrap : Ability
+    public class SpawnBearTrapAbility : Ability
     {
-        public SpawnBearTrap(Unit owner)
+        public SpawnBearTrapAbility(Unit owner)
         {
             this.Action = new SpawnEntityAction(owner, new BearTrap());
             Action.Icon = SpriteID.bear_trap_open;
         }
     }
 
-    public class Slice : Ability
+    public class SliceAbility : Ability
     {
-        public Slice(Unit owner)
+        public SliceAbility(Unit owner)
         {
             this.Action = new SliceAction(owner);
             Action.Icon = SpriteID.fire_sword_slash_green;
+        }
+    }
+
+    public class FireBallAbility : Ability
+    {
+        public FireBallAbility(Unit owner)
+        {
+            this.Action = new FireballAction(owner);
+            Action.Icon = SpriteID.fireball_0;
         }
     }
 }

@@ -7,6 +7,7 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using OpenGLTests.src.Drawables;
+using OpenGLTests.src.Drawables.Entities;
 using OpenGLTests.src.Util;
 using OpenTK.Graphics.OpenGL4;
 
@@ -156,6 +157,51 @@ namespace OpenGLTests.src
 
                     return true;
                 }
+                return false;
+            };
+        }
+    }
+
+    class FireballAction : CombatAction
+    {
+        private Fireball fb;
+        private Fan fan;
+        private int degs;
+        private float range = 0.7f;
+        public FireballAction(Unit source) : base(source)
+        {
+            RangeShape = new RangeShape(new Circle(new GLCoordinate(0.5f, 0.5f)), source);
+            RangeShape.IsInfinite = true;
+            degs = 15;
+            fan = new Fan(range, degs);
+            this.Marker = new AOEMarker(source.Location, new RangeShape(fan, source));
+            this.ActionLine.LineType = LineType.Dashed;
+            ActionPointCost = 1;
+        }
+
+        private GameCoordinate originLoc;
+        public override Func<object, bool> GetAction()
+        {
+            return (o) =>
+            {
+                int i = (int) o;
+                if (i == 0)
+                {
+                    originLoc = new GameCoordinate(Source.Location.X, Source.Location.Y);
+                    fb = new Fireball(originLoc);
+                    GameState.Drawables.Add(fb);
+                }
+
+                var traveledDistance = MyMath.DistanceBetweenTwoPoints(fb.Location, originLoc);
+                Console.WriteLine(traveledDistance);
+                if (traveledDistance > range)
+                {
+                    Console.WriteLine("fin");
+                    fb.Dispose();
+                    return true;
+                }
+                
+
                 return false;
             };
         }
