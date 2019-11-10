@@ -386,7 +386,7 @@ namespace OpenGLTests.src
                     {
                         if (u != Source)
                         {
-                            if (fan.Contains(u.Location, Source.Location, degs))
+                            if (fan.Contains(u.Location , Source.Location, angle))
                             {
                                 u.Damage(1);
                             }

@@ -53,7 +53,7 @@ namespace OpenGLTests.src.Drawables
         public bool Contains(GameCoordinate point)
         {
             if (IsInfinite) return true;
-            return Shape.Contains(point, Following.Location, Following.FacingAngle);
+            return Shape.Contains(point, Location, Following.FacingAngle);
         }
 
         public override void DrawStep(DrawAdapter drawer)
@@ -129,19 +129,20 @@ namespace OpenGLTests.src.Drawables
             var x = Math.Abs(point.X - location.X);
             var y = Math.Abs(point.Y - location.Y);
 
-            //true if point within Length
+            //true if point within radius
             var withinRadius = (x * x + y * y < Length * Length);
 
             //calculate min and max angle
-            var angle1 = ((angle - Degrees / 2) + 360) % 360; //turn [-180, 180) to [0, 360)
-            var angle2 = (angle + Degrees / 2);
+            var minAngle = ((angle - Degrees / 2)); //turn [-180, 180) to [0, 360)
+            var maxAngle = ((angle + Degrees / 2));
 
             //calculate point angle relative to location. 
-            var pointAngleDeg = angleDegrees(location, point);
+            var pointAngleDeg = ((angleDegrees(location, point)) + 360) %360;
 
             //true if point angle relative to location is within fan width
-            var withinAngle = ((pointAngleDeg >= angle1 || pointAngleDeg <= Math.Abs(angle1-360)) && (pointAngleDeg <= angle2 || Math.Abs(pointAngleDeg-360) <= angle2));
-
+            var withinAngle = (pointAngleDeg >= minAngle && pointAngleDeg <= maxAngle);
+            Console.WriteLine(pointAngleDeg + ", " + "min" + minAngle + " : max" + maxAngle);
+            //if we within min and max angles and within range.
             return withinRadius && withinAngle;
         }
 
@@ -158,7 +159,7 @@ namespace OpenGLTests.src.Drawables
             var deltaX = point.X - relativeTo.X;
             var deltaY = point.Y - relativeTo.Y;
             var alpha = Math.Atan2(deltaY, -deltaX);
-            int alphaDeg = (int)((alpha * 180 / Math.PI + 360) % 360);
+            int alphaDeg = (int)((alpha * 180 / Math.PI));
             return alphaDeg;
         }
     }
