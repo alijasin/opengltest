@@ -141,7 +141,7 @@ namespace OpenGLTests.src.Drawables
 
             //true if point angle relative to location is within fan width
             var withinAngle = (pointAngleDeg >= minAngle && pointAngleDeg <= maxAngle);
-            Console.WriteLine(pointAngleDeg + ", " + "min" + minAngle + " : max" + maxAngle);
+
             //if we within min and max angles and within range.
             return withinRadius && withinAngle;
         }
