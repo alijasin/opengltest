@@ -135,6 +135,18 @@ namespace OpenGLTests.src
         { }
     }
 
+    class SpriteSheet_WizardIdle : SpriteSheet
+    {
+        public SpriteSheet_WizardIdle() : base(new Dictionary<SpriteID, int>()
+        {
+            { SpriteID.wizzard_f_idle_anim_f0, 25 },
+            { SpriteID.wizzard_f_idle_anim_f1, 25 },
+            { SpriteID.wizzard_f_idle_anim_f2, 25 },
+            { SpriteID.wizzard_f_idle_anim_f3, 25 }
+        })
+        { }
+    }
+    
     class SpriteSheet_Weapon : SpriteSheet
     {
         public SpriteSheet_Weapon() : base(new Dictionary<SpriteID, int>()

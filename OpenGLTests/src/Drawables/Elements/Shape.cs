@@ -126,6 +126,7 @@ namespace OpenGLTests.src.Drawables
 
         public bool Contains(GameCoordinate point, GameCoordinate location, int angle)
         {
+            //calculate distance deltas
             var x = Math.Abs(point.X - location.X);
             var y = Math.Abs(point.Y - location.Y);
 
@@ -133,7 +134,7 @@ namespace OpenGLTests.src.Drawables
             var withinRadius = (x * x + y * y < Length * Length);
 
             //calculate min and max angle
-            var minAngle = ((angle - Degrees / 2)); //turn [-180, 180) to [0, 360)
+            var minAngle = ((angle - Degrees / 2)); 
             var maxAngle = ((angle + Degrees / 2));
 
             //calculate point angle relative to location. 
@@ -153,6 +154,7 @@ namespace OpenGLTests.src.Drawables
             drawer.DrawFan(loc.X, loc.Y,  angle, Length, Degrees);
         }
 
+        //todo. this function has been moved to MyMath.cs, but it isnt properly tested. Please confirm if both works.
         private int angleDegrees(GameCoordinate point, GameCoordinate relativeTo)
         {
             if (point == null || relativeTo == null) return 0;

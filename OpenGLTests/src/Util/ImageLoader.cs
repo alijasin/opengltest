@@ -28,6 +28,11 @@ namespace OpenGLTests.src.Util
         elf_m_idle_anim_f2,
         elf_m_idle_anim_f3,
 
+        wizzard_f_idle_anim_f0,
+        wizzard_f_idle_anim_f1,
+        wizzard_f_idle_anim_f2,
+        wizzard_f_idle_anim_f3,
+
         burrowing_swamper_f0,
         burrowing_swamper_f1,
         burrowing_swamper_f2,
@@ -127,7 +132,12 @@ namespace OpenGLTests.src.Util
             Images[SpriteID.elf_m_idle_anim_f1] = new Bitmap(Properties.Resources.elf_f_idle_anim_f1);
             Images[SpriteID.elf_m_idle_anim_f2] = new Bitmap(Properties.Resources.elf_f_idle_anim_f2);
             Images[SpriteID.elf_m_idle_anim_f3] = new Bitmap(Properties.Resources.elf_f_idle_anim_f3);
-
+            
+            Images[SpriteID.wizzard_f_idle_anim_f0] = new Bitmap(Properties.Resources.wizzard_f_idle_anim_f0);
+            Images[SpriteID.wizzard_f_idle_anim_f1] = new Bitmap(Properties.Resources.wizzard_f_idle_anim_f1);
+            Images[SpriteID.wizzard_f_idle_anim_f2] = new Bitmap(Properties.Resources.wizzard_f_idle_anim_f2);
+            Images[SpriteID.wizzard_f_idle_anim_f3] = new Bitmap(Properties.Resources.wizzard_f_idle_anim_f3);
+            
             Images[SpriteID.burrowing_swamper_f0] = new Bitmap(Properties.Resources.burrowing_swamper_f00);
             Images[SpriteID.burrowing_swamper_f1] = new Bitmap(Properties.Resources.burrowing_swamper_f01);
             Images[SpriteID.burrowing_swamper_f2] = new Bitmap(Properties.Resources.burrowing_swamper_f02);

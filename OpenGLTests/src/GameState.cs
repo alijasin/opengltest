@@ -29,10 +29,10 @@ namespace OpenGLTests.src
             Players.Add(new Player(Hero));
             Drawables.Add(Hero);
             Drawables.Add(new RoomLoadRegion(new GameCoordinate(0.8f, 0.8f), RoomLoader.Room.TestSpace));
-            Drawables.Add(new FanBoy(new GameCoordinate(0.5f, 0)));
+            Drawables.Add(new FanBoy(new GameCoordinate(0.7f, -0.5f)));
             Drawables.Add(new Campfire(new GameCoordinate(0, 0.3f)));
             Drawables.Add(new BearTrap(new GameCoordinate(0, 0.2f)));
-
+            Drawables.Add(new Wizard(new GameCoordinate(-0.5f, 0)));
             RoomLoader.LoadRoom(RoomLoader.Room.TestEditorOutPut);
         }
 
