@@ -114,6 +114,19 @@ namespace OpenGLTests.src.Util
         fireball_5,
         fireball_6,
 
+        fire1__01,
+        fire1__02,
+        fire1__03,
+        fire1__04,
+        fire1__05,
+        fire1__06,
+        fire1__07,
+        fire1__08,
+        fire1__09,
+        fire1__10,
+        fire1__11,
+        fire1__12,
+        fire1__13,
 
         ui_snap_to_grid_button,
         ui_facing_button,
@@ -160,6 +173,20 @@ namespace OpenGLTests.src.Util
             Images[SpriteID.burrowing_swamper_f10] = new Bitmap(Properties.Resources.burrowing_swamper_f10);
             Images[SpriteID.burrowing_swamper_f11] = new Bitmap(Properties.Resources.burrowing_swamper_f11);
             Images[SpriteID.burrowing_swamper_f12] = new Bitmap(Properties.Resources.burrowing_swamper_f12);
+
+            Images[SpriteID.fire1__01] = new Bitmap(Properties.Resources.fire1__01);
+            Images[SpriteID.fire1__02] = new Bitmap(Properties.Resources.fire1__02);
+            Images[SpriteID.fire1__03] = new Bitmap(Properties.Resources.fire1__03);
+            Images[SpriteID.fire1__04] = new Bitmap(Properties.Resources.fire1__04);
+            Images[SpriteID.fire1__05] = new Bitmap(Properties.Resources.fire1__05);
+            Images[SpriteID.fire1__06] = new Bitmap(Properties.Resources.fire1__06);
+            Images[SpriteID.fire1__07] = new Bitmap(Properties.Resources.fire1__07);
+            Images[SpriteID.fire1__08] = new Bitmap(Properties.Resources.fire1__08);
+            Images[SpriteID.fire1__09] = new Bitmap(Properties.Resources.fire1__09);
+            Images[SpriteID.fire1__10] = new Bitmap(Properties.Resources.fire1__10);
+            Images[SpriteID.fire1__11] = new Bitmap(Properties.Resources.fire1__11);
+            Images[SpriteID.fire1__12] = new Bitmap(Properties.Resources.fire1__12);
+            Images[SpriteID.fire1__13] = new Bitmap(Properties.Resources.fire1__13);
 
             Images[SpriteID.big_demon_run_anim_f0] = new Bitmap(Properties.Resources.big_demon_run_anim_f0);
             Images[SpriteID.big_demon_run_anim_f1] = new Bitmap(Properties.Resources.big_demon_run_anim_f1);

@@ -110,11 +110,18 @@ namespace OpenGLTests.src.Drawables
         }
     }
 
+    public interface IDamagable
+    {
+        int HitPoints { get; set; }
+        void Damage(int dmg);
+    }
+
     public interface ICollidable
     {
         bool Phased { get; set; }
         [JsonIgnore]
         RangeShape BoundingBox { get; set; }
+        GameCoordinate Location { get; set; }
     }
 
     public abstract class Element : Drawable
@@ -230,7 +237,7 @@ namespace OpenGLTests.src.Drawables
         public RangeShape BoundingBox { get; set; }
     }
 
-    public abstract class Unit : Entity, IActionCapable
+    public abstract class Unit : Entity, IActionCapable, IDamagable
     {
         [JsonIgnore]
         public virtual int AvailableActionPoints { get; set; } = 3;
@@ -256,8 +263,10 @@ namespace OpenGLTests.src.Drawables
         public virtual GameCoordinate LeftHandLocation { get; set; } //todo: refactor this into animation
 
         public bool InCombat { get; set; }
-        public int HitPoints { get; set; }
+
         public int Initiative { get; set; } = 0;
+
+        public int HitPoints { get; set; }
 
         public void Damage(int dmg)
         {

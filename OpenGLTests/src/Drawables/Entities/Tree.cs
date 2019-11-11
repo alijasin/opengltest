@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace OpenGLTests.src.Drawables.Entities
 {
-    class Tree : Stuff
+    class Tree : Stuff, IDamagable
     {
         public Tree(GameCoordinate Location)
         {
@@ -18,7 +18,18 @@ namespace OpenGLTests.src.Drawables.Entities
             this.Animation.SetSprite(sheet.GetRandom());
             this.Animation.IsStatic = true;
             this.Visible = true;
+            this.HitPoints = 2;
             GameState.Drawables.Add(this);
+        }
+
+        public int HitPoints { get; set; }
+        public void Damage(int dmg)
+        {
+            this.HitPoints -= dmg;
+            if (HitPoints <= 0)
+            {
+                this.Color = System.Drawing.Color.FromArgb(47, 47, 48);
+            }
         }
     }
 }

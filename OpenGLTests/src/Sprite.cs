@@ -137,6 +137,26 @@ namespace OpenGLTests.src
         })
         { }
     }
+    class SpriteSheet_Fire : SpriteSheet
+    {
+        public SpriteSheet_Fire() : base(new Dictionary<SpriteID, int>()
+        {
+            { SpriteID.fire1__01, 6 },
+            { SpriteID.fire1__02, 6 },
+            { SpriteID.fire1__03, 6 },
+            { SpriteID.fire1__04, 6 },
+            { SpriteID.fire1__05, 6 },
+            { SpriteID.fire1__06, 6 },
+            { SpriteID.fire1__07, 6 },
+            { SpriteID.fire1__08, 6 },
+            { SpriteID.fire1__09, 6 },
+            { SpriteID.fire1__10, 6 },
+            { SpriteID.fire1__11, 6 },
+            { SpriteID.fire1__12, 6 },
+            { SpriteID.fire1__13, 6 },
+        })
+        { }
+    }
 
     class SpriteSheet_BigDemonRun : SpriteSheet
     {

@@ -84,6 +84,7 @@
     <Compile Include="src\Drawables\Entities\Tree.cs" />
     <Compile Include="src\Drawables\Entities\Weapons\Staff.cs" />
     <Compile Include="src\Drawables\Entities\Wizard.cs" />
+    <Compile Include="src\Drawables\Fire.cs" />
     <Compile Include="src\Drawables\Inventory.cs" />
     <Compile Include="src\Drawables\Elements\Line.cs" />
     <Compile Include="src\Drawables\Elements\Particle.cs" />
@@ -1149,6 +1150,19 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="known bugs.txt" />
+    <None Include="Resources\fire1_ 13.png" />
+    <None Include="Resources\fire1_ 12.png" />
+    <None Include="Resources\fire1_ 11.png" />
+    <None Include="Resources\fire1_ 10.png" />
+    <None Include="Resources\fire1_ 09.png" />
+    <None Include="Resources\fire1_ 08.png" />
+    <None Include="Resources\fire1_ 07.png" />
+    <None Include="Resources\fire1_ 06.png" />
+    <None Include="Resources\fire1_ 05.png" />
+    <None Include="Resources\fire1_ 04.png" />
+    <None Include="Resources\fire1_ 03.png" />
+    <None Include="Resources\fire1_ 02.png" />
+    <None Include="Resources\fire1_ 01.png" />
     <None Include="Resources\staff_red_crown.png" />
     <None Include="Resources\fireball_0.png" />
     <None Include="Resources\fireball_4.png" />

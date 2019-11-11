@@ -34,13 +34,19 @@ namespace OpenGLTests.src.Drawables.Entities
         {
             this.Location += Speed;
 
-            foreach (var unit in GameState.Drawables.GetAllUnits)
+            foreach (var entity in GameState.Drawables.GetAllCollidables)
             {
-                if(unit == source) continue;
-                
-                if (this.Location.CloseEnough(unit.Location, this.Size.X / 2))
+                if(entity == source) continue;
+                if (entity.BoundingBox.Contains(new GameCoordinate(this.Location.X + this.Size.X/2, this.Location.Y)))
+                //if (this.Location.CloseEnough(entity.Location, this.Size.X / 2))
                 {
-                    unit.Damage(collisionDamage);
+                    if (entity is IDamagable d)
+                    {
+                        d.Damage(collisionDamage);
+                        //Fire f = new Fire(entity.Location, new GLCoordinate(0.4f, 0.4f));
+                        //GameState.Drawables.Add(f);
+                    }
+
                     if (diesOnImpact)
                     {
                         Finished = true;
