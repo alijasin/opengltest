@@ -19,10 +19,5 @@ namespace OpenGLTests.src.Drawables.Entities.Weapons
             this.InitialSize = new GLCoordinate(0.04f, 0.15f);
             this.LeftFacingRotation = 70;
         }
-
-        public override void DrawStep(DrawAdapter drawer)
-        {
-            drawer.DrawWeapon(this);
-        }
     }
 }

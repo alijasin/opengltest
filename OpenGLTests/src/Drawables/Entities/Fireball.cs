@@ -14,7 +14,7 @@ namespace OpenGLTests.src.Drawables.Entities
         private int collisionDamage;
         private bool diesOnImpact = true;
         public bool Finished = false;
-        public Fireball(GameCoordinate origin, GameCoordinate direction, int collisionDamage, Unit source, bool diesOnImpact = true)
+        public Fireball(GameCoordinate origin, int dirAngle, int collisionDamage, Unit source, bool diesOnImpact = true)
         {
             this.diesOnImpact = diesOnImpact;
             this.collisionDamage = collisionDamage;
@@ -22,7 +22,9 @@ namespace OpenGLTests.src.Drawables.Entities
             this.Size = new GLCoordinate(0.15f, 0.12f);
             this.Location = origin;
             this.Animation = new Animation(new SpriteSheet_Fireball());
+            var direction = new GameCoordinate((float) Math.Cos(dirAngle* Math.PI/ 180), -(float)Math.Sin(dirAngle * Math.PI / 180));
             this.Speed = new GameCoordinate(direction.X*baseSpeed.X, direction.Y*baseSpeed.Y);
+            this.Rotation = dirAngle;
         }
 
         public override void DrawStep(DrawAdapter drawer)

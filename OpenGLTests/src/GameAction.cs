@@ -231,7 +231,7 @@ namespace OpenGLTests.src
         {
             RangeShape = new RangeShape(new Circle(new GLCoordinate(0.5f, 0.5f)), source);
             RangeShape.IsInfinite = true;
-            degs = 15;
+            degs = 3;
             fan = new Fan(range, degs);
             this.Marker = new AOEMarker(source.Location, new RangeShape(fan, source));
             this.ActionLine.LineType = LineType.Dashed;
@@ -257,7 +257,7 @@ namespace OpenGLTests.src
                 {
                     originLoc = new GameCoordinate(Source.Location.X, Source.Location.Y);
                     var dirAngle = MyMath.AngleBetweenTwoPoints(originLoc, PlacedLocation);
-                    fb = new Fireball(originLoc, new GameCoordinate((float)Math.Cos(dirAngle * Math.PI/180), -(float)Math.Sin(dirAngle * Math.PI / 180)), collisionDamage, Source);
+                    fb = new Fireball(originLoc, dirAngle, collisionDamage, Source);
                     GameState.Drawables.Add(fb);
                 }
 

@@ -219,6 +219,11 @@ namespace OpenGLTests.src.Drawables
             }
         }
 
+        public override void DrawStep(DrawAdapter drawer)
+        {
+            drawer.DrawWeapon(this);
+        }
+
         public Facing GetFacing => Owner.Facing;
 
     }
@@ -312,10 +317,15 @@ namespace OpenGLTests.src.Drawables
     public abstract class Effect : Entity
     {
         protected GameCoordinate Origin { get; set; }
-
+        public int Rotation { get; set; } = 0;
         public virtual void LogicStep()
         {
 
+        }
+
+        public override void DrawStep(DrawAdapter drawer)
+        {
+            drawer.DrawEffect(this);
         }
     }
 
