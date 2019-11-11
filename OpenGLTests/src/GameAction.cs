@@ -539,11 +539,13 @@ namespace OpenGLTests.src
         private Entity toSpawn;
         public SpawnEntityAction(Unit source, Entity toSpawn) : base(source)
         {
+            Console.WriteLine("bear trap is broken.");
             this.toSpawn = toSpawn;
 
             this.RangeShape = new RangeShape(new Circle(new GLCoordinate(0.4f, 0.4f)), source);
             this.Marker = new ActionMarker(RangeShape.Location);
-            toSpawn.Dispose(); //only used to create action.
+            // toSpawn.Dispose(); //only used to create action.
+            //toSpawn.Location = new GameCoordinate(99999, 999); //todo lmao. entity needed to be able to spawn similiar entities later on. Currently this isnt that important, but it might be needed to fix this later on.
         }
 
         public override Func<object, bool> GetAction()

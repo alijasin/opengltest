@@ -123,6 +123,15 @@ namespace OpenGLTests.src
         }
     }
 
+    class SpriteSheet_Indicators : SpriteSheet
+    {
+        public SpriteSheet_Indicators() : base(new Dictionary<SpriteID, int>()
+        {
+            { SpriteID.indicator_within_area, 6 },
+        })
+        { }
+    }
+
     class SpriteSheet_Fireball : SpriteSheet
     {
         public SpriteSheet_Fireball() : base (new Dictionary<SpriteID, int>()

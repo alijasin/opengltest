@@ -1863,6 +1863,16 @@ namespace OpenGLTests.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap indicator_within_area {
+            get {
+                object obj = ResourceManager.GetObject("indicator_within_area", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap knight_f_hit_anim_f0 {
             get {
                 object obj = ResourceManager.GetObject("knight_f_hit_anim_f0", resourceCulture);

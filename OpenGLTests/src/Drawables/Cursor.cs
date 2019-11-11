@@ -4,6 +4,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using OpenGLTests.src.Drawables.Entities.Indicators;
 using OpenGLTests.src.Util;
 
 namespace OpenGLTests.src.Drawables
@@ -84,6 +85,12 @@ namespace OpenGLTests.src.Drawables
             if (markerRs != null)
             {
                 markerRs.DrawStep(drawer);
+                foreach (var drawable in GameState.Drawables.GetAllUnits)
+                {
+                    if (drawable == owner.Hero) continue;
+
+                    if (markerRs.Contains(drawable.Location)) drawer.DrawEffect(new WithinCastAreaIndicator(new GameCoordinate(drawable.Location.X, drawable.Location.Y - drawable.Size.Y)));
+                }
             }
 
             base.DrawStep(drawer);

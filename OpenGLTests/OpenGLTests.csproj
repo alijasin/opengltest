@@ -78,6 +78,7 @@
     <Compile Include="src\Drawables\Entities\Hero.cs" />
     <Compile Include="src\Drawables\Entities\Hostiles.cs" />
     <Compile Include="src\Drawables\Entities\House.cs" />
+    <Compile Include="src\Drawables\Entities\Indicators\WithinCastAreaIndicator.cs" />
     <Compile Include="src\Drawables\Entities\Weapons\Katana.cs" />
     <Compile Include="src\Drawables\Entities\PatrolGuy.cs" />
     <Compile Include="src\Drawables\Entities\Rock.cs" />
@@ -1150,6 +1151,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="known bugs.txt" />
+    <None Include="Resources\indicator_within_area.png" />
     <None Include="Resources\fire1_ 13.png" />
     <None Include="Resources\fire1_ 12.png" />
     <None Include="Resources\fire1_ 11.png" />

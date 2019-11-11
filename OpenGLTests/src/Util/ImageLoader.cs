@@ -22,6 +22,7 @@ namespace OpenGLTests.src.Util
         fire_sword_slash_red,
         haunch,
         mossy_boot,
+        indicator_within_area,
 
         elf_m_idle_anim_f0,
         elf_m_idle_anim_f1,
@@ -250,6 +251,8 @@ namespace OpenGLTests.src.Util
             Images[SpriteID.heart2] = new Bitmap(Properties.Resources.heart2);
             Images[SpriteID.heart3] = new Bitmap(Properties.Resources.heart3);
             Images[SpriteID.heart4] = new Bitmap(Properties.Resources.heart4);
+
+            Images[SpriteID.indicator_within_area] = new Bitmap(Properties.Resources.indicator_within_area);
 
             Images[SpriteID.action_move] = new Bitmap(Properties.Resources.action_move);
             Images[SpriteID.action_attack] = new Bitmap(Properties.Resources.action_attack);

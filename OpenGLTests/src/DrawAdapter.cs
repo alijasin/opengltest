@@ -27,7 +27,7 @@ namespace OpenGLTests.src
         {
             Sprite sprite = w.Animation.GetSprite();
             if (sprite == null) return;
-
+            
             GLCoordinate location = w.Location.ToGLCoordinate();
 
             float left, right, top, bottom;
