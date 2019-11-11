@@ -20,7 +20,7 @@ namespace OpenGLTests.src.Drawables
     {
         protected ActionPattern OutOfCombatActionPattern;
         protected ActionPattern CombatActionPattern;
-        private Unit currentAggro;
+        public Unit CurrentAggroTarget;
         public bool Phased { get; set; } = false;
         public RangeShape BoundingBox { get; set; }
         protected Hostile()
@@ -40,7 +40,7 @@ namespace OpenGLTests.src.Drawables
         {
             base.OnDeath();
             Console.WriteLine("{0} died.", this);
-            if (currentAggro is Hero hero)
+            if (CurrentAggroTarget is Hero hero)
             {
                 hero.Deaggro(this);
             }
@@ -52,7 +52,7 @@ namespace OpenGLTests.src.Drawables
             if (InCombat) return;
             ActionHandler.Dispose();
             ActionHandler = new NPCCombatActionHandler(this);
-            currentAggro = aggroed;
+            CurrentAggroTarget = aggroed;
             if(InCombat == false) EnteredCombat(aggroed);
             InCombat = true;
             
@@ -60,8 +60,8 @@ namespace OpenGLTests.src.Drawables
 
         public override void CombatStep(Fight fight)
         {
-            var status = ActionHandler.CommitActions(CombatIndex);
-
+            //var status = ActionHandler.CommitActions(CombatIndex);
+            var status = CombatActionPattern.DoAction(CombatIndex);
             if (status == ActionReturns.Placing) return;
             if (status == ActionReturns.Finished)
             {

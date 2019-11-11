@@ -154,7 +154,7 @@ namespace OpenGLTests.src
             SelectedAction = gameAction;
         }
 
-        public abstract void PlaceAction(GameAction action, GameCoordinate mouseLocation);
+        public abstract void PlaceAction(GameAction action, GameCoordinate placeLocation);
         public abstract void Dispose();
     }
 
@@ -167,11 +167,11 @@ namespace OpenGLTests.src
 
         public void TryPlaceAction(GameAction action, NPCState state)
         {
-            /*var Location = action.NPCActionPlacementCalculator(state);
+            var Location = action.NPCActionPlacementCalculator(state);
             if (Location == null) Location = Owner.Location;
             action.ForcePlaced = true;
             action.PlacedLocation = Location;
-            base.TryPlaceAction(action, action.PlacedLocation); */
+            PlaceAction(action, action.PlacedLocation);
         }
     }
 
@@ -184,11 +184,11 @@ namespace OpenGLTests.src
             SubsequentlyPlacedActions = new SubsequentlyPlacedActions();
         }
 
-        public override void PlaceAction(GameAction action, GameCoordinate mouseLocation)
+        public override void PlaceAction(GameAction action, GameCoordinate placeLocation)
         {
             SelectedAction.PayPreConditions();
             SubsequentlyPlacedActions.Add(action);
-            SelectedAction.Place(mouseLocation, SelectedAction.Icon);
+            SelectedAction.Place(placeLocation, SelectedAction.Icon);
         }
 
         public override ActionReturns CommitActions(object args)
@@ -277,12 +277,12 @@ namespace OpenGLTests.src
 
         }
 
-        public override void PlaceAction(GameAction action, GameCoordinate mouseLocation)
+        public override void PlaceAction(GameAction action, GameCoordinate placeLocation)
         {
             //remove all placed actions that are identical to the new one.
             PlacedActions.RemoveWhere(pa => pa.GetType() == action.GetType());
 
-            SelectedAction.Place(mouseLocation, SelectedAction.Icon);
+            SelectedAction.Place(placeLocation, SelectedAction.Icon);
             if(SelectedAction.IsPlaced)
             PlacedActions.Add(action); 
         }

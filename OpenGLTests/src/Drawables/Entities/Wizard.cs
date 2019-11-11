@@ -13,10 +13,23 @@ namespace OpenGLTests.src.Drawables.Entities
     {
         public Wizard(GameCoordinate location)
         {
+            this.AvailableActionPoints = 99; //needed not needed? figure it out. todo
             this.Location = location;
             this.Animation = new Animation(new SpriteSheet_WizardIdle());
             this.Size = new GLCoordinate(0.1f, 0.1f);
             this.Weapon = new Staff(this);
+
+            this.OutOfCombatActionPattern = new TailoredPattern(new IdleAction(this, 20), new TurnAction(this, Facing.Left),
+                                            new IdleAction(this, 40), new TurnAction(this, Facing.Right), new FireballAction(this));
+            this.OutOfCombatActionPattern.Loop = true;
+
+            this.CombatActionPattern = new TailoredPattern(new IdleAction(this, 40), new FireballAction(this), new IdleAction(this, 5),
+                new FireballAction(this), new IdleAction(this, 5), new FireballAction(this), new IdleAction(this, 5));
+            this.CombatActionPattern.Loop = true;
+
+            this.AggroShape = new RangeShape(new Circle(new GLCoordinate(0.4f, 0.4f)), this);
+  
+            this.AggroShape.Visible = true;
 
             this.SetFacing(Facing.Right);
             OnClick = coordinate =>

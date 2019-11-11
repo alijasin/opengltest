@@ -107,11 +107,11 @@ namespace OpenGLTests.src
     {
         private Unit chasing;
 
-        public FindAndChaseEntity(Unit source)
+        public FindAndChaseEntity(Unit source, RangeShape chasingShape)
         {
             Actions = new List<GameAction>()
             {
-                new FindAndChase(new RangeShape(new Circle(new GLCoordinate(0.2f, 0.2f)), source), source),
+                new FindAndChase(chasingShape, source),
             };
         }
     }

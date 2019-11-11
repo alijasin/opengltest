@@ -11,7 +11,7 @@ namespace OpenGLTests.src.Drawables
         private ParticleGenerator pg;
         public Unicorn(GameCoordinate location, Unit chasing)
         {
-            OutOfCombatActionPattern = new FindAndChaseEntity(this);
+
 
             this.Location = location;
             //this.Speed = new GameCoordinate(0.01f, 0.005f);

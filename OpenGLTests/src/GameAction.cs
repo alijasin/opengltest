@@ -162,6 +162,64 @@ namespace OpenGLTests.src
         }
     }
 
+    class TurnAction : GameAction
+    {
+        private Facing facing;
+        public TurnAction(Unit source, Facing facing) : base(source)
+        {
+            this.facing = facing;
+        }
+
+        public override Func<object, bool> GetAction()
+        {
+            return o =>
+            {
+                Source.SetFacing(facing);
+                return true;
+            };
+        }
+    }
+
+    class IdleAction : GameAction
+    {
+        private int idleTime;
+
+        public IdleAction(Unit source, int steps) : base(source)
+        {
+            this.idleTime = steps;
+        }
+
+        public override Func<object, bool> GetAction()
+        {
+            return o =>
+            {
+                int i = (int) o;
+
+                if (i >= idleTime)
+                {
+                    return true;
+                }
+
+                return false;
+            };
+        }
+    }
+
+    class FindNearestUnit : GameAction
+    {
+        private Func<Unit, bool> targetFilter;
+        public FindNearestUnit(Unit source, RangeShape withinRangeShape, Func<Unit, bool> targetFilter) : base(source)
+        {
+            this.targetFilter = targetFilter;
+        }
+
+        public override Func<object, bool> GetAction()
+        {
+            Console.WriteLine("FindNearestUnit game action was used but it is not implemented yet.");
+            return o => true;
+        }
+    }
+
     class FireballAction : CombatAction
     {
         private Fireball fb;
@@ -178,6 +236,15 @@ namespace OpenGLTests.src
             this.Marker = new AOEMarker(source.Location, new RangeShape(fan, source));
             this.ActionLine.LineType = LineType.Dashed;
             ActionPointCost = 1;
+
+            this.NPCActionPlacementCalculator = state =>
+            {
+                if (Source is Hostile h)
+                {
+                    if (h.CurrentAggroTarget != null) return h.CurrentAggroTarget.Location;
+                }
+                return RNG.RandomPointWithinCircleRelativeToLocation(Source.Location, new GLCoordinate(1f, 1f));
+            };
         }
 
         private GameCoordinate originLoc;

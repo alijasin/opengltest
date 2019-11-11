@@ -37,8 +37,9 @@ namespace OpenGLTests.src.Drawables.Entities
             foreach (var entity in GameState.Drawables.GetAllCollidables)
             {
                 if(entity == source) continue;
-                if (entity.BoundingBox.Contains(new GameCoordinate(this.Location.X + this.Size.X/2, this.Location.Y)))
-                //if (this.Location.CloseEnough(entity.Location, this.Size.X / 2))
+                //if (entity.BoundingBox.Contains(new GameCoordinate(this.Location.X + this.Size.X/2, this.Location.Y)))
+                //todo we want to check against entity bounding box but we are currently having serialization issues(i think). Get this in order.
+                if (this.Location.CloseEnough(entity.Location, this.Size.X / 2) || this.Location.CloseEnough(entity.Location, this.Size.Y/2))
                 {
                     if (entity is IDamagable d)
                     {

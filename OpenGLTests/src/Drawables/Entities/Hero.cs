@@ -13,7 +13,7 @@ using OpenGLTests.src.Util;
 
 namespace OpenGLTests.src.Drawables
 {
-    public class Hero : Unit, IActionCapable
+    public class Hero : Unit, IActionCapable, IDamagable, ICollidable
     {
         //todo put all these things into some wrapper thing
         public int BaseAvailableActionPoints { get; set; } = 5;
@@ -28,6 +28,8 @@ namespace OpenGLTests.src.Drawables
         private CombatTurnConfirmationButton ctcb;
         public RangeShape AggroShape { get; set; }
 
+        public bool Phased { get; set; } = true;
+        public RangeShape BoundingBox { get; set; }
 
         public Hero()
         {
@@ -40,10 +42,10 @@ namespace OpenGLTests.src.Drawables
             this.Initiative = 10;
             this.HitPoints = 5;
             this.Weapon = new Katana(this);
+            BoundingBox = new RangeShape(new Circle(this.Size), this);
             //this.AggroShape = new RangeCircle(new GLCoordinate(0, 0), this);
             initActionBar();
             InCombat = false;
-            
             ResetDefaultActionToMove();
             initGUI();
 
@@ -242,5 +244,6 @@ namespace OpenGLTests.src.Drawables
 
             ResetDefaultActionToMove();
         }
+
     }
 }
