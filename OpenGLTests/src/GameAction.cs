@@ -446,7 +446,7 @@ namespace OpenGLTests.src
         }
     }
 
-    abstract class WeaponAction : GameAction
+    abstract class WeaponAction : CombatAction
     {
         protected WeaponAction(Unit source) : base(source)
         {
@@ -816,7 +816,7 @@ namespace OpenGLTests.src
         }
     }
 
-    class HeroMoveAction : CombatAction
+    class HeroMoveAction : GameAction
     {
         private bool isOnCooldown = false;
 

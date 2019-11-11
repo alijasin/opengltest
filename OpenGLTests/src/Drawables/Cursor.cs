@@ -85,11 +85,17 @@ namespace OpenGLTests.src.Drawables
             if (markerRs != null)
             {
                 markerRs.DrawStep(drawer);
-                foreach (var drawable in GameState.Drawables.GetAllUnits)
+                if (action is CombatAction)
                 {
-                    if (drawable == owner.Hero) continue;
+                    foreach (var drawable in GameState.Drawables.GetAllUnits)
+                    {
+                        if (drawable == owner.Hero) continue;
 
-                    if (markerRs.Contains(drawable.Location)) drawer.DrawEffect(new WithinCastAreaIndicator(new GameCoordinate(drawable.Location.X, drawable.Location.Y - drawable.Size.Y)));
+                        if (markerRs.Contains(drawable.Location))
+                        {
+                            drawer.DrawEffect(new WithinCastAreaIndicator(new GameCoordinate(drawable.Location.X, drawable.Location.Y - drawable.Size.Y)));
+                        }
+                    }
                 }
             }
 
