@@ -25,6 +25,12 @@ namespace OpenGLTests.src.Drawables.Entities
             //OnClick = coordinate => this.Color = Color.Purple;
         }
 
+        public void Reset()
+        {
+            isTriggered = false;
+            this.Animation.SetSprite(SpriteID.bear_trap_open);
+        }
+
         public Action<GameCoordinate> OnClick { get; set; }
 
         [JsonIgnore]

@@ -24,7 +24,7 @@ namespace OpenGLTests.src.Drawables.Entities
             this.OutOfCombatActionPattern.Loop = true;
 
             this.CombatActionPattern = new TailoredPattern(new IdleAction(this, 40), new FireballAction(this), new IdleAction(this, 5),
-                new FireballAction(this), new IdleAction(this, 5), new FireballAction(this), new IdleAction(this, 5));
+                new FireballAction(this), new IdleAction(this, 5), new FireballAction(this), new IdleAction(this, 5), new TeleportAction(new GLCoordinate(0.3f, 0.3f), this));
             this.CombatActionPattern.Loop = true;
 
             this.AggroShape = new RangeShape(new Circle(new GLCoordinate(0.4f, 0.4f)), this);

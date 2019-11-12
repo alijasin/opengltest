@@ -26,5 +26,10 @@ namespace OpenGLTests.src.Util
             var deltaY = p1.Y - p2.Y;
             return (float)Math.Sqrt(deltaX * deltaX + deltaY * deltaY);
         }
+
+        public static float DegToRad(int deg)
+        {
+            return deg * (float)Math.PI / 180;
+        }
     }
 }

@@ -411,6 +411,12 @@ namespace OpenGLTests.src
             this.ActionLine.LineType = LineType.Solid;
             //dont allow teleportation within collidables.
             this.PlacementFilter = coordinate => !GameState.Drawables.GetAllCollidables.Any(c => !c.Phased && c.BoundingBox.Contains(coordinate)) && DefaultPlacementFilter(coordinate);
+            NPCActionPlacementCalculator = (state) =>
+            {
+                var h = Source as Hostile;
+                var angle = MyMath.AngleBetweenTwoPoints(Source.Location, h.Location);
+                return new GameCoordinate(0.2f*(float)Math.Cos(MyMath.DegToRad(angle)), 0.2f*(float)Math.Sin(MyMath.DegToRad(angle)));
+            };
         }
 
         public override Func<object, bool> GetAction()
@@ -534,17 +540,15 @@ namespace OpenGLTests.src
         }
     }
 
-    class SpawnEntityAction : GameAction
+    class SpawnBearTrapAction : GameAction
     {
-        private Entity toSpawn;
-        public SpawnEntityAction(Unit source, Entity toSpawn) : base(source)
+        private BearTrap bt;
+        private bool onlyOne;
+        public SpawnBearTrapAction(Unit source, bool onlyOne = true) : base(source)
         {
-            Console.WriteLine("bear trap is broken.");
-            this.toSpawn = toSpawn;
-
             this.RangeShape = new RangeShape(new Circle(new GLCoordinate(0.4f, 0.4f)), source);
             this.Marker = new ActionMarker(RangeShape.Location);
-            // toSpawn.Dispose(); //only used to create action.
+            this.onlyOne = onlyOne;
             //toSpawn.Location = new GameCoordinate(99999, 999); //todo lmao. entity needed to be able to spawn similiar entities later on. Currently this isnt that important, but it might be needed to fix this later on.
         }
 
@@ -552,9 +556,17 @@ namespace OpenGLTests.src
         {
             return (o) =>
             {
-                var spawn = (Entity)Activator.CreateInstance(toSpawn.GetType());
-                spawn.Location = Marker.Location;
-                GameState.Drawables.Add(spawn);
+                if (bt == null || onlyOne == false)
+                {
+                    bt = new BearTrap(PlacedLocation);
+                    bt.Location = Marker.Location;
+                    GameState.Drawables.Add(bt);
+                }
+                else
+                {
+                    bt.Location = Marker.Location;
+                    bt.Reset();
+                }
                 return true;
             };
         }
