@@ -129,6 +129,14 @@ namespace OpenGLTests.src
         }
     }
 
+    abstract class WeaponAction : CombatAction
+    {
+        protected WeaponAction(Unit source) : base(source)
+        {
+
+        }
+    }
+
     class TossItemAction : ItemAction
     {
         public TossItemAction(Unit source, Item i) : base(source)
@@ -452,13 +460,6 @@ namespace OpenGLTests.src
         }
     }
 
-    abstract class WeaponAction : CombatAction
-    {
-        protected WeaponAction(Unit source) : base(source)
-        {
-
-        }
-    }
 
     class SliceAction : WeaponAction
     {
@@ -549,7 +550,6 @@ namespace OpenGLTests.src
             this.RangeShape = new RangeShape(new Circle(new GLCoordinate(0.4f, 0.4f)), source);
             this.Marker = new ActionMarker(RangeShape.Location);
             this.onlyOne = onlyOne;
-            //toSpawn.Location = new GameCoordinate(99999, 999); //todo lmao. entity needed to be able to spawn similiar entities later on. Currently this isnt that important, but it might be needed to fix this later on.
         }
 
         public override Func<object, bool> GetAction()
