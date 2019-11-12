@@ -32,7 +32,7 @@ namespace OpenGLTests.src.Drawables.Entities
             this.AggroShape.Visible = true;
 
             this.SetFacing(Facing.Right);
-            OnClick = coordinate =>
+            OnClick = (hero, coordinate) =>
             {
                 if (this.Facing == Facing.Right) SetFacing(Facing.Left);
                 else SetFacing(Facing.Right);
@@ -62,7 +62,7 @@ namespace OpenGLTests.src.Drawables.Entities
         }
 
 
-        public Action<GameCoordinate> OnClick { get; set; }
+        public Action<Hero, GameCoordinate> OnClick { get; set; }
 
         public bool Contains(GameCoordinate clicked)
         {

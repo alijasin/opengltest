@@ -177,7 +177,7 @@ namespace OpenGLTests.src.Screens
                     {
                         if (i.Contains(xd))
                         {
-                            i.OnClick(clicked);
+                            i.OnClick(Game.Hero, clicked);
                         }
                     }
                 },

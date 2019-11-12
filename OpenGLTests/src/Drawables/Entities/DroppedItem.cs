@@ -36,7 +36,16 @@ namespace OpenGLTests.src.Drawables.Entities
                     break;
             }
 
-            OnClick = coordinate => Console.WriteLine("item clicked"); 
+            OnClick = (hero, coordinate) =>
+            {
+                var added = hero.Inventory.Add(i);
+
+                if (added)
+                {
+                    this.Dispose();
+                    effectGenerator.Dispose();
+                }
+            };
 
             GameState.Drawables.Add(this);
         }
@@ -46,7 +55,7 @@ namespace OpenGLTests.src.Drawables.Entities
             effectGenerator.CreateCircleEffects(150, this, new GameCoordinate(0.001f, 0.001f), c);
         }
 
-        public Action<GameCoordinate> OnClick { get; set; }
+        public Action<Hero, GameCoordinate> OnClick { get; set; }
 
         public bool Contains(GameCoordinate point)
         {

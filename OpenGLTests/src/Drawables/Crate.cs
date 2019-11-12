@@ -17,11 +17,11 @@ namespace OpenGLTests.src.Drawables
             this.Animation = new Animation(new SpriteSheet_Stuff());
             this.Animation.SetSprite(SpriteID.crate);
             this.Animation.IsStatic = true;
-            OnClick = coordinate => this.Color = Color.Purple;
+            OnClick = (hero, coordinate) => this.Color = Color.Purple;
             GameState.Drawables.Add(this);
         }
         
-        public Action<GameCoordinate> OnClick { get; set; }
+        public Action<Hero, GameCoordinate> OnClick { get; set; }
 
         public bool Contains(GameCoordinate clicked)
         {

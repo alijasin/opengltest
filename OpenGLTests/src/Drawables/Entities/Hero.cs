@@ -20,7 +20,7 @@ namespace OpenGLTests.src.Drawables
         private int actionPointsAvailableAtStartOfTurn { get; set; } = 5;
         public int Stamina { get; set; } = 2;
         public InventoryButton InventoryButton;
-        private Inventory Inventory;
+        public Inventory Inventory { get; set; }
         public Player Player { get; set; }
         public ActionBar ActionBar { get; set; }
         private ActionPointBar ActionPointBar { get; set; }

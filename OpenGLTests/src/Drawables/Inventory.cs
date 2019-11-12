@@ -68,7 +68,7 @@ namespace OpenGLTests.src.Drawables
             }
         }
 
-        public Action<GameCoordinate> OnClick { get; set; } = coordinate =>
+        public Action<Hero, GameCoordinate> OnClick { get; set; } = (hero, coordinate) =>
         {
             
         };

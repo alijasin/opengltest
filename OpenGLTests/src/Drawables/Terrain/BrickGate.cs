@@ -39,7 +39,7 @@ namespace OpenGLTests.src.Drawables.Terrain
             Depth = 1;
             GameState.Drawables.Add(this);
 
-            this.OnClick = p =>
+            this.OnClick = (hero, p) =>
             {
                 this.open = !this.open;
                 if (this.open)
@@ -53,7 +53,7 @@ namespace OpenGLTests.src.Drawables.Terrain
             };
         }
 
-        public Action<GameCoordinate> OnClick { get; set; }
+        public Action<Hero, GameCoordinate> OnClick { get; set; }
 
         public bool Contains(GameCoordinate clicked)
         {
