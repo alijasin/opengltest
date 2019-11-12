@@ -38,6 +38,8 @@ namespace OpenGLTests.src.Drawables.Entities
                 else SetFacing(Facing.Right);
             };
 
+            this.LootTable = new LootTable(new LootEntry(new Apple(this), 50), new LootEntry(new GrowingPotion(this), 100));
+
         }
 
         public override GameCoordinate LeftHandLocation

@@ -167,6 +167,7 @@ namespace OpenGLTests.src.Drawables
             }
             set { location = value; }
         }
+
         public virtual int FacingAngle { get; set; }
         public Entity()
         {
@@ -188,6 +189,8 @@ namespace OpenGLTests.src.Drawables
                 }
             }
         }
+
+        public GameCoordinate Center => new GameCoordinate(this.Location.X + this.Size.X/2, this.Location.Y + this.Size.Y/2);
     }
 
     public abstract class Weapon : Entity
@@ -263,6 +266,8 @@ namespace OpenGLTests.src.Drawables
         [JsonIgnore]
         public Weapon Weapon { get; set; }
 
+        public LootTable LootTable { get; set; } = new LootTable();
+
         public bool HasWeapon => Weapon != null;
         public bool DoingWeaponAction => ActionHandler.SelectedAction is WeaponAction && ActionStatus == ActionReturns.Ongoing;
         public virtual GameCoordinate LeftHandLocation { get; set; } //todo: refactor this into animation
@@ -283,6 +288,7 @@ namespace OpenGLTests.src.Drawables
         public virtual void OnDeath()
         {
             Fight.RemoveFighter(this);
+            LootTable.DropLoot(this.Location);
         }
 
         public abstract void OnAggro(Unit aggroed);

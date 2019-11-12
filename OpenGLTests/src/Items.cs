@@ -41,7 +41,7 @@ namespace OpenGLTests.src
         {
             this.Action = new TossItemAction(owner, this);
             Action.Icon = SpriteID.item_apple;
-            Rarity = Rarity.Common;
+            Rarity = Rarity.Rare;
         }
     }
 
@@ -55,9 +55,9 @@ namespace OpenGLTests.src
         }
     }
 
-    public class GrowingPoition : Item
+    public class GrowingPotion : Item
     {
-        public GrowingPoition(Unit owner)
+        public GrowingPotion(Unit owner)
         {
             this.Action = new GrowAction(owner);
             Action.Icon = SpriteID.item_flask_big_green;

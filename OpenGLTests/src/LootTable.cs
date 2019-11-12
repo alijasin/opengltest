@@ -4,11 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using OpenGLTests.src.Drawables;
+using OpenGLTests.src.Drawables.Entities;
 using OpenGLTests.src.Util;
 
 namespace OpenGLTests.src
 {
-    class LootEntry
+    public class LootEntry
     {
         public int Probability { get; set; }
         public Item Item { get; set; }
@@ -20,7 +21,7 @@ namespace OpenGLTests.src
         }
     }
 
-    class LootTable
+    public class LootTable
     {
         private List<LootEntry> lootEntries = new List<LootEntry>();
 
@@ -29,19 +30,16 @@ namespace OpenGLTests.src
             foreach(var le in lootEntries) this.lootEntries.Add(le);
         }
 
-        public List<Item> DropLoot()
+        public void DropLoot(GameCoordinate loc)
         {
-            List<Item> toDrop = new List<Item>();
             var rng = RNG.IntegerBetween(0, 101);
             foreach (var loot in lootEntries)
             {
-                if (loot.Probability <= rng)
+                if (loot.Probability > rng)
                 {
-                    toDrop.Add(loot.Item);
+                    new DroppedItem(loot.Item, RNG.RandomPointWithinCircleRelativeToLocation(loc, new GLCoordinate(0.2f, 0.2f)));
                 }
             }
-
-            return toDrop;
         }
     }
 }

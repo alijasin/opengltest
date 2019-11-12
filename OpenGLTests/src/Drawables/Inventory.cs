@@ -31,7 +31,7 @@ namespace OpenGLTests.src.Drawables
             if (filledSlots < maxSlots)
             {
                 InventorySlot islot = new InventorySlot(i, this);
-                islot.Visible = false;
+                islot.Visible = this.Visible;
                 islot.Location = new GLCoordinate(this.Location.X - this.Size.X/2 + islot.Size.X / 2, this.Location.Y + this.Size.Y/2 - islot.Size.Y/2);
                 int col = (filledSlots % columns);
                 int row = (filledSlots / rows);

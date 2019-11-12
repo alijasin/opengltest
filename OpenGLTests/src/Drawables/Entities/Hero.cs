@@ -48,9 +48,6 @@ namespace OpenGLTests.src.Drawables
             InCombat = false;
             ResetDefaultActionToMove();
             initGUI();
-            DroppedItem di = new DroppedItem(new Apple(this), new GameCoordinate(0.3f, 0.3f));
-           
-
         }
 
         public override int FacingAngle
@@ -91,7 +88,7 @@ namespace OpenGLTests.src.Drawables
 
             Inventory = new Inventory(this);
             GameState.Drawables.Add(Inventory);
-            Inventory.Add(new GrowingPoition(this));
+            Inventory.Add(new GrowingPotion(this));
             Inventory.Add(new RedPotion(this));
             Inventory.Add(new Apple(this));
             InventoryButton = new InventoryButton(new GLCoordinate(-1, ActionBar.Location.Y), Inventory);
