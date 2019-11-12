@@ -13,5 +13,18 @@ namespace OpenGLTests.src.Util
         {
             return Color.FromArgb(c.ToArgb() ^ 0xffffff);
         }
+
+        public static Color FromRarity(Rarity Rarity)
+        {
+            switch (Rarity)
+            {
+                case Rarity.Common: return Color.Gray;
+                case Rarity.Uncommon: return Color.GreenYellow;;
+                case Rarity.Rare: return Color.DarkBlue;
+                case Rarity.Epic: return Color.Purple;
+                case Rarity.Legendary: return Color.DarkOrange;
+                default: return Color.Cornsilk;
+            }
+        }
     }
 }

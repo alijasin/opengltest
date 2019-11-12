@@ -22,20 +22,7 @@ namespace OpenGLTests.src.Drawables.Entities
             this.Visible = true;
 
             effectGenerator = new EffectGenerator();
-            switch (i.Rarity)
-            {
-                case Rarity.Common: createColoredEffect(Color.Gray);
-                    break;
-                case Rarity.Uncommon: createColoredEffect(Color.GreenYellow);
-                    break;
-                case Rarity.Rare: createColoredEffect(Color.DarkBlue);
-                    break;
-                case Rarity.Epic: createColoredEffect(Color.Purple);
-                    break;
-                case Rarity.Legendary: createColoredEffect(Color.DarkOrange);
-                    break;
-            }
-
+            createGlowingEffect(i.Rarity);
             OnClick = (hero, coordinate) =>
             {
                 var added = hero.Inventory.Add(i);
@@ -50,9 +37,9 @@ namespace OpenGLTests.src.Drawables.Entities
             GameState.Drawables.Add(this);
         }
 
-        private void createColoredEffect(Color c)
+        private void createGlowingEffect(Rarity r)
         {
-            effectGenerator.CreateCircleEffects(150, this, new GameCoordinate(0.001f, 0.001f), c);
+            effectGenerator.CreateCircleEffects(150, this, new GameCoordinate(0.001f, 0.001f), Coloring.FromRarity(r));
         }
 
         public Action<Hero, GameCoordinate> OnClick { get; set; }
