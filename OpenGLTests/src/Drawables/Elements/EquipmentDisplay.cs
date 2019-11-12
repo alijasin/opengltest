@@ -87,6 +87,7 @@ namespace OpenGLTests.src.Drawables.Elements
             JsonCoordinateReader.GetEquipmentLocations();
             initBackground();
             initEquipmentSlots();
+            this.Visible = false;
             GameState.Drawables.Add(this);
         }
 
