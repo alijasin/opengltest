@@ -87,6 +87,12 @@ namespace OpenGLTests.src.Drawables.Elements
             JsonCoordinateReader.GetEquipmentLocations();
             initBackground();
             initEquipmentSlots();
+            GameState.Drawables.Add(this);
+        }
+
+        public void ToggleVisibility()
+        {
+            this.Visible = !this.Visible;
         }
 
         private void initBackground()
@@ -94,7 +100,6 @@ namespace OpenGLTests.src.Drawables.Elements
             background.Size = backgroundSize;
             background.Location = new GLCoordinate(0.5f, 0);
             background.Color = Color.DarkRed;
-            GameState.Drawables.Add(background);
         }
 
         private void initEquipmentSlots()
@@ -104,17 +109,25 @@ namespace OpenGLTests.src.Drawables.Elements
             var leftFootSlot = new EquipmentSlot(new EmptyBoot());
             leftFootSlot.Location = new GLCoordinate(background.Location + slotToLoc[leftFoot]);
             equipmentSlot.Add(new List<EquipmentSlotType>(){ EquipmentSlotType.Feet }, leftFootSlot);
-            GameState.Drawables.Add(leftFootSlot);
 
             var rightFootSlot = new EquipmentSlot(new EmptyBoot());
             rightFootSlot.Location = new GLCoordinate(background.Location + slotToLoc[rightFoot]);
             equipmentSlot.Add(new List<EquipmentSlotType>() { EquipmentSlotType.Feet }, rightFootSlot);
-            GameState.Drawables.Add(rightFootSlot);
 
             var headSlot = new EquipmentSlot(new EmptyHead());
             headSlot.Location = new GLCoordinate(background.Location + slotToLoc[head]);
             equipmentSlot.Add(new List<EquipmentSlotType>() { EquipmentSlotType.Head }, headSlot);
-            GameState.Drawables.Add(headSlot);
+        }
+
+        public override void DrawStep(DrawAdapter drawer)
+        {
+            if (!this.Visible) return;
+            background.DrawStep(drawer);
+
+            foreach (var slot in equipmentSlot)
+            {
+                slot.Value.DrawStep(drawer);
+            }
         }
     }
 }
