@@ -1,0 +1,29 @@
+{
+  "Equipment Locations":
+  [ 
+    {
+      "Slot": "Left Foot",
+	  "Location": 
+	  {
+	  	"X": -0.15,
+	  	"Y": -0.2
+	  }
+    },
+	{
+	  "Slot": "Right Foot",
+	  "Location": 
+      {
+		"X": 0.15,
+		"Y": -0.2
+	  }
+    },
+	{
+	  "Slot": "Head",
+	  "Location": 
+	  {
+		"X": 0,
+		"Y": 0.2
+	  } 
+	}
+  ]
+}

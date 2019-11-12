@@ -65,7 +65,7 @@
     <Compile Include="src\Drawables\Elements\ActionPointBar.cs" />
     <Compile Include="src\Drawables\Elements\Button.cs" />
     <Compile Include="src\Drawables\Crate.cs" />
-    <Compile Include="src\Drawables\Elements\Equipment.cs" />
+    <Compile Include="src\Drawables\Elements\EquipmentDisplay.cs" />
     <Compile Include="src\Drawables\Elements\Heart.cs" />
     <Compile Include="src\Drawables\Entities\AngryDude.cs" />
     <Compile Include="src\Drawables\Entities\BearTrap.cs" />
@@ -133,6 +133,7 @@
     <Compile Include="src\Util\ImageLoader.cs" />
     <Compile Include="src\Util\InputUnion.cs" />
     <Compile Include="src\Util\EntitySerializer.cs" />
+    <Compile Include="src\Util\JsonCoordinateReader.cs" />
     <Compile Include="src\Util\MazeCreator.cs" />
     <Compile Include="src\Util\MyMath.cs" />
     <Compile Include="src\Util\RNG.cs" />
@@ -142,7 +143,6 @@
     <None Include="App.config" />
     <None Include="OpenTK.dll.config" />
     <None Include="packages.config" />
-    <None Include="src\Drawables\Elements\ElementLocations.json" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Properties\Resources.resx">

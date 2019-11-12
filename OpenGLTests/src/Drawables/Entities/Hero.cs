@@ -27,7 +27,7 @@ namespace OpenGLTests.src.Drawables
         private HashSet<Unit> AggroFrom = new HashSet<Unit>();
         private CombatTurnConfirmationButton ctcb;
         public RangeShape AggroShape { get; set; }
-        public Equipment Equipment { get; set; } = new Equipment();
+        public EquipmentDisplay EquipmentDisplay { get; set; } = new EquipmentDisplay();
         public bool Phased { get; set; } = true;
         public RangeShape BoundingBox { get; set; }
 
