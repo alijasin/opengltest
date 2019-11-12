@@ -132,6 +132,17 @@ namespace OpenGLTests.src
         { }
     }
 
+    class SpriteSheet_EquipmentIcons : SpriteSheet
+    {
+        public SpriteSheet_EquipmentIcons() : base(new Dictionary<SpriteID, int>()
+        {
+            { SpriteID.equipment_icon_plate_head, 6 },
+            { SpriteID.equipment_icon_leather_boots, 6 },
+            { SpriteID.mossy_boot, 6 }
+        })
+        { }
+    }
+
     class SpriteSheet_Fireball : SpriteSheet
     {
         public SpriteSheet_Fireball() : base (new Dictionary<SpriteID, int>()

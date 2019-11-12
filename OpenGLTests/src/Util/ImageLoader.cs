@@ -94,6 +94,9 @@ namespace OpenGLTests.src.Util
         rock_2,
         rock_3,
 
+        equipment_icon_plate_head,
+        equipment_icon_leather_boots,
+
         crate,
         weapon_golden_sword,
         weapon_katana,
@@ -188,6 +191,9 @@ namespace OpenGLTests.src.Util
             Images[SpriteID.fire1__11] = new Bitmap(Properties.Resources.fire1__11);
             Images[SpriteID.fire1__12] = new Bitmap(Properties.Resources.fire1__12);
             Images[SpriteID.fire1__13] = new Bitmap(Properties.Resources.fire1__13);
+
+            Images[SpriteID.equipment_icon_plate_head] = new Bitmap(Properties.Resources.icon_plate_head1);
+            Images[SpriteID.equipment_icon_leather_boots] = new Bitmap(Properties.Resources.icon_LEATHER_boots1);
 
             Images[SpriteID.big_demon_run_anim_f0] = new Bitmap(Properties.Resources.big_demon_run_anim_f0);
             Images[SpriteID.big_demon_run_anim_f1] = new Bitmap(Properties.Resources.big_demon_run_anim_f1);

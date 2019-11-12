@@ -4,6 +4,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using OpenGLTests.src.Drawables.Elements;
 using OpenGLTests.src.Util;
 
 namespace OpenGLTests.src.Drawables
@@ -74,13 +75,46 @@ namespace OpenGLTests.src.Drawables
         {
             OnInteraction += () =>
             {
-                GameAction.OnSelected();
+                try
+                {
+                    GameAction.OnSelected();
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine("No action set");
+                }
+
             };
         }
 
         public void SetGameAction(GameAction ga)
         {
 
+        }
+    }
+
+    class EquipmentSlot : ActionButton
+    {
+        public EquipmentSlot(EquipmentItem ei)
+        {
+            this.Color = Color.White;
+            this.Size = StandardSize;
+            this.Animation = new Animation(new SpriteSheet_EquipmentIcons());
+            Console.WriteLine(ei.Icon);
+            this.Animation.SetSprite(ei.Icon);
+            this.Animation.IsStatic = true;
+            
+            OnInteraction += () =>
+            {
+                try
+                {
+
+                }
+                catch (Exception e)
+                {
+
+                }
+            };
         }
     }
 

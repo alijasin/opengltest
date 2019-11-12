@@ -65,6 +65,7 @@
     <Compile Include="src\Drawables\Elements\ActionPointBar.cs" />
     <Compile Include="src\Drawables\Elements\Button.cs" />
     <Compile Include="src\Drawables\Crate.cs" />
+    <Compile Include="src\Drawables\Elements\Equipment.cs" />
     <Compile Include="src\Drawables\Elements\Heart.cs" />
     <Compile Include="src\Drawables\Entities\AngryDude.cs" />
     <Compile Include="src\Drawables\Entities\BearTrap.cs" />
@@ -1151,6 +1152,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="known bugs.txt" />
+    <None Include="Resources\icon_LEATHER_boots1.png" />
+    <None Include="Resources\icon_plate_head1.png" />
     <None Include="Resources\indicator_within_area.png" />
     <None Include="Resources\fire1_ 13.png" />
     <None Include="Resources\fire1_ 12.png" />

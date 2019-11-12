@@ -1773,6 +1773,26 @@ namespace OpenGLTests.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap icon_LEATHER_boots1 {
+            get {
+                object obj = ResourceManager.GetObject("icon_LEATHER_boots1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap icon_plate_head1 {
+            get {
+                object obj = ResourceManager.GetObject("icon_plate_head1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap icon_snap_to_grid {
             get {
                 object obj = ResourceManager.GetObject("icon_snap_to_grid", resourceCulture);
