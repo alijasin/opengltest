@@ -257,7 +257,10 @@ namespace OpenGLTests.src
 
         public void FillCircle(float x, float y, GLCoordinate radius, Color color, float width = 1)
         {
+            GL.PushAttrib(AttribMask.EnableBit);
+
             GL.LineWidth(width);
+            GL.Enable(EnableCap.Blend);
             GL.Begin(PrimitiveType.TriangleFan);
 
             GL.Color4(color);
@@ -273,6 +276,7 @@ namespace OpenGLTests.src
             }
 
             GL.End();
+            GL.PopAttrib();
         }
 
 

@@ -18,6 +18,7 @@ namespace OpenGLTests.src.Drawables
 
         public bool Contains(GameCoordinate point)
         {
+            if (Visible == false) return false;
             var x = Math.Abs(point.X - Location.X);
             var y = Math.Abs(point.Y - Location.Y);
             //todo move this to somewhere else and fuck yourself.

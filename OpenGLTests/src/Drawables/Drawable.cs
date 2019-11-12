@@ -345,9 +345,4 @@ namespace OpenGLTests.src.Drawables
     {
     }
 
-    public abstract class Item : Entity
-    {
-        public ItemAction Action;
-        public SpriteID Icon => Action.Icon;
-    }
 }

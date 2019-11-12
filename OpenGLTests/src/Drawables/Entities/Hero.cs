@@ -48,8 +48,9 @@ namespace OpenGLTests.src.Drawables
             InCombat = false;
             ResetDefaultActionToMove();
             initGUI();
+            DroppedItem di = new DroppedItem(new Apple(this), new GameCoordinate(0.3f, 0.3f));
+           
 
-            
         }
 
         public override int FacingAngle

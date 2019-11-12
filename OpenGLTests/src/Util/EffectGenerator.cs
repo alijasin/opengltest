@@ -3,29 +3,31 @@ using System.Collections.Generic;
 using System.Drawing;
 using OpenGLTests.src;
 using OpenGLTests.src.Drawables;
+using OpenGLTests.src.Util;
 
 
 public class FadingCircularParticle : Effect
 {
-    private GLCoordinate originSize = new GLCoordinate(0.05f, 0.05f);
-    private GameCoordinate originSpeed = new GameCoordinate(0.001f, 0.001f);
+    private GLCoordinate originSize = new GLCoordinate(0.01f, 0.01f);
+    private GameCoordinate originSpeed;
     private int Alpha = 0;
-
-    public FadingCircularParticle(Entity originEntity, GameCoordinate speed)
+    private int angleTrajectory;
+    public FadingCircularParticle(Entity originEntity, GameCoordinate speed, Color c)
     {
+        this.Location = this.Origin = new GameCoordinate(originEntity.Location.X, originEntity.Location.Y);
         this.originSpeed = speed;
-        this.Origin = originEntity.Location;
+        this.Color = c;
         init();
     }
 
     private void init()
     {
-        this.Alpha = 255;
-        this.Color = Color.Purple;
+        angleTrajectory = RNG.IntegerBetween(0, 361);
+        this.Alpha =  RNG.IntegerBetween(1, 256);
+
         this.Location = new GameCoordinate(Origin.X, Origin.Y);
         this.Size = new GLCoordinate(originSize.X, originSize.Y);
-        this.Speed = new GameCoordinate(originSpeed.X, originSpeed.Y);
-        Console.WriteLine(Location);
+
     }
 
     public override void DrawStep(DrawAdapter drawer)
@@ -37,23 +39,37 @@ public class FadingCircularParticle : Effect
 
         var xd = Location.ToGLCoordinate();
         drawer.FillCircle(xd.X, xd.Y, new GLCoordinate(Size.X, Size.Y), this.Color);
-        this.Location.X += 0.01f;
-        this.Location.Y += 0.01f;
-        //this.Size.X -= 0.001f;
-      //  this.Size.Y -= 0.001f;
+        this.Location += Speed;
+        angleTrajectory += RNG.NegativeOrPositiveOne()*15;
+        float xSpeed = originSpeed.X * (float)Math.Cos(MyMath.DegToRad((int)(angleTrajectory)));
+        float ySpeed = originSpeed.Y * (float)Math.Sin(MyMath.DegToRad((int)(angleTrajectory)));
+        this.Speed = new GameCoordinate(xSpeed, ySpeed);
+
+        if (MyMath.DistanceBetweenTwoPoints(this.Location, Origin) > originSize.X * 5)
+        {
+            this.Size.X -= originSize.X / 50;
+            this.Size.Y -= originSize.Y / 50;
+            
+            if (Size.X < 0 || Size.Y < 0) init();
+        }
+
         this.Alpha--;
+
+
+
         this.Color = Color.FromArgb(Alpha, Color);
+
     }
 }
 
 public class EffectGenerator : Effect
 {
     List<Effect> particles = new List<Effect>();
-    public void CreateRectangularElement(int n, Entity following, GameCoordinate speed)
+    public void CreateCircleEffects(int n, Entity following, GameCoordinate speed, Color c)
     {
-        for (int i = 0; i < n; i++)
+        for (int i = 0; i < n*3; i++)
         {
-            particles.Add(new FadingCircularParticle(following, speed));
+            particles.Add(new FadingCircularParticle(following, speed, c));
         }
         GameState.Drawables.Add(this);
     }

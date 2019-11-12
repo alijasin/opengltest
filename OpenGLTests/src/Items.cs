@@ -11,6 +11,22 @@ using OpenGLTests.src.Util;
 /// </summary>
 namespace OpenGLTests.src
 {
+    public enum Rarity
+    {
+        Common,
+        Uncommon,
+        Rare,
+        Epic,
+        Legendary
+    }
+
+    public abstract class Item : Entity
+    {
+        public Rarity Rarity { get; set; } = Rarity.Common;
+        public ItemAction Action;
+        public SpriteID Icon => Action.Icon;
+    }
+
     public class Nothing : Item
     {
         public Nothing(Unit owner)
@@ -25,6 +41,7 @@ namespace OpenGLTests.src
         {
             this.Action = new TossItemAction(owner, this);
             Action.Icon = SpriteID.item_apple;
+            Rarity = Rarity.Common;
         }
     }
 
@@ -34,6 +51,7 @@ namespace OpenGLTests.src
         {
             this.Action = new TurnRedAction(owner);
             Action.Icon = SpriteID.item_flask_big_red;
+            Rarity = Rarity.Common;
         }
     }
 
@@ -43,6 +61,7 @@ namespace OpenGLTests.src
         {
             this.Action = new GrowAction(owner);
             Action.Icon = SpriteID.item_flask_big_green;
+            Rarity = Rarity.Common;
         }
     }
 }

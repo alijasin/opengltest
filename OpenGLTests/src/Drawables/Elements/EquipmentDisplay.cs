@@ -94,6 +94,10 @@ namespace OpenGLTests.src.Drawables.Elements
         public void ToggleVisibility()
         {
             this.Visible = !this.Visible;
+            foreach (var slot in equipmentSlot)
+            {
+                slot.Value.Visible = this.Visible;
+            }
         }
 
         private void initBackground()
@@ -118,6 +122,9 @@ namespace OpenGLTests.src.Drawables.Elements
             var headSlot = new EquipmentSlot(new EmptyHead());
             headSlot.Location = new GLCoordinate(background.Location + slotToLoc[head]);
             equipmentSlot.Add(new List<EquipmentSlotType>() { EquipmentSlotType.Head }, headSlot);
+
+
+            foreach (var slot in equipmentSlot) slot.Value.Visible = false;
         }
 
         public override void DrawStep(DrawAdapter drawer)

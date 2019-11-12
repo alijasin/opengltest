@@ -20,7 +20,6 @@ namespace OpenGLTests.src.Drawables.Entities
             this.Visible = true;
             this.Depth = 0;
             this.Phased = true;
-            GameState.Drawables.Add(this);
         }
     }
 }
