@@ -54,13 +54,11 @@ namespace OpenGLTests.src.Drawables.Terrain
         }
 
         public Action<Hero, GameCoordinate> OnClick { get; set; }
-
-        public bool Contains(GameCoordinate clicked)
+        public bool ClickFilter(Hero hero, GameCoordinate point)
         {
-
-            return Location.X - Size.X / 2 < clicked.X && Location.X + Size.X / 2 > clicked.X &&
-                   Location.Y - Size.Y / 2 < clicked.Y && Location.Y + Size.Y / 2 > clicked.Y;
-            //return ContainsLambdas.RectangleContains(this, point);
+            return Location.X - Size.X / 2 < point.X && Location.X + Size.X / 2 > point.X &&
+                   Location.Y - Size.Y / 2 < point.Y && Location.Y + Size.Y / 2 > point.Y;
         }
+
     }
 }

@@ -17,7 +17,7 @@ namespace OpenGLTests.src.Drawables
     {
         [JsonIgnore]
         Action<Hero, GameCoordinate> OnClick { get; set; }
-        bool Contains(GameCoordinate point);
+        bool ClickFilter(Hero hero, GameCoordinate point);
     }
 
     public interface IShape

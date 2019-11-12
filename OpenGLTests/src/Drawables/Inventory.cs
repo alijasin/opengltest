@@ -72,5 +72,10 @@ namespace OpenGLTests.src.Drawables
         {
             
         };
+
+        public bool ClickFilter(Hero hero, GameCoordinate point)
+        {
+            return false;
+        }
     }
 }

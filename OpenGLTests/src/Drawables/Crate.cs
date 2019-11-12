@@ -22,12 +22,10 @@ namespace OpenGLTests.src.Drawables
         }
         
         public Action<Hero, GameCoordinate> OnClick { get; set; }
-
-        public bool Contains(GameCoordinate clicked)
+        public bool ClickFilter(Hero hero, GameCoordinate point)
         {
-            return Location.X - Size.X / 2 < clicked.X && Location.X + Size.X / 2 > clicked.X &&
-                Location.Y - Size.Y / 2 < clicked.Y && Location.Y + Size.Y / 2 > clicked.Y;
-
+            return Location.X - Size.X / 2 < point.X && Location.X + Size.X / 2 > point.X &&
+                   Location.Y - Size.Y / 2 < point.Y && Location.Y + Size.Y / 2 > point.Y;
         }
     }
 }

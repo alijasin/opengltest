@@ -175,7 +175,7 @@ namespace OpenGLTests.src.Screens
 
                     foreach (IClickable i in GameState.Drawables.GetAllDrawables.Where(d => d is IClickable && d.Visible))
                     {
-                        if (i.Contains(xd))
+                        if (i.ClickFilter(Game.Hero, xd))
                         {
                             i.OnClick(Game.Hero, clicked);
                         }
