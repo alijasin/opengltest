@@ -46,7 +46,7 @@ namespace OpenGLTests.src
             }
 
             var currentGameAction = ActionsUsed.First(a => a.Value == false);
-            currentGameAction.Key.PlacedLocation = currentGameAction.Key.NPCActionPlacementCalculator(NPCState.Angry);
+            if((int)arg == 0) currentGameAction.Key.PlacedLocation = currentGameAction.Key.NPCActionPlacementCalculator(NPCState.Angry);
             var actionFinished = currentGameAction.Key.GetAction().Invoke(arg);
             if (actionFinished)
             {
@@ -135,7 +135,7 @@ namespace OpenGLTests.src
         {
             Actions = new List<GameAction>()
             {
-                new UnitMoveAction(source, RNG.RandomPointWithinCircleRelativeToLocation(source.Location, new GLCoordinate(0.4f, 0.4f))),
+                new UnitMoveAction(source, source.Location),
                 new ChillAction(),
             };
         }

@@ -173,7 +173,6 @@ namespace OpenGLTests.src.Drawables
         {
             ActionStatus = ActionHandler.CommitActions(OutOfCombatIndex);
             if (ActionStatus == ActionReturns.NoAction) return;
-
             if (ActionStatus == ActionReturns.Finished || ActionStatus == ActionReturns.AllFinished)
             {
                 OutOfCombatIndex = 0;

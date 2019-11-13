@@ -729,20 +729,24 @@ namespace OpenGLTests.src
     //this really shouldnt be unlike hero move action. Todo
     class UnitMoveAction : GameAction
     {
-        private GameCoordinate location;
-        public UnitMoveAction(Unit source, GameCoordinate location) : base(source)
+        public UnitMoveAction(Unit source, GameCoordinate moveTo) : base(source)
         {
-            this.location = location;
-            source.MovingTowardsPoint = location;
-
+            PlacedLocation = moveTo;
+            source.MovingTowardsPoint = PlacedLocation;
+            this.NPCActionPlacementCalculator = state =>
+            {
+                return RNG.RandomPointWithinCircleRelativeToLocation(Source.Location, new GLCoordinate(0.2f, 0.2f));
+            };
         }
+
         public override Func<object, bool> GetAction()
         {
             return o =>
             {
                 int index = (int)o;
                 if (index > 150) return true; //dont get stuck
-                return GameActionLambdas.MoveTowardsPoint(Source, location); ;
+                Source.MovingTowardsPoint = PlacedLocation;
+                return GameActionLambdas.MoveTowardsPoint(Source, PlacedLocation); ;
             };
         }
     }
