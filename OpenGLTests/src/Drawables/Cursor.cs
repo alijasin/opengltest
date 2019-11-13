@@ -85,7 +85,7 @@ namespace OpenGLTests.src.Drawables
             if (markerRs != null)
             {
                 markerRs.DrawStep(drawer);
-                if (action is CombatAction)
+                if (action is CombatAction || action is ItemAction)
                 {
                     foreach (var drawable in GameState.Drawables.GetAllUnits)
                     {
