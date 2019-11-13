@@ -13,11 +13,18 @@ using Console = System.Console;
 
 namespace OpenGLTests.src.Drawables
 {
-    interface IClickable
+    interface ILeftClickable
     {
         [JsonIgnore]
-        Action<Hero, GameCoordinate> OnClick { get; set; }
-        bool ClickFilter(Hero hero, GameCoordinate point);
+        Action<Hero, GameCoordinate> OnLeftClick { get; set; }
+        bool LeftClickFilter(Hero hero, GameCoordinate point);
+    }
+
+    interface IRightClickable
+    {
+        [JsonIgnore]
+        Action<Hero, GameCoordinate> OnRightClick { get; set; }
+        bool RightClickFilter(Hero hero, GameCoordinate point);
     }
 
     public interface IShape

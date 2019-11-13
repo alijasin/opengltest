@@ -104,7 +104,7 @@ namespace OpenGLTests.src.Drawables
 
         public void SetAction(GameAction action)
         {
-            this.action = action; //todo: only use this.
+            this.action = action; 
             if(action is ICursorPositionListener cpl) subscribe(cpl);
             setCursor(action.Icon);
             setRangeShape(action.RangeShape);

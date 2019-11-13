@@ -46,6 +46,7 @@ namespace OpenGLTests.src.Screens
 
         protected override void SetupInputBindings()
         {
+            #region KeyBoardBinds
             // Keyboard
             Bind(new Hotkey(
                 input => input.IsKeyboardInput && input.KeyboardArgs.Key == OpenTK.Input.Key.D,
@@ -82,7 +83,7 @@ namespace OpenGLTests.src.Screens
                 _ => Game.Hero.EquipmentDisplay.ToggleVisibility(),
                 _ => { }
             ));
-
+#endregion
             #region ActionBar Hotkeys
             Bind(new Hotkey(
                 input => input.IsKeyboardInput && (input.KeyboardArgs.Key == OpenTK.Input.Key.Number1),
@@ -149,7 +150,7 @@ namespace OpenGLTests.src.Screens
                 _ => { }
             ));
             #endregion
-
+            #region MouseBinds
             // Mouse
             Bind(new Hotkey(
                 input => input.IsMouseInput && input.MouseButtonArgs.Button == MouseButton.Left,
@@ -173,11 +174,12 @@ namespace OpenGLTests.src.Screens
                         }
                     }
 
-                    foreach (IClickable i in GameState.Drawables.GetAllDrawables.Where(d => d is IClickable && d.Visible))
+                    //get all iinteractables instead? todo test.
+                    foreach (ILeftClickable i in GameState.Drawables.GetAllDrawables.Where(d => d is ILeftClickable && d.Visible))
                     {
-                        if (i.ClickFilter(Game.Hero, xd))
+                        if (i.LeftClickFilter(Game.Hero, xd))
                         {
-                            i.OnClick(Game.Hero, clicked);
+                            i.OnLeftClick(Game.Hero, clicked);
                         }
                     }
                 },
@@ -193,13 +195,28 @@ namespace OpenGLTests.src.Screens
                 {
                     GameCoordinate placed = new GameCoordinate(input.MouseButtonArgs.X, input.MouseButtonArgs.Y);
                     var xd = CoordinateFuckery.ClickToGLRelativeToCamera(placed, new GameCoordinate(0, 0));
-                    if (Game.Hero.ActionStatus == ActionReturns.Ongoing && Game.Hero.InCombat) return; //dont let place while hero is doing actions in combat. todo do this more beautifully. Probably will be fixed with cooldowns though. 
+                    if (Game.Hero.ActionStatus == ActionReturns.Ongoing && Game.Hero.InCombat) return; 
                     Game.Hero.ActionHandler.OnMouseDown(xd);
+
+
                 },
                 input =>
                 {
                     GameCoordinate placed = new GameCoordinate(input.MouseButtonArgs.X, input.MouseButtonArgs.Y);
                     var xd = CoordinateFuckery.ClickToGLRelativeToCamera(placed, new GameCoordinate(0, 0));
+
+
+                    bool somethingWasClicked = false;
+                    foreach (IRightClickable i in GameState.Drawables.GetAllInteractables.Where(d => d is IRightClickable && d.Visible))
+                    {
+                        if (i.RightClickFilter(Game.Hero, placed))
+                        {
+                            i.OnRightClick(Game.Hero, placed);
+                            somethingWasClicked = true;
+                        }
+                    }
+
+                    if (somethingWasClicked) return;
                     if (Game.Hero.ActionStatus == ActionReturns.Ongoing && Game.Hero.InCombat) return; //dont let place while hero is doing actions in combat
                     Game.Hero.ActionHandler.OnMouseUp(xd);
                 }
@@ -221,7 +238,7 @@ namespace OpenGLTests.src.Screens
 
                 }
             ));
-
+            #endregion
         }
 
 

@@ -93,7 +93,7 @@ namespace OpenGLTests.src.Drawables
         }
     }
 
-    class EquipmentSlot : ActionButton
+    class EquipmentSlot : ActionButton, IRightClickable
     {
         public EquipmentSlot(EquipmentItem ei)
         {
@@ -115,6 +115,17 @@ namespace OpenGLTests.src.Drawables
 
                 }
             };
+
+            OnRightClick = (hero, coordinate) =>
+            {
+                
+            };
+        }
+
+        public Action<Hero, GameCoordinate> OnRightClick { get; set; } 
+        public bool RightClickFilter(Hero hero, GameCoordinate point)
+        {
+            return Contains(point);
         }
     }
 

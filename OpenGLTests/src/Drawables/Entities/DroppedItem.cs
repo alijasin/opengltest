@@ -8,7 +8,7 @@ using OpenGLTests.src.Util;
 
 namespace OpenGLTests.src.Drawables.Entities
 {
-    class DroppedItem : Entity, IClickable
+    class DroppedItem : Entity, ILeftClickable
     {
         private Item item;
         EffectGenerator effectGenerator;
@@ -23,7 +23,7 @@ namespace OpenGLTests.src.Drawables.Entities
 
             effectGenerator = new EffectGenerator();
             createGlowingEffect(i.Rarity);
-            OnClick = (hero, coordinate) =>
+            OnLeftClick = (hero, coordinate) =>
             {
                 if (!hero.Inventory.HasRoom()) return;
 
@@ -44,8 +44,10 @@ namespace OpenGLTests.src.Drawables.Entities
             effectGenerator.CreateCircleEffects(150, this, new GameCoordinate(0.001f, 0.001f), Coloring.FromRarity(r));
         }
 
-        public Action<Hero, GameCoordinate> OnClick { get; set; }
-        public bool ClickFilter(Hero hero, GameCoordinate point)
+        public Action<Hero, GameCoordinate> OnLeftClick { get; set; }
+        public Action<Hero, GameCoordinate> OnRightClick { get; set; }
+
+        public bool LeftClickFilter(Hero hero, GameCoordinate point)
         {
             //if we are close enough to item
             if (!hero.Location.CloseEnough(hero.Center, this.Size.X*2)) return false;

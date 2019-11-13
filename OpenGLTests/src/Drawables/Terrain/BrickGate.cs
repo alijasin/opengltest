@@ -26,7 +26,7 @@ namespace OpenGLTests.src.Drawables.Terrain
        
     }
 
-    class BrickGate : Entity, IClickable
+    class BrickGate : Entity, ILeftClickable
     {
         private bool open = false;
         public BrickGate(GameCoordinate location)
@@ -39,7 +39,7 @@ namespace OpenGLTests.src.Drawables.Terrain
             Depth = 1;
             GameState.Drawables.Add(this);
 
-            this.OnClick = (hero, p) =>
+            this.OnLeftClick = (hero, p) =>
             {
                 this.open = !this.open;
                 if (this.open)
@@ -53,8 +53,8 @@ namespace OpenGLTests.src.Drawables.Terrain
             };
         }
 
-        public Action<Hero, GameCoordinate> OnClick { get; set; }
-        public bool ClickFilter(Hero hero, GameCoordinate point)
+        public Action<Hero, GameCoordinate> OnLeftClick { get; set; }
+        public bool LeftClickFilter(Hero hero, GameCoordinate point)
         {
             return Location.X - Size.X / 2 < point.X && Location.X + Size.X / 2 > point.X &&
                    Location.Y - Size.Y / 2 < point.Y && Location.Y + Size.Y / 2 > point.Y;

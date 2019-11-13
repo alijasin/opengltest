@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace OpenGLTests.src.Drawables
 {
-    public class Inventory : RectangleElement, IClickable
+    public class Inventory : RectangleElement, ILeftClickable
     {
         private List<InventorySlot> InventorySlots = new List<InventorySlot>();
         private int rows = 4;
@@ -74,12 +74,12 @@ namespace OpenGLTests.src.Drawables
             }
         }
 
-        public Action<Hero, GameCoordinate> OnClick { get; set; } = (hero, coordinate) =>
+        public Action<Hero, GameCoordinate> OnLeftClick { get; set; } = (hero, coordinate) =>
         {
             
         };
 
-        public bool ClickFilter(Hero hero, GameCoordinate point)
+        public bool LeftClickFilter(Hero hero, GameCoordinate point)
         {
             return false;
         }
