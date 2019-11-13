@@ -25,13 +25,15 @@ namespace OpenGLTests.src.Drawables.Entities
             createGlowingEffect(i.Rarity);
             OnClick = (hero, coordinate) =>
             {
-                var added = hero.Inventory.Add(i);
+                if (!hero.Inventory.HasRoom()) return;
 
-                if (added)
-                {
-                    this.Dispose();
-                    effectGenerator.Dispose();
-                }
+                //make sure the item is reinitialized as Hero as owner.(So that for example range is centered around hero and not previous owner.)
+                Item newItem = (Item)Activator.CreateInstance(i.GetType(), hero);
+                hero.Inventory.Add(newItem);
+
+                i.Dispose();
+                this.Dispose();
+                effectGenerator.Dispose();
             };
 
             GameState.Drawables.Add(this);

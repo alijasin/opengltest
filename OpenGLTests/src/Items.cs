@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using OpenGLTests.src.Drawables;
@@ -25,6 +26,12 @@ namespace OpenGLTests.src
         public Rarity Rarity { get; set; } = Rarity.Common;
         public ItemAction Action;
         public SpriteID Icon => Action.Icon;
+
+        public override void Dispose()
+        {
+            Action.Dispose();
+            base.Dispose();
+        }
     }
 
     public class Nothing : Item

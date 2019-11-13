@@ -15,7 +15,7 @@ namespace OpenGLTests
         static void Main(string[] args)
         {
             GraphicsController.Init();
-            //InputController.Init();
+            //InputController.ReInit();
 
             if (EDITOR == false)
             {

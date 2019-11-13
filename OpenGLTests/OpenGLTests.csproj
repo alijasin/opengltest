@@ -102,6 +102,7 @@
     <Compile Include="src\Drawables\Terrain\BrickGate.cs" />
     <Compile Include="src\Drawables\Terrain\Floor.cs" />
     <Compile Include="src\Drawables\WeatherGenerator.cs" />
+    <Compile Include="src\ItemActions.cs" />
     <Compile Include="src\LootTable.cs" />
     <Compile Include="src\StatusEffect.cs" />
     <Compile Include="src\Fight.cs" />

@@ -25,6 +25,12 @@ namespace OpenGLTests.src.Drawables
             this.Depth = 11;
         }
 
+        public bool HasRoom()
+        {
+            //todo: tests
+            return InventorySlots.Count < maxSlots;
+        }
+
         public bool Add(Item i)
         {
             var filledSlots = InventorySlots.Count;
