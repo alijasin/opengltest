@@ -50,7 +50,7 @@ namespace OpenGLTests.src.Drawables.Entities
         public bool LeftClickFilter(Hero hero, GameCoordinate point)
         {
             //if we are close enough to item
-            if (!hero.Location.CloseEnough(hero.Center, this.Size.X*2)) return false;
+            if (!this.Location.CloseEnough(hero.Location, hero.Size.X)) return false;
             //if the click was on the item
             return Location.X - Size.X / 2 < point.X && Location.X + Size.X / 2 > point.X &&
                    Location.Y - Size.Y / 2 < point.Y && Location.Y + Size.Y / 2 > point.Y;
