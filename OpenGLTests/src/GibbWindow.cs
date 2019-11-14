@@ -39,7 +39,7 @@ namespace OpenGLTests.src
             Closed += OnClosed;
             WINX = PointToScreen(ClientRectangle.Location).X;
             WINY = PointToScreen(ClientRectangle.Location).Y;
-
+            this.CursorVisible = false;
             Title = "Oyy veeyyy";
         }
 

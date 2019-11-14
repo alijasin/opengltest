@@ -22,6 +22,7 @@ namespace OpenGLTests.src.Drawables
             Cursor = new Cursor(this);
             Hero.Player = this;
             this.Hero = Hero;
+            this.Hero.ResetDefaultActionToMove();
             FollowCamera = new FollowCamera(Hero);
             StaticCamera = new MovableCamera(Hero.Location);
             HybridCamera = new HybridCamera(Hero);

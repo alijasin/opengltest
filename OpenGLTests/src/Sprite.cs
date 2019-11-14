@@ -400,10 +400,12 @@ namespace OpenGLTests.src
             { SpriteID.bag_closed, 12 },
             { SpriteID.bag_open, 12 },
             { SpriteID.haunch, 12 },
-            { SpriteID.mossy_boot, 12 },
             { SpriteID.bear_trap_open, 12 },
             { SpriteID.fire_sword_slash_green, 12 },
-            { SpriteID.fireball_0, 12 }
+            { SpriteID.fireball_0, 12 },
+            { SpriteID.equipment_icon_plate_head, 6 },
+            { SpriteID.equipment_icon_leather_boots, 6 },
+            { SpriteID.mossy_boot, 6 }
 
         })
         { }

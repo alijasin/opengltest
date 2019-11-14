@@ -6,17 +6,12 @@ using System.Text;
 using System.Threading.Tasks;
 using OpenGLTests.src.Drawables.Entities.Indicators;
 using OpenGLTests.src.Util;
+using Console = System.Console;
 
 namespace OpenGLTests.src.Drawables
 {
-    public interface ICursorPositionListener
-    {
-        void OnChanged(GameCoordinate loc);
-    }
-
     public class Cursor : Indicator
     {
-        private List<ICursorPositionListener> listeners = new List<ICursorPositionListener>();
         private GameAction action;
         private Marker marker;
         private RangeShape rs;
@@ -38,18 +33,6 @@ namespace OpenGLTests.src.Drawables
             this.Visible = false;
         }
 
-        private void subscribe(ICursorPositionListener cpl)
-        {
-            Console.WriteLine(cpl + " subbed");
-            listeners.Add(cpl);
-        }
-
-        private void notify(GameCoordinate loc)
-        {
-            foreach(var l in listeners)
-                l.OnChanged(loc);
-        }
-
         public override GameCoordinate Location
         {
             get
@@ -64,7 +47,6 @@ namespace OpenGLTests.src.Drawables
         {
             if (Visible == false) return;
 
-            notify(Location);
             if (rs != null)
             {
                 if (action.PlacementFilter(Location))
@@ -102,10 +84,16 @@ namespace OpenGLTests.src.Drawables
             base.DrawStep(drawer);
         }
 
+        public void SetIcon(SpriteID sid)
+        {
+            setCursor(sid);
+            Console.WriteLine(sid);
+        }
+
         public void SetAction(GameAction action)
         {
             this.action = action; 
-            if(action is ICursorPositionListener cpl) subscribe(cpl);
+
             setCursor(action.Icon);
             setRangeShape(action.RangeShape);
             if (action.Marker != null)

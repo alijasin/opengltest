@@ -100,7 +100,6 @@ namespace OpenGLTests.src.Drawables
             this.Color = Color.White;
             this.Size = StandardSize;
             this.Animation = new Animation(new SpriteSheet_EquipmentIcons());
-            Console.WriteLine(ei.Icon);
             this.Animation.SetSprite(ei.Icon);
             this.Animation.IsStatic = true;
             
@@ -118,7 +117,7 @@ namespace OpenGLTests.src.Drawables
 
             OnRightClick = (hero, coordinate) =>
             {
-                
+                Player.Cursor.SetIcon(ei.Icon);
             };
         }
 

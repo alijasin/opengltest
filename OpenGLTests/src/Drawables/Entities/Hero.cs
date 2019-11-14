@@ -100,7 +100,7 @@ namespace OpenGLTests.src.Drawables
             
         }
 
-        private void ResetDefaultActionToMove()
+        public void ResetDefaultActionToMove()
         {
             if (ActionHandler.SelectedAction != null) ActionHandler.SelectedAction.RangeShape.Visible = false;
             ActionBar.GetDefaultButton().OnInteraction.Invoke();
