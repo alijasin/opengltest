@@ -341,8 +341,11 @@ namespace OpenGLTests.src
             NPCActionPlacementCalculator = (state) =>
             {
                 var h = Source as Hostile;
-                var angle = MyMath.AngleBetweenTwoPoints(Source.Location, h.Location);
-                return new GameCoordinate(0.2f*(float)Math.Cos(MyMath.DegToRad(angle)), 0.2f*(float)Math.Sin(MyMath.DegToRad(angle)));
+                var angle = MyMath.AngleBetweenTwoPoints(Source.Location, h.CurrentAggroTarget.Location);
+                Console.WriteLine("Current " + h.Location);
+                Console.WriteLine("new " + new GameCoordinate(h.Location.X + 0.2f * (float)Math.Cos(MyMath.DegToRad(angle)), h.Location.Y + 0.2f * (float)Math.Sin(MyMath.DegToRad(angle))));
+
+                return new GameCoordinate(h.Location.X + radius.X*(float)Math.Cos(MyMath.DegToRad(angle)), h.Location.Y - radius.Y*(float)Math.Sin(MyMath.DegToRad(angle)));
             };
         }
 
@@ -360,7 +363,7 @@ namespace OpenGLTests.src
 
                 if (index == 15)
                 { 
-                    Source.Location = Marker.Location;
+                    Source.Location = PlacedLocation;
                 }
 
                 if (index > 15)

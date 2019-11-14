@@ -4,22 +4,9 @@
 Burrower doesnt teleport every burrow. (only every second.)
 Not sure why this is but dont think it might be hard to trace down on.
 Difficulty 4
-Additionally, the hacks to get the burrower to do stuff is severe. Maybe need to find a more flexible way of doing stuff depending on animation frame.
-Difficulty 6
-
-While we render and remove/add stuff which are to be rendered we are manipulating the drawable repo. This means that while we iterate through the drawables there might be an exception.
-https://stackoverflow.com/questions/604831/collection-was-modified-enumeration-operation-may-not-execute 
-The current solution seems to work but it's probably causing a severe overhead. In effect, this means that this issue is important, but not urgent.
-Difficulty 8
-
-I believe game starts to lag after a while, but im not sure. Will need to investigate
-Difficulty 2-10
 
 Bounding box for an entity should really be a list of bounding boxes. Phased bool in the ICollidable interface should be replaced with something decent.
 Difficulty 5
-
-Game runs faster when there are fewer entities on the board. This probably has to do with the way we use a static int to do things in each step.
-Difficulty 4.
 
 All bounding boxes are not removed when entering a LoadRegion.
 Difficulty 4.
@@ -27,17 +14,11 @@ Difficulty 4.
 If hero aggros 2 units and kills the one who will have action after hero, the second aggrod unit will not perform action and game will be stuck.
 d4i8
 
-We getting duplicated messages in console sometimes. Such as FanBoy died Fanboy died. Somethings fishy. Not really that important since it's not very important. But pretty time consuming to find.
-d4i2
-
-Out of combat I want to be able to make a new move while im doing another move. SO I want to be able to cancel the current move.
-d5i3
-
 Hero can place actions while not its turn. This will cost the hero action points but move will not execute.
 d4i8
 
-Seems we are not aggroing within FanShape sometimes(to the right)
-d7i6
-
 When finishing an action the current action is reset to move. However this isn't always desirable. Need to think further on how we want this to be handled.
 d3i4
+
+Fireball does not end on hit sometimes.
+d4i5
