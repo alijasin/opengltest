@@ -1,7 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Drawing.Imaging;
+using System.IO;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using OpenGLTests.src.Util;
@@ -39,8 +42,35 @@ namespace OpenGLTests.src
             Closed += OnClosed;
             WINX = PointToScreen(ClientRectangle.Location).X;
             WINY = PointToScreen(ClientRectangle.Location).Y;
-            this.CursorVisible = false;
+            //this.CursorVisible = false;
+
+            SetDefaultCursor();
+
             Title = "Oyy veeyyy";
+        }
+
+        private void SetDefaultCursor()
+        {
+            var image = Properties.Resources.Cursor;
+            using (var bitmap = new Bitmap(image))
+            {
+                var bitmapData = bitmap.LockBits(new Rectangle(0, 0, bitmap.Width, bitmap.Height), ImageLockMode.ReadOnly, bitmap.PixelFormat);
+
+                var bytesPerPixel = 4;
+                var ptr = bitmapData.Scan0;
+                var imageSize = bitmapData.Width * bitmapData.Height * bytesPerPixel;
+                var data = new byte[imageSize];
+                for (int x = 0; x < imageSize; x += bytesPerPixel)
+                {
+                    for (var y = 0; y < bytesPerPixel; y++)
+                    {
+                        data[x + y] = Marshal.ReadByte(ptr);
+                        ptr += 1;
+                    }
+                }
+
+                this.Cursor = new MouseCursor(0, 0, bitmapData.Width, bitmap.Height, data);
+            }
         }
 
         private void OnClosed(object sender, EventArgs e)
