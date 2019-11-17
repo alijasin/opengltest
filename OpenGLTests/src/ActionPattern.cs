@@ -120,11 +120,11 @@ namespace OpenGLTests.src
     {
         private Unit fleeing;
 
-        public FindAndFleeEntity(Unit source)
+        public FindAndFleeEntity(Unit source, RangeShape chasingShape)
         {
             Actions = new List<GameAction>()
             {
-                new FindAndFlee(new RangeShape(new Circle(new GLCoordinate(0.2f, 0.2f)), source), source),
+                new FindAndFlee(chasingShape, source),
             };
         }
     }

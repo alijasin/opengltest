@@ -1,5 +1,5 @@
-﻿
-(description, (d) est. difficulty fixing(1-10), (i) importance(1-10))
+﻿-----
+Bugs: (description, (d) est. difficulty fixing(1-10), (i) importance(1-10))
 
 Burrower doesnt teleport every burrow. (only every second.)
 Not sure why this is but dont think it might be hard to trace down on.
@@ -22,3 +22,17 @@ d3i4
 
 Fireball does not end on hit sometimes.
 d4i5
+
+Fireball placement icon is not rotated as it is being placed.
+d4i1
+
+
+
+
+-----
+Improvement points:
+
+Really need to improve our Movement in GameActinoLambdas. First of all, the code is duplicated for a move and move away(instead of just having +GameCoordinate or -GameCoordinate).
+Second of all, this is the place where a units direction is set, which might be OK, but thats not it. Third of all, it does the collision checking here. 
+That means, for each entity that is moving, all entities will be checked whether they are collided with, every step. Yeah..
+Instead we move collision check and do a O(N^2) at the end of gamestep. 

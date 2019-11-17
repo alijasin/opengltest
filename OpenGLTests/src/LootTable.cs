@@ -23,11 +23,13 @@ namespace OpenGLTests.src
 
     public class LootTable
     {
-        private List<LootEntry> lootEntries = new List<LootEntry>();
+        private List<LootEntry> lootEntries;
 
         public LootTable(params LootEntry[] lootEntries)
         {
-            foreach(var le in lootEntries) this.lootEntries.Add(le);
+            this.lootEntries = new List<LootEntry>();
+            if (lootEntries == null) return;
+            foreach (var le in lootEntries) this.lootEntries.Add(le);
         }
 
         public void DropLoot(GameCoordinate loc)

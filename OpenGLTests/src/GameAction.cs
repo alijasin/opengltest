@@ -566,6 +566,7 @@ namespace OpenGLTests.src
         public FindAndFlee(RangeShape findShape, Unit source) : base(source)
         {
             findRad = findShape;
+            findRad.Visible = true;
         }
 
         private bool looking = true;
@@ -583,7 +584,11 @@ namespace OpenGLTests.src
                 {
                     Source.Color = Color.Green;
                     var res = GameActionLambdas.MoveAwayFromPoint(Source, chasing.Location);
-                    if (res) Source.Color = Color.White;
+                    if (res)
+                    {
+                        Source.Color = Color.White;
+                        looking = true;
+                    }
                     return res;
                 }
                 return false;

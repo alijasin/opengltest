@@ -7,6 +7,7 @@ using OpenGLTests.src.Drawables;
 
 namespace OpenGLTests.src.Util
 {
+    //not so much lambdas lmao
     public static class GameActionLambdas
     {
         public static Unit FindUnitLambda(RangeShape lookingShape, Unit source)
@@ -52,12 +53,9 @@ namespace OpenGLTests.src.Util
 
         public static bool MoveTowardsPoint(Unit source, GameCoordinate point, GameCoordinate speed, bool collisionCheck = true, params Type [] collisionCheckFilter)
         {
-            if (source.Location.Distance(point) < speed.X || source.Location.Distance(point) < speed.Y)
-            {
-                //we are close enough
-                return true;
-            }
-            
+            if (source.Location.Distance(point) < speed.X || source.Location.Distance(point) < speed.Y) return true; //if close enough to target
+
+            //todo: consider whether this should be here.
             if (source.Location.X < point.X)
             {
                 source.SetFacing(Facing.Right);
@@ -67,7 +65,7 @@ namespace OpenGLTests.src.Util
                 source.SetFacing(Facing.Left);
             }
 
-
+            //calc movement vector and do the usual stuff
             var dx = point.X - source.Location.X;
             var dy = point.Y - source.Location.Y;
             var dist = Math.Sqrt(dx * dx + dy * dy);
@@ -81,8 +79,8 @@ namespace OpenGLTests.src.Util
             if (collisionCheck)
             {
                 //:: Optimizable Area
-                //1. filter these collidables some more so we dont iterate all of them.
-                //2. store some things in variables
+                // this should be done after/before game logic is made. So we dont need to iterate all entities everytime an entity moves, but instead
+                // only do it at one place once.
                 foreach (var collidable in GameState.Drawables.GetAllCollidables.Where(e => !e.Phased && e != source))
                 {
                     if(collisionCheckFilter.Any(t => collidable.GetType().IsSubclassOf(t) || t == collidable.GetType())) continue;
@@ -110,27 +108,64 @@ namespace OpenGLTests.src.Util
             if (blockedX && blockedY || blockedX && Math.Abs(dy) < speed.Y || blockedY && Math.Abs(dx) < speed.X) return true; //we are kinda stuck
             return false;
         }
-
-
-        public static bool MoveAwayFromPoint(Unit source, GameCoordinate point)
+       
+        public static bool MoveAwayFromPoint(Unit source, GameCoordinate point, bool collisionCheck = true, params Type[] collisionCheckFilter)
         {
-            if (source.Location.Distance(point) < source.Speed.X || source.Location.Distance(point) < source.Speed.Y)
+            var speed = source.Speed;
+            if (source.Location.Distance(point) < speed.X || source.Location.Distance(point) < speed.Y) return true; //if close enough to target
+
+            //todo: consider whether this should be here.
+            if (source.Location.X < point.X)
             {
-                return true;
+                source.SetFacing(Facing.Right);
             }
             else
             {
-                var dx = point.X - source.Location.X;
-                var dy = point.Y - source.Location.Y;
-                var dist = Math.Sqrt(dx * dx + dy * dy);
-
-                var velX = (dx / dist) * source.Speed.X;
-                var velY = (dy / dist) * source.Speed.Y;
-
-                source.Location.X -= (float)velX;
-                source.Location.Y -= (float)velY;
-                return false;
+                source.SetFacing(Facing.Left);
             }
+
+            //calc movement vector and do the usual stuff
+            var dx = point.X - source.Location.X;
+            var dy = point.Y - source.Location.Y;
+            var dist = Math.Sqrt(dx * dx + dy * dy);
+
+            var velX = (float)(dx / dist) * speed.X;
+            var velY = (float)(dy / dist) * speed.Y;
+
+
+            bool blockedX = false;
+            bool blockedY = false;
+            if (collisionCheck)
+            {
+                //:: Optimizable Area
+                // this should be done after/before game logic is made. So we dont need to iterate all entities everytime an entity moves, but instead
+                // only do it at one place once.
+                foreach (var collidable in GameState.Drawables.GetAllCollidables.Where(e => !e.Phased && e != source))
+                {
+                    if (collisionCheckFilter.Any(t => collidable.GetType().IsSubclassOf(t) || t == collidable.GetType())) continue;
+
+                    if (collidable.BoundingBox.Contains(new GameCoordinate(collidable.BoundingBox.Location.X,
+                            source.Location.Y + velY * 2))
+                        && collidable.BoundingBox.Contains(new GameCoordinate(source.Location.X + velX / 2,
+                            collidable.BoundingBox.Location.Y)))
+                    {
+                        blockedY = true;
+                    }
+
+                    if (collidable.BoundingBox.Contains(new GameCoordinate(source.Location.X + velX * 2,
+                            collidable.BoundingBox.Location.Y))
+                        && collidable.BoundingBox.Contains(new GameCoordinate(collidable.BoundingBox.Location.X,
+                            source.Location.Y + velY / 2)))
+                    {
+                        blockedX = true;
+                    }
+                }
+            }
+
+            if (!blockedY) source.Location.Y -= velY;
+            if (!blockedX) source.Location.X -= velX;
+            if (blockedX && blockedY || blockedX && Math.Abs(dy) < speed.Y || blockedY && Math.Abs(dx) < speed.X) return true; //we are kinda stuck
+            return false;
         }
     }
 }

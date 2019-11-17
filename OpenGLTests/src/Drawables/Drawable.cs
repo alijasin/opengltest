@@ -266,7 +266,7 @@ namespace OpenGLTests.src.Drawables
         [JsonIgnore]
         public Weapon Weapon { get; set; }
 
-        public LootTable LootTable { get; set; } = new LootTable();
+        public LootTable LootTable { get; set; }
 
         public bool HasWeapon => Weapon != null;
         public bool DoingWeaponAction => ActionHandler.SelectedAction is WeaponAction && ActionStatus == ActionReturns.Ongoing;
@@ -307,6 +307,11 @@ namespace OpenGLTests.src.Drawables
         {
             ActionHandler.Dispose();
             base.Dispose();
+        }
+
+        public Unit()
+        {
+            LootTable = new LootTable();
         }
 
         public abstract void CombatStep(Fight fight);
