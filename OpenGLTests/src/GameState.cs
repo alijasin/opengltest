@@ -34,18 +34,6 @@ namespace OpenGLTests.src
             Drawables.Add(new BearTrap(new GameCoordinate(0, 0.2f)));
             new Wizard(new GameCoordinate(-0.5f, 0));*/
             RoomLoader.LoadRoom(RoomLoader.Room.TestEditorOutPut);
-            g1 = new Apple(GameState.Drawables.GetAllHeroes.First());
-            g2 = new Apple(GameState.Drawables.GetAllHeroes.First());
-            g3 = new Apple(GameState.Drawables.GetAllHeroes.First());
-            g4 = new Apple(GameState.Drawables.GetAllHeroes.First());
-            g2.Size = new GLCoordinate(0.01f, 0.01f);
-            g3.Size = new GLCoordinate(0.01f, 0.01f);
-            g4.Size = new GLCoordinate(0.01f, 0.01f);
-            g1.Size = new GLCoordinate(0.01f, 0.01f);
-            GameState.Drawables.Add( g1);
-            GameState.Drawables.Add( g2);
-            GameState.Drawables.Add( g3);
-            GameState.Drawables.Add(g4);
 
         }
 
