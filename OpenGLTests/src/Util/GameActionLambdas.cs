@@ -83,8 +83,11 @@ namespace OpenGLTests.src.Util
                 source.Location.Y += velY;
             }
 
+            //if we are kinda stuck
+            if (Math.Abs(dy) < speed.Y && (source.BlockedSides.BlockedLeft || source.BlockedSides.BlockedRight)) return true;
+            if (Math.Abs(dx) < speed.X && (source.BlockedSides.BlockedTop || source.BlockedSides.BlockedBottom)) return true;
 
-            if (Math.Abs(dy) < speed.Y || Math.Abs(dx) < speed.X) return true; //we are kinda stuck
+
             return false;
         }
        
