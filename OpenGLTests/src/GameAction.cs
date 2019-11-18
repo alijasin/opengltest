@@ -570,20 +570,20 @@ namespace OpenGLTests.src
         }
 
         private bool looking = true;
-        private Unit chasing;
+        private Unit runningAwayFrom;
         public override Func<object, bool> GetAction()
         {
             return (o) =>
             {
                 if (looking)
                 {
-                    chasing = GameActionLambdas.FindHeroLambda(findRad);
-                    if (chasing != null) looking = false;
+                    runningAwayFrom = GameActionLambdas.FindHeroLambda(findRad);
+                    if (runningAwayFrom != null) looking = false;
                 }
-                else
+                else if(looking == false)
                 {
                     Source.Color = Color.Green;
-                    var res = GameActionLambdas.MoveAwayFromPoint(Source, chasing.Location);
+                    var res = GameActionLambdas.MoveAwayFromPoint(Source, runningAwayFrom.Location);
                     if (res)
                     {
                         Source.Color = Color.White;

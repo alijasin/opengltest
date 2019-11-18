@@ -293,6 +293,12 @@ namespace OpenGLTests.src.Drawables
         public bool EndedTurn = false;
         [JsonIgnore]
         public Weapon Weapon { get; set; }
+        [JsonIgnore]
+        public bool InCombat { get; set; }
+        [JsonIgnore]
+        public int Initiative { get; set; }
+        [JsonIgnore]
+        public int HitPoints { get; set; }
 
         public LootTable LootTable { get; set; }
 
@@ -308,11 +314,6 @@ namespace OpenGLTests.src.Drawables
             BlockedSides = new BlockedSides();
         }
 
-        public bool InCombat { get; set; }
-
-        public int Initiative { get; set; } = 0;
-
-        public int HitPoints { get; set; }
 
         public void Damage(int dmg)
         {

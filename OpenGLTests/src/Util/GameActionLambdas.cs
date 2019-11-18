@@ -91,7 +91,7 @@ namespace OpenGLTests.src.Util
         public static bool MoveAwayFromPoint(Unit source, GameCoordinate point, bool collisionCheck = true, params Type[] collisionCheckFilter)
         {
             var speed = source.Speed;
-            if (source.Location.Distance(point) < speed.X || source.Location.Distance(point) < speed.Y) return true; //if close enough to target
+            if (source.BlockedSides.BlockedCount() >= 2) return true; //cornered
 
             //todo: consider whether this should be here.
             if (source.Location.X < point.X)

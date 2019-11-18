@@ -120,8 +120,18 @@ namespace OpenGLTests.src
                 {
                     aggro.OnAggro(Hero);
                     Hero.OnAggro(aggro);
-                    fight.AddFighter(Hero);
-                    fight.AddFighter(aggro);
+
+                    //todo: fix ordering in FighterQueue instead of here.
+                    if (Hero.Initiative > aggro.Initiative)
+                    {
+                        fight.AddFighter(Hero);
+                        fight.AddFighter(aggro);
+                    }
+                    else
+                    {
+                        fight.AddFighter(aggro);
+                        fight.AddFighter(Hero);
+                    }
                 }
             }
 

@@ -942,7 +942,7 @@
       "DoingWeaponAction": false,
       "LeftHandLocation": null,
       "InCombat": false,
-      "Initiative": 0,
+      "Initiative": 111,
       "HitPoints": 1,
       "Speed": {
         "X": 0.02,
@@ -982,7 +982,7 @@
       "DoingWeaponAction": false,
       "LeftHandLocation": null,
       "InCombat": false,
-      "Initiative": 0,
+      "Initiative": 111,
       "HitPoints": 1,
       "Speed": {
         "X": 0.02,
