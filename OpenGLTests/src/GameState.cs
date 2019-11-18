@@ -34,9 +34,25 @@ namespace OpenGLTests.src
             Drawables.Add(new BearTrap(new GameCoordinate(0, 0.2f)));
             new Wizard(new GameCoordinate(-0.5f, 0));*/
             RoomLoader.LoadRoom(RoomLoader.Room.TestEditorOutPut);
+            g1 = new Apple(GameState.Drawables.GetAllHeroes.First());
+            g2 = new Apple(GameState.Drawables.GetAllHeroes.First());
+            g3 = new Apple(GameState.Drawables.GetAllHeroes.First());
+            g4 = new Apple(GameState.Drawables.GetAllHeroes.First());
+            g2.Size = new GLCoordinate(0.01f, 0.01f);
+            g3.Size = new GLCoordinate(0.01f, 0.01f);
+            g4.Size = new GLCoordinate(0.01f, 0.01f);
+            g1.Size = new GLCoordinate(0.01f, 0.01f);
+            GameState.Drawables.Add( g1);
+            GameState.Drawables.Add( g2);
+            GameState.Drawables.Add( g3);
+            GameState.Drawables.Add(g4);
+
         }
 
-
+        private static Apple g1;
+        private static Apple g2;
+        private static Apple g3;
+        private static Apple g4;
         private void LoadTestRoom()
         {
             RoomLoader rl = new RoomLoader();
@@ -121,50 +137,61 @@ namespace OpenGLTests.src
                 }
             }
 
+            //todo: if needed the algo can be improved.
+            //todo: significant improvement would be that we only check collided if they have movement speed. <-- this is needed not recommended later on.
             //todo: we are assuming all bounding boxes are rectangles. this might not be acceptable later on.
-            foreach (ICollidable collided in Drawables.GetAllCollidables)
+            foreach (ICollidable collider in Drawables.GetAllCollidables)
             {
                 BlockedSides bs = new BlockedSides();
-                foreach (ICollidable collider in Drawables.GetAllCollidables)
+                foreach (ICollidable collided in Drawables.GetAllCollidables)
                 {
-                    if (collider == collided) continue;
-                    if (collider.Phased) continue;
+                    if (collided == collider) continue;
+                    if (collided.Phased) continue;
+                    if (bs.BlockedCount() >= 2) continue; 
 
-                    var rectA = collider.BoundingBox;
-                    var rectB = collided.BoundingBox;
 
-                    float player_bottom = collider.BoundingBox.Bottom;
-                    float tiles_bottom = collided.BoundingBox.Bottom;
-                    float player_right = collider.BoundingBox.Right;
-                    float tiles_right = collided.BoundingBox.Right;
+                    var rectA = collided.BoundingBox;
+                    var rectB = collider.BoundingBox;
 
-                    float b_collision = tiles_bottom - collider.BoundingBox.Top;
-                    float t_collision = player_bottom - collided.BoundingBox.Top;
-                    float l_collision = player_right - collided.BoundingBox.Left;
-                    float r_collision = tiles_right - collider.BoundingBox.Left;
-                    
-                    //if rectangle intersection
-                    if (rectA.Left < rectB.Right && rectA.Right > rectB.Left && rectA.Top > rectB.Bottom && rectA.Bottom < rectB.Top)
+                    if(rectA.Contains(new GameCoordinate(rectB.XCenter, rectB.Top)))
                     {
-                        if (rectA.Left < rectB.Right && rectA.Right > rectB.Right && r_collision > b_collision) bs.BlockedRight = true;
-                        if (rectA.Right > rectB.Left && rectA.Left < rectB.Left && l_collision > b_collision) bs.BlockedLeft = true;
-                        if (rectA.Bottom < rectB.Top && rectA.Top < rectB.Top && t_collision < r_collision) bs.BlockedBottom = true;
-                        if (rectA.Top > rectB.Bottom && rectA.Bottom > rectB.Bottom && b_collision < r_collision) bs.BlockedTop = true;
+                        bs.BlockedTop = true;
+                    }
+                    if (rectA.Contains(new GameCoordinate(rectB.XCenter, rectB.Bottom)))
+                    {
+                        bs.BlockedBottom = true;
+                    }
+                    if (rectA.Contains(new GameCoordinate(rectB.Left, rectB.YCenter)))
+                    {
+                        bs.BlockedLeft = true;
+                    }
+                    if (rectA.Contains(new GameCoordinate(rectB.Right, rectB.YCenter)))
+                    {
+                        bs.BlockedRight = true;
+                    }
+                    if (rectA.Contains(new GameCoordinate(rectB.Left + rectB.Size.X / 4, rectB.Top - rectB.Size.Y / 4)))
+                    {
+                        bs.BlockedTop = bs.BlockedLeft = true;
+                    }
+                    else if(rectA.Contains(new GameCoordinate(rectB.Left + rectB.Size.X / 4, rectB.Bottom + rectB.Size.Y / 4)))
+                    {
+                        bs.BlockedBottom = bs.BlockedLeft = true;
+                    }
+                    else if (rectA.Contains(new GameCoordinate(rectB.Left + rectB.Size.X / 4, rectB.Bottom + rectB.Size.Y / 4)))
+                    {
+                        bs.BlockedTop = bs.BlockedRight = true;
+                    }
+                    else if (rectA.Contains(new GameCoordinate(rectB.Left + rectB.Size.X / 4, rectB.Bottom + rectB.Size.Y / 4)))
+                    {
+                        bs.BlockedBottom = bs.BlockedRight = true;
                     }
 
-                    if (bs.BlockedLeft && bs.BlockedRight && (bs.BlockedTop || bs.BlockedBottom))
-                    {
-                        bs.BlockedLeft = bs.BlockedRight = false;
-                    }
-
-                    if (bs.BlockedTop && bs.BlockedBottom && (bs.BlockedLeft || bs.BlockedRight))
-                    {
-                        bs.BlockedTop = bs.BlockedBottom = false;
-                    }
                 }
-                collided.BlockedSides = bs;
+                collider.BlockedSides = bs;
             }
 
         }
+
     }
+    
 }

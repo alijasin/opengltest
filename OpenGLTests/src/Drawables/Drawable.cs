@@ -132,6 +132,16 @@ namespace OpenGLTests.src.Drawables
         public bool BlockedRight { get; set; } = false;
         public bool BlockedTop { get; set; } = false;
         public bool BlockedBottom { get; set; } = false;
+
+        public int BlockedCount()
+        {
+            int c = 0;
+            if (BlockedLeft) c++;
+            if (BlockedBottom) c++;
+            if (BlockedTop) c++;
+            if (BlockedRight) c++;
+            return c;
+        }
     }
 
     public abstract class Element : Drawable

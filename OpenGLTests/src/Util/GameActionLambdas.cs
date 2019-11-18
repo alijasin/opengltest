@@ -65,24 +65,26 @@ namespace OpenGLTests.src.Util
                 source.SetFacing(Facing.Left);
             }
 
-            //calc movement vector and do the usual stuff
+            //calc movement vector 
             var dx = point.X - source.Location.X;
             var dy = point.Y - source.Location.Y;
             var dist = Math.Sqrt(dx * dx + dy * dy);
-
             var velX = (float)(dx / dist) * speed.X;
             var velY = (float)(dy / dist) * speed.Y;
+
 
             if (velX > 0 && !source.BlockedSides.BlockedRight || velX < 0 && !source.BlockedSides.BlockedLeft)
             {
                 source.Location.X += velX;
             }
+
             if (velY > 0 && !source.BlockedSides.BlockedTop || velY < 0 && !source.BlockedSides.BlockedBottom)
             {
                 source.Location.Y += velY;
             }
 
-            // if (blockedX && blockedY || blockedX && Math.Abs(dy) < speed.Y || blockedY && Math.Abs(dx) < speed.X) return true; //we are kinda stuck
+
+            if (Math.Abs(dy) < speed.Y || Math.Abs(dx) < speed.X) return true; //we are kinda stuck
             return false;
         }
        
@@ -110,38 +112,16 @@ namespace OpenGLTests.src.Util
             var velY = (float)(dy / dist) * speed.Y;
 
 
-            bool blockedX = false;
-            bool blockedY = false;
-            if (collisionCheck)
+            if (velX > 0 && !source.BlockedSides.BlockedRight || velX < 0 && !source.BlockedSides.BlockedLeft)
             {
-                //:: Optimizable Area
-                // this should be done after/before game logic is made. So we dont need to iterate all entities everytime an entity moves, but instead
-                // only do it at one place once.
-                foreach (var collidable in GameState.Drawables.GetAllCollidables.Where(e => !e.Phased && e != source))
-                {
-                    if (collisionCheckFilter.Any(t => collidable.GetType().IsSubclassOf(t) || t == collidable.GetType())) continue;
-
-                    if (collidable.BoundingBox.Contains(new GameCoordinate(collidable.BoundingBox.Location.X,
-                            source.Location.Y + velY * 2))
-                        && collidable.BoundingBox.Contains(new GameCoordinate(source.Location.X + velX / 2,
-                            collidable.BoundingBox.Location.Y)))
-                    {
-                        blockedY = true;
-                    }
-
-                    if (collidable.BoundingBox.Contains(new GameCoordinate(source.Location.X + velX * 2,
-                            collidable.BoundingBox.Location.Y))
-                        && collidable.BoundingBox.Contains(new GameCoordinate(collidable.BoundingBox.Location.X,
-                            source.Location.Y + velY / 2)))
-                    {
-                        blockedX = true;
-                    }
-                }
+                source.Location.X -= velX;
+            }
+            if (velY > 0 && !source.BlockedSides.BlockedBottom || velY < 0 && !source.BlockedSides.BlockedTop)
+            {
+                source.Location.Y -= velY;
             }
 
-            if (!blockedY) source.Location.Y -= velY;
-            if (!blockedX) source.Location.X -= velX;
-            if (blockedX && blockedY || blockedX && Math.Abs(dy) < speed.Y || blockedY && Math.Abs(dx) < speed.X) return true; //we are kinda stuck
+            //if (blockedX && blockedY || blockedX && Math.Abs(dy) < speed.Y || blockedY && Math.Abs(dx) < speed.X) return true; //we are kinda stuck
             return false;
         }
     }

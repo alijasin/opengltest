@@ -12,7 +12,7 @@ namespace OpenGLTests.src.Drawables.Entities
         {
             this.Location = location;
             this.Speed = new GameCoordinate(0.02f, 0.02f);
-
+            this.Size = new GLCoordinate(0.1f, 0.1f);
             var chasingAggroShape = new RangeShape(new Circle(new GLCoordinate(0.2f, 0.2f)), this);
             GameState.Drawables.Add(chasingAggroShape);
             chasingAggroShape.Visible = true;
