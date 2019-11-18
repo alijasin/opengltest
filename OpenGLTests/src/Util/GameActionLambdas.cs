@@ -112,7 +112,7 @@ namespace OpenGLTests.src.Util
             var velY = (float)(dy / dist) * speed.Y;
 
 
-            if (velX > 0 && !source.BlockedSides.BlockedRight || velX < 0 && !source.BlockedSides.BlockedLeft)
+            if (velX > 0 && !source.BlockedSides.BlockedLeft || velX < 0 && !source.BlockedSides.BlockedRight)
             {
                 source.Location.X -= velX;
             }
