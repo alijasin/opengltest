@@ -15,6 +15,7 @@ namespace OpenGLTests.src.Drawables
 {
     public class Hero : Unit, IActionCapable, IDamagable, ICollidable
     {
+
         //todo put all these things into some wrapper thing
         public int BaseAvailableActionPoints { get; set; } = 5;
         private int actionPointsAvailableAtStartOfTurn { get; set; } = 5;
@@ -31,18 +32,19 @@ namespace OpenGLTests.src.Drawables
         public bool Phased { get; set; } = true;
         public RangeShape BoundingBox { get; set; }
 
+
         public Hero()
         {
             Color = Color.CadetBlue;
             this.Location = new GameCoordinate(0f, 0f);
-            this.Size = new GLCoordinate(0.2f, 0.1f);
+            this.Size = new GLCoordinate(0.1f, 0.1f);
             this.Speed = InitialSpeed;
             this.Animation = new Animation(new SpriteSheet_ElfIdle());
             this.ActionHandler = new OutOfCombatActionHandler(this);
             this.Initiative = 10;
             this.HitPoints = 5;
             this.Weapon = new Katana(this);
-            BoundingBox = new RangeShape(new Circle(this.Size), this);
+            BoundingBox = new RangeShape(new Rectangle(this.Size), this);
             //this.AggroShape = new RangeCircle(new GLCoordinate(0, 0), this);
             initActionBar();
             InCombat = false;

@@ -122,6 +122,16 @@ namespace OpenGLTests.src.Drawables
         [JsonIgnore]
         RangeShape BoundingBox { get; set; }
         GameCoordinate Location { get; set; }
+
+        BlockedSides BlockedSides { get; set; }
+    }
+
+    public class BlockedSides
+    {
+        public bool BlockedLeft { get; set; } = false;
+        public bool BlockedRight { get; set; } = false;
+        public bool BlockedTop { get; set; } = false;
+        public bool BlockedBottom { get; set; } = false;
     }
 
     public abstract class Element : Drawable
@@ -156,6 +166,7 @@ namespace OpenGLTests.src.Drawables
         public GameCoordinate Speed { get; set; } = new GameCoordinate(0, 0);
         [JsonIgnore]
         public virtual GameCoordinate MovingTowardsPoint { get; set; }
+
         private GameCoordinate location;
         [JsonProperty]
         public virtual GameCoordinate Location
@@ -165,7 +176,10 @@ namespace OpenGLTests.src.Drawables
                 if (this.location == null) return new GameCoordinate(0, 0);
                 return this.location;
             }
-            set { location = value; }
+            set
+            {
+                location = value;
+            }
         }
 
         public virtual int FacingAngle { get; set; }
@@ -243,10 +257,14 @@ namespace OpenGLTests.src.Drawables
         public bool Phased { get; set; } = false;
         
         public RangeShape BoundingBox { get; set; }
+        public BlockedSides BlockedSides { get; set; }
     }
 
-    public abstract class Unit : Entity, IActionCapable, IDamagable
+    public abstract class Unit : Entity, IActionCapable, IDamagable, ICollidable
     {
+        public bool Phased { get; set; }
+        public RangeShape BoundingBox { get; set; }
+        public BlockedSides BlockedSides { get; set; }
         [JsonIgnore]
         public virtual int AvailableActionPoints { get; set; } = 3;
         [JsonIgnore]
@@ -271,6 +289,14 @@ namespace OpenGLTests.src.Drawables
         public bool HasWeapon => Weapon != null;
         public bool DoingWeaponAction => ActionHandler.SelectedAction is WeaponAction && ActionStatus == ActionReturns.Ongoing;
         public virtual GameCoordinate LeftHandLocation { get; set; } //todo: refactor this into animation
+
+
+
+        public Unit()
+        {
+            LootTable = new LootTable();
+            BlockedSides = new BlockedSides();
+        }
 
         public bool InCombat { get; set; }
 
@@ -309,10 +335,6 @@ namespace OpenGLTests.src.Drawables
             base.Dispose();
         }
 
-        public Unit()
-        {
-            LootTable = new LootTable();
-        }
 
         public abstract void CombatStep(Fight fight);
 
@@ -345,6 +367,8 @@ namespace OpenGLTests.src.Drawables
         public bool Phased { get; set; } = false;
         [JsonIgnore]
         public virtual RangeShape BoundingBox { get; set; }
+
+        public BlockedSides BlockedSides { get; set; }
 
         public Structure()
         {

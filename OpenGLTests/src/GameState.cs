@@ -80,25 +80,6 @@ namespace OpenGLTests.src
                 }
             }
 
-            #region Pause for Fight
-
-            //if we have units in action do fight steps
-            //else we do out of combat actions. 
-            //this means units not in combat when there is a fight going on will be paused.
-            /*if (!fight.LastManStanding()) doFight();
-            else
-            {
-                foreach (var unit in Drawables.GetAllUnits)
-                {
-
-                    unit.OutOfCombatStep(outOfCombatIndex);
-
-                }
-            }
-            */
-
-            #endregion
-
             if (!fight.LastManStanding())
             {
                 var currentFighter = fight.GetCurrentTurn();
@@ -139,6 +120,51 @@ namespace OpenGLTests.src
                     fight.AddFighter(aggro);
                 }
             }
+
+            //todo: we are assuming all bounding boxes are rectangles. this might not be acceptable later on.
+            foreach (ICollidable collided in Drawables.GetAllCollidables)
+            {
+                BlockedSides bs = new BlockedSides();
+                foreach (ICollidable collider in Drawables.GetAllCollidables)
+                {
+                    if (collider == collided) continue;
+                    if (collider.Phased) continue;
+
+                    var rectA = collider.BoundingBox;
+                    var rectB = collided.BoundingBox;
+
+                    float player_bottom = collider.BoundingBox.Bottom;
+                    float tiles_bottom = collided.BoundingBox.Bottom;
+                    float player_right = collider.BoundingBox.Right;
+                    float tiles_right = collided.BoundingBox.Right;
+
+                    float b_collision = tiles_bottom - collider.BoundingBox.Top;
+                    float t_collision = player_bottom - collided.BoundingBox.Top;
+                    float l_collision = player_right - collided.BoundingBox.Left;
+                    float r_collision = tiles_right - collider.BoundingBox.Left;
+                    
+                    //if rectangle intersection
+                    if (rectA.Left < rectB.Right && rectA.Right > rectB.Left && rectA.Top > rectB.Bottom && rectA.Bottom < rectB.Top)
+                    {
+                        if (rectA.Left < rectB.Right && rectA.Right > rectB.Right && r_collision > b_collision) bs.BlockedRight = true;
+                        if (rectA.Right > rectB.Left && rectA.Left < rectB.Left && l_collision > b_collision) bs.BlockedLeft = true;
+                        if (rectA.Bottom < rectB.Top && rectA.Top < rectB.Top && t_collision < r_collision) bs.BlockedBottom = true;
+                        if (rectA.Top > rectB.Bottom && rectA.Bottom > rectB.Bottom && b_collision < r_collision) bs.BlockedTop = true;
+                    }
+
+                    if (bs.BlockedLeft && bs.BlockedRight && (bs.BlockedTop || bs.BlockedBottom))
+                    {
+                        bs.BlockedLeft = bs.BlockedRight = false;
+                    }
+
+                    if (bs.BlockedTop && bs.BlockedBottom && (bs.BlockedLeft || bs.BlockedRight))
+                    {
+                        bs.BlockedTop = bs.BlockedBottom = false;
+                    }
+                }
+                collided.BlockedSides = bs;
+            }
+
         }
     }
 }

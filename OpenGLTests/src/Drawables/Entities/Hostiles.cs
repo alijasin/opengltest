@@ -21,8 +21,6 @@ namespace OpenGLTests.src.Drawables
         protected ActionPattern OutOfCombatActionPattern;
         protected ActionPattern CombatActionPattern;
         public Unit CurrentAggroTarget;
-        public bool Phased { get; set; } = false;
-        public RangeShape BoundingBox { get; set; }
         protected Hostile()
         {
             this.HitPoints = 1;
