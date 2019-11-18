@@ -132,6 +132,7 @@ namespace OpenGLTests.src
         { }
     }
 
+    //needed?
     class SpriteSheet_EquipmentIcons : SpriteSheet
     {
         public SpriteSheet_EquipmentIcons() : base(new Dictionary<SpriteID, int>()

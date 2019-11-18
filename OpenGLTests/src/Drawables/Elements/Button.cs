@@ -95,19 +95,19 @@ namespace OpenGLTests.src.Drawables
 
     class EquipmentSlot : ActionButton, IRightClickable
     {
-        public EquipmentSlot(EquipmentItem ei)
+        public EquipmentSlot(Hero owner, EquipmentItem ei)
         {
             this.Color = Color.White;
             this.Size = StandardSize;
-            this.Animation = new Animation(new SpriteSheet_EquipmentIcons());
+            this.Animation = new Animation(new SpriteSheet_Icons());
             this.Animation.SetSprite(ei.Icon);
             this.Animation.IsStatic = true;
-            
+            this.GameAction = new DropEquipmentItem(owner, ei);
             OnInteraction += () =>
             {
                 try
                 {
-
+                    //owner.ActionHandler.ActionButtonActivated(this);
                 }
                 catch (Exception e)
                 {
@@ -117,6 +117,7 @@ namespace OpenGLTests.src.Drawables
 
             OnRightClick = (hero, coordinate) =>
             {
+                owner.ActionHandler.ActionButtonActivated(this);
                 Player.Cursor.SetIcon(ei.Icon);
             };
         }

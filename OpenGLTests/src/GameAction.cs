@@ -7,6 +7,7 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using OpenGLTests.src.Drawables;
+using OpenGLTests.src.Drawables.Elements;
 using OpenGLTests.src.Drawables.Entities;
 using OpenGLTests.src.Util;
 using OpenTK.Graphics.OpenGL4;
@@ -72,6 +73,8 @@ namespace OpenGLTests.src
             }
         }
 
+
+        //Todo make this automatic
         public bool DefaultPlacementFilter(GameCoordinate loc)
         {
             if (Source.AvailableActionPoints < this.ActionPointCost) return false;
@@ -170,6 +173,31 @@ namespace OpenGLTests.src
                 }
 
                 return false;
+            };
+        }
+    }
+
+    class DropEquipmentItem : GameAction
+    {
+        private EquipmentItem equipmentItem;
+
+        public DropEquipmentItem(Hero source, EquipmentItem equimentItem) : base(source)
+        {
+            this.equipmentItem = equipmentItem;
+            this.RangeShape = new RangeShape(new Circle(new GLCoordinate(0.2f, 0.2f)), source);
+            PlacementFilter += coordinate =>
+            {
+                return !GameState.Drawables.GetAllCollidables.Any(d => d.BoundingBox.Contains(coordinate)) && DefaultPlacementFilter(coordinate);
+            };
+        }
+
+        public override Func<object, bool> GetAction()
+        {
+            return o =>
+            {
+                //var a = new DroppedItem(PlacedLocation);
+                //GameState.Drawables.Add(a);
+                return true;
             };
         }
     }

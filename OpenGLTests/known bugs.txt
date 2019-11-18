@@ -17,6 +17,7 @@ d4i8
 Hero can place actions while not its turn. This will cost the hero action points but move will not execute.
 d4i8
 
+::issue 93934::
 When finishing an action the current action is reset to move. However this isn't always desirable. Need to think further on how we want this to be handled.
 d3i4
 
@@ -26,8 +27,10 @@ d4i5
 Fireball placement icon is not rotated as it is being placed.
 d4i1
 
+If item is used and another item is clicked before item has been finished, the newly selected item will be consumed instead.
+d5i5
 
-
+If hero is moving to a location with a wall inbetween hero is unable to cast other actions until move is cancelled. Although this might be fixed with issue 93934.
 
 -----
 Improvement points:

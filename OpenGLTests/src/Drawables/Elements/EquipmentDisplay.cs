@@ -81,9 +81,11 @@ namespace OpenGLTests.src.Drawables.Elements
         Dictionary<List<EquipmentSlotType>, ActionButton> equipmentSlot = new Dictionary<List<EquipmentSlotType>, ActionButton>();
         RectangleElement background = new RectangleElement();
         private GLCoordinate backgroundSize = new GLCoordinate(0.6f, 0.6f);
+        private Hero owner;
 
-        public EquipmentDisplay()
+        public EquipmentDisplay(Hero owner)
         {
+            this.owner = owner;
             JsonCoordinateReader.GetEquipmentLocations();
             initBackground();
             initEquipmentSlots();
@@ -111,15 +113,15 @@ namespace OpenGLTests.src.Drawables.Elements
         {
             var slotToLoc = JsonCoordinateReader.GetEquipmentLocations();
 
-            var leftFootSlot = new EquipmentSlot(new EmptyBoot());
+            var leftFootSlot = new EquipmentSlot(owner, new EmptyBoot());
             leftFootSlot.Location = new GLCoordinate(background.Location + slotToLoc[leftFoot]);
             equipmentSlot.Add(new List<EquipmentSlotType>(){ EquipmentSlotType.Feet }, leftFootSlot);
 
-            var rightFootSlot = new EquipmentSlot(new EmptyBoot());
+            var rightFootSlot = new EquipmentSlot(owner, new EmptyBoot());
             rightFootSlot.Location = new GLCoordinate(background.Location + slotToLoc[rightFoot]);
             equipmentSlot.Add(new List<EquipmentSlotType>() { EquipmentSlotType.Feet }, rightFootSlot);
 
-            var headSlot = new EquipmentSlot(new EmptyHead());
+            var headSlot = new EquipmentSlot(owner, new EmptyHead());
             headSlot.Location = new GLCoordinate(background.Location + slotToLoc[head]);
             equipmentSlot.Add(new List<EquipmentSlotType>() { EquipmentSlotType.Head }, headSlot);
 

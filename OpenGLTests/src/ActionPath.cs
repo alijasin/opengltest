@@ -298,7 +298,6 @@ namespace OpenGLTests.src
         {
             if (SelectedAction == null) return;
             SelectedAction.RangeShape.Visible = true;
-
         }
 
         public override void Dispose()
