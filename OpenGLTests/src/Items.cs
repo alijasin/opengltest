@@ -21,8 +21,11 @@ namespace OpenGLTests.src
         Legendary
     }
 
+
     public abstract class Item : Entity
     {
+        public bool Stackable { get; set; } = false;
+        public int Count { get; set; } = 1;
         public Rarity Rarity { get; set; } = Rarity.Common;
         public ItemAction Action;
         public SpriteID Icon => Action.Icon;
@@ -46,6 +49,7 @@ namespace OpenGLTests.src
     {
         public Apple(Unit owner)
         {
+            Stackable = true;
             this.Action = new TossItemAction(owner, this);
             Action.Icon = SpriteID.item_apple;
             Rarity = Rarity.Rare;

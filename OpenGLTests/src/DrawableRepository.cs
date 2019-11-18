@@ -13,11 +13,7 @@ namespace OpenGLTests.src
 {
     //Todo: this whole class is shit and you should feel bad.
     public class DrawableRepository
-    {
-        private static List<IInteractable> interactableRepo { get; } = new List<IInteractable>();
-        public List<IInteractable> GetAllInteractables => interactableRepo;
-
-        private static List<Drawable> drawableRepo { get; } = new List<Drawable>();
+    {private static List<Drawable> drawableRepo { get; } = new List<Drawable>();
         public List<Drawable> GetAllDrawables => GetWhere<Drawable>(drawable => true);
         public List<Entity> GetAllEntities => GetWhere<Entity>(drawable => drawable is Entity);
         public List<Element> GetAllElements => GetWhere<Element>(drawable => drawable is Element);
@@ -30,8 +26,7 @@ namespace OpenGLTests.src
         private List<Drawable> toAdd = new List<Drawable>();
 
         private static object _lock = new object();
-        //todo this is digusting and you should change it. Todo!!! High importance low urgency
-        //additionaly, i think this just fails sometimes
+        //todo make it fully generic so we dont duplicate it for iinteractables
         private List<T> GetWhere<T>(Func<Drawable, bool> filter)
         {
             lock (_lock)
@@ -67,14 +62,51 @@ namespace OpenGLTests.src
         /// Register an interactable so that it can be interacted with. This function will not register the interactable's ondraw function to be called automatically.
         /// </summary>
         /// <param name="i"></param>
+
+        private static List<IInteractable> interactableRepo { get; } = new List<IInteractable>();
+        public List<IInteractable> GetAllInteractables => IGetWhere<IInteractable>(i => true).ToList();
+
+        private List<IInteractable> iToRemove = new List<IInteractable>();
+        private List<IInteractable> iToAdd = new List<IInteractable>();
+
+        private List<T> IGetWhere<T>(Func<IInteractable, bool> filter)
+        {
+            lock (_lock)
+            {
+                for (int i = iToRemove.Count - 1; i >= 0; i--)
+                {
+                    if (iToRemove.Count > 0)
+                    {
+                        var success = interactableRepo.Remove(iToRemove[i]);
+                        if (success) iToRemove.RemoveAt(i);
+                    }
+                }
+
+                if (iToAdd.Count > 0)
+                {
+                    interactableRepo.AddRange(iToAdd);
+                    iToAdd.Clear();
+                }
+            }
+
+            List<IInteractable> temp = new List<IInteractable>();
+
+            for (int i = 0; i < interactableRepo.Count; i++)
+            {
+                var xd = interactableRepo.ElementAt(i);
+                if (filter(xd)) temp.Add(xd);
+            }
+
+            return temp.Cast<T>().ToList();
+        }
         public void RegisterInteractable(IInteractable i)
         {
-            interactableRepo.Add(i);
+            iToAdd.Add(i);
         }
 
         public void UnRegisterInteractable(IInteractable i)
         {
-            interactableRepo.Remove(i);
+            iToRemove.Add(i);
         }
 
         public void Add(Drawable d)

@@ -93,6 +93,8 @@ namespace OpenGLTests.src.Drawables
             Inventory.Add(new GrowingPotion(this));
             Inventory.Add(new RedPotion(this));
             Inventory.Add(new Apple(this));
+            Inventory.Add(new Apple(this));
+            Inventory.Add(new Apple(this));
             InventoryButton = new InventoryButton(new GLCoordinate(-1, ActionBar.Location.Y), Inventory);
 
             GameState.Drawables.Add(InventoryButton);

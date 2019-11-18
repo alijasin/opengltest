@@ -109,7 +109,7 @@ namespace OpenGLTests.src
     public abstract class ActionHandler
     {
         public IActionCapable Owner { get; set; }
-
+        protected Action onFinishedCasting { get; set; } = () => { };
         private GameAction selectedAction;
         public GameAction SelectedAction
         {
@@ -147,11 +147,17 @@ namespace OpenGLTests.src
 
         public abstract void OnMouseDown(GameCoordinate mouseLocation);
 
-        public void ActionButtonActivated(GameAction gameAction)
+        public void ActionButtonActivated(ActionButton bu)
         {
             var oldSelected = SelectedAction;
             if(oldSelected != null) oldSelected.Dispose();
-            SelectedAction = gameAction;
+            SelectedAction = bu.GameAction;
+            if (bu is InventorySlot b)
+            {
+                onFinishedCasting = () => { b.Consume(); };
+            }
+
+            onFinishedCasting += () => onFinishedCasting = () => { };
         }
 
         public abstract void PlaceAction(GameAction action, GameCoordinate placeLocation);
@@ -198,6 +204,7 @@ namespace OpenGLTests.src
             var finished = first.GetAction().Invoke(args);
             if (finished)
             {
+                onFinishedCasting.Invoke();
                 SubsequentlyPlacedActions.RemoveFirst();
                 if (SubsequentlyPlacedActions.Count() == 0) return ActionReturns.AllFinished;
                 return ActionReturns.Finished;
@@ -309,6 +316,7 @@ namespace OpenGLTests.src
             var finished = currentAction.GetAction().Invoke(args);
             if (finished)
             {
+                onFinishedCasting.Invoke();
                 PlacedActions.RemoveGameAction(currentAction);
                 if (PlacedActions.Count == 0) return ActionReturns.AllFinished;
                 return ActionReturns.Finished;

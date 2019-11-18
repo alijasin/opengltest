@@ -33,6 +33,13 @@ namespace OpenGLTests.src.Drawables
 
         public bool Add(Item i)
         {
+            if (i.Stackable && InventorySlots.Any(islot => islot.Item.GetType() == i.GetType()))
+            {
+                var islot = InventorySlots.Find(isloter => isloter.Item.GetType() == i.GetType());
+                islot.Item.Count++;
+                return true;
+            }
+
             var filledSlots = InventorySlots.Count;
             if (filledSlots < maxSlots)
             {
@@ -48,6 +55,12 @@ namespace OpenGLTests.src.Drawables
             }
 
             return false;
+        }
+
+        public void Remove(InventorySlot i)
+        {
+            InventorySlots.Remove(i);
+            i.Dispose();
         }
 
         public override void DrawStep(DrawAdapter drawer)

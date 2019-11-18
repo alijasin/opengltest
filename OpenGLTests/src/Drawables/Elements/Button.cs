@@ -128,10 +128,16 @@ namespace OpenGLTests.src.Drawables
         }
     }
 
-    class InventorySlot : ActionButton
+    public class InventorySlot : ActionButton
     {
+        public Item Item { get; set; }
+
+        private Inventory inventory;
+
         public InventorySlot(Item i, Inventory inventory)
         {
+            this.Item = i;
+            this.inventory = inventory;
             this.Color = Color.Yellow;
             this.Size = StandardSize;
             this.Animation = new Animation(new SpriteSheet_Icons());
@@ -142,13 +148,23 @@ namespace OpenGLTests.src.Drawables
             {
                 try
                 {
-                    inventory.Owner.ActionHandler.ActionButtonActivated(i.Action);
+                    inventory.Owner.ActionHandler.ActionButtonActivated(this);
                 }
                 catch (Exception e)
                 {
                     Console.WriteLine("Tried using an item without an action or something like that: " + e);
                 }
             };
+        }
+
+        public void Consume()
+        {
+            this.Item.Count--;
+
+            if (this.Item.Count < 1)
+            {
+                inventory.Remove(this);
+            }
         }
     }
 
@@ -164,7 +180,7 @@ namespace OpenGLTests.src.Drawables
             this.GameAction = sa.Action;
             OnInteraction += () =>
             {
-                inBar.Owner.ActionHandler.ActionButtonActivated(this.GameAction);
+                inBar.Owner.ActionHandler.ActionButtonActivated(this);
             };
         }
     }
