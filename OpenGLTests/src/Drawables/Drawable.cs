@@ -8,6 +8,8 @@ using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
+using OpenGLTests.src.Drawables.Elements;
+using OpenGLTests.src.Drawables.Entities;
 using OpenGLTests.src.Drawables.Terrain;
 using OpenGLTests.src.Util;
 
@@ -217,44 +219,6 @@ namespace OpenGLTests.src.Drawables
         public GameCoordinate Center => new GameCoordinate(this.Location.X + this.Size.X/2, this.Location.Y + this.Size.Y/2);
     }
 
-    public abstract class Weapon : Entity
-    {
-        public GLCoordinate InitialSize { get; set; }
-        public int Rotation { get; set; } = 0;
-        protected int LeftFacingRotation = 120;
-        protected int RightFacingRotation = 340;
-
-        public Unit Owner;
-        public override GameCoordinate Location
-        {
-            get
-            {
-                if(Owner == null) return new GameCoordinate(0,0);
-                if (!(Owner.ActionHandler.SelectedAction is WeaponAction))
-                {
-                    if (Owner.Facing == Facing.Right)
-                    {
-                        Rotation = RightFacingRotation;
-                    }
-                    else
-                    {
-                        Rotation = LeftFacingRotation;
-                    }
-                }
-
-                return new GameCoordinate(Owner.LeftHandLocation.X, Owner.LeftHandLocation.Y);
-            }
-        }
-
-        public override void DrawStep(DrawAdapter drawer)
-        {
-            drawer.DrawWeapon(this);
-        }
-
-        public Facing GetFacing => Owner.Facing;
-
-    }
-
     public abstract class Stuff : Entity, ICollidable
     {
         protected Stuff()
@@ -299,7 +263,7 @@ namespace OpenGLTests.src.Drawables
         public int Initiative { get; set; }
         [JsonIgnore]
         public int HitPoints { get; set; }
-
+        [JsonIgnore]
         public LootTable LootTable { get; set; }
 
         public bool HasWeapon => Weapon != null;

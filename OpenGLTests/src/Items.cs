@@ -5,6 +5,7 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using OpenGLTests.src.Drawables;
+using OpenGLTests.src.Drawables.Entities;
 using OpenGLTests.src.Util;
 
 /// <summary>
@@ -22,13 +23,17 @@ namespace OpenGLTests.src
     }
 
 
-    public abstract class Item : Entity
+    public abstract class Item : Entity, IDroppable
     {
         public bool Stackable { get; set; } = false;
         public int Count { get; set; } = 1;
         public Rarity Rarity { get; set; } = Rarity.Common;
         public ItemAction Action;
-        public SpriteID Icon => Action.Icon;
+        public SpriteID Icon
+        {
+            get => Action.Icon;
+            set => Action.Icon = value;
+        }
 
         public override void Dispose()
         {

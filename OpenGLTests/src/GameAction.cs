@@ -132,7 +132,26 @@ namespace OpenGLTests.src
         }
     }
 
-    
+    class LambdaItemAction : ItemAction
+    {
+        private Func<object, bool> a;
+        public LambdaItemAction(Func<object, bool> f, Unit source) : base(source)
+        {
+            RangeShape = new RangeShape(new Circle(new GLCoordinate(0.8f, 0.8f)), source);
+            this.Marker = new ActionMarker(RangeShape.Location);
+            this.ActionLine.LineType = LineType.Dashed;
+            a = f;
+        }
+
+        public override Func<object, bool> GetAction()
+        {
+            return (o) =>
+            {
+                a.Invoke(o);
+                return true;
+            };
+        }
+    }
 
     class TurnAction : GameAction
     {
@@ -183,7 +202,7 @@ namespace OpenGLTests.src
 
         public DropEquipmentItem(Hero source, EquipmentItem equimentItem) : base(source)
         {
-            this.equipmentItem = equipmentItem;
+            this.equipmentItem = equimentItem;
             this.RangeShape = new RangeShape(new Circle(new GLCoordinate(0.2f, 0.2f)), source);
             PlacementFilter += coordinate =>
             {
@@ -195,6 +214,7 @@ namespace OpenGLTests.src
         {
             return o =>
             {
+                new DroppedItem<EquipmentItem>(equipmentItem, PlacedLocation);
                 //var a = new DroppedItem(PlacedLocation);
                 //GameState.Drawables.Add(a);
                 return true;

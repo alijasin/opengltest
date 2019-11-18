@@ -39,7 +39,7 @@ namespace OpenGLTests.src
             {
                 if (loot.Probability > rng)
                 {
-                    new DroppedItem(loot.Item, RNG.RandomPointWithinCircleRelativeToLocation(loc, new GLCoordinate(0.2f, 0.2f)));
+                    new DroppedItem<Item>(loot.Item, RNG.RandomPointWithinCircleRelativeToLocation(loc, new GLCoordinate(0.2f, 0.2f)));
                 }
             }
         }

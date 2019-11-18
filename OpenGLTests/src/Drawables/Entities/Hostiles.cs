@@ -36,6 +36,11 @@ namespace OpenGLTests.src.Drawables
 
         public override void OnDeath()
         {
+            if (HitPoints < 0)
+            {
+                Console.WriteLine(this.GetType() + " died but is already dead. hmm..");
+                return;
+            }
             base.OnDeath();
             Console.WriteLine("{0} died.", this);
             if (CurrentAggroTarget is Hero hero)
