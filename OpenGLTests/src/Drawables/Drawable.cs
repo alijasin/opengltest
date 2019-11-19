@@ -10,6 +10,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using OpenGLTests.src.Drawables.Elements;
 using OpenGLTests.src.Drawables.Entities;
+using OpenGLTests.src.Drawables.Entities.Equipment;
 using OpenGLTests.src.Drawables.Terrain;
 using OpenGLTests.src.Util;
 

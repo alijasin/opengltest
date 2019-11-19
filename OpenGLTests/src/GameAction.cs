@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using OpenGLTests.src.Drawables;
 using OpenGLTests.src.Drawables.Elements;
 using OpenGLTests.src.Drawables.Entities;
+using OpenGLTests.src.Drawables.Entities.Equipment;
 using OpenGLTests.src.Util;
 using OpenTK.Graphics.OpenGL4;
 

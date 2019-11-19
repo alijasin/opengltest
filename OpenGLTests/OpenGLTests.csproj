@@ -75,6 +75,7 @@
     <Compile Include="src\Drawables\Entities\DrawableButton.cs" />
     <Compile Include="src\Drawables\Entities\DroppedItem.cs" />
     <Compile Include="src\Drawables\Entities\Dummy.cs" />
+    <Compile Include="src\Drawables\Entities\Equipment\Equipment.cs" />
     <Compile Include="src\Drawables\Entities\Equipment\PlateHead.cs" />
     <Compile Include="src\Drawables\Entities\FanBoy.cs" />
     <Compile Include="src\Drawables\Entities\Fireball.cs" />

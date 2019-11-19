@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using OpenGLTests.src.Drawables.Elements;
+using OpenGLTests.src.Drawables.Entities.Equipment;
 using OpenGLTests.src.Util;
 
 namespace OpenGLTests.src.Drawables.Entities

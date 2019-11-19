@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using OpenGLTests.src.Drawables.Elements;
+using OpenGLTests.src.Drawables.Entities.Equipment;
 using OpenGLTests.src.Util;
 
 namespace OpenGLTests.src.Drawables
@@ -103,6 +104,7 @@ namespace OpenGLTests.src.Drawables
             this.Animation.SetSprite(ei.Icon);
             this.Animation.IsStatic = true;
             this.GameAction = new DropEquipmentItem(owner, ei);
+            this.BackColor = Coloring.FromRarity(ei.Rarity);
             OnInteraction += () =>
             {
                 try
@@ -139,7 +141,7 @@ namespace OpenGLTests.src.Drawables
         {
             this.Item = i;
             this.inventory = inventory;
-            this.Color = Color.Yellow;
+            this.BackColor = Coloring.FromRarity(i.Rarity);
             this.Size = StandardSize;
             this.Animation = new Animation(new SpriteSheet_Icons());
             this.Animation.SetSprite(i.Icon);
