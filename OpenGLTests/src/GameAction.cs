@@ -200,14 +200,26 @@ namespace OpenGLTests.src
     class DropEquipmentItem : ItemAction
     {
         private EquipmentItem equipmentItem;
-
+        private bool droppedOnGround = false;
+        private bool droppedInSlot = true;
         public DropEquipmentItem(Hero source, EquipmentItem equimentItem) : base(source)
         {
             this.equipmentItem = equimentItem;
             this.RangeShape = new RangeShape(new Circle(new GLCoordinate(0.2f, 0.2f)), source);
+
             PlacementFilter += coordinate =>
             {
-                return !GameState.Drawables.GetAllCollidables.Any(d => d.BoundingBox.Contains(coordinate)) && DefaultPlacementFilter(coordinate);
+                var slot = source.EquipmentDisplay.DroppedInSlot(coordinate);
+                if (slot != null)
+                {
+                    return true;
+                }
+                if (!GameState.Drawables.GetAllCollidables.Any(d => d.BoundingBox.Contains(coordinate)) && DefaultPlacementFilter(coordinate))
+                {
+                    return true;
+                }
+
+                return false;
             };
         }
 
@@ -216,8 +228,7 @@ namespace OpenGLTests.src
             return o =>
             {
                 new DroppedItem<EquipmentItem>(equipmentItem, PlacedLocation);
-                //var a = new DroppedItem(PlacedLocation);
-                //GameState.Drawables.Add(a);
+
                 return true;
             };
         }

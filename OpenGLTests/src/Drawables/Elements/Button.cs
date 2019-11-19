@@ -15,8 +15,7 @@ namespace OpenGLTests.src.Drawables
         public Color BorderColor = System.Drawing.Color.Black;
         public Color BackColor = Color.Firebrick;
         public virtual bool Enabled { get; set; } = true;
-        private Color initialColor;
-        private Color toggleColor;
+
         protected bool HasBorder = true;
         protected bool HasBackground = true;
         public Button() : this(new GLCoordinate(0.2f, 0.2f))
@@ -26,8 +25,6 @@ namespace OpenGLTests.src.Drawables
 
         public Button(GLCoordinate size)
         {
-            initialColor = Color;
-            toggleColor = Coloring.Opposite(initialColor);
             this.Size = size;
             OnInteraction += () =>
             {
@@ -36,22 +33,6 @@ namespace OpenGLTests.src.Drawables
         }
 
         public Action OnInteraction { get; set; }
-
-        public void Activate()
-        {
-            Color = toggleColor;
-        }
-
-        public void Deactivate()
-        {
-            Color = initialColor;
-        }
-
-        public void Toggle()
-        {
-            if(Color == initialColor) Color = toggleColor;
-            else Color = initialColor;
-        }
 
         public override void Dispose()
         {
@@ -121,6 +102,7 @@ namespace OpenGLTests.src.Drawables
 
             OnRightClick = (hero, coordinate) =>
             {
+                //if(owner.ActionHandler.)
                 owner.ActionHandler.ActionButtonActivated(this);
                 Player.Cursor.SetIcon(ei.Icon);
             };

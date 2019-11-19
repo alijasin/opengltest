@@ -160,7 +160,11 @@ namespace OpenGLTests.src
 
             if (bu is EquipmentSlot eslot)
             {
-                onFinishedCasting = () => { eslot.Unequip(); };
+                onFinishedCasting = () =>
+                {
+                    Console.WriteLine("wat");
+                    eslot.Unequip();
+                };
             }
 
             onFinishedCasting += () => onFinishedCasting = () => { };

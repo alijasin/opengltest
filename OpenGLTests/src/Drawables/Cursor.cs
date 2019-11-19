@@ -87,7 +87,6 @@ namespace OpenGLTests.src.Drawables
         public void SetIcon(SpriteID sid)
         {
             setCursor(sid);
-            Console.WriteLine(sid);
         }
 
         public void SetAction(GameAction action)
