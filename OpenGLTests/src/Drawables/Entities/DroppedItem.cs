@@ -35,22 +35,10 @@ namespace OpenGLTests.src.Drawables.Entities
             {
                 if (!hero.Inventory.HasRoom()) return;
 
-
-                //todo: cause we dont think our generics through
-                if (item is EquipmentItem)
-                {
-                    EquipmentItem newItem = (EquipmentItem)Activator.CreateInstance(i.GetType());
-                    hero.Inventory.Add(newItem);
-                }
-
-                if (!(item is EquipmentItem))
-                {
-                    //make sure the item is reinitialized as Hero as owner.(So that for example range is centered around hero and not previous owner.)
-                    T newItem = (T)Activator.CreateInstance(i.GetType(), hero);
-                    hero.Inventory.Add(newItem as Item);
-                }
-
-
+                //make sure the item is reinitialized as Hero as owner.(So that for example range is centered around hero and not previous owner.)
+                T newItem = (T)Activator.CreateInstance(i.GetType(), hero);
+                hero.Inventory.Add(newItem as Item);
+     
                 i.Dispose();
                 this.Dispose();
                 effectGenerator.Dispose();

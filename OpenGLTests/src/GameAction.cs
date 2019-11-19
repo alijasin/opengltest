@@ -6,6 +6,7 @@ using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
 using OpenGLTests.src.Drawables;
 using OpenGLTests.src.Drawables.Elements;
 using OpenGLTests.src.Drawables.Entities;
@@ -31,7 +32,6 @@ namespace OpenGLTests.src
         NotReady,
         NoAction
     }
-
     //todo split GameAction into Placed Action and Game Action and target action and so on.
     public abstract class GameAction
     {
@@ -197,7 +197,7 @@ namespace OpenGLTests.src
         }
     }
 
-    class DropEquipmentItem : GameAction
+    class DropEquipmentItem : ItemAction
     {
         private EquipmentItem equipmentItem;
 
@@ -291,7 +291,6 @@ namespace OpenGLTests.src
             };
         }
     }
-
 
     class InstantTeleport : CombatAction
     {
@@ -430,7 +429,6 @@ namespace OpenGLTests.src
             };
         }
     }
-
 
     class SliceAction : WeaponAction
     {

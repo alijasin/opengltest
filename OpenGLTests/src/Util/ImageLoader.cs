@@ -96,6 +96,7 @@ namespace OpenGLTests.src.Util
 
         equipment_icon_plate_head,
         equipment_icon_leather_boots,
+        equipment_icon_golden_crown,
 
         crate,
         weapon_golden_sword,
@@ -194,6 +195,7 @@ namespace OpenGLTests.src.Util
 
             Images[SpriteID.equipment_icon_plate_head] = new Bitmap(Properties.Resources.icon_plate_head1);
             Images[SpriteID.equipment_icon_leather_boots] = new Bitmap(Properties.Resources.icon_LEATHER_boots1);
+            Images[SpriteID.equipment_icon_golden_crown] = new Bitmap(Properties.Resources.golden_crown);
 
             Images[SpriteID.big_demon_run_anim_f0] = new Bitmap(Properties.Resources.big_demon_run_anim_f0);
             Images[SpriteID.big_demon_run_anim_f1] = new Bitmap(Properties.Resources.big_demon_run_anim_f1);

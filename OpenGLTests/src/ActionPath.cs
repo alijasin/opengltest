@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Xml.Linq;
 using OpenGLTests.src;
 using OpenGLTests.src.Drawables;
+using OpenGLTests.src.Drawables.Entities.Equipment;
 using OpenGLTests.src.Screens;
 using OpenGLTests.src.Util;
 using OpenTK;
@@ -152,9 +153,14 @@ namespace OpenGLTests.src
             var oldSelected = SelectedAction;
             if(oldSelected != null) oldSelected.Dispose();
             SelectedAction = bu.GameAction;
-            if (bu is InventorySlot b)
+            if (bu is InventorySlot islot)
             {
-                onFinishedCasting = () => { b.Consume(); };
+                onFinishedCasting = () => { islot.Consume(); };
+            }
+
+            if (bu is EquipmentSlot eslot)
+            {
+                onFinishedCasting = () => { eslot.Unequip(); };
             }
 
             onFinishedCasting += () => onFinishedCasting = () => { };

@@ -11,15 +11,17 @@ namespace OpenGLTests.src.Drawables.Entities.Equipment
     public abstract class EquipmentItem : Item
     {
         public List<EquipmentSlotType> SlotType { get; set; } = new List<EquipmentSlotType>();
+        public Unit Owner { get; set; }
 
-        public EquipmentItem()
+        public EquipmentItem(Unit owner)
         {
+            this.Owner = owner;
             this.Rarity = Rarity.Common;
-            this.Action = new LambdaItemAction(o => { return true; }, new Dummy()); //if this aint hack then what is//Todo
+            this.Action = new DropEquipmentItem(owner as Hero, this);
             this.Icon = SpriteID.mossy_boot;
+            this.Consumable = false;
         }
     }
-
 
     public abstract class Weapon : EquipmentItem
     {
@@ -28,7 +30,11 @@ namespace OpenGLTests.src.Drawables.Entities.Equipment
         protected int LeftFacingRotation = 120;
         protected int RightFacingRotation = 340;
 
-        public Unit Owner;
+        public Weapon(Unit owner) : base(owner)
+        {
+
+        }
+
         public override GameCoordinate Location
         {
             get
@@ -55,14 +61,20 @@ namespace OpenGLTests.src.Drawables.Entities.Equipment
             drawer.DrawWeapon(this);
         }
 
-        public Facing GetFacing => Owner.Facing;
-
+        public Facing GetFacing
+        {
+            get
+            {
+                if (Owner == null) return Facing.Right;
+                return Owner.Facing;
+            }
+        }
     }
 
 
     public abstract class HeadItem : EquipmentItem
     {
-        public HeadItem()
+        public HeadItem(Unit owner) : base(owner)
         {
             SlotType.Add(EquipmentSlotType.Head);
         }
@@ -70,7 +82,7 @@ namespace OpenGLTests.src.Drawables.Entities.Equipment
 
     public abstract class BootItem : EquipmentItem
     {
-        public BootItem()
+        public BootItem(Unit owner) : base(owner)
         {
             SlotType.Add(EquipmentSlotType.Feet);
         }
@@ -78,7 +90,7 @@ namespace OpenGLTests.src.Drawables.Entities.Equipment
 
     public class EmptyHead : HeadItem
     {
-        public EmptyHead()
+        public EmptyHead(Unit owner) : base(owner)
         {
             Icon = SpriteID.equipment_icon_plate_head;
         }
@@ -86,7 +98,7 @@ namespace OpenGLTests.src.Drawables.Entities.Equipment
 
     public class EmptyBoot : BootItem
     {
-        public EmptyBoot()
+        public EmptyBoot(Unit owner) : base(owner)
         {
             Icon = SpriteID.equipment_icon_leather_boots;
         }
@@ -94,7 +106,7 @@ namespace OpenGLTests.src.Drawables.Entities.Equipment
 
     public class MossyBoot : BootItem
     {
-        public MossyBoot()
+        public MossyBoot(Unit owner) : base(owner)
         {
             Icon = SpriteID.mossy_boot;
         }

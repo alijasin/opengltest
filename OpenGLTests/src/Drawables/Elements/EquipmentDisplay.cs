@@ -21,7 +21,15 @@ namespace OpenGLTests.src.Drawables.Elements
         Weapon,
     }
 
-    
+    public class EquipmentType
+    {
+        public List<EquipmentSlotType> EquipmentSlotTypes { get; set; }
+
+        public EquipmentType(List<EquipmentSlotType> types)
+        {
+            this.EquipmentSlotTypes = types;
+        }
+    }
 
     public class EquipmentDisplay : Element
     {
@@ -32,7 +40,8 @@ namespace OpenGLTests.src.Drawables.Elements
         private const string leftHand = "Left Hand";
         private const string rightHand = "Right Hand";
 
-        Dictionary<List<EquipmentSlotType>, ActionButton> equipmentSlot = new Dictionary<List<EquipmentSlotType>, ActionButton>();
+        private List<EquipmentSlot> defaultSlots = new List<EquipmentSlot>();
+        private Dictionary<ActionButton, List<EquipmentSlotType>> equipmentSlots = new Dictionary<ActionButton, List<EquipmentSlotType>>();
         RectangleElement background = new RectangleElement();
         private GLCoordinate backgroundSize = new GLCoordinate(0.6f, 0.6f);
         private Hero owner;
@@ -50,9 +59,9 @@ namespace OpenGLTests.src.Drawables.Elements
         public void ToggleVisibility()
         {
             this.Visible = !this.Visible;
-            foreach (var slot in equipmentSlot)
+            foreach (var slot in equipmentSlots)
             {
-                slot.Value.Visible = this.Visible;
+                slot.Key.Visible = this.Visible;
             }
         }
 
@@ -67,20 +76,41 @@ namespace OpenGLTests.src.Drawables.Elements
         {
             var slotToLoc = JsonCoordinateReader.GetEquipmentLocations();
 
-            var leftFootSlot = new EquipmentSlot(owner, new EmptyBoot());
+            var leftFootSlot = new EquipmentSlot(owner, new EmptyBoot(owner));
             leftFootSlot.Location = new GLCoordinate(background.Location + slotToLoc[leftFoot]);
-            equipmentSlot.Add(new List<EquipmentSlotType>(){ EquipmentSlotType.Feet }, leftFootSlot);
+            equipmentSlots.Add(leftFootSlot, new List<EquipmentSlotType>() { EquipmentSlotType.Feet });
 
-            var rightFootSlot = new EquipmentSlot(owner, new EmptyBoot());
+            var rightFootSlot = new EquipmentSlot(owner, new EmptyBoot(owner));
             rightFootSlot.Location = new GLCoordinate(background.Location + slotToLoc[rightFoot]);
-            equipmentSlot.Add(new List<EquipmentSlotType>() { EquipmentSlotType.Feet }, rightFootSlot);
+            equipmentSlots.Add(rightFootSlot, new List<EquipmentSlotType>() { EquipmentSlotType.Feet });
 
-            var headSlot = new EquipmentSlot(owner, new EmptyHead());
+            var headSlot = new EquipmentSlot(owner, new EmptyHead(owner));
             headSlot.Location = new GLCoordinate(background.Location + slotToLoc[head]);
-            equipmentSlot.Add(new List<EquipmentSlotType>() { EquipmentSlotType.Head }, headSlot);
+            equipmentSlots.Add(headSlot, new List<EquipmentSlotType>() { EquipmentSlotType.Head });
 
+            //save default
+            foreach (var eslot in equipmentSlots) defaultSlots.Add(eslot.Key as EquipmentSlot);
+            foreach (var slot in equipmentSlots) slot.Key.Visible = false; //todo: double drawing will be done if not this row.
+        }
 
-            foreach (var slot in equipmentSlot) slot.Value.Visible = false;
+        public void Unequip(EquipmentSlot slot)
+        {
+            try
+            {
+                var slotTypes = equipmentSlots[slot];
+
+                foreach (var def in defaultSlots)
+                {
+                    if (def.ID == slot.ID)
+                    {
+                        slot = def;
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Tried unequiping " + slot.GetType() + " but it was not equiped.");
+            }
         }
 
         public override void DrawStep(DrawAdapter drawer)
@@ -88,9 +118,9 @@ namespace OpenGLTests.src.Drawables.Elements
             if (!this.Visible) return;
             background.DrawStep(drawer);
 
-            foreach (var slot in equipmentSlot)
+            foreach (var slot in equipmentSlots)
             {
-                slot.Value.DrawStep(drawer);
+                slot.Key.DrawStep(drawer);
             }
         }
     }

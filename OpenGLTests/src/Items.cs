@@ -29,6 +29,7 @@ namespace OpenGLTests.src
         public int Count { get; set; } = 1;
         public Rarity Rarity { get; set; } = Rarity.Common;
         public ItemAction Action;
+        public bool Consumable { get; set; } = true;
         public SpriteID Icon
         {
             get => Action.Icon;

@@ -8,12 +8,12 @@ using OpenGLTests.src.Util;
 
 namespace OpenGLTests.src.Drawables.Entities.Equipment
 {
-
-    public class PlateHead : EquipmentItem
+    public class GoldenCrown : HeadItem
     {
-        public PlateHead()
+        public GoldenCrown(Unit owner) : base(owner)
         {
-            this.Icon = SpriteID.equipment_icon_plate_head;
+            this.Icon = SpriteID.equipment_icon_golden_crown;
+            this.Rarity = Rarity.Epic;
         }
     }
 }

@@ -9,6 +9,7 @@ using System.Xml.Linq;
 using OpenGLTests.src;
 using OpenGLTests.src.Drawables.Elements;
 using OpenGLTests.src.Drawables.Entities;
+using OpenGLTests.src.Drawables.Entities.Equipment;
 using OpenGLTests.src.Util;
 
 namespace OpenGLTests.src.Drawables
@@ -51,7 +52,7 @@ namespace OpenGLTests.src.Drawables
             InCombat = false;
             ResetDefaultActionToMove();
             initGUI();
-    }
+        }
 
         public override int FacingAngle
         {

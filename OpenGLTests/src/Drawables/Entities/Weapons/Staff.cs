@@ -11,9 +11,8 @@ namespace OpenGLTests.src.Drawables.Entities.Weapons
 {
     public class Staff : Weapon
     {
-        public Staff(Unit owner)
+        public Staff(Unit owner) : base(owner)
         {
-            this.Owner = owner;
             this.Animation = new Animation(new SpriteSheet_Weapon());
             this.Animation.SetSprite(SpriteID.weapon_staff_red_crown);
             this.Animation.IsStatic = true;

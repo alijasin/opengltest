@@ -132,17 +132,6 @@ namespace OpenGLTests.src
         { }
     }
 
-    //needed?
-    class SpriteSheet_EquipmentIcons : SpriteSheet
-    {
-        public SpriteSheet_EquipmentIcons() : base(new Dictionary<SpriteID, int>()
-        {
-            { SpriteID.equipment_icon_plate_head, 6 },
-            { SpriteID.equipment_icon_leather_boots, 6 },
-            { SpriteID.mossy_boot, 6 }
-        })
-        { }
-    }
 
     class SpriteSheet_Fireball : SpriteSheet
     {
@@ -406,6 +395,7 @@ namespace OpenGLTests.src
             { SpriteID.fireball_0, 12 },
             { SpriteID.equipment_icon_plate_head, 6 },
             { SpriteID.equipment_icon_leather_boots, 6 },
+            { SpriteID.equipment_icon_golden_crown, 6 },
             { SpriteID.mossy_boot, 6 }
 
         })

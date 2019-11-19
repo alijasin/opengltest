@@ -4,6 +4,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using OpenGLTests.src.Drawables.Entities.Equipment;
 using OpenGLTests.src.Drawables.Entities.Weapons;
 using OpenGLTests.src.Util;
 
@@ -38,7 +39,7 @@ namespace OpenGLTests.src.Drawables.Entities
                 else SetFacing(Facing.Right);
             };
 
-            this.LootTable = new LootTable(new LootEntry(new Apple(this), 50), new LootEntry(new GrowingPotion(this), 100));
+            this.LootTable = new LootTable(new LootEntry(new GoldenCrown(this), 100), new LootEntry(new GrowingPotion(this), 100));
 
         }
 

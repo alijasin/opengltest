@@ -11,9 +11,8 @@ namespace OpenGLTests.src.Drawables.Entities
 {
     class Katana : Weapon
     {
-        public Katana(Unit owner)
+        public Katana(Unit owner) : base(owner)
         {
-            this.Owner = owner;
             this.Animation = new Animation(new SpriteSheet_Weapon());
             this.Animation.SetSprite(SpriteID.weapon_katana);
             this.Animation.IsStatic = true;

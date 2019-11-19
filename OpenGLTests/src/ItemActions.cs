@@ -14,8 +14,10 @@ namespace OpenGLTests.src
     {
         protected ItemAction(Unit source) : base(source)
         {
-            ActionLine.LineType = LineType.Dashed;
-            
+            if (ActionLine != null)
+            {
+                ActionLine.LineType = LineType.Dashed;
+            }
         }
     }
 

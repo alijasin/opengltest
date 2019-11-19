@@ -94,10 +94,12 @@ namespace OpenGLTests.src.Drawables
         }
     }
 
-    class EquipmentSlot : ActionButton, IRightClickable
+    public class EquipmentSlot : ActionButton, IRightClickable
     {
+        private Hero owner;
         public EquipmentSlot(Hero owner, EquipmentItem ei)
         {
+            this.owner = owner;
             this.Color = Color.White;
             this.Size = StandardSize;
             this.Animation = new Animation(new SpriteSheet_Icons());
@@ -129,9 +131,14 @@ namespace OpenGLTests.src.Drawables
         {
             return Contains(point);
         }
+
+        public void Unequip()
+        {
+            owner.EquipmentDisplay.Unequip(this);
+        }
     }
 
-    public class InventorySlot : ActionButton
+    public class InventorySlot : ActionButton, IRightClickable
     {
         public Item Item { get; set; }
 
@@ -151,23 +158,36 @@ namespace OpenGLTests.src.Drawables
             {
                 try
                 {
-                    inventory.Owner.ActionHandler.ActionButtonActivated(this);
+                    //inventory.Owner.ActionHandler.ActionButtonActivated(this);
                 }
                 catch (Exception e)
                 {
                     Console.WriteLine("Tried using an item without an action or something like that: " + e);
                 }
             };
+
+            OnRightClick = (hero, coordinate) =>
+            {
+                inventory.Owner.ActionHandler.ActionButtonActivated(this);
+                Player.Cursor.SetIcon(this.Item.Icon);
+            };
         }
 
         public void Consume()
         {
+            //if (!(Item.Consumable)) return;
             this.Item.Count--;
 
             if (this.Item.Count < 1)
             {
                 inventory.Remove(this);
             }
+        }
+
+        public Action<Hero, GameCoordinate> OnRightClick { get; set; }
+        public bool RightClickFilter(Hero hero, GameCoordinate point)
+        {
+            return Contains(point);
         }
     }
 
