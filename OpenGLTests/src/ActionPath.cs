@@ -111,12 +111,14 @@ namespace OpenGLTests.src
     {
         public IActionCapable Owner { get; set; }
         protected Action onFinishedCasting { get; set; } = () => { };
+        protected Action onChangedAction { get; set; } = () => { };
         private GameAction selectedAction;
         public GameAction SelectedAction
         {
             get { return selectedAction; }
             set
             {
+                if (selectedAction != null) onChangedAction();
                 selectedAction = value;
                 //check not needed after Hero has been refactored into player. TODO
                 if(Player.Cursor != null) Player.Cursor.SetAction(value);
@@ -160,9 +162,12 @@ namespace OpenGLTests.src
 
             if (bu is EquipmentSlot eslot)
             {
+                onChangedAction = () =>
+                {
+                   
+                };
                 onFinishedCasting = () =>
                 {
-                    Console.WriteLine("wat");
                     eslot.Unequip();
                 };
             }

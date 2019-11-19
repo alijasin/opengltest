@@ -212,10 +212,14 @@ namespace OpenGLTests.src
                 var slot = source.EquipmentDisplay.DroppedInSlot(coordinate);
                 if (slot != null)
                 {
+                    droppedInSlot = true;
+                    droppedOnGround = false;
                     return true;
                 }
                 if (!GameState.Drawables.GetAllCollidables.Any(d => d.BoundingBox.Contains(coordinate)) && DefaultPlacementFilter(coordinate))
                 {
+                    droppedOnGround = true;
+                    droppedInSlot = false;
                     return true;
                 }
 
@@ -227,6 +231,9 @@ namespace OpenGLTests.src
         {
             return o =>
             {
+                Console.WriteLine("casted thindgy");
+                if(droppedOnGround) Console.WriteLine("dropped ground");
+                if(droppedInSlot) Console.WriteLine("Dropped in slot");
                 new DroppedItem<EquipmentItem>(equipmentItem, PlacedLocation);
 
                 return true;
