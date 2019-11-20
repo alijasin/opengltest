@@ -123,11 +123,12 @@ namespace OpenGLTests.src.Drawables
     public class InventorySlot : ActionButton, IRightClickable
     {
         public Item Item { get; set; }
-
+        public int IndexSlot { get; set; }
         private Inventory inventory;
-
-        public InventorySlot(Item i, Inventory inventory)
+    
+        public InventorySlot(Item i, Inventory inventory, int indexSlot)
         {
+            this.IndexSlot = indexSlot;
             this.Item = i;
             this.inventory = inventory;
             this.BackColor = Coloring.FromRarity(i.Rarity);
@@ -150,9 +151,15 @@ namespace OpenGLTests.src.Drawables
 
             OnRightClick = (hero, coordinate) =>
             {
+                if(inventory.Owner.ActionHandler.CurrentButtonSelected != null) Swap(inventory.Owner.ActionHandler.CurrentButtonSelected);
                 inventory.Owner.ActionHandler.ActionButtonActivated(this);
                 Player.Cursor.SetIcon(this.Item.Icon);
             };
+        }
+
+        public void Swap(ActionButton other)
+        {
+            if(other is InventorySlot iother) inventory.Swap(this, iother);
         }
 
         public void Consume()
@@ -170,6 +177,15 @@ namespace OpenGLTests.src.Drawables
         public bool RightClickFilter(Hero hero, GameCoordinate point)
         {
             return Contains(point);
+        }
+
+        //todo use this in the constructor
+        public void SetItem(Item item)
+        {
+            this.Item = item;
+            this.BackColor = Coloring.FromRarity(item.Rarity);
+            this.Animation.SetSprite(item.Icon);
+            this.GameAction = item.Action;
         }
     }
 

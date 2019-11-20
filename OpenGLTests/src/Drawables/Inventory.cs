@@ -14,8 +14,8 @@ namespace OpenGLTests.src.Drawables
         private int columns = 4;
         private int maxSlots => rows * columns;
         private float fodder = 0.01f;
-        public IActionCapable Owner;
-        public Inventory(IActionCapable owner)
+        public Unit Owner;
+        public Inventory(Unit owner)
         {
             this.Visible = false;
             this.Size = new GLCoordinate(rows*InventorySlot.StandardSize.X + (rows+1)*(fodder), columns * InventorySlot.StandardSize.Y + (columns + 1) * (fodder));
@@ -23,16 +23,48 @@ namespace OpenGLTests.src.Drawables
             this.Owner = owner;
             this.Color = Color.Purple;
             this.Depth = 11;
+
+            initSlots();
+        }
+
+        private void initSlots()
+        {
+            int i = 0;
+            for (int r = 0; r < rows; r++)
+            {
+                for (int c = 0; c < columns; c++)
+                {
+                    var islot = new InventorySlot(new Nothing(Owner), this, i);
+                    islot.Visible = this.Visible;
+                    islot.Location = new GLCoordinate(this.Location.X - this.Size.X / 2 + islot.Size.X / 2, this.Location.Y + this.Size.Y / 2 - islot.Size.Y / 2);
+                    islot.Location.X += c * islot.Size.X + fodder * (1 + c);
+                    islot.Location.Y += r * -islot.Size.Y - fodder * (1 + r);
+                    InventorySlots.Add(islot);
+                    i++;
+                }
+            }
         }
 
         public bool HasRoom()
         {
-            //todo: tests
-            return InventorySlots.Count < maxSlots;
+            //todo assert if works.
+            return InventorySlots.Count(slot => slot.Item is Nothing) > 0;
+        }
+
+        /// <summary>
+        /// returns index of first empty slot(Nothing). If no room is found returns -1.
+        /// </summary>
+        /// <returns></returns>
+        private int firstEmptySlotIndex()
+        {
+            var firstNothing = InventorySlots.FirstOrDefault(slot => slot.Item is Nothing);
+            if (firstNothing == null) return -1;
+            else return firstNothing.IndexSlot;
         }
 
         public bool Add(Item i)
         {
+            //add stack if already in inventory and then return.
             if (i.Stackable && InventorySlots.Any(islot => islot.Item.GetType() == i.GetType()))
             {
                 var islot = InventorySlots.Find(isloter => isloter.Item.GetType() == i.GetType());
@@ -40,27 +72,17 @@ namespace OpenGLTests.src.Drawables
                 return true;
             }
 
-            var filledSlots = InventorySlots.Count;
-            if (filledSlots < maxSlots)
-            {
-                InventorySlot islot = new InventorySlot(i, this);
-                islot.Visible = this.Visible;
-                islot.Location = new GLCoordinate(this.Location.X - this.Size.X/2 + islot.Size.X / 2, this.Location.Y + this.Size.Y/2 - islot.Size.Y/2);
-                int col = (filledSlots % columns);
-                int row = (filledSlots / rows);
-                islot.Location.X += col * islot.Size.X + fodder*(1+col);
-                islot.Location.Y += row * -islot.Size.Y - fodder*(1+row);
-                InventorySlots.Add(islot);
-                return true;
-            }
+            //if no room return
+            var firstEmptyIndex = firstEmptySlotIndex();
+            if (firstEmptyIndex == -1) return false;
 
-            return false;
+            InventorySlots[firstEmptyIndex].SetItem(i);
+            return true;
         }
 
         public void Remove(InventorySlot i)
         {
-            InventorySlots.Remove(i);
-            i.Dispose();
+            InventorySlots[i.IndexSlot].SetItem(new Nothing(Owner));
         }
 
         public override void DrawStep(DrawAdapter drawer)
@@ -95,6 +117,18 @@ namespace OpenGLTests.src.Drawables
         public bool LeftClickFilter(Hero hero, GameCoordinate point)
         {
             return false;
+        }
+
+        public void Swap(InventorySlot one, InventorySlot two)
+        {
+            var temp1 = one.Item;
+            var temp1Index = one.IndexSlot;
+            var temp2 = two.Item;
+            var temp2Index = two.IndexSlot;
+            //Remove(one);
+            //Remove(two);
+            //Add(temp2);
+            //Add(temp);
         }
     }
 }

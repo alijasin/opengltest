@@ -47,7 +47,9 @@ namespace OpenGLTests.src
     {
         public Nothing(Unit owner)
         {
-
+            this.Action = new NothingAction(owner);
+            Action.Icon = SpriteID.missing;
+            this.Rarity = Rarity.Common;
         }
     }
 

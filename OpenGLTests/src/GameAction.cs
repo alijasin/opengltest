@@ -133,6 +133,19 @@ namespace OpenGLTests.src
         }
     }
 
+    class NothingAction : ItemAction
+    {
+        public NothingAction(Unit source) : base(source)
+        {
+
+        }
+
+        public override Func<object, bool> GetAction()
+        {
+            return o => { return true; };
+        }
+    }
+
     class LambdaItemAction : ItemAction
     {
         private Func<object, bool> a;

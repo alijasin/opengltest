@@ -109,6 +109,7 @@ namespace OpenGLTests.src
 
     public abstract class ActionHandler
     {
+        public ActionButton CurrentButtonSelected { get; set; }
         public IActionCapable Owner { get; set; }
         protected Action onFinishedCasting { get; set; } = () => { };
         protected Action onChangedAction { get; set; } = () => { };
@@ -155,6 +156,8 @@ namespace OpenGLTests.src
             var oldSelected = SelectedAction;
             if(oldSelected != null) oldSelected.Dispose();
             SelectedAction = bu.GameAction;
+            CurrentButtonSelected = bu;
+
             if (bu is InventorySlot islot)
             {
                 onFinishedCasting = () => { islot.Consume(); };
@@ -164,7 +167,7 @@ namespace OpenGLTests.src
             {
                 onChangedAction = () =>
                 {
-                   
+                    
                 };
                 onFinishedCasting = () =>
                 {
