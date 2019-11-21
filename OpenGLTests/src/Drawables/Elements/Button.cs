@@ -78,46 +78,29 @@ namespace OpenGLTests.src.Drawables
     public class EquipmentSlot : ActionButton, IRightClickable
     {
         private Hero owner;
-        private EquipmentItem item;
+        public EquipmentItem EquipmentItem { get; private set; }
         public EquipmentSlot(Hero owner, EquipmentItem ei)
         {
-            this.item = ei;
             this.owner = owner;
             this.Color = Color.White;
             this.Size = StandardSize;
             this.Animation = new Animation(new SpriteSheet_Icons());
-            this.Animation.SetSprite(item.Icon);
+            this.SetItem(ei);
             this.Animation.IsStatic = true;
-            this.GameAction = new DropEquipmentItem(owner, item);
-            this.BackColor = Coloring.FromRarity(item.Rarity);
-            OnInteraction += () =>
-            {
-                try
-                {
-                    //owner.ActionHandler.ActionButtonActivated(this);
-                }
-                catch (Exception e)
-                {
-
-                }
-            };
 
             OnRightClick = (hero, coordinate) =>
             {
-
                 if (owner.ActionHandler.CurrentButtonSelected != null)
                 {
                     var equipped = Swap(owner.ActionHandler.CurrentButtonSelected);
                     if (equipped)
                     {
                         hero.ResetDefaultActionToMove();
-                        Console.WriteLine("cleared");
                         return;
                     }
                 }
-                //if(owner.ActionHandler.)
                 owner.ActionHandler.ActionButtonActivated(this);
-                Player.Cursor.SetIcon(item.Icon);
+                Player.Cursor.SetIcon(EquipmentItem.Icon);
             };
         }
 
@@ -127,19 +110,13 @@ namespace OpenGLTests.src.Drawables
             return Contains(point);
         }
 
-        public void Unequip()
+        public void SetItem(EquipmentItem ei)
         {
-            owner.EquipmentDisplay.Unequip(this);
+            this.EquipmentItem = ei;
+            this.BackColor = Coloring.FromRarity(EquipmentItem.Rarity);
+            this.Animation.SetSprite(EquipmentItem.Icon);
+            this.GameAction = EquipmentItem.Action;
         }
-
-        private void equip(EquipmentItem ei)
-        {
-            this.item = ei;
-            this.BackColor = Coloring.FromRarity(item.Rarity);
-            this.Animation.SetSprite(item.Icon);
-            this.GameAction = item.Action;
-        }
-
 
         public bool Swap(ActionButton button)
         {
@@ -148,7 +125,7 @@ namespace OpenGLTests.src.Drawables
             var islot = button as InventorySlot;
             if (islot.Item is EquipmentItem ei)
             {
-                equip(ei);
+                SetItem(ei);
                 islot.SetItem(new Nothing(owner));
                 return true;
             }

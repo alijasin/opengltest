@@ -80,7 +80,7 @@ namespace OpenGLTests.src.Screens
 
             Bind(new Hotkey(
                 input => input.IsKeyboardInput && (input.KeyboardArgs.Key == OpenTK.Input.Key.C || input.KeyboardArgs.Key == Key.Tilde),
-                _ => Game.Hero.EquipmentDisplay.ToggleVisibility(),
+                _ => Game.Hero.EquipmentHandler.ToggleVisibility(),
                 _ => { }
             ));
 #endregion

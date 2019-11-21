@@ -246,7 +246,7 @@ namespace OpenGLTests.src
 
             PlacementFilter += coordinate =>
             {
-                var slot = source.EquipmentDisplay.DroppedInSlot(coordinate);
+                var slot = source.EquipmentHandler.DroppedInSlot(coordinate);
                 if (slot != null)
                 {
                     return true;
@@ -265,7 +265,7 @@ namespace OpenGLTests.src
         {
             return o =>
             {
-                (Source as Hero).EquipmentDisplay.Unequip(equipmentItem);
+                (Source as Hero).EquipmentHandler.Unequip(equipmentItem);
                 new DroppedItem<EquipmentItem>(equipmentItem, PlacedLocation);
                 return true;
             };

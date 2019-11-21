@@ -8,9 +8,20 @@ using OpenGLTests.src.Util;
 
 namespace OpenGLTests.src.Drawables.Entities.Equipment
 {
+    public enum EquipmentSlotType
+    {
+        Head,
+        Hand,
+        Feet,
+        Leg,
+        Chest,
+        Trinket,
+        Weapon,
+    }
+
     public abstract class EquipmentItem : Item
     {
-        public List<EquipmentSlotType> SlotType { get; set; } = new List<EquipmentSlotType>();
+        public EquipmentSlotType SlotType { get; set; }
         public Unit Owner { get; set; }
 
         public EquipmentItem(Unit owner)
@@ -76,7 +87,7 @@ namespace OpenGLTests.src.Drawables.Entities.Equipment
     {
         public HeadItem(Unit owner) : base(owner)
         {
-            SlotType.Add(EquipmentSlotType.Head);
+            SlotType = EquipmentSlotType.Head;
         }
     }
 
@@ -84,7 +95,7 @@ namespace OpenGLTests.src.Drawables.Entities.Equipment
     {
         public BootItem(Unit owner) : base(owner)
         {
-            SlotType.Add(EquipmentSlotType.Feet);
+            SlotType = EquipmentSlotType.Feet;
         }
     }
 

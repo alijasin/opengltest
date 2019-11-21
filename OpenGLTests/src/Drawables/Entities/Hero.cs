@@ -29,7 +29,7 @@ namespace OpenGLTests.src.Drawables
         private HashSet<Unit> AggroFrom = new HashSet<Unit>();
         private CombatTurnConfirmationButton ctcb;
         public RangeShape AggroShape { get; set; }
-        public EquipmentDisplay EquipmentDisplay { get; set; }
+        public EquipmentHandler EquipmentHandler { get; set; }
         public bool Phased { get; set; } = true;
         public RangeShape BoundingBox { get; set; }
 
@@ -47,7 +47,7 @@ namespace OpenGLTests.src.Drawables
             this.Weapon = new Katana(this);
             
 
-            EquipmentDisplay = new EquipmentDisplay(this);
+            EquipmentHandler = new EquipmentHandler(this);
             BoundingBox = new RangeShape(new Rectangle(this.Size), this);
             //this.AggroShape = new RangeCircle(new GLCoordinate(0, 0), this);
             initActionBar();

@@ -178,7 +178,7 @@ namespace OpenGLTests.src
                 };
                 onFinishedCasting = () =>
                 {
-                    eslot.Unequip();
+                    //eslot.Unequip();
                 };
             }
 

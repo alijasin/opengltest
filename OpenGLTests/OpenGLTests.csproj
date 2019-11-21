@@ -65,7 +65,7 @@
     <Compile Include="src\Drawables\Elements\ActionPointBar.cs" />
     <Compile Include="src\Drawables\Elements\Button.cs" />
     <Compile Include="src\Drawables\Crate.cs" />
-    <Compile Include="src\Drawables\Elements\EquipmentDisplay.cs" />
+    <Compile Include="src\Drawables\Elements\EquipmentHandler.cs" />
     <Compile Include="src\Drawables\Elements\Heart.cs" />
     <Compile Include="src\Drawables\Entities\AngryDude.cs" />
     <Compile Include="src\Drawables\Entities\BearTrap.cs" />
