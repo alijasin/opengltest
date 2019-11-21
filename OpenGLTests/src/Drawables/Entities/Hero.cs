@@ -45,10 +45,13 @@ namespace OpenGLTests.src.Drawables
             this.Initiative = 10;
             this.HitPoints = 5;
             this.Weapon = new Katana(this);
+            
+
             EquipmentDisplay = new EquipmentDisplay(this);
             BoundingBox = new RangeShape(new Rectangle(this.Size), this);
             //this.AggroShape = new RangeCircle(new GLCoordinate(0, 0), this);
             initActionBar();
+            this.DefaultAction = ActionBar.GetDefaultButton().GameAction;
             InCombat = false;
             ResetDefaultActionToMove();
             initGUI();
@@ -106,6 +109,7 @@ namespace OpenGLTests.src.Drawables
             
         }
 
+        //todo remove this
         public void ResetDefaultActionToMove()
         {
             if (ActionHandler.SelectedAction != null) ActionHandler.SelectedAction.RangeShape.Visible = false;

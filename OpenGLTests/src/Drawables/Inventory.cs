@@ -119,11 +119,12 @@ namespace OpenGLTests.src.Drawables
             return false;
         }
 
-        public void Swap(InventorySlot one, InventorySlot two)
+        public bool Swap(InventorySlot one, InventorySlot two)
         {
             var temp = one.Item;
             one.SetItem(two.Item);
             two.SetItem(temp);
+            return true;
         }
     }
 }

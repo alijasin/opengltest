@@ -119,8 +119,15 @@ namespace OpenGLTests.src
             get { return selectedAction; }
             set
             {
-                if (selectedAction != null) onChangedAction();
+                if (selectedAction != null)
+                {
+                    onChangedAction();
+                    //selectedAction.Hide();
+                }
+
+
                 selectedAction = value;
+                //selectedAction.Show();
                 //check not needed after Hero has been refactored into player. TODO
                 if(Player.Cursor != null) Player.Cursor.SetAction(value);
             }
@@ -180,6 +187,13 @@ namespace OpenGLTests.src
 
         public abstract void PlaceAction(GameAction action, GameCoordinate placeLocation);
         public abstract void Dispose();
+
+        public void ClearSelected()
+        {
+            SelectedAction = Owner.DefaultAction;
+            CurrentButtonSelected = null;
+            Player.Cursor.SetIcon(Owner.DefaultAction.Icon);
+        }
     }
 
     public class NPCCombatActionHandler : CombatActionHandler

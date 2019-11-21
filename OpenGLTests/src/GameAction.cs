@@ -74,6 +74,31 @@ namespace OpenGLTests.src
             }
         }
 
+        public void Hide()
+        {
+            if (RangeShape != null)
+            {
+                RangeShape.Visible = false;
+                if (RangeShape.Shape is AOEMarker aoe) aoe.Visible = false;
+            }
+
+            if (Marker != null) Marker.Visible = false;
+
+            if (ActionLine != null) ActionLine.Visible = false;
+        }
+
+        public void Show()
+        {
+            if (RangeShape != null)
+            {
+                RangeShape.Visible = true;
+                if (RangeShape.Shape is AOEMarker aoe) aoe.Visible = true;
+            }
+
+            if (Marker != null) Marker.Visible = true;
+
+            if (ActionLine != null) ActionLine.Visible = true;
+        }
 
         //Todo make this automatic
         public bool DefaultPlacementFilter(GameCoordinate loc)

@@ -151,15 +151,28 @@ namespace OpenGLTests.src.Drawables
 
             OnRightClick = (hero, coordinate) =>
             {
-                if(inventory.Owner.ActionHandler.CurrentButtonSelected != null) Swap(inventory.Owner.ActionHandler.CurrentButtonSelected);
+                if (inventory.Owner.ActionHandler.CurrentButtonSelected != null)
+                {
+                    var swapped = Swap(inventory.Owner.ActionHandler.CurrentButtonSelected);
+                    if (swapped)
+                    {
+                        hero.ResetDefaultActionToMove();
+                        Console.WriteLine("cleared");
+                        return;
+                    }
+                }
+
+                if (this.Item is Nothing) return;
                 inventory.Owner.ActionHandler.ActionButtonActivated(this);
                 Player.Cursor.SetIcon(this.Item.Icon);
             };
         }
 
-        public void Swap(ActionButton other)
+        public bool Swap(ActionButton other)
         {
-            if(other is InventorySlot iother) inventory.Swap(this, iother);
+            if(other is InventorySlot iother) return inventory.Swap(this, iother);
+
+            return false;
         }
 
         public void Consume()

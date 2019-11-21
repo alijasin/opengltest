@@ -247,6 +247,9 @@ namespace OpenGLTests.src.Drawables
         [JsonIgnore]
         public ActionHandler ActionHandler { get; set; }
         [JsonIgnore]
+        public GameAction DefaultAction { get; set; } 
+    
+        [JsonIgnore]
         public int OutOfCombatIndex = 0;
         [JsonIgnore]
         public int CombatIndex = 0;
@@ -277,6 +280,7 @@ namespace OpenGLTests.src.Drawables
         {
             LootTable = new LootTable();
             BlockedSides = new BlockedSides();
+            DefaultAction = new NothingAction(this);
         }
 
 
