@@ -87,17 +87,12 @@ namespace OpenGLTests.src.Drawables.Elements
             var headSlot = new EquipmentSlot(owner, new EmptyHead(owner));
             headSlot.Location = new GLCoordinate(background.Location + slotToLoc[head]);
             equipmentSlots.Add(headSlot, new List<EquipmentSlotType>() { EquipmentSlotType.Head });
-            Console.WriteLine("head pos: " + headSlot.Location);
             //save default
             foreach (var eslot in equipmentSlots) defaultSlots.Add(eslot.Key as EquipmentSlot);
             foreach (var slot in equipmentSlots) slot.Key.Visible = false; //todo: double drawing will be done if not this row.
         }
 
 
-        public void Equip(EquipmentItem item)
-        {
-
-        }
 
         public void Unequip(EquipmentSlot slot)
         {
@@ -140,9 +135,8 @@ namespace OpenGLTests.src.Drawables.Elements
         public EquipmentSlot DroppedInSlot(GameCoordinate point)
         {
             var glPoint = point.ToGLCoordinate();
-            Console.WriteLine(glPoint);
 
-            //lmao i love doing this logic at multiple places. its so much fun!!!!
+            //lmao i love doing this logic at multiple places. its so much fun!!!! todo
             foreach (var slot in defaultSlots)
             {
                 if (slot.Location.X - slot.Size.X/2 < glPoint.X && slot.Location.X + slot.Size.X/2 > glPoint.X
@@ -154,6 +148,12 @@ namespace OpenGLTests.src.Drawables.Elements
             }
 
             return null;
+        }
+
+        public void Equip(EquipmentSlot slot, EquipmentItem item)
+        {
+            //allso dequip.
+            //slot.Swap(item);
         }
     }
 }

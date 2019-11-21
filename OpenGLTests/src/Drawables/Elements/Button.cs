@@ -78,16 +78,18 @@ namespace OpenGLTests.src.Drawables
     public class EquipmentSlot : ActionButton, IRightClickable
     {
         private Hero owner;
+        private EquipmentItem item;
         public EquipmentSlot(Hero owner, EquipmentItem ei)
         {
+            this.item = ei;
             this.owner = owner;
             this.Color = Color.White;
             this.Size = StandardSize;
             this.Animation = new Animation(new SpriteSheet_Icons());
-            this.Animation.SetSprite(ei.Icon);
+            this.Animation.SetSprite(item.Icon);
             this.Animation.IsStatic = true;
-            this.GameAction = new DropEquipmentItem(owner, ei);
-            this.BackColor = Coloring.FromRarity(ei.Rarity);
+            this.GameAction = new DropEquipmentItem(owner, item);
+            this.BackColor = Coloring.FromRarity(item.Rarity);
             OnInteraction += () =>
             {
                 try
@@ -102,9 +104,20 @@ namespace OpenGLTests.src.Drawables
 
             OnRightClick = (hero, coordinate) =>
             {
+
+                if (owner.ActionHandler.CurrentButtonSelected != null)
+                {
+                    var equipped = Swap(owner.ActionHandler.CurrentButtonSelected);
+                    if (equipped)
+                    {
+                        hero.ResetDefaultActionToMove();
+                        Console.WriteLine("cleared");
+                        return;
+                    }
+                }
                 //if(owner.ActionHandler.)
                 owner.ActionHandler.ActionButtonActivated(this);
-                Player.Cursor.SetIcon(ei.Icon);
+                Player.Cursor.SetIcon(item.Icon);
             };
         }
 
@@ -117,6 +130,30 @@ namespace OpenGLTests.src.Drawables
         public void Unequip()
         {
             owner.EquipmentDisplay.Unequip(this);
+        }
+
+        private void equip(EquipmentItem ei)
+        {
+            this.item = ei;
+            this.BackColor = Coloring.FromRarity(item.Rarity);
+            this.Animation.SetSprite(item.Icon);
+            this.GameAction = item.Action;
+        }
+
+
+        public bool Swap(ActionButton button)
+        {
+            if (!(button is InventorySlot)) return false;
+
+            var islot = button as InventorySlot;
+            if (islot.Item is EquipmentItem ei)
+            {
+                equip(ei);
+                islot.SetItem(new Nothing(owner));
+                return true;
+            }
+
+            return false;
         }
     }
 
