@@ -121,14 +121,9 @@ namespace OpenGLTests.src.Drawables
 
         public void Swap(InventorySlot one, InventorySlot two)
         {
-            var temp1 = one.Item;
-            var temp1Index = one.IndexSlot;
-            var temp2 = two.Item;
-            var temp2Index = two.IndexSlot;
-            //Remove(one);
-            //Remove(two);
-            //Add(temp2);
-            //Add(temp);
+            var temp = one.Item;
+            one.SetItem(two.Item);
+            two.SetItem(temp);
         }
     }
 }
