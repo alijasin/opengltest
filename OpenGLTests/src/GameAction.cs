@@ -265,6 +265,7 @@ namespace OpenGLTests.src
         {
             return o =>
             {
+                (Source as Hero).EquipmentDisplay.Unequip(equipmentItem);
                 new DroppedItem<EquipmentItem>(equipmentItem, PlacedLocation);
                 return true;
             };

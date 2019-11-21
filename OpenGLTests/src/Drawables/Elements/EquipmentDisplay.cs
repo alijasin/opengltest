@@ -94,6 +94,14 @@ namespace OpenGLTests.src.Drawables.Elements
 
 
 
+        public void Unequip(EquipmentItem item)
+        {
+            foreach (var def in defaultSlots)
+            {
+               // if(def)
+            }
+        }
+
         public void Unequip(EquipmentSlot slot)
         {
             try
