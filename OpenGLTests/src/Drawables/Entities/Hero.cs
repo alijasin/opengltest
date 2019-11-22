@@ -33,7 +33,6 @@ namespace OpenGLTests.src.Drawables
         public bool Phased { get; set; } = true;
         public RangeShape BoundingBox { get; set; }
 
-
         public Hero()
         {
             Color = Color.CadetBlue;
@@ -49,11 +48,9 @@ namespace OpenGLTests.src.Drawables
 
             EquipmentHandler = new EquipmentHandler(this);
             BoundingBox = new RangeShape(new Rectangle(this.Size), this);
-            //this.AggroShape = new RangeCircle(new GLCoordinate(0, 0), this);
             initActionBar();
             this.DefaultAction = ActionBar.GetDefaultButton().GameAction;
             InCombat = false;
-            ResetDefaultActionToMove();
             initGUI();
         }
 
@@ -110,12 +107,12 @@ namespace OpenGLTests.src.Drawables
         }
 
         //todo remove this
-        public void ResetDefaultActionToMove()
+        /*public void ResetDefaultActionToMove()
         {
             if (ActionHandler.SelectedAction != null) ActionHandler.SelectedAction.RangeShape.Visible = false;
             ActionBar.GetDefaultButton().OnInteraction.Invoke();
             if (!InCombat) ActionHandler.SelectedAction.RangeShape.IsInfinite = true;//set it to infinite range
-        }
+        }*/
 
         public override int AvailableActionPoints
         {
@@ -186,7 +183,7 @@ namespace OpenGLTests.src.Drawables
             if (ActionStatus == ActionReturns.Finished || ActionStatus == ActionReturns.AllFinished)
             {
                 OutOfCombatIndex = 0;
-                ResetDefaultActionToMove();
+                ActionHandler.ClearSelected();
                 return;
             }
             else OutOfCombatIndex++;
@@ -200,7 +197,7 @@ namespace OpenGLTests.src.Drawables
         //called from Fight public void UnitFinishedTurn(Unit u)
         public override void OnPostTurn()
         {
-            ResetDefaultActionToMove();
+            ActionHandler.ClearSelected();
             if(AggroFrom.Count > 0) ctcb.Enabled = false;
 
             CombatIndex = 0;
@@ -228,7 +225,7 @@ namespace OpenGLTests.src.Drawables
             defaultAction.RangeShape.IsInfinite = true;
             ActionHandler.Dispose();
             ActionHandler = new OutOfCombatActionHandler(this);
-            ResetDefaultActionToMove();
+            ActionHandler.ClearSelected();
             ctcb.Enabled = true;
 
             AvailableActionPoints = BaseAvailableActionPoints;
@@ -249,8 +246,7 @@ namespace OpenGLTests.src.Drawables
             ActionHandler.Dispose();
             ActionHandler = new CombatActionHandler(this);
 
-            ResetDefaultActionToMove();
+            ActionHandler.ClearSelected();
         }
-
     }
 }

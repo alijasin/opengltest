@@ -39,7 +39,7 @@ namespace OpenGLTests.src.Drawables.Entities
                 else SetFacing(Facing.Right);
             };
 
-            this.LootTable = new LootTable(new LootEntry(new GoldenCrown(this), 100), new LootEntry(new GrowingPotion(this), 100));
+            this.LootTable = new LootTable(new LootEntry(new GoldenCrown(this), 80), new LootEntry(new GrowingPotion(this), 100));
 
         }
 

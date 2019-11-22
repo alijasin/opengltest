@@ -65,6 +65,17 @@ public class FadingCircularParticle : Effect
 public class EffectGenerator : Effect
 {
     List<Effect> particles = new List<Effect>();
+
+    public void CreateCircleEffects(int n, Entity following, GameCoordinate speed)
+    {
+        for (int i = 0; i < n * 3; i++)
+        {
+            particles.Add(new FadingCircularParticle(following, speed, RNG.RandomColor()));
+        }
+        GameState.Drawables.Add(this);
+    }
+
+
     public void CreateCircleEffects(int n, Entity following, GameCoordinate speed, Color c)
     {
         for (int i = 0; i < n*3; i++)

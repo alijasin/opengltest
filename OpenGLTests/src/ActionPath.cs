@@ -122,12 +122,12 @@ namespace OpenGLTests.src
                 if (selectedAction != null)
                 {
                     onChangedAction();
-                    //selectedAction.Hide();
+                    selectedAction.Hide();
                 }
 
 
                 selectedAction = value;
-                //selectedAction.Show();
+                selectedAction.Show();
                 //check not needed after Hero has been refactored into player. TODO
                 if(Player.Cursor != null) Player.Cursor.SetAction(value);
             }
@@ -174,11 +174,9 @@ namespace OpenGLTests.src
             {
                 onChangedAction = () =>
                 {
-                    
                 };
                 onFinishedCasting = () =>
                 {
-                    //eslot.Unequip();
                 };
             }
 
@@ -318,6 +316,12 @@ namespace OpenGLTests.src
 
         public override void PlaceAction(GameAction action, GameCoordinate placeLocation)
         {
+            //if status is ongoing and the action we are trying to place is identical to the one we are trying to place
+            //or if the status is anything but ongoing
+            //the action is placed.
+
+            if (!((action.GetType() != SelectedAction.GetType() && Owner.ActionStatus == ActionReturns.Ongoing) || (Owner.ActionStatus != ActionReturns.Ongoing))) return;
+
             //remove all placed actions that are identical to the new one.
             PlacedActions.RemoveWhere(pa => pa.GetType() == action.GetType());
 

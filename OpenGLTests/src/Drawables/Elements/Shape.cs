@@ -36,7 +36,7 @@ namespace OpenGLTests.src.Drawables
     public class RangeShape : Indicator
     {
         public IShape Shape { get; set; }
-        public bool IsInfinite { get; set; } = false;
+        public virtual bool IsInfinite { get; set; } = false;
         public Entity Following { get; set; }
 
         public RangeShape(IShape shape, Entity following)

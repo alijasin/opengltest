@@ -21,7 +21,6 @@ namespace OpenGLTests.src.Screens
             GL.PushMatrix();
             GL.Translate(-new GameCoordinate(0, 0).X, -new GameCoordinate(0, 0).Y, 0);
 
-
             object l = true;
 
             lock (l)
@@ -39,7 +38,6 @@ namespace OpenGLTests.src.Screens
                 if(Player.Cursor != null) Player.Cursor.DrawStep(drawer);
                 GameState.RainGenerator.Draw(drawer);
             }
-
 
             GL.PopMatrix();
         }
@@ -231,7 +229,7 @@ namespace OpenGLTests.src.Screens
                     GameCoordinate xxdd = new GameCoordinate(xx, yy);
                     var xd = CoordinateFuckery.ClickToGLRelativeToCamera(xxdd, new GameCoordinate(0, 0));
 
-                    Player.Cursor.Location = xd;
+                    //Player.Cursor.Location = xd;
                 },
                 input =>
                 {
@@ -240,9 +238,5 @@ namespace OpenGLTests.src.Screens
             ));
             #endregion
         }
-
-
-
     }
-
 }

@@ -77,11 +77,9 @@ namespace OpenGLTests.src.Drawables
 
     public class EquipmentSlot : ActionButton, IRightClickable
     {
-        private Hero owner;
         public EquipmentItem EquipmentItem { get; private set; }
         public EquipmentSlot(Hero owner, EquipmentItem ei)
         {
-            this.owner = owner;
             this.Color = Color.White;
             this.Size = StandardSize;
             this.Animation = new Animation(new SpriteSheet_Icons());
@@ -95,7 +93,7 @@ namespace OpenGLTests.src.Drawables
                     var equipped = Swap(owner.ActionHandler.CurrentButtonSelected);
                     if (equipped)
                     {
-                        hero.ResetDefaultActionToMove();
+                        hero.ActionHandler.ClearSelected();
                         return;
                     }
                 }
@@ -125,8 +123,11 @@ namespace OpenGLTests.src.Drawables
             var islot = button as InventorySlot;
             if (islot.Item is EquipmentItem ei)
             {
+                var tempItem = this.EquipmentItem;
                 SetItem(ei);
-                islot.SetItem(new Nothing(owner));
+                Console.WriteLine(tempItem.GetType());
+                //islot.SetItem(new Nothing(owner));
+                islot.SetItem(tempItem);
                 return true;
             }
 
@@ -170,7 +171,7 @@ namespace OpenGLTests.src.Drawables
                     var swapped = Swap(inventory.Owner.ActionHandler.CurrentButtonSelected);
                     if (swapped)
                     {
-                        hero.ResetDefaultActionToMove();
+                        hero.ActionHandler.ClearSelected();
                         Console.WriteLine("cleared");
                         return;
                     }

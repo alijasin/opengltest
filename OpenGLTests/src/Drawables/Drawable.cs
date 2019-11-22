@@ -254,7 +254,7 @@ namespace OpenGLTests.src.Drawables
         [JsonIgnore]
         public int CombatIndex = 0;
         [JsonIgnore]
-        public ActionReturns ActionStatus;
+        public ActionReturns ActionStatus { get; set; }
         [JsonIgnore]
         public GameCoordinate InitialSpeed = new GameCoordinate(0.015f, 0.015f);
         [JsonIgnore]
@@ -273,7 +273,6 @@ namespace OpenGLTests.src.Drawables
         public bool HasWeapon => Weapon != null;
         public bool DoingWeaponAction => ActionHandler.SelectedAction is WeaponAction && ActionStatus == ActionReturns.Ongoing;
         public virtual GameCoordinate LeftHandLocation { get; set; } //todo: refactor this into animation
-
 
 
         public Unit()

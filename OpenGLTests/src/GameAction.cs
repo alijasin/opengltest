@@ -35,7 +35,7 @@ namespace OpenGLTests.src
     //todo split GameAction into Placed Action and Game Action and target action and so on.
     public abstract class GameAction
     {
-        public RangeShape RangeShape { get; set; }
+        public virtual RangeShape RangeShape { get; set; }
         public abstract Func<object, bool> GetAction(); 
         public ActionMarker Marker { get; set; }
         public ActionLine ActionLine { get; set; }
@@ -89,6 +89,7 @@ namespace OpenGLTests.src
 
         public void Show()
         {
+            Marker.Location = Source.Location;
             if (RangeShape != null)
             {
                 RangeShape.Visible = true;
@@ -97,7 +98,11 @@ namespace OpenGLTests.src
 
             if (Marker != null) Marker.Visible = true;
 
-            if (ActionLine != null) ActionLine.Visible = true;
+            if (ActionLine != null)
+            {
+                ActionLine.Terminus = Source.Location;
+                ActionLine.Visible = true;
+            }
         }
 
         //Todo make this automatic
@@ -140,6 +145,11 @@ namespace OpenGLTests.src
         }
 
         public virtual Action OnSelected { get; set; } = () => { };
+
+        public virtual void OnCancelled(GameCoordinate clicked)
+        {
+    
+        }
     }
 
     abstract class CombatAction : GameAction
@@ -857,10 +867,20 @@ namespace OpenGLTests.src
 
     class HeroMoveAction : GameAction
     {
+        private GameCoordinate prevLoc;
+        public override RangeShape RangeShape
+        {
+            get
+            {
+                if (!Source.InCombat) base.RangeShape.IsInfinite = true;
+                else base.RangeShape.IsInfinite = false;
+                return base.RangeShape;
+            }
+        }
         private bool isOnCooldown = false;
-
         public HeroMoveAction(GLCoordinate radius, Unit hero) : base(hero)
         {
+
             RangeShape = new RangeShape(new Circle(radius), hero);
             this.Marker = new MoveMarker(RangeShape.Location);
             this.ActionLine.LineType = LineType.Solid;
@@ -871,8 +891,13 @@ namespace OpenGLTests.src
         {
             return (o) =>
             {
-                if (Source.InCombat) return combatAction(o);
-                else return outOfCombatAction(o);
+                prevLoc = new GameCoordinate(Source.Location.X, Source.Location.Y);
+
+                bool res;
+                if (Source.InCombat) res = combatAction(o);
+                else res = outOfCombatAction(o);
+
+                return res || (prevLoc.X.Equals(Source.Location.X) && prevLoc.Y.Equals(Source.Location.Y));
             };
         }
 

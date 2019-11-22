@@ -30,12 +30,10 @@ namespace OpenGLTests.src.Drawables
 
         public override void DrawStep(DrawAdapter drawer)
         {
-            if (Visible)
-            {
-                GLCoordinate GLo = Origin.ToGLCoordinate();
-                GLCoordinate GLt = Terminus.ToGLCoordinate();
-                drawer.DrawLine(GLo, GLt, Color, LineType);
-            }
+            if (!Visible) return;
+            GLCoordinate GLo = Origin.ToGLCoordinate();
+            GLCoordinate GLt = Terminus.ToGLCoordinate();
+            drawer.DrawLine(GLo, GLt, Color, LineType);
         }
 
         public override string ToString()
