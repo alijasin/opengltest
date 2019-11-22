@@ -65,13 +65,13 @@ namespace OpenGLTests.src.Drawables
         {
             //var status = ActionHandler.CommitActions(CombatIndex);
             var status = CombatActionPattern.DoAction(CombatIndex);
-            if (status == ActionReturns.Placing) return;
-            if (status == ActionReturns.Finished)
+            if (status == src.ActionStatus.Placing) return;
+            if (status == src.ActionStatus.Finished)
             {
                 CombatIndex = 0;
                 return;
             }
-            else if (status == ActionReturns.AllFinished || status == ActionReturns.NoAction)
+            else if (status == src.ActionStatus.AllFinished || status == src.ActionStatus.NoAction)
             {
                 CombatIndex = 0;
                 EndedTurn = false;
@@ -85,7 +85,7 @@ namespace OpenGLTests.src.Drawables
             if (OutOfCombatActionPattern != null)
             {
                 var status = OutOfCombatActionPattern.DoAction(OutOfCombatIndex);
-                if (status == ActionReturns.AllFinished || status == ActionReturns.Finished) OutOfCombatIndex = 0;
+                if (status == src.ActionStatus.AllFinished || status == src.ActionStatus.Finished) OutOfCombatIndex = 0;
                 else OutOfCombatIndex++;
             }
         }

@@ -11,6 +11,6 @@ namespace OpenGLTests.src
         ActionHandler ActionHandler { get; set; }
         GameAction DefaultAction { get; set; }
         GameCoordinate Location { get; set; }
-        ActionReturns ActionStatus { get; set; }
+        ActionStatus ActionStatus { get; set; }
     }
 }

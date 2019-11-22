@@ -39,3 +39,5 @@ Really need to improve our Movement in GameActinoLambdas. First of all, the code
 Second of all, this is the place where a units direction is set, which might be OK, but thats not it. Third of all, it does the collision checking here. 
 That means, for each entity that is moving, all entities will be checked whether they are collided with, every step. Yeah..
 Instead we move collision check and do a O(N^2) at the end of gamestep. 
+
+Wait until actionstatus of unit is finished before fight begins.

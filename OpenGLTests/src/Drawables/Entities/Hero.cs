@@ -161,8 +161,8 @@ namespace OpenGLTests.src.Drawables
             }
             ActionStatus = ActionHandler.CommitActions(CombatIndex);
 
-            if (ActionStatus == ActionReturns.Placing) return;
-            if (ActionStatus == ActionReturns.Finished || ActionStatus == ActionReturns.AllFinished)
+            if (ActionStatus == src.ActionStatus.Placing) return;
+            if (ActionStatus == src.ActionStatus.Finished || ActionStatus == src.ActionStatus.AllFinished)
             {
                 CombatIndex = 0;
                 if (AvailableActionPoints == 0)
@@ -172,15 +172,15 @@ namespace OpenGLTests.src.Drawables
                 }
                 return;
             }
-            else if(ActionStatus == ActionReturns.Ongoing) CombatIndex++;
+            else if(ActionStatus == src.ActionStatus.Ongoing) CombatIndex++;
 
         }
 
         public override void OutOfCombatStep()
         {
             ActionStatus = ActionHandler.CommitActions(OutOfCombatIndex);
-            if (ActionStatus == ActionReturns.NoAction) return;
-            if (ActionStatus == ActionReturns.Finished || ActionStatus == ActionReturns.AllFinished)
+            if (ActionStatus == src.ActionStatus.NoAction) return;
+            if (ActionStatus == src.ActionStatus.Finished || ActionStatus == src.ActionStatus.AllFinished)
             {
                 OutOfCombatIndex = 0;
                 ActionHandler.ClearSelected();

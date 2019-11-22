@@ -12,7 +12,7 @@ namespace OpenGLTests.src
 {
     /// <summary>
     /// Contains a list of game actions that will be executed in turn and returns the game actions execution status.
-    /// Execution statuses can be: AllFinished, Finished, Ongoing, Placing, .. And are enumerated in "ActionReturns"
+    /// Execution statuses can be: AllFinished, Finished, Ongoing, Placing, .. And are enumerated in "ActionStatus"
     /// </summary>
     public abstract class ActionPattern
     {
@@ -34,7 +34,7 @@ namespace OpenGLTests.src
         
         public Dictionary<GameAction, bool> ActionsUsed = new Dictionary<GameAction, bool>();
 
-        public virtual ActionReturns DoAction(object arg)
+        public virtual ActionStatus DoAction(object arg)
         {
             if(ActionsUsed.All(a => a.Value == true))
             {
@@ -42,7 +42,7 @@ namespace OpenGLTests.src
                 {
                     ActionsUsed.ToList().ForEach(a => ActionsUsed[a.Key] = false);
                 }
-                return ActionReturns.AllFinished;
+                return ActionStatus.AllFinished;
             }
 
             var currentGameAction = ActionsUsed.First(a => a.Value == false);
@@ -51,11 +51,11 @@ namespace OpenGLTests.src
             if (actionFinished)
             {
                 ActionsUsed[currentGameAction.Key] = true;
-                return ActionReturns.Finished;
+                return ActionStatus.Finished;
             }
             else
             {
-                return ActionReturns.Ongoing;
+                return ActionStatus.Ongoing;
             }
         }
 

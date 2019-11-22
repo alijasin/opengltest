@@ -138,7 +138,7 @@ namespace OpenGLTests.src
             Owner = owner;
         }
 
-        public abstract ActionReturns CommitActions(object args);
+        public abstract ActionStatus CommitActions(object args);
 
         public void OnMouseUp(GameCoordinate mouseLocation)
         {
@@ -227,21 +227,21 @@ namespace OpenGLTests.src
             SelectedAction.Place(placeLocation, SelectedAction.Icon);
         }
 
-        public override ActionReturns CommitActions(object args)
+        public override ActionStatus CommitActions(object args)
         {
-            if (SubsequentlyPlacedActions.Count() == 0) return ActionReturns.NoAction;
+            if (SubsequentlyPlacedActions.Count() == 0) return ActionStatus.NoAction;
             var first = SubsequentlyPlacedActions.First();
             var finished = first.GetAction().Invoke(args);
             if (finished)
             {
                 onFinishedCasting.Invoke();
                 SubsequentlyPlacedActions.RemoveFirst();
-                if (SubsequentlyPlacedActions.Count() == 0) return ActionReturns.AllFinished;
-                return ActionReturns.Finished;
+                if (SubsequentlyPlacedActions.Count() == 0) return ActionStatus.AllFinished;
+                return ActionStatus.Finished;
             }
-            else if (first.IsPlaced == false) return ActionReturns.Placing;
+            else if (first.IsPlaced == false) return ActionStatus.Placing;
 
-            return ActionReturns.Ongoing;
+            return ActionStatus.Ongoing;
         }
 
         public override void OnMouseDown(GameCoordinate mouseLocation)
@@ -303,6 +303,17 @@ namespace OpenGLTests.src
             ga.Dispose();
             this.Remove(ga);
         }
+
+        public bool TryRemoveIdenticalType(GameAction ga)
+        {
+            if (this.Contains(ga))
+            {
+                this.RemoveGameAction(ga);
+                return true;
+            }
+
+            return false;
+        }
     }
 
     public class OutOfCombatActionHandler : ActionHandler
@@ -316,18 +327,14 @@ namespace OpenGLTests.src
 
         public override void PlaceAction(GameAction action, GameCoordinate placeLocation)
         {
-            //if status is ongoing and the action we are trying to place is identical to the one we are trying to place
-            //or if the status is anything but ongoing
-            //the action is placed.
+            var removed = PlacedActions.TryRemoveIdenticalType(action);
 
-            if (!((action.GetType() != SelectedAction.GetType() && Owner.ActionStatus == ActionReturns.Ongoing) || (Owner.ActionStatus != ActionReturns.Ongoing))) return;
-
-            //remove all placed actions that are identical to the new one.
-            PlacedActions.RemoveWhere(pa => pa.GetType() == action.GetType());
-
-            SelectedAction.Place(placeLocation, SelectedAction.Icon);
-            if(SelectedAction.IsPlaced)
-            PlacedActions.Add(action); 
+            if(Owner.ActionStatus != ActionStatus.Ongoing || removed)
+            { 
+                SelectedAction.Place(placeLocation, SelectedAction.Icon);
+                if (SelectedAction.IsPlaced)
+                    PlacedActions.Add(action);
+            }
         }
 
         public override void OnMouseDown(GameCoordinate mouseLocation)
@@ -342,9 +349,9 @@ namespace OpenGLTests.src
             PlacedActions.RemoveWhere(e => true);
         }
 
-        public override ActionReturns CommitActions(object args)
+        public override ActionStatus CommitActions(object args)
         {
-            if (PlacedActions.Count == 0) return ActionReturns.NoAction;
+            if (PlacedActions.Count == 0) return ActionStatus.NoAction;
 
             var currentAction = PlacedActions.First();
 
@@ -353,11 +360,11 @@ namespace OpenGLTests.src
             {
                 onFinishedCasting.Invoke();
                 PlacedActions.RemoveGameAction(currentAction);
-                if (PlacedActions.Count == 0) return ActionReturns.AllFinished;
-                return ActionReturns.Finished;
+                if (PlacedActions.Count == 0) return ActionStatus.AllFinished;
+                return ActionStatus.Finished;
             }
 
-            return ActionReturns.Ongoing;
+            return ActionStatus.Ongoing;
 
         }
     }

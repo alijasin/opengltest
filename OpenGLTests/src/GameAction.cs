@@ -22,7 +22,7 @@ namespace OpenGLTests.src
         bool Placed(GameCoordinate location);
     }
     
-    public enum ActionReturns
+    public enum ActionStatus
     {
         Finished,
         AllFinished,
@@ -122,7 +122,11 @@ namespace OpenGLTests.src
         {
             IsPlaced = false;
 
-            if(Marker != null) Marker.Visible = false;
+            if (Marker != null)
+            {
+                Marker.Visible = false;
+                this.Marker.Animation.SetSprite(SpriteID.missing);
+            }
             if(ActionLine != null) ActionLine.Visible = false;
             if(RangeShape != null) RangeShape.Visible = false;
         }
