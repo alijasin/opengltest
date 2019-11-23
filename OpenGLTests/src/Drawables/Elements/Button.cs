@@ -53,6 +53,7 @@ namespace OpenGLTests.src.Drawables
     {
         public static GLCoordinate StandardSize = new GLCoordinate(0.1f, 0.1f);
         public GameAction GameAction { get; set; }
+        public Action OnFinishedCasting { get; set; } = () => { };
         protected ActionButton()
         {
             OnInteraction += () =>
@@ -140,7 +141,7 @@ namespace OpenGLTests.src.Drawables
         public Item Item { get; set; }
         public int IndexSlot { get; set; }
         private Inventory inventory;
-    
+
         public InventorySlot(Item i, Inventory inventory, int indexSlot)
         {
             this.IndexSlot = indexSlot;

@@ -1,36 +1,18 @@
 ﻿-----
 Bugs: (description, (d) est. difficulty fixing(1-10), (i) importance(1-10))
 
-Burrower doesnt teleport every burrow. (only every second.)
-Not sure why this is but dont think it might be hard to trace down on.
-Difficulty 4
-
 Bounding box for an entity should really be a list of bounding boxes. Phased bool in the ICollidable interface should be replaced with something decent.
 Difficulty 5
 
 All bounding boxes are not removed when entering a LoadRegion.
 Difficulty 4.
 
-If hero aggros 2 units and kills the one who will have action after hero, the second aggrod unit will not perform action and game will be stuck.
-d4i8
-
-Hero can place actions while not its turn. This will cost the hero action points but move will not execute.
-d4i8
-
 ::issue 93934::
 When finishing an action the current action is reset to move. However this isn't always desirable. Need to think further on how we want this to be handled.
 d3i4
 
-Fireball does not end on hit sometimes.
-d4i5
-
 Fireball placement icon is not rotated as it is being placed.
 d4i1
-
-If item is used and another item is clicked before item has been finished, the newly selected item will be consumed instead.
-d5i5
-
-If hero is moving to a location with a wall inbetween hero is unable to cast other actions until move is cancelled. Although this might be fixed with issue 93934.
 
 -----
 Improvement points:

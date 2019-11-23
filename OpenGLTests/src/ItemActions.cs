@@ -37,7 +37,7 @@ namespace OpenGLTests.src
         {
             return (o) =>
             {
-                if ((int)o >= 10)
+                if ((int)o >= 20)
                 {
                     var aoeShape = (Marker as AOEMarker).AOEShape;
                     foreach (var others in GameState.Drawables.GetAllUnits.Where(d => d != Source))

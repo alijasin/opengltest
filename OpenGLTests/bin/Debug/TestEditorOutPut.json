@@ -11,13 +11,13 @@
         "Y": 0.0
       },
       "Location": {
-        "X": -0.6,
-        "Y": 0.0
+        "X": -0.4,
+        "Y": -0.15
       },
       "FacingAngle": 0,
       "Center": {
-        "X": -0.450000018,
-        "Y": 0.085
+        "X": -0.25,
+        "Y": -0.0650000051
       },
       "Facing": 0,
       "Visible": true,
@@ -29,166 +29,894 @@
       "Depth": 1
     },
     {
-      "$type": "OpenGLTests.src.Drawables.Terrain.BrickWall, OpenGLTests",
+      "$type": "OpenGLTests.src.Drawables.Terrain.BrickGate, OpenGLTests",
       "Flipped": false,
-      "Phased": false,
-      "BlockedSides": null,
       "Speed": {
         "X": 0.0,
         "Y": 0.0
       },
       "Location": {
-        "X": -0.3,
-        "Y": 0.0
+        "X": -0.1,
+        "Y": -0.213888884
       },
       "FacingAngle": 0,
       "Center": {
-        "X": -0.15,
-        "Y": 0.085
+        "X": 0.0500000045,
+        "Y": -0.06388888
       },
       "Facing": 0,
       "Visible": true,
       "Color": "White",
       "Size": {
         "X": 0.3,
-        "Y": 0.17
-      },
-      "Depth": 1
-    },
-    {
-      "$type": "OpenGLTests.src.Drawables.Terrain.BrickWall, OpenGLTests",
-      "Flipped": false,
-      "Phased": false,
-      "BlockedSides": null,
-      "Speed": {
-        "X": 0.0,
-        "Y": 0.0
-      },
-      "Location": {
-        "X": 0.0,
-        "Y": 0.0
-      },
-      "FacingAngle": 0,
-      "Center": {
-        "X": 0.15,
-        "Y": 0.085
-      },
-      "Facing": 0,
-      "Visible": true,
-      "Color": "White",
-      "Size": {
-        "X": 0.3,
-        "Y": 0.17
-      },
-      "Depth": 1
-    },
-    {
-      "$type": "OpenGLTests.src.Drawables.Terrain.BrickWall, OpenGLTests",
-      "Flipped": false,
-      "Phased": false,
-      "BlockedSides": null,
-      "Speed": {
-        "X": 0.0,
-        "Y": 0.0
-      },
-      "Location": {
-        "X": -0.6,
-        "Y": -0.450000018
-      },
-      "FacingAngle": 0,
-      "Center": {
-        "X": -0.450000018,
-        "Y": -0.365
-      },
-      "Facing": 0,
-      "Visible": true,
-      "Color": "White",
-      "Size": {
-        "X": 0.3,
-        "Y": 0.17
-      },
-      "Depth": 1
-    },
-    {
-      "$type": "OpenGLTests.src.Drawables.Terrain.BrickWall, OpenGLTests",
-      "Flipped": false,
-      "Phased": false,
-      "BlockedSides": null,
-      "Speed": {
-        "X": 0.0,
-        "Y": 0.0
-      },
-      "Location": {
-        "X": -0.3,
-        "Y": -0.450000018
-      },
-      "FacingAngle": 0,
-      "Center": {
-        "X": -0.15,
-        "Y": -0.365
-      },
-      "Facing": 0,
-      "Visible": true,
-      "Color": "White",
-      "Size": {
-        "X": 0.3,
-        "Y": 0.17
-      },
-      "Depth": 1
-    },
-    {
-      "$type": "OpenGLTests.src.Drawables.Terrain.BrickWall, OpenGLTests",
-      "Flipped": false,
-      "Phased": false,
-      "BlockedSides": null,
-      "Speed": {
-        "X": 0.0,
-        "Y": 0.0
-      },
-      "Location": {
-        "X": 0.0,
-        "Y": -0.450000018
-      },
-      "FacingAngle": 0,
-      "Center": {
-        "X": 0.15,
-        "Y": -0.365
-      },
-      "Facing": 0,
-      "Visible": true,
-      "Color": "White",
-      "Size": {
-        "X": 0.3,
-        "Y": 0.17
-      },
-      "Depth": 1
-    },
-    {
-      "$type": "OpenGLTests.src.Drawables.Terrain.BrickWall, OpenGLTests",
-      "Flipped": true,
-      "Phased": false,
-      "BlockedSides": null,
-      "Speed": {
-        "X": 0.0,
-        "Y": 0.0
-      },
-      "Location": {
-        "X": -0.8,
-        "Y": -0.25
-      },
-      "FacingAngle": 0,
-      "Center": {
-        "X": -0.715000033,
-        "Y": -0.099999994
-      },
-      "Facing": 0,
-      "Visible": true,
-      "Color": "White",
-      "Size": {
-        "X": 0.17,
         "Y": 0.3
       },
       "Depth": 1
+    },
+    {
+      "$type": "OpenGLTests.src.Drawables.Entities.Campfire, OpenGLTests",
+      "Flipped": false,
+      "OnClick": null,
+      "Phased": false,
+      "BlockedSides": null,
+      "Speed": {
+        "X": 0.0,
+        "Y": 0.0
+      },
+      "Location": {
+        "X": 0.6,
+        "Y": 0.35
+      },
+      "FacingAngle": 0,
+      "Center": {
+        "X": 0.675,
+        "Y": 0.425
+      },
+      "Facing": 0,
+      "Visible": true,
+      "Color": "White",
+      "Size": {
+        "X": 0.15,
+        "Y": 0.15
+      },
+      "Depth": 10
+    },
+    {
+      "$type": "OpenGLTests.src.Drawables.Entities.Wizard, OpenGLTests",
+      "CurrentAggroTarget": null,
+      "Flipped": false,
+      "LeftHandLocation": {
+        "X": 0.8,
+        "Y": 0.143333346
+      },
+      "FacingAngle": 0,
+      "Phased": false,
+      "BlockedSides": {
+        "BlockedLeft": false,
+        "BlockedRight": false,
+        "BlockedTop": false,
+        "BlockedBottom": false
+      },
+      "HasWeapon": true,
+      "DoingWeaponAction": false,
+      "Speed": {
+        "X": 0.0,
+        "Y": 0.0
+      },
+      "Location": {
+        "X": 0.75,
+        "Y": 0.15
+      },
+      "Center": {
+        "X": 0.8,
+        "Y": 0.2
+      },
+      "Facing": 0,
+      "Visible": true,
+      "Color": "White",
+      "Size": {
+        "X": 0.1,
+        "Y": 0.1
+      },
+      "Depth": 10
+    },
+    {
+      "$type": "OpenGLTests.src.Drawables.Entities.Wizard, OpenGLTests",
+      "CurrentAggroTarget": null,
+      "Flipped": false,
+      "LeftHandLocation": {
+        "X": 0.5,
+        "Y": 0.6433334
+      },
+      "FacingAngle": 0,
+      "Phased": false,
+      "BlockedSides": {
+        "BlockedLeft": false,
+        "BlockedRight": false,
+        "BlockedTop": false,
+        "BlockedBottom": false
+      },
+      "HasWeapon": true,
+      "DoingWeaponAction": false,
+      "Speed": {
+        "X": 0.0,
+        "Y": 0.0
+      },
+      "Location": {
+        "X": 0.450000018,
+        "Y": 0.650000036
+      },
+      "Center": {
+        "X": 0.5,
+        "Y": 0.700000048
+      },
+      "Facing": 0,
+      "Visible": true,
+      "Color": "White",
+      "Size": {
+        "X": 0.1,
+        "Y": 0.1
+      },
+      "Depth": 10
+    },
+    {
+      "$type": "OpenGLTests.src.Drawables.Entities.Wizard, OpenGLTests",
+      "CurrentAggroTarget": null,
+      "Flipped": false,
+      "LeftHandLocation": {
+        "X": 0.8,
+        "Y": 0.593333364
+      },
+      "FacingAngle": 0,
+      "Phased": false,
+      "BlockedSides": {
+        "BlockedLeft": false,
+        "BlockedRight": false,
+        "BlockedTop": false,
+        "BlockedBottom": false
+      },
+      "HasWeapon": true,
+      "DoingWeaponAction": false,
+      "Speed": {
+        "X": 0.0,
+        "Y": 0.0
+      },
+      "Location": {
+        "X": 0.75,
+        "Y": 0.6
+      },
+      "Center": {
+        "X": 0.8,
+        "Y": 0.650000036
+      },
+      "Facing": 0,
+      "Visible": true,
+      "Color": "White",
+      "Size": {
+        "X": 0.1,
+        "Y": 0.1
+      },
+      "Depth": 10
+    },
+    {
+      "$type": "OpenGLTests.src.Drawables.Swamper, OpenGLTests",
+      "CurrentAggroTarget": null,
+      "Flipped": false,
+      "FacingAngle": 0,
+      "Phased": false,
+      "BlockedSides": {
+        "BlockedLeft": false,
+        "BlockedRight": false,
+        "BlockedTop": false,
+        "BlockedBottom": false
+      },
+      "HasWeapon": false,
+      "DoingWeaponAction": false,
+      "LeftHandLocation": null,
+      "Speed": {
+        "X": 0.0,
+        "Y": 0.0
+      },
+      "Location": {
+        "X": 0.4,
+        "Y": 0.35
+      },
+      "Center": {
+        "X": 0.450000018,
+        "Y": 0.4
+      },
+      "Facing": 0,
+      "Visible": true,
+      "Color": "PaleGreen",
+      "Size": {
+        "X": 0.1,
+        "Y": 0.1
+      },
+      "Depth": 10
+    },
+    {
+      "$type": "OpenGLTests.src.Drawables.Swamper, OpenGLTests",
+      "CurrentAggroTarget": null,
+      "Flipped": false,
+      "FacingAngle": 0,
+      "Phased": false,
+      "BlockedSides": {
+        "BlockedLeft": false,
+        "BlockedRight": false,
+        "BlockedTop": false,
+        "BlockedBottom": false
+      },
+      "HasWeapon": false,
+      "DoingWeaponAction": false,
+      "LeftHandLocation": null,
+      "Speed": {
+        "X": 0.0,
+        "Y": 0.0
+      },
+      "Location": {
+        "X": 0.55,
+        "Y": 0.6
+      },
+      "Center": {
+        "X": 0.6,
+        "Y": 0.650000036
+      },
+      "Facing": 0,
+      "Visible": true,
+      "Color": "PaleGreen",
+      "Size": {
+        "X": 0.1,
+        "Y": 0.1
+      },
+      "Depth": 10
+    },
+    {
+      "$type": "OpenGLTests.src.Drawables.Swamper, OpenGLTests",
+      "CurrentAggroTarget": null,
+      "Flipped": false,
+      "FacingAngle": 0,
+      "Phased": false,
+      "BlockedSides": {
+        "BlockedLeft": false,
+        "BlockedRight": false,
+        "BlockedTop": false,
+        "BlockedBottom": false
+      },
+      "HasWeapon": false,
+      "DoingWeaponAction": false,
+      "LeftHandLocation": null,
+      "Speed": {
+        "X": 0.0,
+        "Y": 0.0
+      },
+      "Location": {
+        "X": 0.55,
+        "Y": 0.1
+      },
+      "Center": {
+        "X": 0.6,
+        "Y": 0.15
+      },
+      "Facing": 0,
+      "Visible": true,
+      "Color": "PaleGreen",
+      "Size": {
+        "X": 0.1,
+        "Y": 0.1
+      },
+      "Depth": 10
+    },
+    {
+      "$type": "OpenGLTests.src.Drawables.Swamper, OpenGLTests",
+      "CurrentAggroTarget": null,
+      "Flipped": false,
+      "FacingAngle": 0,
+      "Phased": false,
+      "BlockedSides": {
+        "BlockedLeft": false,
+        "BlockedRight": false,
+        "BlockedTop": false,
+        "BlockedBottom": false
+      },
+      "HasWeapon": false,
+      "DoingWeaponAction": false,
+      "LeftHandLocation": null,
+      "Speed": {
+        "X": 0.0,
+        "Y": 0.0
+      },
+      "Location": {
+        "X": -1.2,
+        "Y": 0.35
+      },
+      "Center": {
+        "X": -1.1500001,
+        "Y": 0.4
+      },
+      "Facing": 0,
+      "Visible": true,
+      "Color": "PaleGreen",
+      "Size": {
+        "X": 0.1,
+        "Y": 0.1
+      },
+      "Depth": 10
+    },
+    {
+      "$type": "OpenGLTests.src.Drawables.Swamper, OpenGLTests",
+      "CurrentAggroTarget": null,
+      "Flipped": false,
+      "FacingAngle": 0,
+      "Phased": false,
+      "BlockedSides": {
+        "BlockedLeft": false,
+        "BlockedRight": false,
+        "BlockedTop": false,
+        "BlockedBottom": false
+      },
+      "HasWeapon": false,
+      "DoingWeaponAction": false,
+      "LeftHandLocation": null,
+      "Speed": {
+        "X": 0.0,
+        "Y": 0.0
+      },
+      "Location": {
+        "X": -1.25,
+        "Y": 0.0
+      },
+      "Center": {
+        "X": -1.2,
+        "Y": 0.05
+      },
+      "Facing": 0,
+      "Visible": true,
+      "Color": "PaleGreen",
+      "Size": {
+        "X": 0.1,
+        "Y": 0.1
+      },
+      "Depth": 10
+    },
+    {
+      "$type": "OpenGLTests.src.Drawables.Swamper, OpenGLTests",
+      "CurrentAggroTarget": null,
+      "Flipped": false,
+      "FacingAngle": 0,
+      "Phased": false,
+      "BlockedSides": {
+        "BlockedLeft": false,
+        "BlockedRight": false,
+        "BlockedTop": false,
+        "BlockedBottom": false
+      },
+      "HasWeapon": false,
+      "DoingWeaponAction": false,
+      "LeftHandLocation": null,
+      "Speed": {
+        "X": 0.0,
+        "Y": 0.0
+      },
+      "Location": {
+        "X": -1.0,
+        "Y": 0.5
+      },
+      "Center": {
+        "X": -0.95,
+        "Y": 0.55
+      },
+      "Facing": 0,
+      "Visible": true,
+      "Color": "PaleGreen",
+      "Size": {
+        "X": 0.1,
+        "Y": 0.1
+      },
+      "Depth": 10
+    },
+    {
+      "$type": "OpenGLTests.src.Drawables.Swamper, OpenGLTests",
+      "CurrentAggroTarget": null,
+      "Flipped": false,
+      "FacingAngle": 0,
+      "Phased": false,
+      "BlockedSides": {
+        "BlockedLeft": false,
+        "BlockedRight": false,
+        "BlockedTop": false,
+        "BlockedBottom": false
+      },
+      "HasWeapon": false,
+      "DoingWeaponAction": false,
+      "LeftHandLocation": null,
+      "Speed": {
+        "X": 0.0,
+        "Y": 0.0
+      },
+      "Location": {
+        "X": -1.2,
+        "Y": 0.5
+      },
+      "Center": {
+        "X": -1.1500001,
+        "Y": 0.55
+      },
+      "Facing": 0,
+      "Visible": true,
+      "Color": "PaleGreen",
+      "Size": {
+        "X": 0.1,
+        "Y": 0.1
+      },
+      "Depth": 10
+    },
+    {
+      "$type": "OpenGLTests.src.Drawables.Swamper, OpenGLTests",
+      "CurrentAggroTarget": null,
+      "Flipped": false,
+      "FacingAngle": 0,
+      "Phased": false,
+      "BlockedSides": {
+        "BlockedLeft": false,
+        "BlockedRight": false,
+        "BlockedTop": false,
+        "BlockedBottom": false
+      },
+      "HasWeapon": false,
+      "DoingWeaponAction": false,
+      "LeftHandLocation": null,
+      "Speed": {
+        "X": 0.0,
+        "Y": 0.0
+      },
+      "Location": {
+        "X": -1.30000007,
+        "Y": 0.450000018
+      },
+      "Center": {
+        "X": -1.25000012,
+        "Y": 0.5
+      },
+      "Facing": 0,
+      "Visible": true,
+      "Color": "PaleGreen",
+      "Size": {
+        "X": 0.1,
+        "Y": 0.1
+      },
+      "Depth": 10
+    },
+    {
+      "$type": "OpenGLTests.src.Drawables.Swamper, OpenGLTests",
+      "CurrentAggroTarget": null,
+      "Flipped": false,
+      "FacingAngle": 0,
+      "Phased": false,
+      "BlockedSides": {
+        "BlockedLeft": false,
+        "BlockedRight": false,
+        "BlockedTop": false,
+        "BlockedBottom": false
+      },
+      "HasWeapon": false,
+      "DoingWeaponAction": false,
+      "LeftHandLocation": null,
+      "Speed": {
+        "X": 0.0,
+        "Y": 0.0
+      },
+      "Location": {
+        "X": -1.35,
+        "Y": 0.2
+      },
+      "Center": {
+        "X": -1.30000007,
+        "Y": 0.25
+      },
+      "Facing": 0,
+      "Visible": true,
+      "Color": "PaleGreen",
+      "Size": {
+        "X": 0.1,
+        "Y": 0.1
+      },
+      "Depth": 10
+    },
+    {
+      "$type": "OpenGLTests.src.Drawables.Swamper, OpenGLTests",
+      "CurrentAggroTarget": null,
+      "Flipped": false,
+      "FacingAngle": 0,
+      "Phased": false,
+      "BlockedSides": {
+        "BlockedLeft": false,
+        "BlockedRight": false,
+        "BlockedTop": false,
+        "BlockedBottom": false
+      },
+      "HasWeapon": false,
+      "DoingWeaponAction": false,
+      "LeftHandLocation": null,
+      "Speed": {
+        "X": 0.0,
+        "Y": 0.0
+      },
+      "Location": {
+        "X": -1.30000007,
+        "Y": 0.15
+      },
+      "Center": {
+        "X": -1.25000012,
+        "Y": 0.2
+      },
+      "Facing": 0,
+      "Visible": true,
+      "Color": "PaleGreen",
+      "Size": {
+        "X": 0.1,
+        "Y": 0.1
+      },
+      "Depth": 10
+    },
+    {
+      "$type": "OpenGLTests.src.Drawables.Swamper, OpenGLTests",
+      "CurrentAggroTarget": null,
+      "Flipped": false,
+      "FacingAngle": 0,
+      "Phased": false,
+      "BlockedSides": {
+        "BlockedLeft": false,
+        "BlockedRight": false,
+        "BlockedTop": false,
+        "BlockedBottom": false
+      },
+      "HasWeapon": false,
+      "DoingWeaponAction": false,
+      "LeftHandLocation": null,
+      "Speed": {
+        "X": 0.0,
+        "Y": 0.0
+      },
+      "Location": {
+        "X": -1.15,
+        "Y": 0.15
+      },
+      "Center": {
+        "X": -1.1,
+        "Y": 0.2
+      },
+      "Facing": 0,
+      "Visible": true,
+      "Color": "PaleGreen",
+      "Size": {
+        "X": 0.1,
+        "Y": 0.1
+      },
+      "Depth": 10
+    },
+    {
+      "$type": "OpenGLTests.src.Drawables.Swamper, OpenGLTests",
+      "CurrentAggroTarget": null,
+      "Flipped": false,
+      "FacingAngle": 0,
+      "Phased": false,
+      "BlockedSides": {
+        "BlockedLeft": false,
+        "BlockedRight": false,
+        "BlockedTop": false,
+        "BlockedBottom": false
+      },
+      "HasWeapon": false,
+      "DoingWeaponAction": false,
+      "LeftHandLocation": null,
+      "Speed": {
+        "X": 0.0,
+        "Y": 0.0
+      },
+      "Location": {
+        "X": -1.1,
+        "Y": 0.2
+      },
+      "Center": {
+        "X": -1.05000007,
+        "Y": 0.25
+      },
+      "Facing": 0,
+      "Visible": true,
+      "Color": "PaleGreen",
+      "Size": {
+        "X": 0.1,
+        "Y": 0.1
+      },
+      "Depth": 10
+    },
+    {
+      "$type": "OpenGLTests.src.Drawables.Swamper, OpenGLTests",
+      "CurrentAggroTarget": null,
+      "Flipped": false,
+      "FacingAngle": 0,
+      "Phased": false,
+      "BlockedSides": {
+        "BlockedLeft": false,
+        "BlockedRight": false,
+        "BlockedTop": false,
+        "BlockedBottom": false
+      },
+      "HasWeapon": false,
+      "DoingWeaponAction": false,
+      "LeftHandLocation": null,
+      "Speed": {
+        "X": 0.0,
+        "Y": 0.0
+      },
+      "Location": {
+        "X": -1.1,
+        "Y": 0.3
+      },
+      "Center": {
+        "X": -1.05000007,
+        "Y": 0.350000024
+      },
+      "Facing": 0,
+      "Visible": true,
+      "Color": "PaleGreen",
+      "Size": {
+        "X": 0.1,
+        "Y": 0.1
+      },
+      "Depth": 10
+    },
+    {
+      "$type": "OpenGLTests.src.Drawables.Swamper, OpenGLTests",
+      "CurrentAggroTarget": null,
+      "Flipped": false,
+      "FacingAngle": 0,
+      "Phased": false,
+      "BlockedSides": {
+        "BlockedLeft": false,
+        "BlockedRight": false,
+        "BlockedTop": false,
+        "BlockedBottom": false
+      },
+      "HasWeapon": false,
+      "DoingWeaponAction": false,
+      "LeftHandLocation": null,
+      "Speed": {
+        "X": 0.0,
+        "Y": 0.0
+      },
+      "Location": {
+        "X": -1.1,
+        "Y": 0.4
+      },
+      "Center": {
+        "X": -1.05000007,
+        "Y": 0.450000018
+      },
+      "Facing": 0,
+      "Visible": true,
+      "Color": "PaleGreen",
+      "Size": {
+        "X": 0.1,
+        "Y": 0.1
+      },
+      "Depth": 10
+    },
+    {
+      "$type": "OpenGLTests.src.Drawables.Swamper, OpenGLTests",
+      "CurrentAggroTarget": null,
+      "Flipped": false,
+      "FacingAngle": 0,
+      "Phased": false,
+      "BlockedSides": {
+        "BlockedLeft": false,
+        "BlockedRight": false,
+        "BlockedTop": false,
+        "BlockedBottom": false
+      },
+      "HasWeapon": false,
+      "DoingWeaponAction": false,
+      "LeftHandLocation": null,
+      "Speed": {
+        "X": 0.0,
+        "Y": 0.0
+      },
+      "Location": {
+        "X": -1.35,
+        "Y": 0.3
+      },
+      "Center": {
+        "X": -1.30000007,
+        "Y": 0.350000024
+      },
+      "Facing": 0,
+      "Visible": true,
+      "Color": "PaleGreen",
+      "Size": {
+        "X": 0.1,
+        "Y": 0.1
+      },
+      "Depth": 10
+    },
+    {
+      "$type": "OpenGLTests.src.Drawables.Entities.PatrolGuy, OpenGLTests",
+      "CurrentAggroTarget": null,
+      "Flipped": false,
+      "FacingAngle": 0,
+      "Phased": false,
+      "BlockedSides": {
+        "BlockedLeft": false,
+        "BlockedRight": false,
+        "BlockedTop": false,
+        "BlockedBottom": false
+      },
+      "HasWeapon": false,
+      "DoingWeaponAction": false,
+      "LeftHandLocation": null,
+      "Speed": {
+        "X": 0.01,
+        "Y": 0.005
+      },
+      "Location": {
+        "X": -1.15,
+        "Y": -0.7
+      },
+      "Center": {
+        "X": -1.1,
+        "Y": -0.65
+      },
+      "Facing": 0,
+      "Visible": true,
+      "Color": "White",
+      "Size": {
+        "X": 0.1,
+        "Y": 0.1
+      },
+      "Depth": 10
+    },
+    {
+      "$type": "OpenGLTests.src.Drawables.Entities.PatrolGuy, OpenGLTests",
+      "CurrentAggroTarget": null,
+      "Flipped": false,
+      "FacingAngle": 0,
+      "Phased": false,
+      "BlockedSides": {
+        "BlockedLeft": false,
+        "BlockedRight": false,
+        "BlockedTop": false,
+        "BlockedBottom": false
+      },
+      "HasWeapon": false,
+      "DoingWeaponAction": false,
+      "LeftHandLocation": null,
+      "Speed": {
+        "X": 0.01,
+        "Y": 0.005
+      },
+      "Location": {
+        "X": -0.900000036,
+        "Y": -0.7
+      },
+      "Center": {
+        "X": -0.85,
+        "Y": -0.65
+      },
+      "Facing": 0,
+      "Visible": true,
+      "Color": "White",
+      "Size": {
+        "X": 0.1,
+        "Y": 0.1
+      },
+      "Depth": 10
+    },
+    {
+      "$type": "OpenGLTests.src.Drawables.Entities.PatrolGuy, OpenGLTests",
+      "CurrentAggroTarget": null,
+      "Flipped": false,
+      "FacingAngle": 0,
+      "Phased": false,
+      "BlockedSides": {
+        "BlockedLeft": false,
+        "BlockedRight": false,
+        "BlockedTop": false,
+        "BlockedBottom": false
+      },
+      "HasWeapon": false,
+      "DoingWeaponAction": false,
+      "LeftHandLocation": null,
+      "Speed": {
+        "X": 0.01,
+        "Y": 0.005
+      },
+      "Location": {
+        "X": -1.05000007,
+        "Y": -0.35
+      },
+      "Center": {
+        "X": -1.00000012,
+        "Y": -0.299999982
+      },
+      "Facing": 0,
+      "Visible": true,
+      "Color": "White",
+      "Size": {
+        "X": 0.1,
+        "Y": 0.1
+      },
+      "Depth": 10
+    },
+    {
+      "$type": "OpenGLTests.src.Drawables.Entities.ChasingPerson, OpenGLTests",
+      "CurrentAggroTarget": null,
+      "Flipped": false,
+      "FacingAngle": 0,
+      "Phased": false,
+      "BlockedSides": {
+        "BlockedLeft": false,
+        "BlockedRight": false,
+        "BlockedTop": false,
+        "BlockedBottom": false
+      },
+      "HasWeapon": false,
+      "DoingWeaponAction": false,
+      "LeftHandLocation": null,
+      "Speed": {
+        "X": 0.001,
+        "Y": 0.001
+      },
+      "Location": {
+        "X": -0.4,
+        "Y": -0.6
+      },
+      "Center": {
+        "X": -0.35,
+        "Y": -0.55
+      },
+      "Facing": 0,
+      "Visible": true,
+      "Color": "White",
+      "Size": {
+        "X": 0.1,
+        "Y": 0.1
+      },
+      "Depth": 10
+    },
+    {
+      "$type": "OpenGLTests.src.Drawables.Entities.ChasingPerson, OpenGLTests",
+      "CurrentAggroTarget": null,
+      "Flipped": false,
+      "FacingAngle": 0,
+      "Phased": false,
+      "BlockedSides": {
+        "BlockedLeft": false,
+        "BlockedRight": false,
+        "BlockedTop": false,
+        "BlockedBottom": false
+      },
+      "HasWeapon": false,
+      "DoingWeaponAction": false,
+      "LeftHandLocation": null,
+      "Speed": {
+        "X": 0.001,
+        "Y": 0.001
+      },
+      "Location": {
+        "X": 0.25,
+        "Y": -0.6
+      },
+      "Center": {
+        "X": 0.3,
+        "Y": -0.55
+      },
+      "Facing": 0,
+      "Visible": true,
+      "Color": "White",
+      "Size": {
+        "X": 0.1,
+        "Y": 0.1
+      },
+      "Depth": 10
     },
     {
       "$type": "OpenGLTests.src.Drawables.Entities.FleeingPerson, OpenGLTests",
@@ -210,12 +938,392 @@
         "Y": 0.02
       },
       "Location": {
-        "X": -0.55,
-        "Y": -0.25
+        "X": -0.1,
+        "Y": -0.450000018
       },
       "Center": {
-        "X": -0.5,
+        "X": -0.05,
+        "Y": -0.4
+      },
+      "Facing": 0,
+      "Visible": true,
+      "Color": "White",
+      "Size": {
+        "X": 0.1,
+        "Y": 0.1
+      },
+      "Depth": 10
+    },
+    {
+      "$type": "OpenGLTests.src.Drawables.Entities.Tree, OpenGLTests",
+      "Flipped": false,
+      "HitPoints": 2,
+      "Phased": false,
+      "BlockedSides": null,
+      "Speed": {
+        "X": 0.0,
+        "Y": 0.0
+      },
+      "Location": {
+        "X": 0.3,
         "Y": -0.2
+      },
+      "FacingAngle": 0,
+      "Center": {
+        "X": 0.450000018,
+        "Y": 0.049999997
+      },
+      "Facing": 0,
+      "Visible": true,
+      "Color": "White",
+      "Size": {
+        "X": 0.3,
+        "Y": 0.5
+      },
+      "Depth": 10
+    },
+    {
+      "$type": "OpenGLTests.src.Drawables.Entities.Tree, OpenGLTests",
+      "Flipped": false,
+      "HitPoints": 2,
+      "Phased": false,
+      "BlockedSides": null,
+      "Speed": {
+        "X": 0.0,
+        "Y": 0.0
+      },
+      "Location": {
+        "X": 0.55,
+        "Y": -0.2
+      },
+      "FacingAngle": 0,
+      "Center": {
+        "X": 0.700000048,
+        "Y": 0.049999997
+      },
+      "Facing": 0,
+      "Visible": true,
+      "Color": "White",
+      "Size": {
+        "X": 0.3,
+        "Y": 0.5
+      },
+      "Depth": 10
+    },
+    {
+      "$type": "OpenGLTests.src.Drawables.Entities.Tree, OpenGLTests",
+      "Flipped": false,
+      "HitPoints": 2,
+      "Phased": false,
+      "BlockedSides": null,
+      "Speed": {
+        "X": 0.0,
+        "Y": 0.0
+      },
+      "Location": {
+        "X": 0.85,
+        "Y": -0.15
+      },
+      "FacingAngle": 0,
+      "Center": {
+        "X": 1.0,
+        "Y": 0.099999994
+      },
+      "Facing": 0,
+      "Visible": true,
+      "Color": "White",
+      "Size": {
+        "X": 0.3,
+        "Y": 0.5
+      },
+      "Depth": 10
+    },
+    {
+      "$type": "OpenGLTests.src.Drawables.Entities.Tree, OpenGLTests",
+      "Flipped": false,
+      "HitPoints": 2,
+      "Phased": false,
+      "BlockedSides": null,
+      "Speed": {
+        "X": 0.0,
+        "Y": 0.0
+      },
+      "Location": {
+        "X": 0.95,
+        "Y": 0.1
+      },
+      "FacingAngle": 0,
+      "Center": {
+        "X": 1.1,
+        "Y": 0.35
+      },
+      "Facing": 0,
+      "Visible": true,
+      "Color": "White",
+      "Size": {
+        "X": 0.3,
+        "Y": 0.5
+      },
+      "Depth": 10
+    },
+    {
+      "$type": "OpenGLTests.src.Drawables.Entities.Tree, OpenGLTests",
+      "Flipped": false,
+      "HitPoints": 2,
+      "Phased": false,
+      "BlockedSides": null,
+      "Speed": {
+        "X": 0.0,
+        "Y": 0.0
+      },
+      "Location": {
+        "X": 1.0,
+        "Y": 0.4
+      },
+      "FacingAngle": 0,
+      "Center": {
+        "X": 1.15,
+        "Y": 0.65
+      },
+      "Facing": 0,
+      "Visible": true,
+      "Color": "White",
+      "Size": {
+        "X": 0.3,
+        "Y": 0.5
+      },
+      "Depth": 10
+    },
+    {
+      "$type": "OpenGLTests.src.Drawables.Entities.Tree, OpenGLTests",
+      "Flipped": false,
+      "HitPoints": 2,
+      "Phased": false,
+      "BlockedSides": null,
+      "Speed": {
+        "X": 0.0,
+        "Y": 0.0
+      },
+      "Location": {
+        "X": 1.0,
+        "Y": 0.75
+      },
+      "FacingAngle": 0,
+      "Center": {
+        "X": 1.15,
+        "Y": 1.0
+      },
+      "Facing": 0,
+      "Visible": true,
+      "Color": "White",
+      "Size": {
+        "X": 0.3,
+        "Y": 0.5
+      },
+      "Depth": 10
+    },
+    {
+      "$type": "OpenGLTests.src.Drawables.Entities.Tree, OpenGLTests",
+      "Flipped": false,
+      "HitPoints": 2,
+      "Phased": false,
+      "BlockedSides": null,
+      "Speed": {
+        "X": 0.0,
+        "Y": 0.0
+      },
+      "Location": {
+        "X": 0.75,
+        "Y": 0.900000036
+      },
+      "FacingAngle": 0,
+      "Center": {
+        "X": 0.9,
+        "Y": 1.1500001
+      },
+      "Facing": 0,
+      "Visible": true,
+      "Color": "White",
+      "Size": {
+        "X": 0.3,
+        "Y": 0.5
+      },
+      "Depth": 10
+    },
+    {
+      "$type": "OpenGLTests.src.Drawables.Entities.Tree, OpenGLTests",
+      "Flipped": false,
+      "HitPoints": 2,
+      "Phased": false,
+      "BlockedSides": null,
+      "Speed": {
+        "X": 0.0,
+        "Y": 0.0
+      },
+      "Location": {
+        "X": 0.4,
+        "Y": 0.95
+      },
+      "FacingAngle": 0,
+      "Center": {
+        "X": 0.55,
+        "Y": 1.2
+      },
+      "Facing": 0,
+      "Visible": true,
+      "Color": "White",
+      "Size": {
+        "X": 0.3,
+        "Y": 0.5
+      },
+      "Depth": 10
+    },
+    {
+      "$type": "OpenGLTests.src.Drawables.Entities.Tree, OpenGLTests",
+      "Flipped": false,
+      "HitPoints": 2,
+      "Phased": false,
+      "BlockedSides": null,
+      "Speed": {
+        "X": 0.0,
+        "Y": 0.0
+      },
+      "Location": {
+        "X": 0.05,
+        "Y": 1.0
+      },
+      "FacingAngle": 0,
+      "Center": {
+        "X": 0.2,
+        "Y": 1.25
+      },
+      "Facing": 0,
+      "Visible": true,
+      "Color": "White",
+      "Size": {
+        "X": 0.3,
+        "Y": 0.5
+      },
+      "Depth": 10
+    },
+    {
+      "$type": "OpenGLTests.src.Drawables.Entities.Tree, OpenGLTests",
+      "Flipped": false,
+      "HitPoints": 2,
+      "Phased": false,
+      "BlockedSides": null,
+      "Speed": {
+        "X": 0.0,
+        "Y": 0.0
+      },
+      "Location": {
+        "X": -0.25,
+        "Y": 0.8
+      },
+      "FacingAngle": 0,
+      "Center": {
+        "X": -0.099999994,
+        "Y": 1.05
+      },
+      "Facing": 0,
+      "Visible": true,
+      "Color": "White",
+      "Size": {
+        "X": 0.3,
+        "Y": 0.5
+      },
+      "Depth": 10
+    },
+    {
+      "$type": "OpenGLTests.src.Drawables.Entities.Campfire, OpenGLTests",
+      "Flipped": false,
+      "OnClick": null,
+      "Phased": false,
+      "BlockedSides": null,
+      "Speed": {
+        "X": 0.0,
+        "Y": 0.0
+      },
+      "Location": {
+        "X": -0.75,
+        "Y": 0.900000036
+      },
+      "FacingAngle": 0,
+      "Center": {
+        "X": -0.675,
+        "Y": 0.975
+      },
+      "Facing": 0,
+      "Visible": true,
+      "Color": "White",
+      "Size": {
+        "X": 0.15,
+        "Y": 0.15
+      },
+      "Depth": 10
+    },
+    {
+      "$type": "OpenGLTests.src.Drawables.Entities.FanBoy, OpenGLTests",
+      "CurrentAggroTarget": null,
+      "Flipped": false,
+      "FacingAngle": 41,
+      "Phased": false,
+      "BlockedSides": {
+        "BlockedLeft": false,
+        "BlockedRight": false,
+        "BlockedTop": false,
+        "BlockedBottom": false
+      },
+      "HasWeapon": false,
+      "DoingWeaponAction": false,
+      "LeftHandLocation": null,
+      "Speed": {
+        "X": 0.005,
+        "Y": 0.005
+      },
+      "Location": {
+        "X": -1.0,
+        "Y": 0.900000036
+      },
+      "Center": {
+        "X": -0.95,
+        "Y": 0.950000048
+      },
+      "Facing": 0,
+      "Visible": true,
+      "Color": "White",
+      "Size": {
+        "X": 0.1,
+        "Y": 0.1
+      },
+      "Depth": 10
+    },
+    {
+      "$type": "OpenGLTests.src.Drawables.Entities.FanBoy, OpenGLTests",
+      "CurrentAggroTarget": null,
+      "Flipped": false,
+      "FacingAngle": 56,
+      "Phased": false,
+      "BlockedSides": {
+        "BlockedLeft": false,
+        "BlockedRight": false,
+        "BlockedTop": false,
+        "BlockedBottom": false
+      },
+      "HasWeapon": false,
+      "DoingWeaponAction": false,
+      "LeftHandLocation": null,
+      "Speed": {
+        "X": 0.005,
+        "Y": 0.005
+      },
+      "Location": {
+        "X": -0.6,
+        "Y": 0.900000036
+      },
+      "Center": {
+        "X": -0.55,
+        "Y": 0.950000048
       },
       "Facing": 0,
       "Visible": true,

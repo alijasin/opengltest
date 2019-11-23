@@ -111,7 +111,7 @@ namespace OpenGLTests.src
     {
         public ActionButton CurrentButtonSelected { get; set; }
         public IActionCapable Owner { get; set; }
-        protected Action onFinishedCasting { get; set; } = () => { };
+
         protected Action onChangedAction { get; set; } = () => { };
         private GameAction selectedAction;
         public GameAction SelectedAction
@@ -168,7 +168,7 @@ namespace OpenGLTests.src
 
             if (bu is InventorySlot islot)
             {
-                onFinishedCasting = () => { islot.Consume(); };
+                islot.OnFinishedCasting = () => { islot.Consume(); };
             }
 
             if (bu is EquipmentSlot eslot)
@@ -176,12 +176,7 @@ namespace OpenGLTests.src
                 onChangedAction = () =>
                 {
                 };
-                onFinishedCasting = () =>
-                {
-                };
             }
-
-            onFinishedCasting += () => onFinishedCasting = () => { };
         }
 
         public abstract void PlaceAction(GameAction action, GameCoordinate placeLocation);
@@ -192,6 +187,11 @@ namespace OpenGLTests.src
             SelectedAction = Owner.DefaultAction;
             CurrentButtonSelected = null;
             Player.Cursor.SetIcon(Owner.DefaultAction.Icon);
+        }
+
+        protected void fireOnFinishedCasting()
+        {
+            CurrentButtonSelected.OnFinishedCasting();
         }
     }
 
@@ -236,7 +236,7 @@ namespace OpenGLTests.src
             var finished = first.GetAction().Invoke(args);
             if (finished)
             {
-                onFinishedCasting.Invoke();
+                fireOnFinishedCasting();
                 SubsequentlyPlacedActions.RemoveFirst();
                 if (SubsequentlyPlacedActions.Count() == 0) return ActionStatus.AllFinished;
                 return ActionStatus.Finished;
@@ -362,7 +362,7 @@ namespace OpenGLTests.src
             var finished = currentAction.GetAction().Invoke(args);
             if (finished)
             {
-                onFinishedCasting.Invoke();
+                fireOnFinishedCasting();
                 PlacedActions.RemoveGameAction(currentAction);
                 if (PlacedActions.Count == 0) return ActionStatus.AllFinished;
                 return ActionStatus.Finished;

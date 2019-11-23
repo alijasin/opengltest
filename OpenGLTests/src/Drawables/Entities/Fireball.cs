@@ -46,15 +46,12 @@ namespace OpenGLTests.src.Drawables.Entities
 
                 if(entity.BoundingBox.RectangleIntersects(this.rs))
                 {
+                    if (diesOnImpact) Finished = true;
                     if (entity is IDamagable d)
                     {
                         d.Damage(collisionDamage);
-                        if (diesOnImpact)
-                            Finished = true;
-                        break;
-                        //Fire f = new Fire(entity.Location, new GLCoordinate(0.4f, 0.4f));
-                        //GameState.Drawables.Add(f);
                     }
+                    break;
                 }
             }
 

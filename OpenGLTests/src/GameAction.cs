@@ -335,7 +335,7 @@ namespace OpenGLTests.src
             return (o) =>
             {
                 int i = (int) o;
-                if (i == 0)
+                if (fb == null)
                 {
                     originLoc = new GameCoordinate(Source.Location.X, Source.Location.Y);
                     var dirAngle = MyMath.AngleBetweenTwoPoints(originLoc, PlacedLocation);
@@ -344,10 +344,10 @@ namespace OpenGLTests.src
                 }
 
                 var traveledDistance = MyMath.DistanceBetweenTwoPoints(fb.Location, originLoc);
-   
                 if (traveledDistance > range || fb.Finished)
                 {
                     fb.Dispose();
+                    fb = null;
                     return true;
                 }
 
