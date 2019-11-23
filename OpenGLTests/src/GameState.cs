@@ -125,7 +125,7 @@ namespace OpenGLTests.src
             //todo: if needed the algo can be improved.
             //todo: significant improvement would be that we only check collided if they have movement speed. <-- this is needed not recommended later on.
             //todo: we are assuming all bounding boxes are rectangles. this might not be acceptable later on.
-            foreach (ICollidable collider in Drawables.GetAllCollidables)
+            foreach (ICollidable collider in Drawables.GetAllUnitCollidables)
             {
                 BlockedSides bs = new BlockedSides();
                 foreach (ICollidable collided in Drawables.GetAllCollidables)

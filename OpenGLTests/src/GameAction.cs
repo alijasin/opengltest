@@ -30,7 +30,8 @@ namespace OpenGLTests.src
         Placing,
         Invoked,
         NotReady,
-        NoAction
+        NoAction,
+        WaitingForOther
     }
     //todo split GameAction into Placed Action and Game Action and target action and so on.
     public abstract class GameAction

@@ -12,8 +12,11 @@ namespace OpenGLTests.src.Drawables.Entities
         private GameCoordinate baseSpeed = new GameCoordinate(0.02f, 0.02f);
         private Unit source;
         private int collisionDamage;
-        private bool diesOnImpact = true;
+        private bool diesOnImpact;
         public bool Finished = false;
+
+        private RangeShape rs;
+
         public Fireball(GameCoordinate origin, int dirAngle, int collisionDamage, Unit source, bool diesOnImpact = true)
         {
             this.diesOnImpact = diesOnImpact;
@@ -25,6 +28,7 @@ namespace OpenGLTests.src.Drawables.Entities
             var direction = new GameCoordinate((float) Math.Cos(dirAngle* Math.PI/ 180), -(float)Math.Sin(dirAngle * Math.PI / 180));
             this.Speed = new GameCoordinate(direction.X*baseSpeed.X, direction.Y*baseSpeed.Y);
             this.Rotation = dirAngle;
+            this.rs = new RangeShape(new Rectangle(new GLCoordinate(Size.X/2, Size.Y/2)), this);
         }
 
         public override void DrawStep(DrawAdapter drawer)
@@ -39,21 +43,17 @@ namespace OpenGLTests.src.Drawables.Entities
             foreach (var entity in GameState.Drawables.GetAllCollidables)
             {
                 if(entity == source) continue;
-                //if (entity.BoundingBox.Contains(new GameCoordinate(this.Location.X + this.Size.X/2, this.Location.Y)))
-                //todo we want to check against entity bounding box but we are currently having serialization issues(i think). Get this in order.
-                if (this.Location.CloseEnough(entity.Location, this.Size.X / 2) || this.Location.CloseEnough(entity.Location, this.Size.Y/2))
+
+                if(entity.BoundingBox.RectangleIntersects(this.rs))
                 {
                     if (entity is IDamagable d)
                     {
                         d.Damage(collisionDamage);
+                        if (diesOnImpact)
+                            Finished = true;
+                        break;
                         //Fire f = new Fire(entity.Location, new GLCoordinate(0.4f, 0.4f));
                         //GameState.Drawables.Add(f);
-                    }
-
-                    if (diesOnImpact)
-                    {
-                        Finished = true;
-                        break;
                     }
                 }
             }

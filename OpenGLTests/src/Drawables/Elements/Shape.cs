@@ -72,7 +72,10 @@ namespace OpenGLTests.src.Drawables
             }
         }
 
+        //--------------------------------------------------------------------------
         //todo: these all assume rectangles, which might not be acceptable later on.
+        //--------------------------------------------------------------------------
+        
         public float Left => this.Location.X - (this.Shape as Rectangle).Dimensions.X/2;
         public float Right => this.Location.X + (this.Shape as Rectangle).Dimensions.X/2;
         public float Bottom => this.Location.Y - (this.Shape as Rectangle).Dimensions.Y/2;
@@ -80,6 +83,11 @@ namespace OpenGLTests.src.Drawables
 
         public float XCenter => Left + (Right - Left) / 2;
         public float YCenter => Bottom + (Top - Bottom) / 2;
+
+        public bool RectangleIntersects(RangeShape other)
+        {
+            return (this.Left < other.Right && this.Right > other.Left && this.Top > other.Bottom && this.Bottom < other.Top);
+        }
     }
     
     public class Circle : IShape

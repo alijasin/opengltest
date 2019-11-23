@@ -193,7 +193,7 @@ namespace OpenGLTests.src.Screens
                 {
                     GameCoordinate placed = new GameCoordinate(input.MouseButtonArgs.X, input.MouseButtonArgs.Y);
                     var xd = CoordinateFuckery.ClickToGLRelativeToCamera(placed, new GameCoordinate(0, 0));
-                    if (Game.Hero.ActionStatus == ActionStatus.Ongoing && Game.Hero.InCombat) return; 
+                    //if (Game.Hero.ActionStatus == ActionStatus.Ongoing && Game.Hero.InCombat) return; 
                     Game.Hero.ActionHandler.OnMouseDown(xd);
 
 

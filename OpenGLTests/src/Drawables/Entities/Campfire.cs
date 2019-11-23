@@ -10,7 +10,7 @@ namespace OpenGLTests.src.Drawables.Entities
 {
     class Campfire : Stuff
     {
-        EffectGenerator eg = new EffectGenerator();
+
         public Campfire(GameCoordinate location)
         {
             this.Location = location;
@@ -19,14 +19,8 @@ namespace OpenGLTests.src.Drawables.Entities
             this.Animation.SetSprite(SpriteID.camp_fire);
             this.Animation.IsStatic = true;
             GameState.Drawables.Add(this);
-            eg.CreateCircleEffects(50, this, new GameCoordinate(0.001f, 0.01f), Color.Gray);
         }
 
-        public override void DrawStep(DrawAdapter drawer)
-        {
-            base.DrawStep(drawer);
-            eg.DrawStep(drawer);
-        }
 
         public Action<GameCoordinate> OnClick { get; set; }
 

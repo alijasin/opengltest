@@ -81,6 +81,7 @@ namespace OpenGLTests.src
             FighterQueue.Enqueue(FighterQueue.Dequeue());
             u.OnPostTurn();
             FighterQueue.Peek().Unit.OnPreTurn();
+            u.ActionStatus = ActionStatus.WaitingForOther;
         }
 
         private static List<Unit> toRemove = new List<Unit>();

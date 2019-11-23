@@ -14,7 +14,7 @@ using OpenGLTests.src.Util;
 
 namespace OpenGLTests.src.Drawables
 {
-    public class Hero : Unit, IActionCapable, IDamagable, ICollidable
+    public class Hero : Unit, ICollidable
     {
 
         //todo put all these things into some wrapper thing
@@ -105,14 +105,6 @@ namespace OpenGLTests.src.Drawables
             this.AvailableActionPoints = 5; //needs to be after ACTIONPOINTSBAR for it to be updated properly initially
             
         }
-
-        //todo remove this
-        /*public void ResetDefaultActionToMove()
-        {
-            if (ActionHandler.SelectedAction != null) ActionHandler.SelectedAction.RangeShape.Visible = false;
-            ActionBar.GetDefaultButton().OnInteraction.Invoke();
-            if (!InCombat) ActionHandler.SelectedAction.RangeShape.IsInfinite = true;//set it to infinite range
-        }*/
 
         public override int AvailableActionPoints
         {

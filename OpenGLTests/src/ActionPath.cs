@@ -143,6 +143,7 @@ namespace OpenGLTests.src
         public void OnMouseUp(GameCoordinate mouseLocation)
         {
             if (SelectedAction == null) return;
+            if (Owner.ActionStatus == ActionStatus.WaitingForOther) return;
 
             if (SelectedAction.PlacementFilter(mouseLocation))
             {
@@ -222,6 +223,7 @@ namespace OpenGLTests.src
 
         public override void PlaceAction(GameAction action, GameCoordinate placeLocation)
         {
+            if (SelectedAction == null) return;
             SelectedAction.PayPreConditions();
             SubsequentlyPlacedActions.Add(action);
             SelectedAction.Place(placeLocation, SelectedAction.Icon);
@@ -247,6 +249,8 @@ namespace OpenGLTests.src
         public override void OnMouseDown(GameCoordinate mouseLocation)
         {
             if (SelectedAction == null) return;
+            if (Owner.ActionStatus == ActionStatus.WaitingForOther) return;
+            if (!SelectedAction.PlacementFilter(mouseLocation)) return;
 
             if (SubsequentlyPlacedActions.AlreadyPlaced(SelectedAction))
             {

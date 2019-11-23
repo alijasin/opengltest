@@ -19,6 +19,7 @@ namespace OpenGLTests.src
         public List<Element> GetAllElements => GetWhere<Element>(drawable => drawable is Element);
         public List<Unit> GetAllUnits => GetWhere<Unit>(drawable => drawable is Unit);
         public List<Hero> GetAllHeroes => GetWhere<Hero>(drawable => drawable is Hero).ToList();
+        public List<ICollidable> GetAllUnitCollidables => GetWhere<ICollidable>(drawable => drawable is ICollidable && drawable is Unit).ToList();
         public List<ICollidable> GetAllCollidables => GetWhere<ICollidable>(drawable => drawable is ICollidable).ToList();
         public List<IRegion> GetAllRegions => GetWhere<IRegion>(drawable => drawable is IRegion).ToList();
         public List<Effect> GetAllEffects => GetWhere<Effect>(drawable => drawable is Effect).ToList();
