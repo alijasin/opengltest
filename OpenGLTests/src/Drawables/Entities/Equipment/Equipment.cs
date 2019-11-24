@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -8,17 +9,6 @@ using OpenGLTests.src.Util;
 
 namespace OpenGLTests.src.Drawables.Entities.Equipment
 {
-    public enum EquipmentSlotType
-    {
-        Head,
-        Hand,
-        Feet,
-        Leg,
-        Chest,
-        Trinket,
-        Weapon,
-    }
-
     public abstract class EquipmentItem : Item
     {
         public EquipmentSlotType SlotType { get; set; }
@@ -96,6 +86,7 @@ namespace OpenGLTests.src.Drawables.Entities.Equipment
         public BootItem(Unit owner) : base(owner)
         {
             SlotType = EquipmentSlotType.Feet;
+            DestroyOnPickUp = true;
         }
     }
 
@@ -104,6 +95,7 @@ namespace OpenGLTests.src.Drawables.Entities.Equipment
         public EmptyHead(Unit owner) : base(owner)
         {
             Icon = SpriteID.equipment_icon_plate_head;
+            DestroyOnPickUp = true;
         }
     }
 

@@ -358,5 +358,4 @@ namespace OpenGLTests.src.Drawables
     public abstract class Indicator : Entity
     {
     }
-
 }

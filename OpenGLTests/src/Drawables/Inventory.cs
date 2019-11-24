@@ -64,9 +64,17 @@ namespace OpenGLTests.src.Drawables
 
         public bool Add(Item i)
         {
+            //items that destroys on pick up are still considered to be picked up before it is not added to inventory.
+            if (i.DestroyOnPickUp)
+            {
+                i.OnPickup();
+                return true;
+            }
+
             //add stack if already in inventory and then return.
             if (i.Stackable && InventorySlots.Any(islot => islot.Item.GetType() == i.GetType()))
             {
+                i.OnPickup();
                 var islot = InventorySlots.Find(isloter => isloter.Item.GetType() == i.GetType());
                 islot.Item.Count++;
                 return true;
@@ -75,9 +83,21 @@ namespace OpenGLTests.src.Drawables
             //if no room return
             var firstEmptyIndex = firstEmptySlotIndex();
             if (firstEmptyIndex == -1) return false;
-
             InventorySlots[firstEmptyIndex].SetItem(i);
+            i.OnPickup();
             return true;
+        }
+
+        public void Remove(Item i)
+        {
+            foreach (var islot in InventorySlots)
+            {
+                if (islot.Item == i)
+                {
+                    islot.SetItem(new Nothing(Owner));
+                    break;
+                }
+            }
         }
 
         public void Remove(InventorySlot i)

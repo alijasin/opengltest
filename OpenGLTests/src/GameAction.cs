@@ -47,6 +47,7 @@ namespace OpenGLTests.src
         public virtual Func<GameCoordinate, bool> PlacementFilter { get; set; }
         public Unit Source { get; set; }
         protected int ActionPointCost = 0;
+        public virtual Action OnFinished { get; set; } = () => { };
         public virtual Func<NPCState, GameCoordinate> NPCActionPlacementCalculator { get; set; } = (state) => new GameCoordinate(0, 0); 
         public GameCoordinate PlacedLocation { get; set; }
         public Animation IconAnimation { get; set; }
@@ -261,7 +262,7 @@ namespace OpenGLTests.src
 
             PlacementFilter += coordinate =>
             {
-                var slot = source.EquipmentHandler.DroppedInSlot(coordinate);
+                var slot = source.EquipmentHandler.DroppedInSlot(equipmentItem, coordinate);
                 if (slot != null)
                 {
                     return true;

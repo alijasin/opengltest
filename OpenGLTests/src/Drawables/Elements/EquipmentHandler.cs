@@ -10,6 +10,17 @@ using OpenGLTests.src.Util;
 
 namespace OpenGLTests.src.Drawables.Elements
 {
+    public enum EquipmentSlotType
+    {
+        Head,
+        Hand,
+        Feet,
+        Leg,
+        Chest,
+        Trinket,
+        Weapon,
+    }
+
     public class EquipmentHandler : Element
     {
         private const string leftFoot = "Left Foot";
@@ -87,20 +98,52 @@ namespace OpenGLTests.src.Drawables.Elements
         /// </summary>
         /// <param name="point"></param>
         /// <returns></returns>
-        public EquipmentSlot DroppedInSlot(GameCoordinate point)
+        public EquipmentSlot DroppedInSlot(EquipmentItem item, GameCoordinate point)
         {
             var glPoint = point.ToGLCoordinate();
 
+            var slot = getSlotByType(item.SlotType);
+            if (slot != null)
+            {
+                if (slot.Location.X - slot.Size.X / 2 < glPoint.X && slot.Location.X + slot.Size.X / 2 > glPoint.X
+                 && slot.Location.Y + slot.Size.Y / 2 > glPoint.Y && slot.Location.Y - slot.Size.Y / 2 < glPoint.Y)
+                {
+                    return slot;
+                }
+            }
+            /*
             //lmao i love doing this logic at multiple places. its so much fun!!!! todo
             foreach (var slot in equipmentSlots)
             {
+
                 if (slot.Location.X - slot.Size.X/2 < glPoint.X && slot.Location.X + slot.Size.X/2 > glPoint.X
                  && slot.Location.Y + slot.Size.Y/2 > glPoint.Y && slot.Location.Y - slot.Size.Y/2 < glPoint.Y)
                 {
                     return slot;
                 }
-            }
+            }*/
             return null;
+        }
+
+        private EquipmentSlot getSlotByType(EquipmentSlotType slotType)
+        {
+            foreach (var islot in equipmentSlots)
+            {
+                if (islot.EquipmentItem.SlotType == slotType) return islot;
+            }
+
+            return null;
+        }
+
+        public void Equip(EquipmentItem equipmentItem)
+        {
+            foreach (var eslot in equipmentSlots)
+            {
+                if (eslot.EquipmentItem.SlotType == equipmentItem.SlotType)
+                {
+                    eslot.SetItem(equipmentItem);
+                }
+            }
         }
 
         public void Unequip(EquipmentItem equipmentItem)

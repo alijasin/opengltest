@@ -25,11 +25,13 @@ namespace OpenGLTests.src
 
     public abstract class Item : Entity, IDroppable
     {
+        public Action OnPickup { get; set; } = () => { };
         public bool Stackable { get; set; } = false;
         public int Count { get; set; } = 1;
         public Rarity Rarity { get; set; } = Rarity.Common;
         public ItemAction Action;
         public bool Consumable { get; set; } = true;
+        public bool DestroyOnPickUp { get; set; } = false; //todo: some other way to make this possibly? 
         public SpriteID Icon
         {
             get => Action.Icon;

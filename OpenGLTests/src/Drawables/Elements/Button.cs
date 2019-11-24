@@ -78,9 +78,11 @@ namespace OpenGLTests.src.Drawables
 
     public class EquipmentSlot : ActionButton, IRightClickable
     {
-        public EquipmentItem EquipmentItem { get; private set; }
+        public EquipmentItem EquipmentItem { get; set; }
+        private Hero owner;
         public EquipmentSlot(Hero owner, EquipmentItem ei)
         {
+            this.owner = owner;
             this.Color = Color.White;
             this.Size = StandardSize;
             this.Animation = new Animation(new SpriteSheet_Icons());
@@ -125,10 +127,10 @@ namespace OpenGLTests.src.Drawables
             if (islot.Item is EquipmentItem ei)
             {
                 var tempItem = this.EquipmentItem;
-                SetItem(ei);
-                Console.WriteLine(tempItem.GetType());
-                //islot.SetItem(new Nothing(owner));
-                islot.SetItem(tempItem);
+
+                owner.EquipmentHandler.Equip(ei); //add item to gear.
+                this.owner.Inventory.Remove(this.EquipmentItem); //remove item from inventory.
+                this.owner.Inventory.Add(tempItem); //add the gear item into the inventory.
                 return true;
             }
 
