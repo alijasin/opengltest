@@ -18,8 +18,6 @@ d4i1
 Improvement points:
 
 Really need to improve our Movement in GameActinoLambdas. First of all, the code is duplicated for a move and move away(instead of just having +GameCoordinate or -GameCoordinate).
-Second of all, this is the place where a units direction is set, which might be OK, but thats not it. Third of all, it does the collision checking here. 
-That means, for each entity that is moving, all entities will be checked whether they are collided with, every step. Yeah..
-Instead we move collision check and do a O(N^2) at the end of gamestep. 
+Second of all, this is the place where a units direction is set, which might be OK, but later on some spells might want to set a new direction and all these would need to calculate which direction.
 
-Wait until actionstatus of unit is finished before fight begins.
+Wait until actionstatus of unit is finished before fight begins. This should prevent hooks of being cancelled when hooking unit as fight starts.
