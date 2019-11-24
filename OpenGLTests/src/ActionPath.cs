@@ -191,7 +191,7 @@ namespace OpenGLTests.src
 
         protected void fireOnFinishedCasting()
         {
-            CurrentButtonSelected.OnFinishedCasting();
+            CurrentButtonSelected?.OnFinishedCasting();
         }
     }
 
