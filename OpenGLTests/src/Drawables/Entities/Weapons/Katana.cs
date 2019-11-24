@@ -14,6 +14,7 @@ namespace OpenGLTests.src.Drawables.Entities
         public Katana(Unit owner) : base(owner)
         {
             this.Animation = new Animation(new SpriteSheet_Weapon());
+            this.Icon = SpriteID.weapon_katana_icon;
             this.Animation.SetSprite(SpriteID.weapon_katana);
             this.Animation.IsStatic = true;
             this.Size = new GLCoordinate(0.04f, 0.2f);

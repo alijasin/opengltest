@@ -33,7 +33,7 @@ namespace OpenGLTests.src.Drawables.Entities.Equipment
 
         public Weapon(Unit owner) : base(owner)
         {
-
+            
         }
 
         public override GameCoordinate Location

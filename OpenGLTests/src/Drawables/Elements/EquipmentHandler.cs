@@ -29,6 +29,7 @@ namespace OpenGLTests.src.Drawables.Elements
         private const string leg = "Leg";
         private const string leftHand = "Left Hand";
         private const string rightHand = "Right Hand";
+        private const string weapon = "Weapon";
 
         private List<EquipmentSlot> equipmentSlots = new List<EquipmentSlot>();
         private RectangleElement background = new RectangleElement();
@@ -76,6 +77,10 @@ namespace OpenGLTests.src.Drawables.Elements
             var headSlot = new EquipmentSlot(owner, new EmptyHead(owner));
             headSlot.Location = new GLCoordinate(background.Location + slotToLoc[head]);
             equipmentSlots.Add(headSlot);
+
+            var weaponSlot = new EquipmentSlot(owner, new Katana(owner));
+            weaponSlot.Location = new GLCoordinate(background.Location + slotToLoc[weapon]);
+            equipmentSlots.Add(weaponSlot);
 
             foreach (var slot in equipmentSlots) slot.Visible = false; //todo: double drawing will be done if not this row.
         }

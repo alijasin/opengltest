@@ -3693,6 +3693,16 @@ namespace OpenGLTests.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap weapon_katana_icon {
+            get {
+                object obj = ResourceManager.GetObject("weapon_katana_icon", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap weapon_knife {
             get {
                 object obj = ResourceManager.GetObject("weapon_knife", resourceCulture);

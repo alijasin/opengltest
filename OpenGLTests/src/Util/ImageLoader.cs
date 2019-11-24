@@ -102,6 +102,7 @@ namespace OpenGLTests.src.Util
         weapon_golden_sword,
         weapon_katana,
         weapon_staff_red_crown,
+        weapon_katana_icon, 
 
         action_move,
         action_attack,
@@ -205,6 +206,8 @@ namespace OpenGLTests.src.Util
             Images[SpriteID.weapon_golden_sword] = new Bitmap(Properties.Resources.weapon_golden_sword);
             Images[SpriteID.weapon_katana] = new Bitmap(Properties.Resources.weapon_katana);
             Images[SpriteID.weapon_staff_red_crown] = new Bitmap(Properties.Resources.staff_red_crown);
+            Images[SpriteID.weapon_katana_icon] = new Bitmap(Properties.Resources.weapon_katana_icon);
+
 
             Images[SpriteID.ogre_run_anim_f0] = new Bitmap(Properties.Resources.ogre_run_anim_f0);
             Images[SpriteID.ogre_run_anim_f1] = new Bitmap(Properties.Resources.ogre_run_anim_f1);
