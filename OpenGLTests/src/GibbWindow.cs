@@ -46,6 +46,13 @@ namespace OpenGLTests.src
 
             SetDefaultCursor();
 
+            LoggingOutput console = new ConsoleOutput(Logger.LoggingLevel.Info, true);
+            LoggingOutput file = new FileOutput(Logger.LoggingLevel.All, true);
+            Logger.SetDefaultLoggingLevel(Logger.LoggingLevel.Info);
+            Logger.AddLoggingOutput(console);
+            Logger.AddLoggingOutput(file);
+            Logger.Write("Started loggers.");
+
             Title = "Oyy veeyyy";
         }
 

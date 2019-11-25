@@ -140,6 +140,7 @@
     <Compile Include="src\Util\InputUnion.cs" />
     <Compile Include="src\Util\EntitySerializer.cs" />
     <Compile Include="src\Util\JsonCoordinateReader.cs" />
+    <Compile Include="src\Util\Logger.cs" />
     <Compile Include="src\Util\MazeCreator.cs" />
     <Compile Include="src\Util\MyMath.cs" />
     <Compile Include="src\Util\RNG.cs" />
