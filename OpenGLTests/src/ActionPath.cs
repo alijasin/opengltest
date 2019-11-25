@@ -113,6 +113,7 @@ namespace OpenGLTests.src
         public IActionCapable Owner { get; set; }
 
         protected Action onChangedAction { get; set; } = () => { };
+        private GameAction tempAction;
         private GameAction selectedAction;
         public GameAction SelectedAction
         {
@@ -125,6 +126,7 @@ namespace OpenGLTests.src
                     selectedAction.Hide();
                 }
 
+                //tempAction = value;
 
                 selectedAction = value;
                 selectedAction.Show();
@@ -168,7 +170,9 @@ namespace OpenGLTests.src
 
             if (bu is InventorySlot islot)
             {
-                islot.OnFinishedCasting = () => { islot.Consume(); };
+                islot.OnFinishedCasting = () =>
+                {
+                    Console.WriteLine("fucked up");islot.Consume(); };
             }
 
             if (bu is EquipmentSlot eslot)

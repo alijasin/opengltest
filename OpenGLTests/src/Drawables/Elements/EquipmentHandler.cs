@@ -82,7 +82,10 @@ namespace OpenGLTests.src.Drawables.Elements
             weaponSlot.Location = new GLCoordinate(background.Location + slotToLoc[weapon]);
             equipmentSlots.Add(weaponSlot);
 
-            foreach (var slot in equipmentSlots) slot.Visible = false; //todo: double drawing will be done if not this row.
+            foreach (var slot in equipmentSlots)
+            {
+               // slot.Visible = false; //todo: double drawing will be done if not this row.
+            }
         }
 
         public override void DrawStep(DrawAdapter drawer)
@@ -146,7 +149,14 @@ namespace OpenGLTests.src.Drawables.Elements
 
         public void Unequip(EquipmentItem equipmentItem)
         {
-            
+            foreach (var eslot in equipmentSlots)
+            {
+                if (eslot.EquipmentItem.SlotType == equipmentItem.SlotType)
+                {
+                    //todo: set correct item.
+                    eslot.SetItem(new EmptyBoot(owner));
+                }
+            }
         }
     }
 }
