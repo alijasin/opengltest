@@ -81,7 +81,13 @@ namespace OpenGLTests.src.Screens
                 _ => Game.Hero.EquipmentHandler.ToggleVisibility(),
                 _ => { }
             ));
-#endregion
+
+            Bind(new Hotkey(
+                input => input.IsKeyboardInput && (input.KeyboardArgs.Key == OpenTK.Input.Key.Escape),
+                _ => Game.Hero.ActionHandler.ClearSelected(),
+                _ => { }
+            ));
+            #endregion
             #region ActionBar Hotkeys
             Bind(new Hotkey(
                 input => input.IsKeyboardInput && (input.KeyboardArgs.Key == OpenTK.Input.Key.Number1),

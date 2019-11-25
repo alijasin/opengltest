@@ -94,6 +94,7 @@ namespace OpenGLTests.src.Drawables.Entities.Equipment
     {
         public EmptyHead(Unit owner) : base(owner)
         {
+            this.Action = new NothingAction(owner);
             Icon = SpriteID.equipment_icon_plate_head;
             DestroyOnPickUp = true;
         }
@@ -103,7 +104,9 @@ namespace OpenGLTests.src.Drawables.Entities.Equipment
     {
         public EmptyBoot(Unit owner) : base(owner)
         {
+            this.Action = new NothingAction(owner);
             Icon = SpriteID.equipment_icon_leather_boots;
+            DestroyOnPickUp = true;
         }
     }
 
