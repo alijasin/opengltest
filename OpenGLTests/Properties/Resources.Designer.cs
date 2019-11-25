@@ -3813,6 +3813,16 @@ namespace OpenGLTests.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap weapon_unarmed_icon {
+            get {
+                object obj = ResourceManager.GetObject("weapon_unarmed_icon", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap wizzard_f_hit_anim_f0 {
             get {
                 object obj = ResourceManager.GetObject("wizzard_f_hit_anim_f0", resourceCulture);

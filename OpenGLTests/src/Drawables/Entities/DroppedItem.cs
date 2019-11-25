@@ -63,5 +63,6 @@ namespace OpenGLTests.src.Drawables.Entities
             return Location.X - Size.X / 2 < point.X && Location.X + Size.X / 2 > point.X &&
                    Location.Y - Size.Y / 2 < point.Y && Location.Y + Size.Y / 2 > point.Y;
         }
+
     }
 }

@@ -33,7 +33,7 @@ namespace OpenGLTests.src.Drawables.Entities.Equipment
 
         public Weapon(Unit owner) : base(owner)
         {
-            
+            SlotType = EquipmentSlotType.Weapon;
         }
 
         public override GameCoordinate Location
@@ -106,6 +106,16 @@ namespace OpenGLTests.src.Drawables.Entities.Equipment
         {
             this.Action = new NothingAction(owner);
             Icon = SpriteID.equipment_icon_leather_boots;
+            DestroyOnPickUp = true;
+        }
+    }
+
+    public class EmptyWeapon : Weapon
+    {
+        public EmptyWeapon(Unit owner) : base(owner)
+        {
+            this.Action = new NothingAction(owner);
+            Icon = SpriteID.weapon_unarmed_icon;
             DestroyOnPickUp = true;
         }
     }

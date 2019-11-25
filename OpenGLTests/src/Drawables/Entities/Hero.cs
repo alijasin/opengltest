@@ -43,7 +43,7 @@ namespace OpenGLTests.src.Drawables
             this.ActionHandler = new OutOfCombatActionHandler(this);
             this.Initiative = 10;
             this.HitPoints = 5;
-            this.Weapon = new Katana(this);
+            //this.Weapon = new Katana(this);
             
 
             EquipmentHandler = new EquipmentHandler(this);

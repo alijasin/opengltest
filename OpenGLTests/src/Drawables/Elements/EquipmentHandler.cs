@@ -78,7 +78,7 @@ namespace OpenGLTests.src.Drawables.Elements
             headSlot.Location = new GLCoordinate(background.Location + slotToLoc[head]);
             equipmentSlots.Add(headSlot);
 
-            var weaponSlot = new EquipmentSlot(owner, new Katana(owner));
+            var weaponSlot = new EquipmentSlot(owner, new EmptyWeapon(owner));
             weaponSlot.Location = new GLCoordinate(background.Location + slotToLoc[weapon]);
             equipmentSlots.Add(weaponSlot);
 
@@ -116,17 +116,6 @@ namespace OpenGLTests.src.Drawables.Elements
                     return slot;
                 }
             }
-            /*
-            //lmao i love doing this logic at multiple places. its so much fun!!!! todo
-            foreach (var slot in equipmentSlots)
-            {
-
-                if (slot.Location.X - slot.Size.X/2 < glPoint.X && slot.Location.X + slot.Size.X/2 > glPoint.X
-                 && slot.Location.Y + slot.Size.Y/2 > glPoint.Y && slot.Location.Y - slot.Size.Y/2 < glPoint.Y)
-                {
-                    return slot;
-                }
-            }*/
             return null;
         }
 
@@ -147,6 +136,10 @@ namespace OpenGLTests.src.Drawables.Elements
                 if (eslot.EquipmentItem.SlotType == equipmentItem.SlotType)
                 {
                     eslot.SetItem(equipmentItem);
+                    if (equipmentItem is Weapon w)
+                    {
+                        owner.Weapon = w;
+                    }
                 }
             }
         }

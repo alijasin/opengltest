@@ -145,6 +145,7 @@
     <Compile Include="src\Util\MyMath.cs" />
     <Compile Include="src\Util\RNG.cs" />
     <Compile Include="src\Util\Shader.cs" />
+    <Compile Include="src\Util\ItemUtil.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -1159,6 +1160,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="known bugs.txt" />
+    <None Include="Resources\unarmed_icon.png" />
     <None Include="Resources\weapon_katana_icon.png" />
     <None Include="Resources\weapon_katana1.png" />
     <None Include="Resources\golden_crown.png" />
