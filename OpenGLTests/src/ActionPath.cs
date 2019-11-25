@@ -184,6 +184,7 @@ namespace OpenGLTests.src
 
         public void ClearSelected()
         {
+            if(SelectedAction != null) SelectedAction.Dispose();
             SelectedAction = Owner.DefaultAction;
             CurrentButtonSelected = null;
             Player.Cursor.SetIcon(Owner.DefaultAction.Icon);

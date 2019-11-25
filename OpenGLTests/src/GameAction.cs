@@ -122,6 +122,7 @@ namespace OpenGLTests.src
 
         public void Dispose()
         {
+            PlacedLocation = Source.Location;
             IsPlaced = false;
 
             if (Marker != null)
