@@ -31,6 +31,7 @@ namespace OpenGLTests.src.Drawables.Elements
         private const string rightHand = "Right Hand";
         private const string weapon = "Weapon";
 
+        private List<EquipmentItem> defaultEquipment = new List<EquipmentItem>();
         private List<EquipmentSlot> equipmentSlots = new List<EquipmentSlot>();
         private RectangleElement background = new RectangleElement();
         private GLCoordinate backgroundSize = new GLCoordinate(0.6f, 0.6f);
@@ -84,6 +85,7 @@ namespace OpenGLTests.src.Drawables.Elements
 
             foreach (var slot in equipmentSlots)
             {
+                defaultEquipment.Add(slot.EquipmentItem);
                // slot.Visible = false; //todo: double drawing will be done if not this row.
             }
         }
@@ -132,6 +134,8 @@ namespace OpenGLTests.src.Drawables.Elements
             return null;
         }
 
+        //todo: both equip and unequip do stupid looping which would not be needed if we would maybe have some kind of ~
+        //      dictionary instead of two arrays.
         public void Equip(EquipmentItem equipmentItem)
         {
             foreach (var eslot in equipmentSlots)
@@ -146,16 +150,19 @@ namespace OpenGLTests.src.Drawables.Elements
                 }
             }
         }
-
+        //todo: both equip and unequip do stupid looping which would not be needed if we would maybe have some kind of ~
+        //      dictionary instead of two arrays.
         public void Unequip(EquipmentItem equipmentItem)
         {
-            foreach (var eslot in equipmentSlots)
+            int i = 0;
+            foreach (var defItem in defaultEquipment)
             {
-                if (eslot.EquipmentItem.SlotType == equipmentItem.SlotType)
+                if (defItem.SlotType == equipmentItem.SlotType)
                 {
-                    //todo: set correct item.
-                    eslot.SetItem(new EmptyBoot(owner));
+                    equipmentSlots[i].SetItem(defItem);
                 }
+
+                i++;
             }
         }
     }

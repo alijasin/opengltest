@@ -126,7 +126,7 @@ namespace OpenGLTests.src
                     selectedAction.Hide();
                 }
 
-                //tempAction = value;
+                tempAction = value;
 
                 selectedAction = value;
                 selectedAction.Show();
@@ -172,7 +172,8 @@ namespace OpenGLTests.src
             {
                 islot.OnFinishedCasting = () =>
                 {
-                    Console.WriteLine("fucked up");islot.Consume(); };
+                    islot.Consume();
+                };
             }
 
             if (bu is EquipmentSlot eslot)
