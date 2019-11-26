@@ -399,6 +399,7 @@ namespace OpenGLTests.src
             { SpriteID.equipment_icon_golden_crown, 6 },
             { SpriteID.mossy_boot, 6 },
             { SpriteID.weapon_katana_icon, 12 },
+            { SpriteID.weapon_staff_red_crown, 12 },
             { SpriteID.weapon_unarmed_icon, 12 },
 
         })

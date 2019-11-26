@@ -31,5 +31,23 @@ namespace OpenGLTests.src.Util
                    d.Location.Y - d.Size.Y / 2 < clicked.Y && d.Location.Y + d.Size.Y / 2 > clicked.Y;
         }
 
+        public static bool EntityContainsAndCloseEnough(Entity thisEntity, Entity other, GameCoordinate point, float distance)
+        {
+            //if we are close enough to item
+            if (!thisEntity.Location.CloseEnough(other.Location, other.Size.X * 2)) return false;
+            //if the click was on the item
+            return thisEntity.Location.X - thisEntity.Size.X / 2 < point.X && thisEntity.Location.X + thisEntity.Size.X / 2 > point.X &&
+                   thisEntity.Location.Y - thisEntity.Size.Y / 2 < point.Y && thisEntity.Location.Y + thisEntity.Size.Y / 2 > point.Y;
+        }
+
+        public static bool ClickedEntityIsPrettyClose(Entity thisEntity, Entity other, GameCoordinate point)
+        {
+            //if we are close enough to item
+            if (!thisEntity.Location.CloseEnough(other.Location, other.Size.X * 2)) return false;
+            //if the click was on the item
+            return thisEntity.Location.X - thisEntity.Size.X / 2 < point.X && thisEntity.Location.X + thisEntity.Size.X / 2 > point.X &&
+                   thisEntity.Location.Y - thisEntity.Size.Y / 2 < point.Y && thisEntity.Location.Y + thisEntity.Size.Y / 2 > point.Y;
+        }
+
     }
 }

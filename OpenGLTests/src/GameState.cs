@@ -7,6 +7,7 @@ using OpenGLTests.src.Drawables;
 using OpenGLTests.src.Drawables.Elements;
 using OpenGLTests.src.Drawables.Entities;
 using OpenGLTests.src.Drawables.Entities.Equipment;
+using OpenGLTests.src.Drawables.Entities.Weapons;
 using OpenGLTests.src.Drawables.Terrain;
 
 using OpenGLTests.src.Util;
@@ -32,6 +33,7 @@ namespace OpenGLTests.src
 
             RoomLoader.LoadRoom(RoomLoader.Room.TestEditorOutPut);
             ItemUtil.SpawnItem(new Katana(new Dummy()), new GameCoordinate(0.2f, 0.2f));
+            ItemUtil.SpawnItem(new Staff(new Dummy()), new GameCoordinate(-0.2f, 0.2f));
             //var k = new DroppedItem<EquipmentItem>(new Katana(new Dummy()), new GameCoordinate(0, 0));
         }
 
