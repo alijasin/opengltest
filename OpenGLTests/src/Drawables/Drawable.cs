@@ -322,7 +322,10 @@ namespace OpenGLTests.src.Drawables
         public override void DrawStep(DrawAdapter drawer)
         {
             base.DrawStep(drawer);
-            if(Weapon != null) Weapon.DrawStep(drawer);
+            if (Weapon != null)
+            {
+                if(!(Weapon is EmptyWeapon)) Weapon.DrawStep(drawer);
+            }
         }
     }
 

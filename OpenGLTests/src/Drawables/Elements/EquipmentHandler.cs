@@ -160,7 +160,7 @@ namespace OpenGLTests.src.Drawables.Elements
                 if (defItem.SlotType == equipmentItem.SlotType)
                 {
                     equipmentSlots[i].SetItem(defItem);
-                    //todo: unequip weapon from hero
+                    owner.Weapon = new EmptyWeapon(owner);
                 }
 
                 i++;
