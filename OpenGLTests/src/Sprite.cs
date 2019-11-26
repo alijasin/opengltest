@@ -357,6 +357,7 @@ namespace OpenGLTests.src
         {
             { SpriteID.crate, 5},
             { SpriteID.camp_fire, 12 },
+            { SpriteID.extinguish_camp_fire, 12 },
 
             { SpriteID.bear_trap_closed, 12},
             { SpriteID.bear_trap_open, 12 }

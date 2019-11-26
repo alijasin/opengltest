@@ -1033,6 +1033,16 @@ namespace OpenGLTests.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap extinguish_camp_fire {
+            get {
+                object obj = ResourceManager.GetObject("extinguish_camp_fire", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap fire_sword_slash_green {
             get {
                 object obj = ResourceManager.GetObject("fire_sword_slash_green", resourceCulture);

@@ -18,6 +18,7 @@ namespace OpenGLTests.src.Util
         bear_trap_closed,
         bear_trap_open,
         camp_fire,
+        extinguish_camp_fire,
         fire_sword_slash_green,
         fire_sword_slash_red,
         haunch,
@@ -240,6 +241,7 @@ namespace OpenGLTests.src.Util
             Images[SpriteID.bear_trap_closed] = new Bitmap(Properties.Resources.bear_trap_closed);
             Images[SpriteID.bear_trap_open] = new Bitmap(Properties.Resources.bear_trap_open);
             Images[SpriteID.camp_fire] = new Bitmap(Properties.Resources.camp_fire);
+            Images[SpriteID.extinguish_camp_fire] = new Bitmap(Properties.Resources.extinguish_camp_fire);
             Images[SpriteID.fire_sword_slash_green] = new Bitmap(Properties.Resources.fire_sword_slash_green);
             Images[SpriteID.fire_sword_slash_red] = new Bitmap(Properties.Resources.fire_sword_slash_red);
             Images[SpriteID.haunch] = new Bitmap(Properties.Resources.haunch);

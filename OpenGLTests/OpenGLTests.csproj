@@ -367,6 +367,7 @@
     <None Include="Resources\elf_m_run_anim_f3.png" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\extinguish_camp_fire.pdn" />
     <None Include="Resources\flask_big_blue.png" />
   </ItemGroup>
   <ItemGroup>
@@ -1160,6 +1161,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="known bugs.txt" />
+    <None Include="Resources\extinguish_camp_fire.png" />
     <None Include="Resources\unarmed_icon.png" />
     <None Include="Resources\weapon_katana_icon.png" />
     <None Include="Resources\weapon_katana1.png" />

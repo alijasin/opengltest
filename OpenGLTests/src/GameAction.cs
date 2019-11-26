@@ -522,6 +522,8 @@ namespace OpenGLTests.src
         {
             return o =>
             {
+                if (!Source.HasWeapon) return true;
+
                 int i = (int) o;
                 var angle = MyMath.AngleBetweenTwoPoints(Source.Location, Marker.Location);
                 if (i == 0)
@@ -850,7 +852,7 @@ namespace OpenGLTests.src
         }
     }
 
-    //this really shouldnt be unlike hero move action. Todo
+    //this really shouldnt be unlike hero move action OR? Reconsider. Todo
     class UnitMoveAction : GameAction
     {
         public UnitMoveAction(Unit source, GameCoordinate moveTo) : base(source)

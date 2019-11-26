@@ -7,6 +7,6 @@ namespace OpenGLTests
     {
         Action OnInteraction { get; set; }
         bool Contains(GameCoordinate point);
-        bool Visible { get; set; } //todo, this probably shouldnt be here?
+        bool Visible { get; set; }
     }
 }

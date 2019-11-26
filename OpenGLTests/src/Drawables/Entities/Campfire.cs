@@ -8,7 +8,7 @@ using OpenGLTests.src.Util;
 
 namespace OpenGLTests.src.Drawables.Entities
 {
-    class Campfire : Stuff
+    class Campfire : Stuff, ILeftClickable
     {
 
         public Campfire(GameCoordinate location)
@@ -19,10 +19,12 @@ namespace OpenGLTests.src.Drawables.Entities
             this.Animation.SetSprite(SpriteID.camp_fire);
             this.Animation.IsStatic = true;
             GameState.Drawables.Add(this);
+
+            OnLeftClick = (hero, coordinate) =>
+            {
+                this.Animation.SetSprite(SpriteID.extinguish_camp_fire);
+            };
         }
-
-
-        public Action<GameCoordinate> OnClick { get; set; }
 
         public bool Contains(GameCoordinate clicked)
         {
@@ -30,5 +32,12 @@ namespace OpenGLTests.src.Drawables.Entities
                    Location.Y - Size.Y / 2 < clicked.Y && Location.Y + Size.Y / 2 > clicked.Y;
         }
 
+
+
+        public Action<Hero, GameCoordinate> OnLeftClick { get; set; }
+        public bool LeftClickFilter(Hero hero, GameCoordinate point)
+        {
+            return Contains(point);
+        }
     }
 }

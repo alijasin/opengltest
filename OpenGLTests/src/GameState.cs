@@ -156,6 +156,7 @@ namespace OpenGLTests.src
                     {
                         bs.BlockedRight = true;
                     }
+
                     if (rectA.Contains(new GameCoordinate(rectB.Left + rectB.Size.X / 4, rectB.Top - rectB.Size.Y / 4)))
                     {
                         bs.BlockedTop = bs.BlockedLeft = true;

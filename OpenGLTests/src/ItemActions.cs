@@ -8,8 +8,6 @@ using OpenGLTests.src.Drawables;
 
 namespace OpenGLTests.src
 {
-    //refactor so that we dont store source, but instead call the action with source upon use.
-    //todo. i5d7
     public abstract class ItemAction : GameAction
     {
         protected ItemAction(Unit source) : base(source)
