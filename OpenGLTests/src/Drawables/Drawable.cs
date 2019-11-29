@@ -260,7 +260,7 @@ namespace OpenGLTests.src.Drawables
         [JsonIgnore]
         public bool EndedTurn = false;
         [JsonIgnore]
-        public Weapon Weapon { get; set; }
+        public virtual Weapon Weapon { get; set; }
         [JsonIgnore]
         public bool InCombat { get; set; }
         [JsonIgnore]

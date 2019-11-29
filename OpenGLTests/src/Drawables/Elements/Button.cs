@@ -69,11 +69,6 @@ namespace OpenGLTests.src.Drawables
 
             };
         }
-
-        public void SetGameAction(GameAction ga)
-        {
-
-        }
     }
 
     public class EquipmentSlot : ActionButton, IRightClickable
@@ -234,6 +229,16 @@ namespace OpenGLTests.src.Drawables
             {
                 inBar.Owner.ActionHandler.ActionButtonActivated(this);
             };
+        }
+
+        public void Swap(EquipmentSlot es)
+        {
+            this.GameAction = es.GameAction;
+        }
+
+        public void Swap(Weapon w)
+        {
+            
         }
     }
 

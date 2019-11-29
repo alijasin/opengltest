@@ -40,7 +40,6 @@ namespace OpenGLTests.src
         public abstract Func<object, bool> GetAction(); 
         public ActionMarker Marker { get; set; }
         public ActionLine ActionLine { get; set; }
-        public bool Ready { get; set; } = true;
         public virtual bool IsPlaced { get; set; } = false;
         public bool IsInstant { get; set; } = false;
         public bool ForcePlaced { get; set; } = false;

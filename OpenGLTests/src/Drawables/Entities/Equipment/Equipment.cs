@@ -30,6 +30,7 @@ namespace OpenGLTests.src.Drawables.Entities.Equipment
         public int Rotation { get; set; } = 0;
         protected int LeftFacingRotation = 120;
         protected int RightFacingRotation = 340;
+        public GameAction WeaponAction { get; set; }
 
         public Weapon(Unit owner) : base(owner)
         {
@@ -71,7 +72,6 @@ namespace OpenGLTests.src.Drawables.Entities.Equipment
             }
         }
     }
-
 
     public abstract class HeadItem : EquipmentItem
     {

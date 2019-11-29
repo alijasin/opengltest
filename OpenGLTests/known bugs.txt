@@ -14,6 +14,9 @@ d3i4
 Fireball placement icon is not rotated as it is being placed.
 d4i1
 
+Items/equipment just get deleted when selected and a move/other action is completed.
+d5i7
+
 -----
 Improvement points:
 

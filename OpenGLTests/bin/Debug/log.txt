@@ -58,3 +58,68 @@
 11:57:56 *Info*: Started loggers.
 11:58:36 *Info*: Started loggers.
 11:58:42 *Info*: Started loggers.
+12:22:48 *Info*: Started loggers.
+12:30:01 *Info*: Started loggers.
+12:30:21 *Info*: Started loggers.
+12:33:42 *Info*: Started loggers.
+12:34:14 *Info*: Started loggers.
+12:40:49 *Info*: Started loggers.
+12:40:58 *Info*: Started loggers.
+12:43:42 *Info*: Started loggers.
+12:44:04 *Info*: Started loggers.
+12:45:19 *Info*: Started loggers.
+12:47:34 *Info*: Started loggers.
+12:49:20 *Info*: Started loggers.
+12:49:49 *Info*: Started loggers.
+12:51:17 *Info*: Started loggers.
+12:53:01 *Info*: Started loggers.
+12:53:30 *Info*: Started loggers.
+11:23:42 *Info*: Started loggers.
+11:26:03 *Info*: Started loggers.
+11:28:27 *Info*: Started loggers.
+11:30:00 *Info*: Started loggers.
+11:31:17 *Info*: Started loggers.
+11:32:05 *Info*: Started loggers.
+11:32:41 *Info*: Started loggers.
+11:35:06 *Info*: Started loggers.
+11:44:29 *Info*: Started loggers.
+11:47:09 *Info*: Started loggers.
+11:47:40 *Info*: Started loggers.
+11:48:36 *Info*: Started loggers.
+11:51:47 *Info*: Started loggers.
+11:51:53 *Error*: Tried replacing an action bar button for an entity which is not hero. Exception: System.InvalidCastException: Unable to cast object of type 'OpenGLTests.src.Drawables.Entities.Weapons.Staff' to type 'OpenGLTests.src.WeaponAction'.
+   at OpenGLTests.src.WeaponAbility..ctor(Unit owner, Weapon w) in C:\Users\Jasin\source\repos\OpenGLTests\OpenGLTests\src\Abilities.cs:line 108
+   at OpenGLTests.src.Drawables.ActionBar.Swap(Weapon w) in C:\Users\Jasin\source\repos\OpenGLTests\OpenGLTests\src\Drawables\Elements\ActionBar.cs:line 66
+11:52:04 *Info*: Started loggers.
+11:52:08 *Error*: Tried replacing an action bar button for an entity which is not hero. Exception: System.InvalidCastException: Unable to cast object of type 'OpenGLTests.src.Drawables.Entities.Weapons.Staff' to type 'OpenGLTests.src.WeaponAction'.
+   at OpenGLTests.src.WeaponAbility..ctor(Unit owner, Weapon w) in C:\Users\Jasin\source\repos\OpenGLTests\OpenGLTests\src\Abilities.cs:line 108
+   at OpenGLTests.src.Drawables.ActionBar.Swap(Weapon w) in C:\Users\Jasin\source\repos\OpenGLTests\OpenGLTests\src\Drawables\Elements\ActionBar.cs:line 66
+11:52:49 *Info*: Started loggers.
+11:53:24 *Info*: Started loggers.
+11:54:00 *Info*: Started loggers.
+11:55:53 *Info*: Started loggers.
+12:04:37 *Info*: Started loggers.
+12:04:42 *Error*: Tried replacing an action bar button for an entity which is not hero. Exception: System.InvalidOperationException: Collection was modified; enumeration operation may not execute.
+   at System.ThrowHelper.ThrowInvalidOperationException(ExceptionResource resource)
+   at System.Collections.Generic.List`1.Enumerator.MoveNextRare()
+   at System.Collections.Generic.List`1.Enumerator.MoveNext()
+   at OpenGLTests.src.Drawables.ActionBar.Swap(ActionBarButton newButton, ActionBarButton oldButton) in C:\Users\Jasin\source\repos\OpenGLTests\OpenGLTests\src\Drawables\Elements\ActionBar.cs:line 63
+   at OpenGLTests.src.Drawables.ActionBar.Swap(Weapon w) in C:\Users\Jasin\source\repos\OpenGLTests\OpenGLTests\src\Drawables\Elements\ActionBar.cs:line 91
+12:04:56 *Info*: Started loggers.
+12:05:03 *Error*: Tried replacing an action bar button for an entity which is not hero. Exception: System.InvalidOperationException: Collection was modified; enumeration operation may not execute.
+   at System.ThrowHelper.ThrowInvalidOperationException(ExceptionResource resource)
+   at System.Collections.Generic.List`1.Enumerator.MoveNextRare()
+   at System.Collections.Generic.List`1.Enumerator.MoveNext()
+   at OpenGLTests.src.Drawables.ActionBar.Swap(ActionBarButton newButton, ActionBarButton oldButton) in C:\Users\Jasin\source\repos\OpenGLTests\OpenGLTests\src\Drawables\Elements\ActionBar.cs:line 63
+   at OpenGLTests.src.Drawables.ActionBar.Swap(Weapon w) in C:\Users\Jasin\source\repos\OpenGLTests\OpenGLTests\src\Drawables\Elements\ActionBar.cs:line 91
+12:05:57 *Info*: Started loggers.
+12:06:01 *Error*: Tried replacing an action bar button for an entity which is not hero. Exception: System.InvalidOperationException: Collection was modified; enumeration operation may not execute.
+   at System.ThrowHelper.ThrowInvalidOperationException(ExceptionResource resource)
+   at System.Collections.Generic.List`1.Enumerator.MoveNextRare()
+   at System.Collections.Generic.List`1.Enumerator.MoveNext()
+   at OpenGLTests.src.Drawables.ActionBar.Swap(ActionBarButton newButton, ActionBarButton oldButton) in C:\Users\Jasin\source\repos\OpenGLTests\OpenGLTests\src\Drawables\Elements\ActionBar.cs:line 63
+   at OpenGLTests.src.Drawables.ActionBar.Swap(Weapon w) in C:\Users\Jasin\source\repos\OpenGLTests\OpenGLTests\src\Drawables\Elements\ActionBar.cs:line 91
+12:06:53 *Info*: Started loggers.
+12:08:09 *Info*: Started loggers.
+12:08:54 *Info*: Started loggers.
+12:09:26 *Info*: Started loggers.

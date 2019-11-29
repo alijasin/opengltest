@@ -59,6 +59,15 @@ namespace OpenGLTests.src.Drawables
             get { return MyMath.AngleBetweenTwoPoints(this.Location, Player.Cursor.Location); }
         }
 
+        public override Weapon Weapon
+        {
+            set
+            {
+                base.Weapon = value;
+                this.ActionBar.Swap(base.Weapon);
+            }
+        }
+
         private void initActionBar()
         {
             ActionBar = new ActionBar(this);
@@ -66,7 +75,7 @@ namespace OpenGLTests.src.Drawables
             ActionBar.Add(new MoveAbility(this));
             ActionBar.Add(new SliceAbility(this));
             ActionBar.Add(new TeleportAbility(this));
-            ActionBar.Add(new TossBombAbility(this));
+            ActionBar.Add(new YellAbility(this));
             ActionBar.Add(new HookAbility(this));
             ActionBar.Add(new HookShotAbility(this));
             ActionBar.Add(new SpawnBearTrapAbility(this));

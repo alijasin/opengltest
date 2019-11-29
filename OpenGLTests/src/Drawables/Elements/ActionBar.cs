@@ -4,6 +4,8 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using OpenGLTests.src.Drawables.Entities.Equipment;
+using OpenGLTests.src.Util;
 
 namespace OpenGLTests.src.Drawables
 {
@@ -55,6 +57,42 @@ namespace OpenGLTests.src.Drawables
             return actionButtons.ElementAt(index);
         }
 
+        void Swap(ActionBarButton newButton, ActionBarButton oldButton)
+        {
+            bool found = false;
+            foreach (var ab in actionButtons)
+            {
+                if (ab == oldButton)
+                {
+                    found = true;
+                    actionButtons[actionButtons.FindIndex(bu => oldButton == bu)] = newButton;
+                    newButton.Location = oldButton.Location;
+                    GameState.Drawables.Add(newButton);
+                    GameState.Drawables.Remove(oldButton);
+                    break;
+                }
+            }
+
+            if(!found) Logger.Write("Tried replacing a button that was not found. @ActionBar Swap()", Logger.LoggingLevel.Error);
+        }
+
+        //todo: also include what slot we want to swap with. 
+        //right now we are only swapping hard coded style.
+        public void Swap(Weapon w)
+        {
+            try
+            {
+                Ability speshal = new WeaponAbility((Hero)Owner, w);
+                var ab = new ActionBarButton(speshal, this);
+                var other = actionButtons.ElementAt(3);
+                Swap(ab, other);
+            }
+            catch (Exception e)
+            {
+                Logger.Write("Tried replacing an action bar button for an entity which is not hero. Exception: " + e, Logger.LoggingLevel.Error);
+            }
+
+        }
     }
     
 }
