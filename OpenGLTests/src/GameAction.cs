@@ -574,8 +574,7 @@ namespace OpenGLTests.src
         {
             return (o) =>
             {
-                a.Invoke(o);
-                return true;
+                return a.Invoke(o);
             };
         }
     }

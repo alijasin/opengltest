@@ -16,13 +16,12 @@ namespace OpenGLTests.src
         public SpriteID Icon => Action.Icon;
     }
 
-    public class YellAbility : Ability
+    public class UnarmedAbility : Ability
     {
-        public YellAbility(Unit owner)
+        public UnarmedAbility(Unit owner)
         {
             this.Action = new LambdaAction((o) =>
             {
-                Console.WriteLine("waaa");
                 return true;
             }, owner);
             Action.Icon = SpriteID.action_charge;

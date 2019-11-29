@@ -78,20 +78,20 @@ namespace OpenGLTests.src.Drawables
 
         //todo: also include what slot we want to swap with. 
         //right now we are only swapping hard coded style.
+        private const int WeaponSlot = 1;
         public void Swap(Weapon w)
         {
             try
             {
                 Ability speshal = new WeaponAbility((Hero)Owner, w);
                 var ab = new ActionBarButton(speshal, this);
-                var other = actionButtons.ElementAt(3);
+                var other = actionButtons.ElementAt(WeaponSlot);
                 Swap(ab, other);
             }
             catch (Exception e)
             {
                 Logger.Write("Tried replacing an action bar button for an entity which is not hero. Exception: " + e, Logger.LoggingLevel.Error);
             }
-
         }
     }
     

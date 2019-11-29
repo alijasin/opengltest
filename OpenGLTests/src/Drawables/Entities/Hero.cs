@@ -73,9 +73,9 @@ namespace OpenGLTests.src.Drawables
             ActionBar = new ActionBar(this);
             GameState.Drawables.Add(ActionBar);
             ActionBar.Add(new MoveAbility(this));
+            ActionBar.Add(new UnarmedAbility(this));
             ActionBar.Add(new SliceAbility(this));
             ActionBar.Add(new TeleportAbility(this));
-            ActionBar.Add(new YellAbility(this));
             ActionBar.Add(new HookAbility(this));
             ActionBar.Add(new HookShotAbility(this));
             ActionBar.Add(new SpawnBearTrapAbility(this));
