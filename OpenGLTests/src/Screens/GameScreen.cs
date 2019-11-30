@@ -72,7 +72,7 @@ namespace OpenGLTests.src.Screens
 
             Bind(new Hotkey(
                 input => input.IsKeyboardInput && (input.KeyboardArgs.Key == OpenTK.Input.Key.E || input.KeyboardArgs.Key == Key.Tab),
-                _ => Game.Hero.InventoryButton.ShowInventory(),
+                _ => Game.Hero.InventoryButton.ToggleInventory(),
                 _ => { }
             ));
 
@@ -84,7 +84,12 @@ namespace OpenGLTests.src.Screens
 
             Bind(new Hotkey(
                 input => input.IsKeyboardInput && (input.KeyboardArgs.Key == OpenTK.Input.Key.Escape),
-                _ => Game.Hero.ActionHandler.ClearSelected(),
+                _ =>
+                {
+                    if(Game.Hero.Inventory.Visible) Game.Hero.InventoryButton.ToggleInventory();
+                    Game.Hero.EquipmentHandler.Visible = false;
+                    Game.Hero.ActionHandler.ClearSelected();
+                },
                 _ => { }
             ));
             #endregion

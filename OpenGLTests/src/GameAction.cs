@@ -512,7 +512,6 @@ namespace OpenGLTests.src
             this.Marker = new AOEMarker(source.Location, new RangeShape(fan, source));
             this.ActionLine.LineType = LineType.Dashed;
 
-
             ActionPointCost = 1;
         }
 

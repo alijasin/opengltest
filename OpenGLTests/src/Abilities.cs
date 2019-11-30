@@ -24,7 +24,7 @@ namespace OpenGLTests.src
             {
                 return true;
             }, owner);
-            Action.Icon = SpriteID.action_charge;
+            Action.Icon = SpriteID.missing;
         }
     }
 
@@ -33,7 +33,7 @@ namespace OpenGLTests.src
         public TeleportAbility(Unit owner)
         {
             this.Action = new TeleportAction(new GLCoordinate(0.4f, 0.4f), owner);
-            Action.Icon = SpriteID.floor_1;
+            Action.Icon = SpriteID.action_charge;
         }
     }
 
@@ -91,6 +91,7 @@ namespace OpenGLTests.src
         }
     }
 
+    //todo: weapon icon is not set to weapon's gameaction icon, since its the ability that has the icon.
     public class WeaponAbility : Ability
     {
         public WeaponAbility(Unit owner, Weapon w)

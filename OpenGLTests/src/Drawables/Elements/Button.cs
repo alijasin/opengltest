@@ -280,11 +280,12 @@ namespace OpenGLTests.src.Drawables
 
             this.OnInteraction = () =>
             {
-                ShowInventory();
+                ToggleInventory();
             };
         }
 
-        public void ShowInventory()
+        //Todo: logic should probably be made in inventory.
+        public void ToggleInventory()
         {
             if (this.Animation.GetSprite().sid == SpriteID.bag_closed) this.Animation.SetSprite(SpriteID.bag_open);
             else this.Animation.SetSprite(SpriteID.bag_closed);
