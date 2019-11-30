@@ -141,3 +141,45 @@
 1:59:13 *Info*: Started loggers.
 2:00:14 *Info*: Started loggers.
 2:01:43 *Info*: Started loggers.
+6:33:40 *Info*: Started loggers.
+6:39:37 *Info*: Started loggers.
+6:39:56 *Info*: Started loggers.
+6:40:23 *Info*: Started loggers.
+6:40:37 *Info*: Started loggers.
+6:43:22 *Info*: Started loggers.
+6:43:42 *Info*: Started loggers.
+6:45:13 *Info*: Started loggers.
+6:45:47 *Info*: Started loggers.
+6:46:03 *Error*: Tried replacing an action bar button for an entity which is not hero. Exception: System.NullReferenceException: Object reference not set to an instance of an object.
+   at OpenGLTests.src.WeaponAbility..ctor(Unit owner, Weapon w) in C:\Users\Jasin\source\repos\OpenGLTests\OpenGLTests\src\Abilities.cs:line 101
+   at OpenGLTests.src.Drawables.ActionBar.Swap(Weapon w) in C:\Users\Jasin\source\repos\OpenGLTests\OpenGLTests\src\Drawables\Elements\ActionBar.cs:line 86
+6:46:10 *Error*: Tried replacing an action bar button for an entity which is not hero. Exception: System.NullReferenceException: Object reference not set to an instance of an object.
+   at OpenGLTests.src.WeaponAbility..ctor(Unit owner, Weapon w) in C:\Users\Jasin\source\repos\OpenGLTests\OpenGLTests\src\Abilities.cs:line 101
+   at OpenGLTests.src.Drawables.ActionBar.Swap(Weapon w) in C:\Users\Jasin\source\repos\OpenGLTests\OpenGLTests\src\Drawables\Elements\ActionBar.cs:line 86
+6:46:22 *Error*: Tried replacing an action bar button for an entity which is not hero. Exception: System.NullReferenceException: Object reference not set to an instance of an object.
+   at OpenGLTests.src.WeaponAbility..ctor(Unit owner, Weapon w) in C:\Users\Jasin\source\repos\OpenGLTests\OpenGLTests\src\Abilities.cs:line 101
+   at OpenGLTests.src.Drawables.ActionBar.Swap(Weapon w) in C:\Users\Jasin\source\repos\OpenGLTests\OpenGLTests\src\Drawables\Elements\ActionBar.cs:line 86
+6:46:40 *Error*: Tried replacing an action bar button for an entity which is not hero. Exception: System.NullReferenceException: Object reference not set to an instance of an object.
+   at OpenGLTests.src.WeaponAbility..ctor(Unit owner, Weapon w) in C:\Users\Jasin\source\repos\OpenGLTests\OpenGLTests\src\Abilities.cs:line 101
+   at OpenGLTests.src.Drawables.ActionBar.Swap(Weapon w) in C:\Users\Jasin\source\repos\OpenGLTests\OpenGLTests\src\Drawables\Elements\ActionBar.cs:line 86
+6:46:44 *Error*: Tried replacing an action bar button for an entity which is not hero. Exception: System.NullReferenceException: Object reference not set to an instance of an object.
+   at OpenGLTests.src.WeaponAbility..ctor(Unit owner, Weapon w) in C:\Users\Jasin\source\repos\OpenGLTests\OpenGLTests\src\Abilities.cs:line 101
+   at OpenGLTests.src.Drawables.ActionBar.Swap(Weapon w) in C:\Users\Jasin\source\repos\OpenGLTests\OpenGLTests\src\Drawables\Elements\ActionBar.cs:line 86
+6:46:44 *Error*: Tried replacing an action bar button for an entity which is not hero. Exception: System.NullReferenceException: Object reference not set to an instance of an object.
+   at OpenGLTests.src.WeaponAbility..ctor(Unit owner, Weapon w) in C:\Users\Jasin\source\repos\OpenGLTests\OpenGLTests\src\Abilities.cs:line 101
+   at OpenGLTests.src.Drawables.ActionBar.Swap(Weapon w) in C:\Users\Jasin\source\repos\OpenGLTests\OpenGLTests\src\Drawables\Elements\ActionBar.cs:line 86
+6:46:50 *Error*: Tried replacing an action bar button for an entity which is not hero. Exception: System.NullReferenceException: Object reference not set to an instance of an object.
+   at OpenGLTests.src.WeaponAbility..ctor(Unit owner, Weapon w) in C:\Users\Jasin\source\repos\OpenGLTests\OpenGLTests\src\Abilities.cs:line 101
+   at OpenGLTests.src.Drawables.ActionBar.Swap(Weapon w) in C:\Users\Jasin\source\repos\OpenGLTests\OpenGLTests\src\Drawables\Elements\ActionBar.cs:line 86
+6:46:52 *Error*: Tried replacing an action bar button for an entity which is not hero. Exception: System.NullReferenceException: Object reference not set to an instance of an object.
+   at OpenGLTests.src.WeaponAbility..ctor(Unit owner, Weapon w) in C:\Users\Jasin\source\repos\OpenGLTests\OpenGLTests\src\Abilities.cs:line 101
+   at OpenGLTests.src.Drawables.ActionBar.Swap(Weapon w) in C:\Users\Jasin\source\repos\OpenGLTests\OpenGLTests\src\Drawables\Elements\ActionBar.cs:line 86
+6:46:55 *Error*: Tried replacing an action bar button for an entity which is not hero. Exception: System.NullReferenceException: Object reference not set to an instance of an object.
+   at OpenGLTests.src.WeaponAbility..ctor(Unit owner, Weapon w) in C:\Users\Jasin\source\repos\OpenGLTests\OpenGLTests\src\Abilities.cs:line 101
+   at OpenGLTests.src.Drawables.ActionBar.Swap(Weapon w) in C:\Users\Jasin\source\repos\OpenGLTests\OpenGLTests\src\Drawables\Elements\ActionBar.cs:line 86
+6:46:56 *Error*: Tried replacing an action bar button for an entity which is not hero. Exception: System.NullReferenceException: Object reference not set to an instance of an object.
+   at OpenGLTests.src.WeaponAbility..ctor(Unit owner, Weapon w) in C:\Users\Jasin\source\repos\OpenGLTests\OpenGLTests\src\Abilities.cs:line 101
+   at OpenGLTests.src.Drawables.ActionBar.Swap(Weapon w) in C:\Users\Jasin\source\repos\OpenGLTests\OpenGLTests\src\Drawables\Elements\ActionBar.cs:line 86
+6:46:58 *Error*: Tried replacing an action bar button for an entity which is not hero. Exception: System.NullReferenceException: Object reference not set to an instance of an object.
+   at OpenGLTests.src.WeaponAbility..ctor(Unit owner, Weapon w) in C:\Users\Jasin\source\repos\OpenGLTests\OpenGLTests\src\Abilities.cs:line 101
+   at OpenGLTests.src.Drawables.ActionBar.Swap(Weapon w) in C:\Users\Jasin\source\repos\OpenGLTests\OpenGLTests\src\Drawables\Elements\ActionBar.cs:line 86

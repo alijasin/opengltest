@@ -70,11 +70,23 @@ namespace OpenGLTests.src
     {
         public RedPotion(Unit owner)
         {
-            this.Action = new TurnRedAction(owner);
+            this.Action = new TurnRedAction(owner, this);
             Action.Icon = SpriteID.item_flask_big_red;
             Rarity = Rarity.Common;
         }
     }
+
+
+    public class BluePotion : Item
+    {
+        public BluePotion(Unit owner)
+        {
+            this.Action = new TurnBlueAction(owner, this);
+            Action.Icon = SpriteID.item_flask_big_red;
+            Rarity = Rarity.Common;
+        }
+    }
+
 
     public class GrowingPotion : Item
     {

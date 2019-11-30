@@ -179,7 +179,7 @@ namespace OpenGLTests.src
 
     class NothingAction : ItemAction
     {
-        public NothingAction(Unit source) : base(source)
+        public NothingAction(Unit source) : base(source, null)
         {
 
         }
@@ -187,27 +187,6 @@ namespace OpenGLTests.src
         public override Func<object, bool> GetAction()
         {
             return o => { return true; };
-        }
-    }
-
-    class LambdaItemAction : ItemAction
-    {
-        private Func<object, bool> a;
-        public LambdaItemAction(Func<object, bool> f, Unit source) : base(source)
-        {
-            RangeShape = new RangeShape(new Circle(new GLCoordinate(0.8f, 0.8f)), source);
-            this.Marker = new ActionMarker(RangeShape.Location);
-            this.ActionLine.LineType = LineType.Dashed;
-            a = f;
-        }
-
-        public override Func<object, bool> GetAction()
-        {
-            return (o) =>
-            {
-                a.Invoke(o);
-                return true;
-            };
         }
     }
 
@@ -258,7 +237,7 @@ namespace OpenGLTests.src
     {
         private EquipmentItem equipmentItem;
         private bool droppedOnGround = false;
-        public DropEquipmentItem(Hero source, EquipmentItem equimentItem) : base(source)
+        public DropEquipmentItem(Hero source, EquipmentItem equimentItem) : base(source, equimentItem)
         {
             this.equipmentItem = equimentItem;
             this.RangeShape = new RangeShape(new Circle(new GLCoordinate(0.2f, 0.2f)), source);

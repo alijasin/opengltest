@@ -5,23 +5,35 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using OpenGLTests.src.Drawables;
+using OpenGLTests.src.Drawables.Entities;
 
 namespace OpenGLTests.src
 {
     public abstract class ItemAction : GameAction
     {
-        protected ItemAction(Unit source) : base(source)
+        public Item Item { get; set; }
+
+        protected ItemAction(Unit source, Item i) : base(source)
         {
+            Item = i;
             if (ActionLine != null)
             {
                 ActionLine.LineType = LineType.Dashed;
             }
+
+            OnFinished = () =>
+            {
+                if (source is Hero h)
+                {
+                    if(Item != null) h.Inventory.Remove(Item);
+                }
+            };
         }
     }
 
     class TossItemAction : ItemAction
     {
-        public TossItemAction(Unit source, Item i) : base(source)
+        public TossItemAction(Unit source, Item i = default(Item)) : base(source, i)
         {
             this.Source = source;
             RangeShape = new RangeShape(new Circle(new GLCoordinate(0.5f, 0.5f)), source);
@@ -53,9 +65,26 @@ namespace OpenGLTests.src
         }
     }
 
+    class TurnBlueAction : ItemAction
+    {
+        public TurnBlueAction(Unit source, Item i) : base(source, i)
+        {
+            IsInstant = true;
+        }
+
+        public override Func<object, bool> GetAction()
+        {
+            return (o) =>
+            {
+                Source.Color = Color.Blue;
+                return true;
+            };
+        }
+    }
+
     class TurnRedAction : ItemAction
     {
-        public TurnRedAction(Unit source) : base(source)
+        public TurnRedAction(Unit source, Item i = default(Item)) : base(source, i)
         {
             IsInstant = true;
         }
@@ -73,7 +102,7 @@ namespace OpenGLTests.src
     class GrowAction : ItemAction
     {
         private float maxSize = 0.3f;
-        public GrowAction(Unit source, float maxSize = 0.3f) : base(source)
+        public GrowAction(Unit source, Item i = default(Item), float maxSize = 0.3f) : base(source, i)
         {
             IsInstant = true;
             this.maxSize = maxSize;

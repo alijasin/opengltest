@@ -94,7 +94,11 @@ namespace OpenGLTests.src.Drawables
             {
                 if (islot.Item == i)
                 {
-                    islot.SetItem(new Nothing(Owner));
+                    islot.Item.Count--;
+                    if (islot.Item.Count <= 0)
+                    {
+                        islot.SetItem(new Nothing(Owner));
+                    }
                     break;
                 }
             }
